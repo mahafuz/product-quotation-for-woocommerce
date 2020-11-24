@@ -60,3 +60,11 @@ ul.pqfw-frontend-form {
     text-decoration: none;
     text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
 }
+
+.pqfw-form-field.hasError {
+    background: #FFE4E4;
+}
+
+.pqfw-form-title {
+    padding: 10px;
+}

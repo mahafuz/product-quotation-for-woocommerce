@@ -46,6 +46,7 @@ class Admin_Init {
      */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'admin_css' ) );
     }
 
     public function add_menu_page() {
@@ -59,8 +60,14 @@ class Admin_Init {
         );
     }
 
+    public function admin_css($hook) {
+        if( $hook === 'toplevel_page_pqfw-options-page') {
+            wp_enqueue_style( 'pqfw-admin', PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css' );
+        }
+    }
+
     public function display_product_quotation_page() {
-        echo '<h1>Hello World</h1>';
+        include( __DIR__ . '/templates/options.php' );
     }
 
 }

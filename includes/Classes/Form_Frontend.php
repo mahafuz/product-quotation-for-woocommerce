@@ -82,7 +82,7 @@ class Form_Frontend {
         $form_title = apply_filters( 'pqfw_form_title', __( 'Request quotation for: ', 'pqfw' ) );
     ?>
     <div id="pqfw-frontend-form-wrap">
-        <h4><?php echo $form_title; ?><span class="title"><?php echo $this->fragments['product_title']; ?></span></h4>
+        <h4 class="pqfw-form-title"><?php echo $form_title; ?><span class="title"><?php echo $this->fragments['product_title']; ?></span></h4>
         <div class="pqfw-form">
             <form id="pqfw-frontend-form">
 

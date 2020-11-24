@@ -57,12 +57,31 @@ class Controls_Manager {
     private $default_fields;
 
     /**
+     * Required form fields html.
+     * 
+     * @access  private
+     * @since   1.0.0
+     */
+    private $requiredHTML;
+
+    /**
+     * Required form fields attribute.
+     * 
+     * @access  private
+     * @since   1.0.0
+     */
+    private $requiredAttr;
+
+    /**
      * Constructor of the class
      *
      * @return \Controls_Manager
      * @since 1.0.0
      */
     public function __construct() {
+
+        $this->requiredHTML = '<span class="field-required">*</span>';
+        $this->requiredAttr = 'required="1"';
 
         /**
          * default form fields.
@@ -150,18 +169,20 @@ class Controls_Manager {
 
         $args = wp_parse_args( $args, $defaults );
 
-        $required = '';
+        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
 
         if($args['required']) {
-            $required = '<span class="field-required">*</span>';
+            $html .= sprintf(
+                '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="text" name="%s" value="%s" %s />',
+                $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr
+            );
+        }else {
+            $html .= sprintf(
+                '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="text" name="%s" value="%s" />',
+                $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value']
+            );
         }
-
-        $html = sprintf( '<li class="pqfw-form-field %s">', $args['html_class'] );
-
-        $html .= sprintf(
-            '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="text" name="%s" value="%s" />',
-            $args['name'], $args['html_id'], $args['label'], $required, $args['name'], $args['value'], $args['required']
-        );
+        
 
         if( ! empty( $args['description'] ) ) {
             $html .= sprintf( '<p>%s</p>', $args['description'] );
@@ -195,15 +216,13 @@ class Controls_Manager {
 
         $args = wp_parse_args( $args, $defaults );
 
-        $required = '';
-
-        if($args['required']) {
-            $required = '<span class="field-required">*</span>';
-        }
-
-        $html = sprintf( '<li class="pqfw-form-field %s">', $args['html_class'] );
+        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
         
-        $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="email" name="%s" value="%s" />', $args['name'], $args['html_id'], $args['label'], $required, $args['name'], $args['value'], $args['required'] );
+        if($args['required']) {
+            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="email" name="%s" value="%s" %s />', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr );
+        }else {
+            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="email" name="%s" value="%s" />', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
+        }
 
         if( ! empty( $args['description'] ) ) {
             $html .= sprintf( '<p>%s</p>', $args['description'] );
@@ -237,15 +256,13 @@ class Controls_Manager {
 
         $args = wp_parse_args( $args, $defaults );
 
-        $html = sprintf( '<li class="pqfw-form-field %s">', $args['html_class'] );
-
-        $required = '';
+        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
 
         if($args['required']) {
-            $required = '<span class="field-required">*</span>';
+            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="number" min="0" name="%s" value="%s" %s />', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr );
+        }else {
+            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="number" min="0" name="%s" value="%s"/>', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
         }
-
-        $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="number" min="0" name="%s" value="%s" required="%s" />', $args['name'], $args['html_id'], $args['label'], $required, $args['name'], $args['value'], $args['required'] );
 
         if( ! empty( $args['description'] ) ) {
             $html .= sprintf( '<p>%s</p>', $args['description'] );
@@ -278,15 +295,13 @@ class Controls_Manager {
 
         $args = wp_parse_args( $args, $defaults );
 
-        $html = sprintf( '<li class="pqfw-form-field %s">', $args['html_class'] );
-
-        $required = '';
+        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
 
         if($args['required']) {
-            $required = '<span class="field-required">*</span>';
+            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><textarea name="%s" rows="4" %s>%s</textarea>', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $this->requiredAttr, $args['value']);
+        }else {
+            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><textarea name="%s" rows="4">%s</textarea>', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value']);
         }
-
-        $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><textarea name="%s" value="%s" rows="4"></textarea>', $args['name'], $args['html_id'], $args['label'], $required, $args['name'], $args['value']);
 
         if( ! empty( $args['description'] ) ) {
             $html .= sprintf( '<p>%s</p>', $args['description'] );

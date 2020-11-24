@@ -1,0 +1,107 @@
+/* Base CSS */
+
+.pqfw-flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.pqfw-container {
+    max-width: 930px;
+    margin: 0 auto;
+    margin: 0 auto;
+}
+
+
+/* Header CSS */
+
+.pqfw-options-page-header {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+
+.pqfw-logo {
+    align-content: flex-start;
+    text-align: left;
+}
+
+.pqfw-logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #333333;
+    font-weight: 500;
+}
+
+.pqfw-logo img {
+    width: 125px;
+    vertical-align: bottom;
+}
+
+span.pqfw-version {
+    background-color: #e5e5e5;
+    border-radius: 3px;
+    font-size: 0.5em;
+    font-weight: 400;
+    margin-left: 10px;
+    padding: 2px 7px;
+}
+
+.pqfw-top-links {
+    flex: auto;
+    text-align: right;
+}
+
+.pqfw-top-links ul {
+    margin: 0;
+}
+
+.pqfw-top-links ul li {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.pqfw-top-links ul li img {
+    width: 15px;
+    vertical-align: bottom;
+}
+
+/* Settings Box */
+.pqfw-options-box-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 14px;
+    padding: 12px 12px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.pqfw-options-settings-section ul {
+    margin: 0;
+}
+
+.pqfw-options-settings-section ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0;
+}
+
+.pqfw-options-settings-section ul li:nth-child(odd) {
+    width: 74%;
+}
+
+.pqfw-options-settings-section ul li:nth-child(even) {
+    width: 26%;
+}
+
+.toplevel_page_pqfw-options-page #wpcontent {
+    margin-left: 0;
+}
