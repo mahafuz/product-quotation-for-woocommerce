@@ -50,6 +50,13 @@ class Bootstrap {
      */
     protected $form_frontend;
 
+    /**
+     * PQFW admin page
+     *
+     * @var     \Admin
+     * @access  protected
+     * @since   1.0.0
+     */
     protected $admin;
 
     /**

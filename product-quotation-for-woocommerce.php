@@ -41,3 +41,11 @@ require PQFW_PLUGIN_PATH . 'autoload.php';
 add_action( 'plugins_loaded', function() {
     \PQFW\Bootstrap::instance();
 } );
+
+
+/**
+ * Initial database operations on plugin install.
+ *
+ * @since 1.0.0
+ */
+register_activation_hook( __FILE__ , array( '\PQFW\Classes\PQFW_Install', 'install' ) );
