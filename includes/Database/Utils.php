@@ -60,6 +60,83 @@ class Utils {
     }
 
     /**
+     * Fetch all data from data.
+     *
+     *
+     * @since 1.0.0
+     *
+     * @param string $email Email.
+     * @return int|false The user's ID on success, and false on failure.
+     */
+    public static function fetch_entries( $count, $offset ) {
+        global $wpdb;
+
+        $table = self::get_table_name();
+
+        $entries = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT * FROM $table LIMIT %d OFFSET %d",
+                $count,
+                $offset
+            )
+        );
+
+        if ( ! $entries ) {
+            return false;
+        }
+
+        return $entries;
+    }
+
+    /**
+     * Fetch single entry from DB.
+     *
+     *
+     * @since 1.0.0
+     *
+     * @param string $id Entry ID.
+     * @return int|false The entry ID on success, and false on failure.
+     */
+    public static function fetch_entry( $id ) {
+        global $wpdb;
+
+        $table = self::get_table_name();
+
+        $entry = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT * FROM $table WHERE id = %d",
+                $id
+            )
+        );
+
+        if ( ! $entry ) {
+            return false;
+        }
+
+        return $entry;
+    }
+
+    /**
+     * Get the number of entries count.
+     *
+     * @since 1.0.0
+     *
+     * @return int
+     */
+    public static function count_entries( $status = 'publish' ) {
+        global $wpdb;
+
+        $table = self::get_table_name();
+
+        return (int) $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT count(id) FROM $table WHERE status = %s",
+                $status
+            )
+        );
+    }
+
+    /**
      * Sanitize phone number.
      * Allows only numbers and "+" (plus sign).
      *

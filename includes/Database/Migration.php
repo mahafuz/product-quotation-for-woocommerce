@@ -45,11 +45,13 @@ class Migration {
         $query = "CREATE TABLE IF NOT EXISTS {$table} ( 
                   ID BIGINT(20) NOT NULL AUTO_INCREMENT,
                   product_id BIGINT(20) NOT NULL,
+                  product_title TEXT NOT NULL,
                   quantity INT(11) DEFAULT NULL,
                   fullname VARCHAR(200) DEFAULT NULL,
                   email VARCHAR(200) NOT NULL,
                   phone INT(11) DEFAULT NULL,
                   comments MEDIUMTEXT DEFAULT NULL,
+                  status TEXT NOT NULL,
                   dateadded timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   PRIMARY KEY (ID),
                   KEY product_id (product_id),

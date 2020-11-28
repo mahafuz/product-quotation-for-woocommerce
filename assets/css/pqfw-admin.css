@@ -17,7 +17,7 @@
 
 
 /* Header CSS */
-
+.toplevel_page_pqfw-options-page #wpcontent
 .pqfw-options-page-header {
     background-color: #fff;
     text-align: center;
@@ -102,6 +102,32 @@ span.pqfw-version {
     width: 26%;
 }
 
-.toplevel_page_pqfw-options-page #wpcontent {
-    margin-left: 0;
+.pqfw-entry-wrap {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+}
+
+.pqfw-entry-wrap .hndle {
+    padding: 8px 12px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.pqfw-entry-left {
+    flex-basis: 70%;
+}
+
+.pqfw-entry-right {
+    flex-basis: 28%;
+    margin-left: 30px;
+}
+
+table.wp-list-table.widefat.fixed.striped.posts {
+    border: none;
+}
+
+.pqfw-entry-right button.button {
+    display: flex;
+    align-items: center;
 }

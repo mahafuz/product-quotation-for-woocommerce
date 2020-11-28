@@ -87,19 +87,23 @@ class Form_Handler {
 
         $data = array(
             'product_id'    => $product_id,
+            'product_title' => $product_title,
             'quantity'      => $quantity,
             'fullname'      => $fullname,
             'email'         => $email,
             'phone'         => $phone,
             'comments'      => $comments,
+            'status'        => 'publish',
         );
 
         $formats = array(
             '%d',
+            '%s',
             '%d',
             '%s',
             '%s',
             '%d',
+            '%s',
             '%s',
         );
 
