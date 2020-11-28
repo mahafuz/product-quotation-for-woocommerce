@@ -31,8 +31,8 @@ use \PQFW\Database\Utils;
       <div>
           <div>
             <ul class="subsubsub">
-                <li class="all"><a href="#" class="current">All <span class="count">(<?php echo esc_attr( Utils::count_entries() ); ?>)</span></a> | </li>
-                <li class="trash"><a href="#" class="">Trash<span class="count">(<?php echo esc_attr( Utils::count_entries( 'trash' ) ); ?>)</span></a></li>
+                <li class="all"><a href="#" class="current"><?php _e( 'All', 'pqfw' ); ?> <span class="count">(<?php echo esc_attr( Utils::count_entries() ); ?>)</span></a> | </li>
+                <li class="trash"><a href="#" class=""><?php _e( 'Trash', 'pqfw' ); ?><span class="count">(<?php echo esc_attr( Utils::count_entries( 'trash' ) ); ?>)</span></a></li>
             </ul>
           </div>
       </div>
