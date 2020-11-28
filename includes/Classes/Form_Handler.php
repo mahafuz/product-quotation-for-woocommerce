@@ -79,7 +79,7 @@ class Form_Handler {
         $product_title      = sanitize_text_field( $_REQUEST['fragments']['product_title'] );
         $product_sku        = sanitize_text_field( $_REQUEST['fragments']['product_sku'] );
 
-        $validate = Utils::validate( $quantity, $fullname, $email );
+        $validate = Utils::validate( $quantity, $fullname, $email, $product_id );
 
         if( count($validate->errors) > 0 ) {
             wp_send_json_error( $validate->errors );

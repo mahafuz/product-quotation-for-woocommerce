@@ -80,15 +80,16 @@ class Utils {
      * @param string $email Email.
      * @return int|false The user's ID on success, and false on failure.
      */
-    public static function email_exists( $email ) {
+    public static function email_exists( $email, $id ) {
         global $wpdb;
 
         $table = self::get_table_name();
 
         $user = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM $table WHERE email = %s LIMIT 1",
-                $email
+                "SELECT * FROM $table WHERE email = %s AND product_id = %s LIMIT 1",
+                $email,
+                $id
             )
         );
 
@@ -108,7 +109,7 @@ class Utils {
      *
      * return \WP_Error
      */
-    public static function validate( $quantity, $fullname, $email ) {
+    public static function validate( $quantity, $fullname, $email, $product_id ) {
         $errors = new \WP_Error;
 
         if ( empty( $fullname ) || empty( $email ) || empty( $quantity ) ) {
@@ -127,8 +128,8 @@ class Utils {
             $errors->add('email_invalid', __('Email is not valid','pqfw'));
         }
 
-        if ( self::email_exists( $email ) ) {
-            $errors->add('email', __('Email Already in use','pqfw'));
+        if ( self::email_exists( $email, $product_id ) ) {
+            $errors->add('email', __('You\'ve already submitted a quotation with this email.','pqfw'));
         }
 
         return $errors;
