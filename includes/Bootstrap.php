@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use \PQFW\Classes\Form_Frontend;
 use \PQFW\Admin\Admin_Init;
+use \PQFW\Classes\Form_Handler;
 
 class Bootstrap {
 
@@ -60,6 +61,16 @@ class Bootstrap {
     protected $admin;
 
     /**
+     * PQFW form handler container.
+     *
+     * @var     \Form_Handler
+     * @access  protected
+     * @since   1.0.0
+     */
+    protected $form_handler;
+
+
+    /**
      * Constructor of the class
      *
      * @return \Bootstrap
@@ -68,6 +79,7 @@ class Bootstrap {
     private function __construct() {
         $this->form_frontend = Form_Frontend::instance();
         $this->admin = Admin_Init::instance();
+        $this->form_handler = Form_Handler::instance();
     }
 
 }

@@ -32,7 +32,6 @@ define( 'PQFW_PLUGIN_VERSION', '1.0.0' );
  */
 require PQFW_PLUGIN_PATH . 'autoload.php';
 
-
 /**
  * Run the plugin after all other plugins.
  * 
@@ -42,10 +41,12 @@ add_action( 'plugins_loaded', function() {
     \PQFW\Bootstrap::instance();
 } );
 
-
 /**
- * Initial database operations on plugin install.
+ * Initializing the plugin migration.
  *
  * @since 1.0.0
  */
-register_activation_hook( __FILE__ , array( '\PQFW\Classes\PQFW_Install', 'install' ) );
+register_activation_hook( __FILE__ , function() {
+    $migration = new \PQFW\Database\Migration();
+    $migration->run();
+} );

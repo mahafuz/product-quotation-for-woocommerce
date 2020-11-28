@@ -1,6 +1,6 @@
 <?php
 
-namespace PQFW\Classes;
+namespace PQFW\Database;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -15,17 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since       1.0.0
  */
 
-class PQFW_Install {
+class Migration {
 
-    public function __construct() {
-
-        global $wpdb;
-        $wpdb->pqfw_entries = $wpdb->prefix . 'pqfw_entries';
-
-    }
-
-    public static function install() {
-        self::create_tables();
+    /**
+     * Responsible for running the migration process.
+     *
+     * @access  protected
+     * @since   1.0.0
+     * @return  void
+     */
+    public function run() {
+        $this->create_tables();
     }
 
     /**
@@ -35,12 +35,14 @@ class PQFW_Install {
      * @since   1.0.0
      * @return  void
      */
-    private static function create_tables() {
+    private function create_tables() {
 
         global $wpdb;
-        require_once(ABSPATH.'wp-admin/includes/upgrade.php');
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        $query = "CREATE TABLE IF NOT EXISTS {$wpdb->pqfw_entries} ( 
+        $table = Utils::get_table_name();
+
+        $query = "CREATE TABLE IF NOT EXISTS {$table} ( 
                   ID BIGINT(20) NOT NULL AUTO_INCREMENT,
                   product_id BIGINT(20) NOT NULL,
                   quantity INT(11) DEFAULT NULL,
@@ -58,5 +60,3 @@ class PQFW_Install {
     }
 
 }
-
-new PQFW_Install;

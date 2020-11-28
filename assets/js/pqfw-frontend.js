@@ -12,6 +12,7 @@ jQuery(function ( $ ) {
 		.on( "pqfw_init", function () {
 
 			var t = $( this ),
+				f = $( '#pqfw-frontend-form' ),
 				u = $( '.pqfw-frontend-form' ),
 				l = u.children( 'li' ),
 				input = l.find( 'input' ),
@@ -19,12 +20,13 @@ jQuery(function ( $ ) {
 				emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
 				errors = null;
 
-
 			t.on( "click", "#rsrfqfwc_submit", function ( ev ) {
 
 				ev.preventDefault();
 
-				var t = $( this );
+				var t = $( this ),
+					fragments = t.data( 'fragments' ),
+					nonce = f.find( 'input[name="pqfw_form_nonce_field"]').val();
 
 				// validating fields empty value.
 				var $input, $textarea, $this;
@@ -55,13 +57,17 @@ jQuery(function ( $ ) {
 							}
 						}
 						if( $input.attr( "type" ) === "email" ) {
-							if( $input.val() !== '' && emailReg.test( $input.val() ) ) {
-								$this.removeClass( "hasError" );
-								errors = true;
-							}else {
-								$this.addClass( "hasError" );
-								errors = false;
+
+							if( $input.prop( "required" ) ) {
+								if( $input.val() !== '' && emailReg.test( $input.val() ) ) {
+									$this.removeClass( "hasError" );
+									errors = false;
+								}else {
+									$this.addClass( "hasError" );
+									errors = true;
+								}
 							}
+
 						}
 					}
 				});
@@ -84,7 +90,23 @@ jQuery(function ( $ ) {
 					}
 
 					if ( ! $.isEmptyObject( data ) ) {
-						// TODO: DO AJAX
+						//loading the product fragments and action.
+						data['fragments'] 	= fragments;
+						data['action']		= PQFW_OBJECT.actions.insert_entry;
+						data['nonce']		= nonce;
+
+						$.ajax({
+							type: 'POST',
+							url: PQFW_OBJECT.ajaxurl,
+							// dataType: "json",
+							data: data,
+							success: function( response ) {
+								console.log(response);
+							},
+							error: function ( response ) {
+								console.log( response );
+							}
+						});
 					}
 				}else {
 					return false;

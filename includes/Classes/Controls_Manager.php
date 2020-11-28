@@ -94,35 +94,35 @@ class Controls_Manager {
                 'type'      => 'number',
                 'label'     => __( 'Quantity:', 'pqfw' ),
                 'html_id'   => 'pqfw_product_quantity',
-                'required'  => true
+//                'required'  => true
             ),
             array(
                 'name'      => 'pqfw_customer_name',
                 'type'      => 'text',
                 'label'     => __('Full Name:', 'pqfw'),
                 'html_id'   => 'pqfw_customer_name',
-                'required'  => true
+//                'required'  => true
             ),
             array(
                 'name'      => 'pqfw_customer_email',
                 'type'      => 'email',
                 'label'     => __('Email:', 'pqfw'),
                 'html_id'   => 'pqfw_customer_email',
-                'required'  => true
+//                'required'  => true
             ),
             array(
                 'name'      => 'pqfw_customer_phone',
                 'type'      => 'text',
                 'label'     => __('Phone:', 'pqfw'),
                 'html_id'   => 'pqfw_customer_phone',
-                'required'  => true
+//                'required'  => true
             ),
             array(
                 'name'      => 'pqfw_customer_comments',
                 'type'      => 'textarea',
                 'label'     => __('Comments:', 'pqfw'),
                 'html_id'   => 'pqfw_customer_comments',
-                'required'  => true
+//                'required'  => true
             ),
         );
 

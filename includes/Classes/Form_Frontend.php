@@ -64,7 +64,22 @@ class Form_Frontend {
      * @since 1.0.0
      */
     public function enqueue_scripts_and_stuffs() {
-        wp_enqueue_script( 'pqfw-frontend', PQFW_PLUGIN_URL . 'assets/js/pqfw-frontend.js', array( 'jquery' ), '1.0.0', true );
+        wp_enqueue_script(
+            'pqfw-frontend',
+            PQFW_PLUGIN_URL . 'assets/js/pqfw-frontend.js',
+            array( 'jquery' ), '1.0.0', true
+        );
+
+        wp_localize_script(
+            'pqfw-frontend',
+            'PQFW_OBJECT',
+            array(
+                'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                'actions' => array(
+                    'insert_entry' => 'handle_insert_entry'
+                )
+            )
+        );
         wp_enqueue_style( 'pqfw-frontend', PQFW_PLUGIN_URL . 'assets/css/pqfw-frontend.css' );
     }
 
@@ -90,21 +105,20 @@ class Form_Frontend {
 
                     <?php (new Controls_Manager)->generate_fields(); ?>
 
-                    <li class="pqfw-form-field pqfw-submit">
-                        <input
-                            data-fragments='<?php echo json_encode($this->fragments); ?>'
-                            type="submit"
-                            id="rsrfqfwc_submit"
-                            name="rsrfqfwc_submit"
-                            value="<?php echo __('Submit Query', 'pqfw'); ?>"
-                            class="submit"
-                        />
-
-                        <input type="hidden" id="pqfw_form_nonce" name="pqfw_form_nonce" value="<?php echo wp_create_nonce( 'pqfw_form_nonce' . get_the_ID() ); ?> " />
-
-                        <div class="loading-spinner"></div>
-                    </li>
                 </ul>
+
+                <div class="pqfw-form-field pqfw-submit">
+                    <input
+                        data-fragments='<?php echo json_encode($this->fragments); ?>'
+                        type="submit"
+                        id="rsrfqfwc_submit"
+                        name="rsrfqfwc_submit"
+                        value="<?php echo __('Submit Query', 'pqfw'); ?>"
+                        class="submit"
+                    />
+                    <div class="loading-spinner"></div>
+                    <?php wp_nonce_field( 'pqfw_form_nonce_action', 'pqfw_form_nonce_field' ); ?>
+                </div>
 
             </form>
         </div>
