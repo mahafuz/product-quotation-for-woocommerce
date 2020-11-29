@@ -36,6 +36,9 @@ $entries = Utils::fetch_entries(7, 0, Utils::get_status( $_REQUEST ) );
                         <select name="action">
                             <option value="-1"><?php _e( 'Bulk Actions', 'pqfw' ); ?></option>
                             <option value="delete"><?php _e( 'Delete Entries', 'pqfw' ); ?></option>
+                            <?php if( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
+                            <option value="restore"><?php _e( 'Restore', 'pqfw' ); ?></option>
+                            <?php endif; ?>
                         </select>
                         <button class="button action"><?php _e( 'Apply', 'pqfw' ); ?></button>
                     </div>
@@ -110,7 +113,7 @@ $entries = Utils::fetch_entries(7, 0, Utils::get_status( $_REQUEST ) );
                                     <td><span><?php echo esc_attr($entry->email); ?></span></td>
                                     <th class="col-entry-details">
                                         <?php if( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
-                                            <a href="?page=pqfw-options-page&pqfw-restore-entry=<?php echo esc_attr($entry->ID); ?>"><?php _e( 'Restore', 'pqfw' ); ?></a>
+                                            <a href="?page=pqfw-options-page&pqfw-entries=trash&pqfw-restore-entry=<?php echo esc_attr($entry->ID); ?>"><?php _e( 'Restore', 'pqfw' ); ?></a>
                                             <span style="color: rgb(221, 221, 221);">|</span> <a href="?page=pqfw-options-page&pqfw-entries=trash&pqfw-delete-entry=<?php echo esc_attr($entry->ID); ?>"><?php _e( 'Delete Permanently', 'pqfw' ); ?></a>
                                         <?php else : ?>
                                             <a href="?page=pqfw-options-page&pqfw-entry=<?php echo esc_attr( $entry->ID ); ?>" class=""><?php _e( 'Details', 'pqfw' ); ?></a>
@@ -119,6 +122,15 @@ $entries = Utils::fetch_entries(7, 0, Utils::get_status( $_REQUEST ) );
                                 </tr>
                                 <?php
                             }
+                        }else {
+                            ?>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <span><?php _e( 'No entries found.', 'pqfw' ); ?></span>
+                                </td>
+                            </tr>
+                            <?php
                         }
                     ?>
                     </tbody>

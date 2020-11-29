@@ -104,6 +104,28 @@ class Utils {
         return $deleted;
     }
 
+    /**
+     * Restore an entry
+     *
+     * @param int $entry_id
+     *
+     * @return int|bool
+     */
+    public static function restore( $entry_id ) {
+        global $wpdb;
+
+        $table = self::get_table_name();
+
+        $restored = $wpdb->update(
+            $table,
+            array( 'status' => 'publish' ),
+            [ 'id'  => $entry_id ],
+            ['%s']
+        );
+
+        return $restored;
+    }
+
         /**
      * Fetch all data from data.
      *
