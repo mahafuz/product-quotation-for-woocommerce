@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'PQFW_PLUGIN_FILE', __FILE__ );
 define( 'PQFW_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'PQFW_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'PQFW_PLUGIN_VIEWS', trailingslashit( plugin_dir_path( __FILE__ ) . 'includes/Views' ) );
 define( 'PQFW_PLUGIN_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'PQFW_PLUGIN_VERSION', '1.0.0' );
 

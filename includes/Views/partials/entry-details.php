@@ -12,6 +12,12 @@ use \PQFW\Database\Utils;
 
 $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
 
+if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' ) {
+    $back_url = '?page=pqfw-options-page&pqfw-entries=trash';
+}else {
+    $back_url = '?page=pqfw-options-page';
+}
+
 ?>
 
 <div class="wrap">
@@ -30,8 +36,9 @@ $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
                 ?>
 
                 <h1 class="wp-heading-inline"><?php _e( 'Entry Details', 'pqfw' ); ?></h1>
-                <a href="?page=pqfw-options-page" class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
-                <div class="pqfw-entry-wrap">
+                <a href="<?php echo $back_url; ?>" class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
+                <form method="POST">
+                    <div class="pqfw-entry-wrap">
                     <div class="pqfw-entry-left">
                         <div class="postbox">
                             <h2 class="hndle ui-sortable-handle">
@@ -107,12 +114,16 @@ $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
                                 </div>
                             </div>
                             <div id="major-publishing-actions">
-                                <div id="publishing-action"><button class="button button-large button-secondary"><span class="dashicons dashicons-trash"></span> <?php _e( 'Delete', 'pqfw' ); ?></button></div>
+                                <div id="publishing-action">
+                                    <input type="hidden" name="action" value="delete" />
+                                    <button class="button button-large button-secondary"><span class="dashicons dashicons-trash"></span> <?php _e( 'Delete', 'pqfw' ); ?></button>
+                                </div>
                                 <div class="clear"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

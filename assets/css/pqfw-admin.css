@@ -127,7 +127,7 @@ table.wp-list-table.widefat.fixed.striped.posts {
     border: none;
 }
 
-.pqfw-entry-right button.button {
+.pqfw-entry-right .button {
     display: flex;
     align-items: center;
 }

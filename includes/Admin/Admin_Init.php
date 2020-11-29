@@ -10,9 +10,6 @@
 
 namespace PQFW\Admin;
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-} // Exit if accessed directly
 
 class Admin_Init {
 
@@ -84,11 +81,7 @@ class Admin_Init {
      * @since 1.0.0
      */
     public function display_product_quotation_page() {
-        if( isset( $_REQUEST['page'] ) && ($_REQUEST['page'] === 'pqfw-options-page') && isset( $_REQUEST['pqfw-entry'] ) && !empty($_REQUEST['pqfw-entry']) ) {
-            include( __DIR__ . '/templates/entry-details.php' );
-        }else {
-            include( __DIR__ . '/templates/entries.php' );
-        }
+        include PQFW_PLUGIN_VIEWS . 'layout.php';
     }
 
 }

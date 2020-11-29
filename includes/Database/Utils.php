@@ -60,6 +60,51 @@ class Utils {
     }
 
     /**
+     * Delete an entry
+     *
+     * @param int $entry_id
+     *
+     * @return int|bool
+     */
+    public static function delete( $entry_id ) {
+        global $wpdb;
+
+        $table = self::get_table_name();
+
+        $deleted = $wpdb->delete(
+            $table,
+            [
+            'id' => $entry_id,
+            ], [ '%d' ]
+        );
+
+        return $deleted;
+    }
+
+    /**
+     * Soft delete an entry
+     *
+     * @param int $entry_id
+     *
+     * @return int|bool
+     */
+    public static function soft_delete( $entry_id )
+    {
+        global $wpdb;
+
+        $table = self::get_table_name();
+
+        $deleted = $wpdb->update(
+            $table,
+            array( 'status' => 'trash' ),
+            [ 'id'  => $entry_id ],
+            ['%s']
+        );
+
+        return $deleted;
+    }
+
+        /**
      * Fetch all data from data.
      *
      *
@@ -68,21 +113,22 @@ class Utils {
      * @param string $email Email.
      * @return int|false The user's ID on success, and false on failure.
      */
-    public static function fetch_entries( $count, $offset ) {
+    public static function fetch_entries( $count, $offset, $status = 'publish' ) {
         global $wpdb;
 
         $table = self::get_table_name();
 
         $entries = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT * FROM $table LIMIT %d OFFSET %d",
+                "SELECT * FROM $table WHERE status = %s LIMIT %d OFFSET %d ",
+                $status,
                 $count,
                 $offset
             )
         );
 
         if ( ! $entries ) {
-            return false;
+            return [];
         }
 
         return $entries;
@@ -134,6 +180,10 @@ class Utils {
                 $status
             )
         );
+    }
+
+    public static function get_status( $request ) {
+        return isset( $request['pqfw-entries'] ) && ! empty( $request['pqfw-entries'] ) ? esc_attr( $request['pqfw-entries'] ) : 'publish';
     }
 
     /**
