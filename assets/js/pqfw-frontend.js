@@ -109,11 +109,19 @@ jQuery(function ( $ ) {
 								loader.removeClass('loading');
 							},
 							success: function( response ) {
-								console.log(response);
 								if( response.success ) {
 									resposneStatus.removeClass('error');
 									resposneStatus.addClass('success');
 									resposneStatus.html( response.data );
+
+									input.each( function () {
+										$( this ).val( '' );
+									} );
+
+									textarea.each(function () {
+										$( this ).val( '' );
+									});
+
 								}else {
 									resposneStatus.removeClass('success');
 									resposneStatus.addClass('error');
