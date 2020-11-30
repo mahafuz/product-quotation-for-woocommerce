@@ -49,12 +49,12 @@ class Entries_Table {
         $sub_links = array();
 
         $sub_links[] = sprintf(
-            '<li class="all"><a href="?page=pqfw-options-page" %s>%s <span class="count">(%s)</span></a> | </li>',
+            '<li class="all"><a href="?page=pqfw-entries-page" %s>%s <span class="count">(%s)</span></a> | </li>',
             Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '', __( 'All', 'pqfw' ), esc_attr( Utils::count_entries() )
         );
 
         $sub_links[] = sprintf(
-            '<li class="trash"><a href="?page=pqfw-options-page&pqfw-entries=trash" %s>%s <span class="count">(%s)</span></a></li>',
+            '<li class="trash"><a href="?page=pqfw-entries-page&pqfw-entries=trash" %s>%s <span class="count">(%s)</span></a></li>',
             Utils::get_status($_REQUEST) === 'trash' ? ' class="current"' : '', __( 'Trash', 'pqfw' ), esc_attr(Utils::count_entries( 'trash' ) )
         );
 

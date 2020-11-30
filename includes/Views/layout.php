@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
-if( ! isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pqfw-options-page' ) exit;
+if( ! isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pqfw-entries-page' ) exit;
 
 use \PQFW\Database\Utils;
 
@@ -38,7 +38,7 @@ if( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'delete' ) {
      */
     if( isset( $_REQUEST['pqfw-entry'] ) && ! empty( $_REQUEST['pqfw-entry'] ) ) {
         Utils::soft_delete( (int) $_REQUEST['pqfw-entry'] );
-        wp_safe_redirect( '?page=pqfw-options-page' );
+        wp_safe_redirect( '?page=pqfw-entries-page' );
     }
 
     /**
@@ -74,7 +74,7 @@ if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' 
         foreach ( $_REQUEST['post'] as $post ) {
             Utils::restore( (int)$post );
         }
-        wp_safe_redirect( '?page=pqfw-options-page' );
+        wp_safe_redirect( '?page=pqfw-entries-page' );
     }
 
     /**
@@ -97,7 +97,7 @@ if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' 
      */
     if( isset( $_REQUEST['pqfw-restore-entry'] ) && ! empty( $_REQUEST['pqfw-restore-entry'] ) ) {
         Utils::restore( (int) $_REQUEST['pqfw-restore-entry'] );
-        wp_safe_redirect( '?page=pqfw-options-page' );
+        wp_safe_redirect( '?page=pqfw-entries-page' );
     }
 
 }

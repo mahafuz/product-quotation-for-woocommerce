@@ -13,9 +13,9 @@ use \PQFW\Database\Utils;
 $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
 
 if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' ) {
-    $back_url = '?page=pqfw-options-page&pqfw-entries=trash';
+    $back_url = '?page=pqfw-entries-page&pqfw-entries=trash';
 }else {
-    $back_url = '?page=pqfw-options-page';
+    $back_url = '?page=pqfw-entries-page';
 }
 
 ?>

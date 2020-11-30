@@ -56,7 +56,7 @@ class Admin_Init {
             __( 'Product Quotations', 'PQFW' ),
             __( 'Product Quotation', 'PQFW' ),
             'manage_options',
-            'pqfw-options-page',
+            'pqfw-entries-page',
             array( $this, 'display_product_quotation_page' ),
             null
         );
@@ -70,7 +70,7 @@ class Admin_Init {
     public function admin_css() {
         $screen = get_current_screen();
 
-        if( $screen->id === 'toplevel_page_pqfw-options-page' ) {
+        if( $screen->id === 'toplevel_page_pqfw-entries-page' ) {
             wp_enqueue_style( 'pqfw-admin', PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css' );
         }
     }
