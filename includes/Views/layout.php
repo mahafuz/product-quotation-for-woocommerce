@@ -51,6 +51,7 @@ if( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'delete' ) {
         foreach ( $_REQUEST['post'] as $post ) {
             Utils::delete( (int)$post );
         }
+        wp_safe_redirect( '?page=pqfw-entries-page&pqfw-entries=trash' );
     }
 
 }
@@ -85,6 +86,7 @@ if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' 
      */
     if ( isset( $_REQUEST['pqfw-delete-entry'] ) && ! empty( $_REQUEST['pqfw-delete-entry'] ) ) {
         Utils::delete( (int) $_REQUEST['pqfw-delete-entry'] );
+        wp_safe_redirect( '?page=pqfw-entries-page&pqfw-entries=trash' );
     }
 
     /**

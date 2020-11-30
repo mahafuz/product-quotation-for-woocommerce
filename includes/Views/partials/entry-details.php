@@ -12,12 +12,6 @@ use \PQFW\Database\Utils;
 
 $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
 
-if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' ) {
-    $back_url = '?page=pqfw-entries-page&pqfw-entries=trash';
-}else {
-    $back_url = '?page=pqfw-entries-page';
-}
-
 ?>
 
 <div class="wrap">
@@ -36,7 +30,7 @@ if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' 
                 ?>
 
                 <h1 class="wp-heading-inline"><?php _e( 'Entry Details', 'pqfw' ); ?></h1>
-                <a href="<?php echo $back_url; ?>" class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
+                <a href="'?page=pqfw-entries-page'" class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
                 <form method="POST">
                     <div class="pqfw-entry-wrap">
                     <div class="pqfw-entry-left">
