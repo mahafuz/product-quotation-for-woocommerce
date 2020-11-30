@@ -43,6 +43,7 @@ class Admin_Init {
      */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
+        add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_css' ) );
     }
 
@@ -63,6 +64,22 @@ class Admin_Init {
     }
 
     /**
+     *
+     */
+    public function add_settings_page() {
+        add_submenu_page(
+            'pqfw-entries-page',
+            __ ( 'Settings', 'pqfw' ),
+            __ ( 'Settings', 'pqfw' ),
+            'manage_options',
+            'pqfw-settings',
+            array( $this, 'display_pqfw_settings_page' ),
+            null
+        );
+    }
+
+
+    /**
      * Loading admin css.
      *
      * @since 1.0.0
@@ -70,7 +87,7 @@ class Admin_Init {
     public function admin_css() {
         $screen = get_current_screen();
 
-        if( $screen->id === 'toplevel_page_pqfw-entries-page' ) {
+        if( $screen->id === 'toplevel_page_pqfw-entries-page' || $screen->id == 'product-quotation_page_pqfw-settings' ) {
             wp_enqueue_style( 'pqfw-admin', PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css' );
         }
     }
@@ -82,6 +99,10 @@ class Admin_Init {
      */
     public function display_product_quotation_page() {
         include PQFW_PLUGIN_VIEWS . 'layout.php';
+    }
+
+    public function display_pqfw_settings_page() {
+        include PQFW_PLUGIN_VIEWS . 'partials/settings.php';
     }
 
 }
