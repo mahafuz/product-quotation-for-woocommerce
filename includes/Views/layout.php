@@ -62,7 +62,7 @@ if( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'delete' ) {
  * @since 1.0.0
  */
 if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' ) {
-
+    
     /**
      * Perform bulk action: restore entry.
      * Get entry ID's array and run the restore operation inside a loop till the last ID's in the array.

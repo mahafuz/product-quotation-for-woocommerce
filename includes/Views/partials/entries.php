@@ -9,8 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 use \PQFW\Database\Utils;
+use \PQFW\Classes\Entries_Table;
 
-$entries = Utils::fetch_entries(7, 0, Utils::get_status( $_REQUEST ) );
+$entries_list_table = new Entries_Table();
+
+$entries = Utils::fetch_entries(
+    $entries_list_table->get_per_page(),
+    $entries_list_table->get_offset(),
+    Utils::get_status( $_REQUEST )
+);
+
+
 
 ?>
 
@@ -19,56 +28,8 @@ $entries = Utils::fetch_entries(7, 0, Utils::get_status( $_REQUEST ) );
 
     <form method="POST">
         <div class="pqfw-form-entries">
-            <div>
-                <div>
-                    <ul class="subsubsub">
-                        <li class="all"><a href="?page=pqfw-options-page"<?php echo Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : ''; ?>><?php _e( 'All', 'pqfw' ); ?> <span class="count">(<?php echo esc_attr( Utils::count_entries() ); ?>)</span></a> | </li>
-                        <li class="trash"><a href="?page=pqfw-options-page&pqfw-entries=trash"<?php echo Utils::get_status( $_REQUEST ) === 'trash' ? ' class="current"' : ''; ?>><?php _e( 'Trash', 'pqfw' ); ?><span class="count">(<?php echo esc_attr( Utils::count_entries( 'trash' ) ); ?>)</span></a></li>
-                    </ul>
-                </div>
-            </div>
 
-            <div>
-
-                <div class="tablenav top">
-                    <div class="alignleft actions bulkactions">
-                        <label for="bulk-action-selector-top" class="screen-reader-text"><?php _e( 'Select bulk action', 'pqfw' ); ?></label>
-                        <select name="action">
-                            <option value="-1"><?php _e( 'Bulk Actions', 'pqfw' ); ?></option>
-                            <option value="delete"><?php _e( 'Delete Entries', 'pqfw' ); ?></option>
-                            <?php if( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
-                            <option value="restore"><?php _e( 'Restore', 'pqfw' ); ?></option>
-                            <?php endif; ?>
-                        </select>
-                        <button class="button action"><?php _e( 'Apply', 'pqfw' ); ?></button>
-                    </div>
-                    <!--              <div class="alignleft actions">-->
-                    <!--                    <a href="admin-post.php?action=weforms_export_form_entries&amp;selected_forms=59&amp;_wpnonce=7e3e8d9e48" class="button" style="margin-top: 0px;">-->
-                    <!--                      <span class="dashicons dashicons-download" style="margin-top: 4px;"></span>-->
-                    <!--                      Export Entries-->
-                    <!--                    </a>-->
-                    <!--              </div>-->
-                    <div class="tablenav-pages">
-                        <span class="displaying-num"><?php echo esc_attr( count($entries) ); ?> <?php _e( 'items', 'pqfw' ); ?></span>
-                        <span class="pagination-links"><span aria-hidden="true" class="tablenav-pages-navspan">«</span>
-                        <span aria-hidden="true" class="tablenav-pages-navspan">‹</span>
-                        <span class="screen-reader-text"><?php _e( 'Current Page', 'pqfw' ); ?></span>
-
-                        <input id="current-page-selector" type="text" value="1" size="1" aria-describedby="table-paging" class="current-page"> <?php _e( 'of', 'pqfw' ); ?>
-
-                        <?php if( Utils::get_status( $_REQUEST ) === 'publish' ) : ?>
-                        <span class="total-pages"><?php echo esc_attr( Utils::count_entries() ); ?></span>
-                        <?php endif; ?>
-
-                        <?php if( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
-                        <span class="total-pages"><?php echo esc_attr( Utils::count_entries( 'trash' ) ); ?></span>
-                        <?php endif; ?>
-
-                        <span aria-hidden="true" class="tablenav-pages-navspan">›</span>
-                        <span aria-hidden="true" class="tablenav-pages-navspan">»</span>
-                  </span>
-                    </div>
-                </div>
+                <?php $entries_list_table->display( 'top' ); ?>
 
                 <table class="wp-list-table widefat fixed striped">
                     <thead>
@@ -136,7 +97,8 @@ $entries = Utils::fetch_entries(7, 0, Utils::get_status( $_REQUEST ) );
                     </tbody>
 
                 </table>
-            </div>
+
+            <?php //$entries_list_table->display( 'bottom' ); ?>
 
         </div>
     </form>
