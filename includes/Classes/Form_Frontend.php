@@ -120,6 +120,8 @@ class Form_Frontend {
                     <?php wp_nonce_field( 'pqfw_form_nonce_action', 'pqfw_form_nonce_field' ); ?>
                 </div>
 
+                <div class="pqfw-form-response-status"></div>
+
             </form>
         </div>
     </div>

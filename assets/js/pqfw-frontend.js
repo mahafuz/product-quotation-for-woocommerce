@@ -18,7 +18,8 @@ jQuery(function ( $ ) {
 				input = l.find( 'input' ),
 				textarea = l.find( 'textarea' ),
 				emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-				errors = null;
+				errors = null,
+				resposneStatus = f.find('.pqfw-form-response-status');
 
 			t.on( "click", "#rsrfqfwc_submit", function ( ev ) {
 
@@ -26,7 +27,8 @@ jQuery(function ( $ ) {
 
 				var t = $( this ),
 					fragments = t.data( 'fragments' ),
-					nonce = f.find( 'input[name="pqfw_form_nonce_field"]').val();
+					nonce = f.find( 'input[name="pqfw_form_nonce_field"]').val(),
+					loader = t.next('.loading-spinner');
 
 				// validating fields empty value.
 				var $input, $textarea, $this;
@@ -100,11 +102,34 @@ jQuery(function ( $ ) {
 							url: PQFW_OBJECT.ajaxurl,
 							// dataType: "json",
 							data: data,
+							beforeSend: function() {
+								loader.addClass('loading');
+							},
+							complete: function() {
+								loader.removeClass('loading');
+							},
 							success: function( response ) {
 								console.log(response);
-							},
-							error: function ( response ) {
-								console.log( response );
+								if( response.success ) {
+									resposneStatus.removeClass('error');
+									resposneStatus.addClass('success');
+									resposneStatus.html( response.data );
+								}else {
+									resposneStatus.removeClass('success');
+									resposneStatus.addClass('error');
+
+									let html = '';
+
+									if( $.type(response.data) == 'object' ) {
+										$.each( response.data, function(key, value) {
+											html += '<p class="'+key+'">';
+											html += value;
+											html += '</p>';
+										});
+									}
+
+									resposneStatus.html( html );
+								}
 							}
 						});
 					}

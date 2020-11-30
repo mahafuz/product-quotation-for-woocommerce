@@ -39,10 +39,6 @@ ul.pqfw-frontend-form {
     border-radius: 2px;
 }
 
-.woocommerce .pqfw-submit {
-    display: inline-block;
-}
-
 .woocommerce .pqfw-submit input[type="submit"] {
     font-size: 16px;
     padding: 5px 15px;
@@ -59,6 +55,8 @@ ul.pqfw-frontend-form {
     color: #fff;
     text-decoration: none;
     text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+    display: inline-block;
+    width: auto;
 }
 
 .pqfw-form-field.hasError {
@@ -67,4 +65,32 @@ ul.pqfw-frontend-form {
 
 .pqfw-form-title {
     padding: 10px;
+}
+
+.pqfw-form .loading-spinner.loading {
+    width: 16px;
+    height: 16px;
+    background: url('../images/wpspin_light.gif') no-repeat;
+    display: inline-block;
+}
+
+.pqfw-form-response-status {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.pqfw-form-response-status.success {
+    background: #00846433;
+    border: 1px solid #00846433;
+}
+
+.pqfw-form-response-status.error {
+    background: #FFE4E4;
+    border: 1px solid #ffb1b1;
+}
+
+.pqfw-form-response-status p {
+    margin: 2px 0;
 }
