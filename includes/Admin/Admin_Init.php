@@ -54,7 +54,7 @@ class Admin_Init {
      */
     public function add_menu_page() {
         add_menu_page(
-            __( 'Product Quotations', 'PQFW' ),
+            __( 'Entries', 'PQFW' ),
             __( 'Product Quotation', 'PQFW' ),
             'manage_options',
             'pqfw-entries-page',

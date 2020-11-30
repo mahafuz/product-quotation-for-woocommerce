@@ -25,13 +25,16 @@
     line-height: 1.4;
 }
 
+.pqfw-options-settings-section {
+    border-bottom: 1px solid #eee;
+}
+
 .pqfw-options-settings-section ul {
     margin: 0;
 }
 
 .pqfw-options-settings-section ul li {
     padding: 10px 0;
-    border-bottom: 1px solid #eee;
     margin-bottom: 0;
 }
 
@@ -71,4 +74,51 @@ table.wp-list-table.widefat.fixed.striped.posts {
 .pqfw-entry-right .button {
     display: flex;
     align-items: center;
+}
+
+/* Settings Controls */
+.pqfw-options-settings-section .switch-control input[type="checkbox"] {
+    display: none;
+}
+
+.pqfw-options-settings-section .switch-control input:checked + .switch {
+    background-color: #2196f3;
+}
+
+.pqfw-options-settings-section .switch-control label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.pqfw-options-settings-section .switch-control.is-rounded .switch {
+    border-radius: 34px;
+}
+.pqfw-options-settings-section .switch-control .switch {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+}
+
+.pqfw-options-settings-section .switch-control input:checked + .switch::before {
+    transform: translateX(26px);
+}
+.pqfw-options-settings-section .switch-control.is-rounded .switch::before {
+    border-radius: 50%;
+}
+.pqfw-options-settings-section .switch-control .switch::before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
 }

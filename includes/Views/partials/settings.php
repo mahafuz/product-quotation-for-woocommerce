@@ -12,8 +12,15 @@
         <h2 class="pqfw-options-box-header"><?php _e( 'General Settings', '' ); ?></h2>
         <div class="pqfw-options-settings-section">
             <ul class="pqfw-flex">
-                <li>Option Name</li>
-                <li>Option Control</li>
+                <li><?php _e( 'Floating Form', 'pqfw' ); ?></li>
+                <li>
+                    <div class="control switch-control is-rounded">
+                        <label for="pqfw_floating_form">
+                            <input type="checkbox" name="pqfw_floating_form" id="pqfw_floating_form" value="1" >
+                            <span class="switch"></span>
+                        </label>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
