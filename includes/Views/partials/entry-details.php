@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 use \PQFW\Database\Utils;
+use \PQFW\Bootstrap;
 
 $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
 
@@ -30,7 +31,7 @@ $entry = Utils::fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
                 ?>
 
                 <h1 class="wp-heading-inline"><?php _e( 'Entry Details', 'pqfw' ); ?></h1>
-                <a href="'?page=pqfw-entries-page'" class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
+                <a href="<?php echo Bootstrap::get_url_with_nonce(); ?>" class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
                 <form method="POST">
                     <div class="pqfw-entry-wrap">
                     <div class="pqfw-entry-left">

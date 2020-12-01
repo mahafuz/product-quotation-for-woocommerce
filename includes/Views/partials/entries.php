@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use \PQFW\Database\Utils;
 use \PQFW\Classes\Entries_Table;
+use \PQFW\Bootstrap;
 
 $entries_list_table = new Entries_Table();
 
@@ -67,17 +68,17 @@ $entries = Utils::fetch_entries(
                                         <?php if( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
                                             <span>#<?php echo esc_attr($entry->ID); ?></span>
                                         <?php else : ?>
-                                            <a href="?page=pqfw-entries-page&pqfw-entry=<?php echo esc_attr( $entry->ID ); ?>" class="">#<?php echo esc_attr($entry->ID); ?></a>
+                                            <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entry='.esc_attr( $entry->ID ) ); ?>" class="">#<?php echo esc_attr($entry->ID); ?></a>
                                         <?php endif; ?>
                                     </th>
                                     <td><span><?php echo esc_attr($entry->fullname); ?></span></td>
                                     <td><span><?php echo esc_attr($entry->email); ?></span></td>
                                     <th class="col-entry-details">
                                         <?php if( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
-                                            <a href="?page=pqfw-entries-page&pqfw-entries=trash&pqfw-restore-entry=<?php echo esc_attr($entry->ID); ?>"><?php _e( 'Restore', 'pqfw' ); ?></a>
-                                            <span style="color: rgb(221, 221, 221);">|</span> <a href="?page=pqfw-entries-page&pqfw-entries=trash&pqfw-delete-entry=<?php echo esc_attr($entry->ID); ?>"><?php _e( 'Delete Permanently', 'pqfw' ); ?></a>
+                                            <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-restore-entry='. esc_attr($entry->ID) ); ?>"><?php _e( 'Restore', 'pqfw' ); ?></a>
+                                            <span style="color: rgb(221, 221, 221);">|</span> <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-delete-entry='.esc_attr( $entry->ID ) ); ?>"><?php _e( 'Delete Permanently', 'pqfw' ); ?></a>
                                         <?php else : ?>
-                                            <a href="?page=pqfw-entries-page&pqfw-entry=<?php echo esc_attr( $entry->ID ); ?>" class=""><?php _e( 'Details', 'pqfw' ); ?></a>
+                                            <a href="<?php echo Bootstrap::get_url_with_nonce('?page=pqfw-entries-page&pqfw-entry='.esc_attr( $entry->ID ) ); ?>" class=""><?php _e( 'Details', 'pqfw' ); ?></a>
                                         <?php endif; ?>
                                     </th>
                                 </tr>

@@ -82,4 +82,14 @@ class Bootstrap {
         $this->form_handler = Form_Handler::instance();
     }
 
+    public static function get_url_with_nonce( $url = '' ) {
+
+        if( empty( $url ) ) {
+            $url = '?page=pqfw-entries-page';
+        }
+
+        return wp_nonce_url( admin_url( $url ), 'pqfw_admin_nonce_action', '_wpnonce' );
+
+    }
+
 }

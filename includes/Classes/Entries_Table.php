@@ -3,6 +3,7 @@
 
 namespace PQFW\Classes;
 
+use PQFW\Bootstrap;
 use \PQFW\Database\Utils;
 
 
@@ -49,13 +50,13 @@ class Entries_Table {
         $sub_links = array();
 
         $sub_links[] = sprintf(
-            '<li class="all"><a href="?page=pqfw-entries-page" %s>%s <span class="count">(%s)</span></a> | </li>',
-            Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '', __( 'All', 'pqfw' ), esc_attr( Utils::count_entries() )
+            '<li class="all"><a href="%s" %s>%s <span class="count">(%s)</span></a> | </li>',
+            Bootstrap::get_url_with_nonce(), Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '', __( 'All', 'pqfw' ), esc_attr( Utils::count_entries() )
         );
 
         $sub_links[] = sprintf(
-            '<li class="trash"><a href="?page=pqfw-entries-page&pqfw-entries=trash" %s>%s <span class="count">(%s)</span></a></li>',
-            Utils::get_status($_REQUEST) === 'trash' ? ' class="current"' : '', __( 'Trash', 'pqfw' ), esc_attr(Utils::count_entries( 'trash' ) )
+            '<li class="trash"><a href="%s" %s>%s <span class="count">(%s)</span></a></li>',
+            Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ), Utils::get_status($_REQUEST) === 'trash' ? ' class="current"' : '', __( 'Trash', 'pqfw' ), esc_attr(Utils::count_entries( 'trash' ) )
         );
 
         echo $before_list . join( "\n", $sub_links ) . $after_list;

@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
-if( ! isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pqfw-entries-page' ) exit;
+//if( ! isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pqfw-entries-page' ) exit;
 
 use \PQFW\Database\Utils;
 
@@ -15,6 +15,10 @@ use \PQFW\Database\Utils;
  * @since 1.0.0
  */
 if( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'delete' ) {
+
+    if( ! isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw_admin_nonce_action' ) ) {
+        die( __( 'Unauthorized Operation', 'pqfw' ) );
+    }
 
     /**
      * Perform bulk action: soft delete.
@@ -64,6 +68,9 @@ if( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'delete' ) {
  */
 if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' ) {
 
+    if( ! isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw_admin_nonce_action' ) ) {
+        die( __( 'Unauthorized Operation', 'pqfw' ) );
+    }
     /**
      * Perform bulk action: restore entry.
      * Get entry ID's array and run the restore operation inside a loop till the last ID's in the array.
@@ -86,7 +93,7 @@ if( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash' 
      */
     if ( isset( $_REQUEST['pqfw-delete-entry'] ) && ! empty( $_REQUEST['pqfw-delete-entry'] ) ) {
         Utils::delete( (int) $_REQUEST['pqfw-delete-entry'] );
-        wp_safe_redirect( '?page=pqfw-entries-page&pqfw-entries=trash' );
+        wp_safe_redirect( \PQFW\Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ) );
     }
 
     /**
