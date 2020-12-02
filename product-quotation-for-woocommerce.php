@@ -11,12 +11,12 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 } // Exit if accessed directly
 
 /**
  * Defining plugin constans
- * 
+ *
  * @since 1.0.0
  */
 define( 'PQFW_PLUGIN_FILE', __FILE__ );
@@ -28,18 +28,18 @@ define( 'PQFW_PLUGIN_VERSION', '1.0.0' );
 
 /**
  * Including spl autoloader globally.
- * 
+ *
  * @since 1.0.0
  */
 require PQFW_PLUGIN_PATH . 'autoload.php';
 
 /**
  * Run the plugin after all other plugins.
- * 
+ *
  * @since 1.0.0
  */
-add_action( 'plugins_loaded', function() {
-    \PQFW\Bootstrap::instance();
+add_action( 'plugins_loaded', function () {
+	\PQFW\Bootstrap::instance();
 } );
 
 /**
@@ -47,8 +47,8 @@ add_action( 'plugins_loaded', function() {
  *
  * @since 1.0.0
  */
-register_activation_hook( __FILE__ , function() {
-    $migration = new \PQFW\Database\Migration();
-    $migration->run();
+register_activation_hook( __FILE__, function () {
+	$migration = new \PQFW\Database\Migration();
+	$migration->run();
 } );
 
