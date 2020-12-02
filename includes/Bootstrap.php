@@ -14,9 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
-use \PQFW\Classes\Form_Frontend;
 use \PQFW\Admin\Admin_Init;
+use \PQFW\Classes\Form_Frontend;
 use \PQFW\Classes\Form_Handler;
+use \PQFW\Classes\Options_Handler;
 
 class Bootstrap {
 
@@ -69,6 +70,8 @@ class Bootstrap {
      */
     protected $form_handler;
 
+    protected $options_handler;
+
 
     /**
      * Constructor of the class
@@ -80,6 +83,7 @@ class Bootstrap {
         $this->form_frontend = Form_Frontend::instance();
         $this->admin = Admin_Init::instance();
         $this->form_handler = Form_Handler::instance();
+        $this->options_handler = Options_Handler::instance();
     }
 
     public static function get_url_with_nonce( $url = '' ) {

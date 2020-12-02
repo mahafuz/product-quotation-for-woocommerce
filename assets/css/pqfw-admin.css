@@ -10,7 +10,7 @@
 }
 
 .pqfw-container {
-    max-width: 930px;
+    max-width: 860px;
     margin: 0 auto;
     margin: 0 auto;
 }
@@ -44,6 +44,7 @@
 
 .pqfw-options-settings-section ul li:nth-child(even) {
     width: 26%;
+    text-align: right;
 }
 
 .pqfw-entry-wrap {
