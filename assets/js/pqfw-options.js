@@ -5,11 +5,26 @@
 
 
         switch_control.on( 'change', function( ev ) {
-            var t = $(this);
+            var t = $(this),
+                name = t.attr( 'name' );
 
             var data = {
-                
+                _wpnonce: nonce,
+                name: name,
+                status: t.prop('checked'),
+                action: PQFW_OBJECT.actions.save_settings
             }
+
+            $.ajax({
+                url: PQFW_OBJECT.ajaxurl,
+                dataType: "json",
+                data: data,
+                success: function( response ) {
+                    console.log( response );
+                }
+            });
+
+            console.log( data );
 
         } );
     });

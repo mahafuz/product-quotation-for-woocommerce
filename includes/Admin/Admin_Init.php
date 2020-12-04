@@ -43,7 +43,6 @@ class Admin_Init {
      */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
-        add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_css' ) );
     }
 
@@ -59,21 +58,6 @@ class Admin_Init {
             'manage_options',
             'pqfw-entries-page',
             array( $this, 'display_product_quotation_page' ),
-            null
-        );
-    }
-
-    /**
-     *
-     */
-    public function add_settings_page() {
-        add_submenu_page(
-            'pqfw-entries-page',
-            __ ( 'Settings', 'pqfw' ),
-            __ ( 'Settings', 'pqfw' ),
-            'manage_options',
-            'pqfw-settings',
-            array( $this, 'display_pqfw_settings_page' ),
             null
         );
     }
@@ -101,8 +85,5 @@ class Admin_Init {
         include PQFW_PLUGIN_VIEWS . 'layout.php';
     }
 
-    public function display_pqfw_settings_page() {
-        include PQFW_PLUGIN_VIEWS . 'partials/settings.php';
-    }
 
 }

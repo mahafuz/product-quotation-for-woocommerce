@@ -14,12 +14,20 @@
             <div class="pqfw-options-settings-section">
                 <ul class="pqfw-flex">
 
+
                     <!-- Default Form Style Option Start-->
                     <li><?php _e( 'Use Default Form Style', 'pqfw' ); ?></li>
                     <li>
                         <div class="control switch-control is-rounded">
                             <label for="pqfw_form_default_design">
-                                <input type="checkbox" class="pqfw-switch-control" name="pqfw_form_default_design" id="pqfw_form_default_design" >
+
+                                <input
+                                    type="checkbox"
+                                    class="pqfw-switch-control"
+                                    name="pqfw_form_default_design"
+                                    id="pqfw_form_default_design"
+	                                <?php checked( $settings['pqfw_form_default_design'], 1 ); ?>
+                                >
                                 <span class="switch"></span>
                             </label>
                         </div>
@@ -30,7 +38,13 @@
                     <li>
                         <div class="control switch-control is-rounded">
                             <label for="pqfw_floating_form">
-                                <input type="checkbox" class="pqfw-switch-control" name="pqfw_floating_form" id="pqfw_floating_form" >
+                                <input
+                                   type="checkbox"
+                                   class="pqfw-switch-control"
+                                   name="pqfw_floating_form"
+                                   id="pqfw_floating_form"
+                                   <?php checked( $settings['pqfw_floating_form'], 1 ); ?>
+                                >
                                 <span class="switch"></span>
                             </label>
                         </div>
