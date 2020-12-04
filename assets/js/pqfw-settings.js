@@ -1,4 +1,12 @@
-(function ($) {
+/**
+ * PQFW settings JS.
+ *
+ * @author Mahafuz
+ * @package PQFW
+ * @version 1.0.0
+ */
+
+jQuery(function ( $ ) {
     $(document).ready(function() {
         var switch_control = $( '.pqfw-switch-control' ),
             nonce = $( '#pqfw-settings-form' ).find( 'input[name="_wpnonce"]' ).val();
@@ -24,8 +32,6 @@
                 }
             });
 
-            console.log( data );
-
         } );
     });
-})(jQuery);
+});

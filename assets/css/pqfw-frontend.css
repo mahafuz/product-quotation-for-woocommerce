@@ -1,3 +1,11 @@
+/**
+ * PQFW Frontend CSS.
+ *
+ * @author Mahafuz
+ * @package PQFW
+ * @version 1.0.0
+ */
+
 .use-pqfw-form-default-design ul.pqfw-frontend-form {
     list-style: none !important;
     margin: 0 !important;

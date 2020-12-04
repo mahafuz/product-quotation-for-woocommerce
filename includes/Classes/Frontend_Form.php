@@ -1,11 +1,4 @@
 <?php
-/**
- * Manages the quotation form frontend.
- *
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.0.0
- */
 
 namespace PQFW\Classes;
 
@@ -13,12 +6,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-class Form_Frontend {
+/**
+ * Manages the quotation form frontend.
+ *
+ * @author      Mahafuz
+ * @package     PQFW
+ * @since       1.0.0
+ */
+class Frontend_Form {
 
 	/**
 	 * Single instance of the class
 	 *
-	 * @var \Form_Frontend
+	 * @var \Frontend_Form
 	 * @since 1.0.0
 	 */
 	private static $instance = null;
@@ -26,7 +26,7 @@ class Form_Frontend {
 	/**
 	 * Returns single instance of the class
 	 *
-	 * @return \Form_Frontend
+	 * @return \Frontend_Form
 	 * @since 1.0.0
 	 */
 	public static function instance() {
@@ -49,12 +49,14 @@ class Form_Frontend {
 	/**
 	 * Constructor of the class
 	 *
-	 * @return \Form_Frontend
+	 * @return \Frontend_Form
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+
 		add_action( 'woocommerce_share', array ( $this, 'form' ) );
 		add_action( 'wp_enqueue_scripts', array ( $this, 'enqueue_scripts_and_stuffs' ) );
+
 	}
 
 	/**
@@ -64,6 +66,7 @@ class Form_Frontend {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts_and_stuffs() {
+
 		wp_enqueue_script(
 			'pqfw-frontend',
 			PQFW_PLUGIN_URL . 'assets/js/pqfw-frontend.js',
@@ -80,7 +83,9 @@ class Form_Frontend {
 				)
 			)
 		);
+
 		wp_enqueue_style( 'pqfw-frontend', PQFW_PLUGIN_URL . 'assets/css/pqfw-frontend.css' );
+
 	}
 
 	/**
@@ -89,6 +94,7 @@ class Form_Frontend {
 	 * @since   1.0.0
 	 */
 	public function form() {
+
 		$this->fragments['product_id']       = get_the_ID();
 		$this->fragments['product_title']    = get_the_title();
 		$this->fragments['product_sku']      = get_post_meta( $this->fragments['product_id'], '_sku', true );
@@ -105,8 +111,9 @@ class Form_Frontend {
 			$classes[] = 'floating-form';
 		}
 		?>
-        <div id="pqfw-frontend-form-wrap" class="<?php echo implode(' ', $classes ); ?>">
-            <h4 class="pqfw-form-title"><?php echo $form_title; ?><span class="title"><?php echo $this->fragments['product_title']; ?></span></h4>
+        <div id="pqfw-frontend-form-wrap" class="<?php echo implode( ' ', $classes ); ?>">
+            <h4 class="pqfw-form-title"><?php echo $form_title; ?><span
+                        class="title"><?php echo $this->fragments['product_title']; ?></span></h4>
             <div class="pqfw-form">
                 <form id="pqfw-frontend-form">
 
@@ -135,6 +142,7 @@ class Form_Frontend {
             </div>
         </div>
 		<?php
+
 	}
 
 }

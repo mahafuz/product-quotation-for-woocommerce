@@ -1,12 +1,16 @@
 <?php
+/**
+ * Responsible as the main file of displaying all entries and
+ * this is the field of performing all operations.
+ *
+ * @since   1.0.0
+ */
+
+use \PQFW\Database\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
-
-//if( ! isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pqfw-entries-page' ) exit;
-
-use \PQFW\Database\Utils;
 
 /**
  * Perform soft and hard delete operations.
@@ -115,8 +119,8 @@ if ( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash'
 }
 
 if ( isset( $_REQUEST['pqfw-entry'] ) && ! empty( $_REQUEST['pqfw-entry'] ) ) {
-	include( __DIR__ . '/partials/entry-details.php' );
+	include PQFW_PLUGIN_VIEWS . 'partials/entry-details.php';
 } else {
-	include( __DIR__ . '/partials/entries.php' );
+	include PQFW_PLUGIN_VIEWS . 'partials/entries.php';
 }
 

@@ -1,12 +1,22 @@
 <?php
 
-
 namespace PQFW\Classes;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
 
 use PQFW\Bootstrap;
 use \PQFW\Database\Utils;
 
-
+/**
+ * Responsible form Entries Table.
+ *
+ *
+ * @author      Mahafuz
+ * @package     PQFW
+ * @since       1.0.0
+ */
 class Entries_Table {
 
 	/**
@@ -25,7 +35,9 @@ class Entries_Table {
 	 * @todo get data from options page in the future.
 	 */
 	public function get_per_page() {
+
 		return 3;
+
 	}
 
 	/**
@@ -35,9 +47,11 @@ class Entries_Table {
 	 * @since 1.0.0
 	 */
 	public function get_offset() {
+
 		$paged = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 1;
 
 		return absint( ( $this->get_per_page() * $paged ) - $this->get_per_page() );
+
 	}
 
 	/**
@@ -46,6 +60,7 @@ class Entries_Table {
 	 * @since 1.0.0
 	 */
 	protected function views() {
+
 		$before_list = '<div><div><ul class="subsubsub">';
 		$after_list  = '</ul></div></div>';
 		$sub_links   = array ();
@@ -61,6 +76,7 @@ class Entries_Table {
 		);
 
 		echo $before_list . join( "\n", $sub_links ) . $after_list;
+
 	}
 
 	/**
@@ -108,6 +124,7 @@ class Entries_Table {
 	 *
 	 */
 	protected function get_pagenum() {
+
 		$pagenum = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
 
 		if ( isset( $this->pagination_args['total_pages'] ) && $pagenum > $this->pagination_args['total_pages'] ) {
@@ -115,6 +132,7 @@ class Entries_Table {
 		}
 
 		return max( 1, $pagenum );
+
 	}
 
 	/**
@@ -148,6 +166,7 @@ class Entries_Table {
 		}
 
 		$this->pagination_args = $args;
+
 	}
 
 	/**
@@ -282,6 +301,14 @@ class Entries_Table {
 		echo "<div class='tablenav-pages{$page_class}'>$output</div>";
 	}
 
+	/**
+	 * Displays the pagination and stuffs.
+	 *
+	 * @param string $which
+	 *
+	 * @since 1.0.0
+	 *
+	 */
 	public function display( $which ) {
 
 		if ( $which == 'top' ) {
@@ -293,8 +320,10 @@ class Entries_Table {
 		$this->set_pagination_args();
 		$this->pagination( $which );
 		echo '</div>';
+
 	}
 
+	// implement will later.
 	protected function export_button() {
 //        echo '
 //            <div class="alignleft actions">

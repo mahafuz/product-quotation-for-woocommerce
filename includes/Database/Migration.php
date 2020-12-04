@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package     PQFW
  * @since       1.0.0
  */
-
 class Migration {
 
     /**
@@ -25,7 +24,9 @@ class Migration {
      * @return  void
      */
     public function run() {
+
         $this->create_tables();
+
     }
 
     /**
@@ -59,6 +60,7 @@ class Migration {
                 ) DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1;";
 
         dbDelta($query);
+
     }
 
 }

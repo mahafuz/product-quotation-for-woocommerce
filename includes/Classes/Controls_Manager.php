@@ -1,315 +1,325 @@
 <?php
-/**
- * Control Manager of form fields
- * 
- * 
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.0.0
- */
 
 namespace PQFW\Classes;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 } // Exit if accessed directly
 
+/**
+ * Control Manager of form fields
+ *
+ *
+ * @author      Mahafuz
+ * @package     PQFW
+ * @since       1.0.0
+ */
 class Controls_Manager {
 
-    /**
-     * Single instance of the class
-     *
-     * @var \Controls_Manager
-     * @since 1.0.0
-     */
-    private static $instance = null;
+	/**
+	 * Single instance of the class
+	 *
+	 * @var \Controls_Manager
+	 * @since 1.0.0
+	 */
+	private static $instance = null;
 
-    /**
-     * Returns single instance of the class
-     *
-     * @return \Controls_Manager
-     * @since 1.0.0
-     */
-    public static function instance() {
-        if( self::$instance === null ) {
-            return self::$instance = new self();
-        }
+	/**
+	 * Returns single instance of the class
+	 *
+	 * @return \Controls_Manager
+	 * @since 1.0.0
+	 */
+	public static function instance() {
+		if ( self::$instance === null ) {
+			return self::$instance = new self();
+		}
 
-        return self::$instance;
-    }
+		return self::$instance;
+	}
 
-    /**
-     * Form fields container.
-     * 
-     * @var     array
-     * @access  protected
-     * @since   1.0.0
-     */
-    protected $fields;
+	/**
+	 * Form fields container.
+	 *
+	 * @var     array
+	 * @access  protected
+	 * @since   1.0.0
+	 */
+	protected $fields;
 
-    /**
-     * Form default fields container.
-     * 
-     * @var     array
-     * @access  protected
-     * @since   1.0.0
-     */
-    private $default_fields;
+	/**
+	 * Form default fields container.
+	 *
+	 * @var     array
+	 * @access  protected
+	 * @since   1.0.0
+	 */
+	private $default_fields;
 
-    /**
-     * Required form fields html.
-     * 
-     * @access  private
-     * @since   1.0.0
-     */
-    private $requiredHTML;
+	/**
+	 * Required form fields html.
+	 *
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $requiredHTML;
 
-    /**
-     * Required form fields attribute.
-     * 
-     * @access  private
-     * @since   1.0.0
-     */
-    private $requiredAttr;
+	/**
+	 * Required form fields attribute.
+	 *
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $requiredAttr;
 
-    /**
-     * Constructor of the class
-     *
-     * @return \Controls_Manager
-     * @since 1.0.0
-     */
-    public function __construct() {
+	/**
+	 * Constructor of the class
+	 *
+	 * @return \Controls_Manager
+	 * @since 1.0.0
+	 */
+	public function __construct() {
 
-        $this->requiredHTML = '<span class="field-required">*</span>';
-        $this->requiredAttr = 'required="1"';
+		$this->requiredHTML = '<span class="field-required">*</span>';
+		$this->requiredAttr = 'required="1"';
 
-        /**
-         * default form fields.
-         * 
-         * @since 1.0.0
-         */
-        $this->default_fields = array(
-            array(
-                'name'      => 'pqfw_product_quantity',
-                'type'      => 'number',
-                'label'     => __( 'Quantity:', 'pqfw' ),
-                'html_id'   => 'pqfw_product_quantity',
-                'required'  => true
-            ),
-            array(
-                'name'      => 'pqfw_customer_name',
-                'type'      => 'text',
-                'label'     => __('Full Name:', 'pqfw'),
-                'html_id'   => 'pqfw_customer_name',
-                'required'  => true
-            ),
-            array(
-                'name'      => 'pqfw_customer_email',
-                'type'      => 'email',
-                'label'     => __('Email:', 'pqfw'),
-                'html_id'   => 'pqfw_customer_email',
-                'required'  => true
-            ),
-            array(
-                'name'      => 'pqfw_customer_phone',
-                'type'      => 'text',
-                'label'     => __('Phone:', 'pqfw'),
-                'html_id'   => 'pqfw_customer_phone',
+		/**
+		 * default form fields.
+		 *
+		 * @since 1.0.0
+		 */
+		$this->default_fields = array (
+			array (
+				'name'     => 'pqfw_product_quantity',
+				'type'     => 'number',
+				'label'    => __( 'Quantity:', 'pqfw' ),
+				'html_id'  => 'pqfw_product_quantity',
+				'required' => true
+			),
+			array (
+				'name'     => 'pqfw_customer_name',
+				'type'     => 'text',
+				'label'    => __( 'Full Name:', 'pqfw' ),
+				'html_id'  => 'pqfw_customer_name',
+				'required' => true
+			),
+			array (
+				'name'     => 'pqfw_customer_email',
+				'type'     => 'email',
+				'label'    => __( 'Email:', 'pqfw' ),
+				'html_id'  => 'pqfw_customer_email',
+				'required' => true
+			),
+			array (
+				'name'    => 'pqfw_customer_phone',
+				'type'    => 'text',
+				'label'   => __( 'Phone:', 'pqfw' ),
+				'html_id' => 'pqfw_customer_phone',
 //                'required'  => true
-            ),
-            array(
-                'name'      => 'pqfw_customer_comments',
-                'type'      => 'textarea',
-                'label'     => __('Comments:', 'pqfw'),
-                'html_id'   => 'pqfw_customer_comments',
+			),
+			array (
+				'name'    => 'pqfw_customer_comments',
+				'type'    => 'textarea',
+				'label'   => __( 'Comments:', 'pqfw' ),
+				'html_id' => 'pqfw_customer_comments',
 //                'required'  => true
-            ),
-        );
+			),
+		);
 
-        $this->fields = apply_filters( 'pqfw_add_form_fields',  $this->default_fields );
-    }
+		$this->fields = apply_filters( 'pqfw_add_form_fields', $this->default_fields );
 
-    /**
-     * Generate form fields based on field type.
-     * 
-     * @var     array   $this->fields
-     * @access  public
-     */
-    public function generate_fields() {
-        
-        if( $this->fields ) {
-            foreach( $this->fields as $field ) {
-                // TODO: Type checking.
-                $type = $field['type'];
-                echo $this->{$type}($field);
-            }
-        }
+	}
 
-    }
+	/**
+	 * Generate form fields based on field type.
+	 *
+	 * @var     array $this ->fields
+	 * @access  public
+	 */
+	public function generate_fields() {
 
-    /**
-     * Generate form field type text.
-     * 
-     * @access  protected
-     * @param   array       $args
-     * @return  string      $html
-     * @since   1.0.0
-     */
-    protected function text( $args ) {
+		if ( $this->fields ) {
+			foreach ( $this->fields as $field ) {
+				// TODO: Type checking.
+				$type = $field['type'];
+				echo $this->{$type}( $field );
+			}
+		}
 
-        $defaults = array(
-            'name'          => '',
-            'label'         => '',
-            'description'   => '',
-            'value'         => '',
-            'html_class'    => '',
-            'html_id'       => '',
-            'required'      => ''
-        );
+	}
 
-        $args = wp_parse_args( $args, $defaults );
+	/**
+	 * Generate form field type text.
+	 *
+	 * @access  protected
+	 *
+	 * @param array $args
+	 *
+	 * @return  string      $html
+	 * @since   1.0.0
+	 */
+	protected function text( $args ) {
 
-        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
+		$defaults = array (
+			'name'        => '',
+			'label'       => '',
+			'description' => '',
+			'value'       => '',
+			'html_class'  => '',
+			'html_id'     => '',
+			'required'    => ''
+		);
 
-        if($args['required']) {
-            $html .= sprintf(
-                '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="text" name="%s" value="%s" %s />',
-                $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr
-            );
-        }else {
-            $html .= sprintf(
-                '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="text" name="%s" value="%s" />',
-                $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value']
-            );
-        }
-        
+		$args = wp_parse_args( $args, $defaults );
 
-        if( ! empty( $args['description'] ) ) {
-            $html .= sprintf( '<p>%s</p>', $args['description'] );
-        }
+		$html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
 
-        $html .= '</li>';
+		if ( $args['required'] ) {
+			$html .= sprintf(
+				'<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="text" name="%s" value="%s" %s />',
+				$args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr
+			);
+		} else {
+			$html .= sprintf(
+				'<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="text" name="%s" value="%s" />',
+				$args['name'], $args['html_id'], $args['label'], $args['name'], $args['value']
+			);
+		}
 
-        return $html;
 
-    }
+		if ( ! empty( $args['description'] ) ) {
+			$html .= sprintf( '<p>%s</p>', $args['description'] );
+		}
 
-    /**
-     * Generate form field type email.
-     * 
-     * @access  protected
-     * @param   array       $args
-     * @return  string      $html
-     * @since   1.0.0
-     */
-    public function email( $args ) {
+		$html .= '</li>';
 
-        $defaults = array(
-            'name'          => '',
-            'label'         => '',
-            'description'   => '',
-            'value'         => '',
-            'html_class'    => '',
-            'html_id'       => '',
-            'required'      => ''
-        );
+		return $html;
 
-        $args = wp_parse_args( $args, $defaults );
+	}
 
-        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
-        
-        if($args['required']) {
-            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="email" name="%s" value="%s" %s />', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr );
-        }else {
-            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="email" name="%s" value="%s" />', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
-        }
+	/**
+	 * Generate form field type email.
+	 *
+	 * @access  protected
+	 *
+	 * @param array $args
+	 *
+	 * @return  string      $html
+	 * @since   1.0.0
+	 */
+	public function email( $args ) {
 
-        if( ! empty( $args['description'] ) ) {
-            $html .= sprintf( '<p>%s</p>', $args['description'] );
-        }
+		$defaults = array (
+			'name'        => '',
+			'label'       => '',
+			'description' => '',
+			'value'       => '',
+			'html_class'  => '',
+			'html_id'     => '',
+			'required'    => ''
+		);
 
-        $html .= '</li>';
+		$args = wp_parse_args( $args, $defaults );
 
-        return $html;
+		$html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
 
-    }
+		if ( $args['required'] ) {
+			$html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="email" name="%s" value="%s" %s />', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr );
+		} else {
+			$html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="email" name="%s" value="%s" />', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
+		}
 
-    /**
-     * Generate form field type number.
-     * 
-     * @access  protected
-     * @param   array       $args
-     * @return  string      $html
-     * @since   1.0.0
-     */
-    public function number( $args ) {
-        
-        $defaults = array(
-            'name'          => '',
-            'label'         => '',
-            'description'   => '',
-            'value'         => '',
-            'html_class'    => '',
-            'html_id'       => '',
-            'required'      => ''
-        );
+		if ( ! empty( $args['description'] ) ) {
+			$html .= sprintf( '<p>%s</p>', $args['description'] );
+		}
 
-        $args = wp_parse_args( $args, $defaults );
+		$html .= '</li>';
 
-        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
+		return $html;
 
-        if($args['required']) {
-            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="number" min="0" name="%s" value="%s" %s />', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr );
-        }else {
-            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="number" min="0" name="%s" value="%s"/>', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
-        }
+	}
 
-        if( ! empty( $args['description'] ) ) {
-            $html .= sprintf( '<p>%s</p>', $args['description'] );
-        }
+	/**
+	 * Generate form field type number.
+	 *
+	 * @access  protected
+	 *
+	 * @param array $args
+	 *
+	 * @return  string      $html
+	 * @since   1.0.0
+	 */
+	public function number( $args ) {
 
-        $html .= '</li>';
+		$defaults = array (
+			'name'        => '',
+			'label'       => '',
+			'description' => '',
+			'value'       => '',
+			'html_class'  => '',
+			'html_id'     => '',
+			'required'    => ''
+		);
 
-        return $html;
+		$args = wp_parse_args( $args, $defaults );
 
-    }
+		$html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
 
-    /**
-     * Generate form field type textarea.
-     * 
-     * @access  protected
-     * @param   array       $args
-     * @return  string      $html
-     * @since   1.0.0
-     */ 
-    public function textarea( $args ) {
-        $defaults = array(
-            'name'          => '',
-            'label'         => '',
-            'description'   => '',
-            'value'         => '',
-            'html_class'    => '',
-            'html_id'       => '',
-            'required'      => ''
-        );
+		if ( $args['required'] ) {
+			$html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="number" min="0" name="%s" value="%s" %s />', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $args['value'], $this->requiredAttr );
+		} else {
+			$html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><input type="number" min="0" name="%s" value="%s"/>', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
+		}
 
-        $args = wp_parse_args( $args, $defaults );
+		if ( ! empty( $args['description'] ) ) {
+			$html .= sprintf( '<p>%s</p>', $args['description'] );
+		}
 
-        $html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
+		$html .= '</li>';
 
-        if($args['required']) {
-            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><textarea name="%s" rows="4" %s>%s</textarea>', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $this->requiredAttr, $args['value']);
-        }else {
-            $html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><textarea name="%s" rows="4">%s</textarea>', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value']);
-        }
+		return $html;
 
-        if( ! empty( $args['description'] ) ) {
-            $html .= sprintf( '<p>%s</p>', $args['description'] );
-        }
+	}
 
-        $html .= '</li>';
+	/**
+	 * Generate form field type textarea.
+	 *
+	 * @access  protected
+	 *
+	 * @param array $args
+	 *
+	 * @return  string      $html
+	 * @since   1.0.0
+	 */
+	public function textarea( $args ) {
 
-        return $html;
-    }
+		$defaults = array (
+			'name'        => '',
+			'label'       => '',
+			'description' => '',
+			'value'       => '',
+			'html_class'  => '',
+			'html_id'     => '',
+			'required'    => ''
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$html = sprintf( '<li class="pqfw-form-field%s">', $args['html_class'] );
+
+		if ( $args['required'] ) {
+			$html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><textarea name="%s" rows="4" %s>%s</textarea>', $args['name'], $args['html_id'], $args['label'], $this->requiredHTML, $args['name'], $this->requiredAttr, $args['value'] );
+		} else {
+			$html .= sprintf( '<label for="%s" class="pqfw-form-label" id="%s">%s</label><textarea name="%s" rows="4">%s</textarea>', $args['name'], $args['html_id'], $args['label'], $args['name'], $args['value'] );
+		}
+
+		if ( ! empty( $args['description'] ) ) {
+			$html .= sprintf( '<p>%s</p>', $args['description'] );
+		}
+
+		$html .= '</li>';
+
+		return $html;
+	}
 
 }

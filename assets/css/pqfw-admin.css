@@ -1,5 +1,12 @@
-/* Base CSS */
+/**
+ * PQFW Admin CSS.
+ *
+ * @author Mahafuz
+ * @package PQFW
+ * @version 1.0.0
+ */
 
+/* Base CSS */
 .pqfw-flex {
     display: flex;
     align-items: center;
