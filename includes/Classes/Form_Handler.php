@@ -111,6 +111,11 @@ class Form_Handler {
 		$inserteID = Utils::insert( $data, $formats );
 
 		if ( $inserteID ) {
+			// sending mail
+			if ( Settings::get_setting( 'pqfw_form_send_mail' ) ) {
+				$mailer = new Mailer( $data );
+				$mailer->send();
+			}
 			wp_send_json_success( __( 'Your entry was successfully submitted.', 'pqfw' ) );
 		} else {
 			wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );

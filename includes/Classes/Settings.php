@@ -109,7 +109,8 @@ class Settings {
 
 		$this->default_settings = array (
 			'pqfw_form_default_design',
-			'pqfw_floating_form'
+			'pqfw_floating_form',
+			'pqfw_form_send_mail'
 		);
 
 		$this->default_settings = array_fill_keys( $this->default_settings, true );
@@ -176,6 +177,20 @@ class Settings {
 
 		die();
 
+	}
+
+	public static function get_setting( $key ) {
+		if( empty( $key ) ) {
+			return false;
+		}
+		
+		$settings = get_option( 'pqfw_settings' );
+
+		if( isset( $settings[$key] ) ) {
+			return $settings[$key];
+		}
+
+		return false;
 	}
 
 

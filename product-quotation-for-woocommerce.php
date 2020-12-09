@@ -51,4 +51,3 @@ register_activation_hook( __FILE__, function () {
 	$migration = new \PQFW\Database\Migration();
 	$migration->run();
 } );
-

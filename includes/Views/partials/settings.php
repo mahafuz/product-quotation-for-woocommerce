@@ -69,13 +69,25 @@ if ( ! defined( 'ABSPATH' ) ) {
     </form>
 
     <div class="pqfw-options-box postbox">
-        <h2 class="pqfw-options-box-header"><?php _e( 'Style Settings', '' ); ?></h2>
+        <h2 class="pqfw-options-box-header"><?php _e( 'Mail Settings', '' ); ?></h2>
         <div class="pqfw-options-settings-section">
             <ul class="pqfw-flex">
 
-                <div style="background-color: #a3d4a3; display: block; width: 100%; text-align: center; margin: 5px; border-radius: 3px;">
-                    <h4><?php _e( 'Coming in Future Version!', 'pqfw' ); ?></h4>
-                </div>
+                <li><?php _e( 'Send Mail For Each Entry', 'pqfw' ); ?></li>
+                <li>
+                    <div class="control switch-control is-rounded">
+                        <label for="pqfw_form_send_mail">
+                            <input
+                                    type="checkbox"
+                                    class="pqfw-switch-control"
+                                    name="pqfw_form_send_mail"
+                                    id="pqfw_form_send_mail"
+					            <?php checked( $settings['pqfw_form_send_mail'], 1 ); ?>
+                            >
+                            <span class="switch"></span>
+                        </label>
+                    </div>
+                </li><!-- -->
 
             </ul>
         </div>

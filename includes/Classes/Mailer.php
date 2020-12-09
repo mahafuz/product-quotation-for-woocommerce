@@ -1,0 +1,145 @@
+<?php
+
+namespace PQFW\Classes;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
+/**
+ * Admin class
+ *
+ *
+ * @author      Mahafuz
+ * @package     PQFW
+ * @since       1.0.0
+ */
+class Mailer {
+
+	/**
+	 * Retrives the blog name.
+	 *
+	 * @var     string
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $blogname;
+
+	/**
+	 * Mail subject.
+	 *
+	 * @var     string
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $subject;
+
+	/**
+	 * Admin email to receive.
+	 *
+	 * @var     string
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $email;
+
+	/**
+	 * Generating full message body.
+	 *
+	 * @var     string
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $message;
+
+	/**
+	 * Contain the headers for sending mail.
+	 *
+	 * @var     string
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $headers;
+
+	/**
+	 * Data to attach with the email.
+	 *
+	 * @var     string
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $args;
+
+	/**
+	 * Constructor of the class
+	 *
+	 * @return \Mailer
+	 * @since 1.0.0
+	 */
+	public function __construct( $args ) {
+		$this->args = $args;
+		$this->blogname = get_option( 'blogname' );
+		$this->subject  = sprintf( '%s - %s', __( 'Request for quotation', 'pqfw' ), $this->blogname );
+		$this->email    = get_option( 'admin_email' );
+
+		$this->prepare_message();
+		$this->prepare_headers();
+	}
+
+	/**
+	 * Prepare the headers for sending mail.
+	 *
+	 * @return string $headers
+	 * @since 1.0.0
+	 */
+	private function prepare_headers() {
+		$headers = "Content-Type: text/html; charset=UTF-8\n";
+		$headers .= "From: " . get_option( 'admin_email' ) . "\n";
+		$headers .= "Reply-To: " . $this->args['fullname'] . "<" . $this->args['email'] . ">\n";
+
+		return $this->headers = $headers;
+	}
+
+	/**
+	 * Prepare the mail body.
+	 *
+	 * @return string $message
+	 * @since 1.0.0
+	 */
+	private function prepare_message() {
+		$message = '<html><head><meta charset="utf-8" /></head><body>';
+		$message .= '<p><strong>' . $this->subject . '</strong></p>';
+		$message .= '<p>' . __( 'Name:', 'pqfw' ) . ' ' . $this->args['fullname'];
+		$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . $this->args['email'];
+		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . $this->args['phone'];
+		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . $this->args['comments'] . '</p>';
+		$message .= '<p>' . __( 'Request for quotation for:', 'pqfw' );
+		$message .= '<br><a href="' . get_permalink( $this->args['product_id'] ) . '">' . $this->args['product_title'] . '</a>';
+		$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . $this->args['quantity'] . '</p>';
+		$message .= '<p><a href="' . get_permalink( $this->args['product_id'] ) . '">' . get_the_post_thumbnail( $this->args['product_id'], 'thumbnail' ) . '</a></p>';
+		$message .= '</body></html>';
+
+		return $this->message = $message;
+	}
+
+	/**
+	 * Sending the mail.
+	 *
+	 * @return sucucess|error
+	 * @since 1.0.0
+	 */
+	public function send() {
+
+		$result = \wp_mail(
+			$this->email,
+			$this->subject,
+			$this->message,
+			$this->headers
+		);
+
+		if ( ! $result ) {
+			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
+		}
+	}
+
+}
