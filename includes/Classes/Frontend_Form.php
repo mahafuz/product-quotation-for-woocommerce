@@ -111,7 +111,7 @@ class Frontend_Form {
 		if ( $settings['pqfw_floating_form'] ) {
 			$classes[] = 'floating-form';
 		}
-		
+
 		?>
         <div id="pqfw-frontend-form-wrap" class="<?php echo implode( ' ', $classes ); ?>">
             <h4 class="pqfw-form-title"><?php echo $form_title; ?><span
