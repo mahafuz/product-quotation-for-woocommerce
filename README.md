@@ -19,10 +19,15 @@ Take product quotation from the buyers in one place with [Product Quotation For 
 ## 🔥 Features  ##
 
 🌟 Simple and easy to use Quotation form with name, email, phone, questions or comments fields.
+
 🚀 Uses AJAX submission and the user does not leave the page while sending the request.
+
 ⚙️ Automatically adds the product name, SKU, picture and link in the request message.
+
 💻 Automatically save each entries on Dashboard.
+
 🔔 Automatically send email to admin and emails the requests using the built-in wp_mail() WordPress function.
+
 🙌 No complicated settings. All is setup to go. Simply install it and it works.
 
 
