@@ -31,7 +31,7 @@ Take product quotation from the buyers in one place with [Product Quotation For 
 🙌 No complicated settings. All is setup to go. Simply install it and it works.
 
 
-## 💙 LOVED Templately? ##
+## 💙 LOVED Product Quotation For WooCommerce? ##
 - If you love Product Quotation For WooCommerce, rate us on [WordPress](https://wordpress.org/support/plugin/)
 
 
