@@ -46,8 +46,8 @@ class Admin {
 	 */
 	public function __construct() {
 
-		add_action( 'admin_menu', array ( $this, 'add_menu_page' ) );
-		add_action( 'admin_enqueue_scripts', array ( $this, 'admin_css' ) );
+		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_css' ) );
 
 	}
 
@@ -63,7 +63,7 @@ class Admin {
 			__( 'Product Quotation', 'PQFW' ),
 			'manage_options',
 			'pqfw-entries-page',
-			array ( $this, 'display_product_quotation_page' ),
+			array( $this, 'display_product_quotation_page' ),
 			null
 		);
 
@@ -91,6 +91,10 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function display_product_quotation_page() {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			exit;
+		}
 
 		include PQFW_PLUGIN_VIEWS . 'layout.php';
 

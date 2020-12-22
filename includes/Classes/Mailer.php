@@ -77,10 +77,11 @@ class Mailer {
 	 * @since 1.0.0
 	 */
 	public function __construct( $args ) {
-		$this->args = $args;
-		$this->blogname = get_option( 'blogname' );
+		$this->args     = $args;
+		$this->blogname = esc_attr( get_option( 'blogname' ) );
 		$this->subject  = sprintf( '%s - %s', __( 'Request for quotation', 'pqfw' ), $this->blogname );
-		$this->email    = get_option( 'admin_email' );
+		$this->email    = sanitize_email( get_option( 'admin_email' ) );
+
 
 		$this->prepare_message();
 		$this->prepare_headers();
@@ -94,8 +95,8 @@ class Mailer {
 	 */
 	private function prepare_headers() {
 		$headers = "Content-Type: text/html; charset=UTF-8\n";
-		$headers .= "From: " . get_option( 'admin_email' ) . "\n";
-		$headers .= "Reply-To: " . $this->args['fullname'] . "<" . $this->args['email'] . ">\n";
+		$headers .= "From: " . esc_attr( $this->args['email'] ) . "\n";
+		$headers .= "Reply-To: " . esc_attr( $this->args['fullname'] ) . "<" . esc_attr( $this->args['email'] ) . ">\n";
 
 		return $this->headers = $headers;
 	}
@@ -108,15 +109,15 @@ class Mailer {
 	 */
 	private function prepare_message() {
 		$message = '<html><head><meta charset="utf-8" /></head><body>';
-		$message .= '<p><strong>' . $this->subject . '</strong></p>';
-		$message .= '<p>' . __( 'Name:', 'pqfw' ) . ' ' . $this->args['fullname'];
-		$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . $this->args['email'];
-		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . $this->args['phone'];
-		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . $this->args['comments'] . '</p>';
+		$message .= '<p><strong>' . esc_attr( $this->subject ) . '</strong></p>';
+		$message .= '<p>' . __( 'Name:', 'pqfw' ) . ' ' . esc_attr( $this->args['fullname'] );
+		$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email'] );
+		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . esc_attr( $this->args['phone'] );
+		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . esc_textarea( $this->args['comments'] ) . '</p>';
 		$message .= '<p>' . __( 'Request for quotation for:', 'pqfw' );
-		$message .= '<br><a href="' . get_permalink( $this->args['product_id'] ) . '">' . $this->args['product_title'] . '</a>';
-		$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . $this->args['quantity'] . '</p>';
-		$message .= '<p><a href="' . get_permalink( $this->args['product_id'] ) . '">' . get_the_post_thumbnail( $this->args['product_id'], 'thumbnail' ) . '</a></p>';
+		$message .= '<br><a href="' . get_permalink( $this->args['product_id'] ) . '">' . esc_attr( $this->args['product_title'] ) . '</a>';
+		$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $this->args['quantity'] ) . '</p>';
+		$message .= '<p><a href="' . esc_url( get_permalink( $this->args['product_id'] ) ) . '">' . get_the_post_thumbnail( $this->args['product_id'], 'thumbnail' ) . '</a></p>';
 		$message .= '</body></html>';
 
 		return $this->message = $message;
@@ -140,6 +141,7 @@ class Mailer {
 		if ( ! $result ) {
 			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
 		}
+
 	}
 
 }

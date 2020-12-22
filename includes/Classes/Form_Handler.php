@@ -76,8 +76,8 @@ class Form_Handler {
 
 
 		$product_id       = absint( $_REQUEST['fragments']['product_id'] );
-		$product_quantity = absint( $_REQUEST['fragments']['product_quantity'] );
 		$product_title    = sanitize_text_field( $_REQUEST['fragments']['product_title'] );
+		$product_quantity = absint( $_REQUEST['fragments']['product_quantity'] );
 		$product_sku      = sanitize_text_field( $_REQUEST['fragments']['product_sku'] );
 
 		$validate = Utils::validate( $quantity, $fullname, $email, $product_id );

@@ -35,7 +35,7 @@ class Utils {
 
 		global $wpdb;
 
-		return $wpdb->prefix . self::$entries;
+		return esc_attr( $wpdb->prefix . self::$entries );
 
 	}
 
@@ -62,7 +62,7 @@ class Utils {
 			$format
 		);
 
-		return $wpdb->insert_id;
+		return absint($wpdb->insert_id);
 
 	}
 

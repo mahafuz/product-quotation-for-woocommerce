@@ -113,7 +113,7 @@ class Bootstrap {
 			$url = '?page=pqfw-entries-page';
 		}
 
-		return wp_nonce_url( admin_url( $url ), 'pqfw_admin_nonce_action', '_wpnonce' );
+		return esc_url( wp_nonce_url( admin_url( $url ), 'pqfw_admin_nonce_action', '_wpnonce' ) );
 
 	}
 

@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="pqfw-container pqfw-options-wrapper wrap">
 
     <form action="options.php" id="pqfw-settings-form">
+
         <div class="pqfw-options-box postbox">
             <h2 class="pqfw-options-box-header"><?php _e( 'General Settings', '' ); ?></h2>
             <div class="pqfw-options-settings-section">
@@ -35,10 +36,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <label for="pqfw_form_default_design">
 
                                 <input
-                                    type="checkbox"
-                                    class="pqfw-switch-control"
-                                    name="pqfw_form_default_design"
-                                    id="pqfw_form_default_design"
+                                        type="checkbox"
+                                        class="pqfw-switch-control"
+                                        name="pqfw_form_default_design"
+                                        id="pqfw_form_default_design"
 									<?php checked( $settings['pqfw_form_default_design'], 1 ); ?>
                                 >
                                 <span class="switch"></span>
@@ -52,10 +53,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <div class="control switch-control is-rounded">
                             <label for="pqfw_floating_form">
                                 <input
-                                    type="checkbox"
-                                    class="pqfw-switch-control"
-                                    name="pqfw_floating_form"
-                                    id="pqfw_floating_form"
+                                        type="checkbox"
+                                        class="pqfw-switch-control"
+                                        name="pqfw_floating_form"
+                                        id="pqfw_floating_form"
 									<?php checked( $settings['pqfw_floating_form'], 1 ); ?>
                                 >
                                 <span class="switch"></span>
@@ -65,31 +66,33 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </ul>
             </div>
         </div>
+
+        <div class="pqfw-options-box postbox">
+            <h2 class="pqfw-options-box-header"><?php _e( 'Mail Settings', '' ); ?></h2>
+            <div class="pqfw-options-settings-section">
+                <ul class="pqfw-flex">
+
+                    <li><?php _e( 'Send Mail For Each Entry', 'pqfw' ); ?></li>
+                    <li>
+                        <div class="control switch-control is-rounded">
+                            <label for="pqfw_form_send_mail">
+                                <input
+                                        type="checkbox"
+                                        class="pqfw-switch-control"
+                                        name="pqfw_form_send_mail"
+                                        id="pqfw_form_send_mail"
+									<?php checked( $settings['pqfw_form_send_mail'], 1 ); ?>
+                                >
+                                <span class="switch"></span>
+                            </label>
+                        </div>
+                    </li><!-- -->
+
+                </ul>
+            </div>
+        </div>
+
         <input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'pqfw_settings_form_action' ); ?>">
     </form>
 
-    <div class="pqfw-options-box postbox">
-        <h2 class="pqfw-options-box-header"><?php _e( 'Mail Settings', '' ); ?></h2>
-        <div class="pqfw-options-settings-section">
-            <ul class="pqfw-flex">
-
-                <li><?php _e( 'Send Mail For Each Entry', 'pqfw' ); ?></li>
-                <li>
-                    <div class="control switch-control is-rounded">
-                        <label for="pqfw_form_send_mail">
-                            <input
-                                    type="checkbox"
-                                    class="pqfw-switch-control"
-                                    name="pqfw_form_send_mail"
-                                    id="pqfw_form_send_mail"
-					            <?php checked( $settings['pqfw_form_send_mail'], 1 ); ?>
-                            >
-                            <span class="switch"></span>
-                        </label>
-                    </div>
-                </li><!-- -->
-
-            </ul>
-        </div>
-    </div>
 </div>

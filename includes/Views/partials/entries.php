@@ -24,7 +24,7 @@ $entries = Utils::fetch_entries(
 ?>
 
 <div class="pqfw-entries-wrapper wrap">
-    <h1 class="screen-reader-text"><?php __( 'Product Quotation For WooCommerce', 'pqfw' ); ?></h1>
+    <h1 class="screen-reader-text"><?php esc_html__( 'Product Quotation For WooCommerce', 'pqfw' ); ?></h1>
 
     <form method="POST">
         <div class="pqfw-form-entries">
@@ -76,9 +76,13 @@ $entries = Utils::fetch_entries(
                             <td><span><?php echo esc_attr( $entry->email ); ?></span></td>
                             <th class="col-entry-details">
 								<?php if ( Utils::get_status( $_REQUEST ) === 'trash' ) : ?>
-                                    <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-restore-entry=' . esc_attr( $entry->ID ) ); ?>"><?php _e( 'Restore', 'pqfw' ); ?></a>
-                                    <span style="color: rgb(221, 221, 221);">|</span> <a
-                                            href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-delete-entry=' . esc_attr( $entry->ID ) ); ?>"><?php _e( 'Delete Permanently', 'pqfw' ); ?></a>
+                                    <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-restore-entry=' . esc_attr( $entry->ID ) ); ?>">
+                                        <?php _e( 'Restore', 'pqfw' ); ?>
+                                    </a>
+                                    <span style="color: rgb(221, 221, 221);">|</span>
+                                    <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-delete-entry=' . esc_attr( $entry->ID ) ); ?>">
+                                        <?php _e( 'Delete Permanently', 'pqfw' ); ?>
+                                    </a>
 								<?php else : ?>
                                     <a href="<?php echo Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entry=' . esc_attr( $entry->ID ) ); ?>"
                                        class=""><?php _e( 'Details', 'pqfw' ); ?></a>

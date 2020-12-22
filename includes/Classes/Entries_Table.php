@@ -67,12 +67,18 @@ class Entries_Table {
 
 		$sub_links[] = sprintf(
 			'<li class="all"><a href="%s" %s>%s <span class="count">(%s)</span></a> | </li>',
-			Bootstrap::get_url_with_nonce(), Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '', __( 'All', 'pqfw' ), esc_attr( Utils::count_entries() )
+			Bootstrap::get_url_with_nonce(),
+			Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '',
+			esc_html__( 'All', 'pqfw' ),
+			esc_attr( Utils::count_entries() )
 		);
 
 		$sub_links[] = sprintf(
 			'<li class="trash"><a href="%s" %s>%s <span class="count">(%s)</span></a></li>',
-			Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ), Utils::get_status( $_REQUEST ) === 'trash' ? ' class="current"' : '', __( 'Trash', 'pqfw' ), esc_attr( Utils::count_entries( 'trash' ) )
+			Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ),
+			Utils::get_status( $_REQUEST ) === 'trash' ? ' class="current"' : '',
+			esc_html__( 'Trash', 'pqfw' ),
+			esc_attr( Utils::count_entries( 'trash' ) )
 		);
 
 		echo $before_list . join( "\n", $sub_links ) . $after_list;
@@ -103,7 +109,7 @@ class Entries_Table {
 		}
 
 		foreach ( $actions as $name => $title ) {
-			echo "\t" . '<option value="' . $name . '">' . $title . "</option>\n";
+			echo "\t" . '<option value="' . esc_attr( $name ) . '">' . esc_attr( $title ) . "</option>\n";
 		}
 
 		echo "</select>\n";
@@ -315,24 +321,12 @@ class Entries_Table {
 			$this->views();
 		}
 
-		echo '<div class="tablenav ' . $which . '">';
+		echo '<div class="tablenav ' . esc_attr( $which ) . '">';
 		$this->bulk_actions( $which );
 		$this->set_pagination_args();
 		$this->pagination( $which );
 		echo '</div>';
 
-	}
-
-	// implement will later.
-	protected function export_button() {
-//        echo '
-//            <div class="alignleft actions">
-//                <a href="admin-post.php?action=pqfw_export_entries&amp;selected_forms=59&amp;_wpnonce=7e3e8d9e48" class="button" style="margin-top: 0px;">
-//                <span class="dashicons dashicons-download" style="margin-top: 4px;"></span>
-//                Export Entries
-//                </a>
-//            </div>
-//        ';
 	}
 
 }

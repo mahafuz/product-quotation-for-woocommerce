@@ -183,7 +183,8 @@ class Settings {
 		if( empty( $key ) ) {
 			return false;
 		}
-		
+
+		// TODO: update settings source with local instead of saved.
 		$settings = get_option( 'pqfw_settings' );
 
 		if( isset( $settings[$key] ) ) {

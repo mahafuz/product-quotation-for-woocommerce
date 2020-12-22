@@ -54,8 +54,8 @@ class Frontend_Form {
 	 */
 	public function __construct() {
 
-		add_action( 'woocommerce_share', array ( $this, 'form' ) );
-		add_action( 'wp_enqueue_scripts', array ( $this, 'enqueue_scripts_and_stuffs' ) );
+		add_action( 'woocommerce_share', array( $this, 'form' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts_and_stuffs' ) );
 
 	}
 
@@ -70,15 +70,15 @@ class Frontend_Form {
 		wp_enqueue_script(
 			'pqfw-frontend',
 			PQFW_PLUGIN_URL . 'assets/js/pqfw-frontend.js',
-			array ( 'jquery' ), '1.0.0', true
+			array( 'jquery' ), '1.0.0', true
 		);
 
 		wp_localize_script(
 			'pqfw-frontend',
 			'PQFW_OBJECT',
-			array (
+			array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'actions' => array (
+				'actions' => array(
 					'insert_entry' => 'handle_insert_entry'
 				)
 			)
@@ -95,15 +95,15 @@ class Frontend_Form {
 	 */
 	public function form() {
 
-		$this->fragments['product_id']       = get_the_ID();
-		$this->fragments['product_title']    = get_the_title();
-		$this->fragments['product_sku']      = get_post_meta( $this->fragments['product_id'], '_sku', true );
-		$this->fragments['product_quantity'] = apply_filters( 'pqfw_product_quantity', 1 );
+		$this->fragments['product_id']       = esc_attr( get_the_ID() );
+		$this->fragments['product_title']    = esc_attr( get_the_title() );
+		$this->fragments['product_sku']      = esc_attr( get_post_meta( $this->fragments['product_id'], '_sku', true ) );
+		$this->fragments['product_quantity'] = esc_attr( apply_filters( 'pqfw_product_quantity', 1 ) ); // TODO: check if this line is necessary
 
 		$form_title = apply_filters( 'pqfw_form_title', __( 'Request quotation for: ', 'pqfw' ) );
-		$settings   = get_option( 'pqfw_settings' );
+		$settings   = get_option( 'pqfw_settings' ); // TODO: Problem in fresh install this returns empty.
 
-		$classes = array ();
+		$classes = array();
 
 		if ( $settings['pqfw_form_default_design'] ) {
 			$classes[] = 'use-pqfw-form-default-design';
@@ -114,8 +114,9 @@ class Frontend_Form {
 
 		?>
         <div id="pqfw-frontend-form-wrap" class="<?php echo implode( ' ', $classes ); ?>">
-            <h4 class="pqfw-form-title"><?php echo $form_title; ?><span
-                        class="title"><?php echo $this->fragments['product_title']; ?></span></h4>
+            <h4 class="pqfw-form-title"><?php echo esc_attr( $form_title ); ?>
+                <span class="title"><?php echo $this->fragments['product_title']; ?></span>
+            </h4>
             <div class="pqfw-form">
                 <form id="pqfw-frontend-form">
 
@@ -131,7 +132,7 @@ class Frontend_Form {
                                 type="submit"
                                 id="rsrfqfwc_submit"
                                 name="rsrfqfwc_submit"
-                                value="<?php echo __( 'Submit Query', 'pqfw' ); ?>"
+                                value="<?php echo esc_html__( 'Submit Query', 'pqfw' ); ?>"
                                 class="submit"
                         />
                         <div class="loading-spinner"></div>
