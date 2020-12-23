@@ -92,10 +92,6 @@ class Admin {
 	 */
 	public function display_product_quotation_page() {
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			exit;
-		}
-
 		include PQFW_PLUGIN_VIEWS . 'layout.php';
 
 	}
