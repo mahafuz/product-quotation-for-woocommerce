@@ -64,7 +64,7 @@ class Admin {
 			'manage_options',
 			'pqfw-entries-page',
 			array( $this, 'display_product_quotation_page' ),
-			null
+			PQFW_PLUGIN_URL . 'assets/images/pqfw-dashboard-icon.png'
 		);
 
 	}
