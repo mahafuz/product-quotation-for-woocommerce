@@ -54,6 +54,14 @@ class Settings {
 	protected $saved_settings;
 
 	/**
+	 * Contain saved and unsaved settings.
+	 *
+	 * @access private
+	 * @since 1.0.0
+	 */
+	private static $all_settings;
+
+	/**
 	 * Constructor of the class
 	 *
 	 * @return \Settings
@@ -64,6 +72,7 @@ class Settings {
 		add_action( 'admin_menu', array ( $this, 'add_settings_page' ) );
 		add_action( 'wp_ajax_pqrf_save_settings', array ( $this, 'save_settings' ) );
 		add_action( 'admin_enqueue_scripts', array ( $this, 'enqueue_scripts' ) );
+		$settings = $this->get_saved_settings();
 
 	}
 
@@ -116,8 +125,18 @@ class Settings {
 		$this->default_settings = array_fill_keys( $this->default_settings, true );
 		$this->saved_settings   = get_option( 'pqfw_settings', $this->default_settings );
 
-		return wp_parse_args( $this->saved_settings, $this->default_settings );
+		return self::$all_settings = wp_parse_args( $this->saved_settings, $this->default_settings );
 
+	}
+
+	/**
+	 * Returns all settings.
+	 *
+	 * @access public
+	 * return array $all_settings
+	 */
+	public static function get_all_settings() {
+		return self::$all_settings;
 	}
 
 	/**
@@ -184,8 +203,7 @@ class Settings {
 			return false;
 		}
 
-		// TODO: update settings source with local instead of saved.
-		$settings = get_option( 'pqfw_settings' );
+		$settings = self::$all_settings;
 
 		if( isset( $settings[$key] ) ) {
 			return $settings[$key];

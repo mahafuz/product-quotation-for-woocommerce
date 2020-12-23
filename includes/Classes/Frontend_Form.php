@@ -98,10 +98,10 @@ class Frontend_Form {
 		$this->fragments['product_id']       = esc_attr( get_the_ID() );
 		$this->fragments['product_title']    = esc_attr( get_the_title() );
 		$this->fragments['product_sku']      = esc_attr( get_post_meta( $this->fragments['product_id'], '_sku', true ) );
-		$this->fragments['product_quantity'] = esc_attr( apply_filters( 'pqfw_product_quantity', 1 ) ); // TODO: check if this line is necessary
+		$this->fragments['product_quantity'] = esc_attr( apply_filters( 'pqfw_product_quantity', 1 ) );
 
 		$form_title = apply_filters( 'pqfw_form_title', __( 'Request quotation for: ', 'pqfw' ) );
-		$settings   = get_option( 'pqfw_settings' ); // TODO: Problem in fresh install this returns empty.
+		$settings   = Settings::get_all_settings();
 
 		$classes = array();
 
