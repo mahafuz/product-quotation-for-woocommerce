@@ -36,7 +36,7 @@ class Entries_Table {
 	 */
 	public function get_per_page() {
 
-		return 3;
+		return 10;
 
 	}
 
