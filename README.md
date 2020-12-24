@@ -32,10 +32,10 @@ Take product quotation from the buyers in one place with [Product Quotation For 
 
 
 ## 💙 LOVED Product Quotation For WooCommerce? ##
-- If you love Product Quotation For WooCommerce, rate us on [WordPress](https://wordpress.org/support/plugin/)
+- If you love Product Quotation For WooCommerce, rate us on [WordPress](https://wordpress.org/plugins/product-quotation-for-woocommerce/#reviews)
 
 
-Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/product-quotation-for-woocommerce) to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks](https://wpdeveloper.net/blog).
+Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/product-quotation-for-woocommerce) to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks]https://github.com/mahafuz/product-quotation-for-woocommerce).
 
 == Installation ==
 
@@ -55,14 +55,15 @@ Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/produc
 
 Yes, it will work with any standard WordPress theme.
 
+= Does it required WooCommerce plugin? =
+Yes, it will only work with WooCommerce Plugin.
+
 
 == Screenshots ==
 
-1. Template Gallery
-2. Importing ready templates
-3. Saving templates in cloud
-4. Importing templates from MyCloud
-5. MyCloud saved items
+1. Quotation Form
+2. Form Entries
+3. Settings Page
 
 == Changelog ==
 
