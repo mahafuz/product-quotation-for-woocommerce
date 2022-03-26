@@ -79,7 +79,7 @@ class Form {
 				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
 				'ViewCartLabel' => __( 'View Quotation Cart', 'pqfw' ),
 				'cartPageUrl'   => get_permalink( $cartPageId ),
-				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.svg',
+				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.gif',
 				'actions'       => [
 					'addToQuotations' => 'handle_insert_entry'
 				]
@@ -133,7 +133,7 @@ class Form {
 	 * @since   1.0.0
 	 */
 	public function form() {
-		$this->fragments['products'] = wp_json_encode( pqfw()->quotations->getProductsInEnquirySession() );
+		$this->fragments['products'] = wp_json_encode( pqfw()->quotations->getProducts() );
 
 		$form_title = apply_filters( 'pqfw_form_title', __( 'Request quotation for: ', 'pqfw' ) );
 		$settings   = pqfw()->settings->get();

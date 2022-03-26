@@ -38,7 +38,7 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function getCartData() {
-		$products = pqfw()->quotations->getProductsInEnquirySession();
+		$products = pqfw()->quotations->getProducts();
 		echo wp_json_encode( $products );
 		die;
 	}
@@ -49,7 +49,7 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function InitializeCart() {
-		$products = pqfw()->quotations->getProductsInEnquirySession();
+		$products = pqfw()->quotations->getProducts();
 		$cart     = '';
 
 		ob_start();
@@ -77,7 +77,7 @@ class Request {
 			$variation = absint( $_POST['variationID'] );
 
 			$variationDetail = pqfw()->quotations->sanitizeVariationDetail( $_POST['variationDetails'] );
-			$products        = pqfw()->quotations->addProductToEnquirySession( $id, $quantity, $variation, $variationDetail );
+			$products        = pqfw()->quotations->addProduct( $id, $quantity, $variation, $variationDetail );
 		}
 
 		die;
@@ -91,7 +91,7 @@ class Request {
 	public function removeProduct() {
 		$hash     = sanitize_text_field( $_POST['hash'] );
 		$cart     = '';
-		$products = pqfw()->quotations->removeProductFromEnquirySession( $hash );
+		$products = pqfw()->quotations->removeProduct( $hash );
 
 		ob_start();
 			pqfw()->cart->generateHTML( $products );
@@ -113,7 +113,7 @@ class Request {
 	 */
 	public function updateProducts() {
 		$cart     = '';
-		$products = pqfw()->quotations->addProductsToEnquirySession( $_POST['products'] );
+		$products = pqfw()->quotations->addProducts( $_POST['products'] );
 
 		ob_start();
 			pqfw()->cart->generateHTML( $products );

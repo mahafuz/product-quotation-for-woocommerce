@@ -27,7 +27,8 @@ class Migration {
 	 * @return  void
 	 */
 	public function run() {
-		$this->create_tables();
+		$this->createTable();
+		$this->createCartPage();
 	}
 
 	/**
@@ -37,7 +38,7 @@ class Migration {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	private function create_tables() {
+	private function createTable() {
 		global $wpdb;
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 

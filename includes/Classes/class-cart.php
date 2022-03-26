@@ -8,8 +8,6 @@
 
 namespace PQFW\Classes;
 
-// TODO: Rewrite this class methods.
-
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
@@ -39,28 +37,28 @@ class Cart {
 		}
 
 		foreach ( $products as $key => $product ) {
-			$product_obj = wc_get_product( $product['id'] );
-			$product_permalink = $product_obj->get_permalink();
+			$productOBJ = wc_get_product( $product['id'] );
+			$permalink  = $productOBJ->get_permalink();
 			?>
 			<tr class="woocommerce-cart-form__cart-item" id="<?php echo esc_attr( $key ); ?>">
 				<td class="product-remove">
-					<a href="javascript:void(0)" class="remove pqfw-remove-product"  data-id="<?php echo $key; ?>">&times;</a>
-					<input type="hidden" name="products[<?php echo $key; ?>][id]" value="<?php echo $product['id']; ?>"/>
+					<a href="javascript:void(0)" class="remove pqfw-remove-product"  data-id="<?php echo esc_attr( $key ); ?>">&times;</a>
+					<input type="hidden" name="products[<?php echo esc_attr( $key ); ?>][id]" value="<?php echo absint( $product['id'] ); ?>"/>
 				</td>
 				<td class="product-thumbnail pqfw-thumbnail">
 					<?php
-						$thumbnail = $this->getImage( $product['id'], $product['variation'] );
-						printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail );	
+						$thumbnail = $this->getThumbnail( $product['id'], $product['variation'] );
+						printf( '<a href="%s">%s</a>', esc_url( $permalink ), $thumbnail );	
 					?>
 				</td>
 				<td class="product-name" data-title="<?php esc_html_e( 'Product', 'woocommerce' ); ?>">
 					<?php
-						printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), esc_attr( $product_obj->get_name() ) );
-						$this->get_variations( $product_obj, $product['variation_detail'], true );
+						printf( '<a href="%s">%s</a>', esc_url( $permalink ), esc_attr( $productOBJ->get_name() ) );
+						$this->getVariations( $productOBJ, $product['variation_detail'], true );
 					?>
 				</td>
 				<td class="product-price" data-title="<?php esc_html_e( 'Price', 'woocommerce' ); ?>">
-					<?php echo wc_price( $this->get_price_simple_variation( $product_obj, $product['variation'] ) ); ?>
+					<?php echo wp_kses_post( wc_price( $this->getSimpleVariationPrice( $productOBJ, $product['variation'] ) ) ); ?>
 				</td>
 				<td class="product-quantity" data-title="<?php esc_html_e( 'Quantity', 'woocommerce' ); ?>">
 					<input
@@ -99,7 +97,7 @@ class Cart {
 	 * @param  integer $variation_id The product variation ID.
 	 * @return string|html           Generated image.
 	 */
-	public function getImage( $product_id, $variation_id ){
+	public function getThumbnail( $product_id, $variation_id ) {
 		if ( empty( $variation_id ) ) {
 			$product = wc_get_product( $product_id );
 		} else {
@@ -130,7 +128,7 @@ class Cart {
 	 * @param  boolean $echo              false.
 	 * @return string|html                Generated image.
 	 */
-	public function get_variations( $product, $variations_detail, $echo = false ) {
+	public function getVariations( $product, $variations_detail, $echo = false ) {
 		if ( null === $variations_detail || '' === $variations_detail || false === $variations_detail ) { 
 			return;
 		}
@@ -148,7 +146,7 @@ class Cart {
 			}
 		}
 		if ( $echo ) {
-			$this->variation_html( $variations_label );
+			$this->getVariationHtml( $variations_label );
 		} else {
 			return $variations_label;
 		}
@@ -162,7 +160,7 @@ class Cart {
 	 * @param  array $variations_label Variations labels.
 	 * @return void                    Generated image.
 	 */
-	public function variation_html( $variations_label ) {
+	public function getVariationHtml( $variations_label ) {
 		if ( is_array( $variations_label ) ) {
 			echo '<br>';
 			foreach ( $variations_label as $key => $value ) {
@@ -180,12 +178,12 @@ class Cart {
 	 * @param  integer $variation_id Variation ID.
 	 * @return integer               Variation price.
 	 */
-	public function get_price_simple_variation( $product, $variation_id ) {
+	public function getSimpleVariationPrice( $product, $variation_id ) {
 		if ( $product->is_type( 'simple' ) ) {
-			return $this->get_price( $product );
+			return $this->getPrice( $product );
 		} elseif ( $product->is_type( 'variable' ) ) {
 			$variation_product = new \WC_Product_Variation( $variation_id );
-			return $this->get_price( $variation_product );
+			return $this->getPrice( $variation_product );
 		}
 	}
 
@@ -197,7 +195,7 @@ class Cart {
 	 * @param  object $product Product object.
 	 * @return integer         Sale price.
 	 */
-	public function get_price( $product ) {
+	public function getPrice( $product ) {
 		if ( $product->is_on_sale() ) {
 			return $product->get_sale_price();
 		}

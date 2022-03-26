@@ -34,7 +34,7 @@ class Shortcode {
 	 */
 	public function render() {
 		ob_start();
-			$products = pqfw()->quotations->getProductsInEnquirySession();
+			$products = pqfw()->quotations->getProducts();
 				include PQFW_PLUGIN_VIEWS . 'partials/pqfw-cart-shortcode.php';
 			$output = ob_get_contents();
 		ob_end_clean();

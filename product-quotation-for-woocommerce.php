@@ -33,25 +33,11 @@ define( 'PQFW_PLUGIN_VERSION', '1.0.0' );
  * @since 1.0.0
  */
 register_activation_hook(__FILE__, function () {
-	$migration = new \PQFW\Classes\Migration();
-	$migration->run();
-	$migration->createCartPage();
+	pqfw()->migration->run();
 });
 
 require PQFW_PLUGIN_PATH . 'includes/PQFW.php';
 
-add_action( 'plugins_loaded', function () {
-	if ( ! function_exists( 'pqfw' ) ) {
-
-		/**
-		 * Run the plugin after all other plugins.
-		 *
-		 * @since 1.0.0
-		 */
-		function pqfw() {
-			return \PQFW\PQFW::instance();
-		}
-
-		pqfw();
-	}
+add_action( 'plugins_loaded', function() {
+	pqfw();
 });

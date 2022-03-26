@@ -11,8 +11,6 @@ namespace PQFW\Classes;
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
-// TODO: optimize getAll & get_all_settings
-
 /**
  * Manages the options form dashboard.
  *

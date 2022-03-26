@@ -50,6 +50,7 @@ namespace PQFW {
 		 */
 		public function init() {
 			$this->includes();
+			$this->preLoad();
 			$this->loader();
 		}
 
@@ -73,6 +74,17 @@ namespace PQFW {
 
 				require PQFW_PLUGIN_PATH . $path;
 			}
+		}
+
+		/**
+		 * Runs before load the plugin.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @return void
+		 */
+		private function preLoad() {
+			$this->migration = new \PQFW\Classes\Migration();
 		}
 
 
@@ -157,8 +169,22 @@ namespace PQFW {
 
 			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
 
-			printf( '<div class="error"><p>%1$s</p>%2$s</div>', esc_attr( $message, ), esc_attr( $button ) );
+			printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
 		}
 	}
 
+}
+
+namespace {
+	// if direct access than exit the file.
+	defined( 'ABSPATH' ) || exit;
+
+	/**
+	 * Run the plugin after all other plugins.
+	 *
+	 * @since 1.0.0
+	 */
+	function pqfw() {
+		return \PQFW\PQFW::instance();
+	}
 }

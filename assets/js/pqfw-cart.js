@@ -56,6 +56,7 @@
             $('#pqfw-enquiry-list-row').html( $parsed.html );
             window.pqfwProducts = $parsed.products;
             this.hideLoader();
+            this.visibleForm($parsed.products);
         },
         hideLoader: function () {
             $('#pqfw-enquiry-list-row').unblock();
@@ -91,6 +92,13 @@
                     console.error(response);
                 }
             });
+        },
+        visibleForm:function( products ) {
+            if (products == null || products.length == 0) {
+                $("#pqfw-frontend-form-wrap").css( "display", "none" );
+            } else {
+                $("#pqfw-frontend-form-wrap").css( "display", "block" );
+            }
         },
         updateProduct: function (products) {
             pqfwCart.showLoader();

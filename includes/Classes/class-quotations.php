@@ -11,8 +11,6 @@ namespace PQFW\Classes;
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
-// TODO: Rename/rewrite this class.
-
 /**
  * Form Handler class.
  *
@@ -29,14 +27,8 @@ class Quotations {
 	 * @return boolean      Product existence.
 	 */
 	public function ifExistsInCart( $hash ) {
-		$products = $this->getProductsInEnquirySession();
-		$present = false;
-
-		if ( isset( $products[ $hash ] ) ) {
-			$present = true;
-		}
-
-		return $present;
+		$products = $this->getProducts();
+		return isset( $products[ $hash ] );
 	}
 
 	/**
@@ -71,7 +63,7 @@ class Quotations {
 	private function isVariable( $id ) {
 		$product = wc_get_product( $id );
 
-		return $product->is_type( 'variable' ) ? true : false;
+		return $product->is_type( 'variable' );
 	}
 
 	/**
@@ -83,7 +75,7 @@ class Quotations {
 	 * @param  array   $variationDetails The variation detail.
 	 * @return string                    Generated hash.
 	 */
-	private function hashGenerator( $id, $variationDetails ) {
+	private function generateHash( $id, $variationDetails ) {
 		$value = '';
 
 		if ( is_array( $variationDetails ) && count( $variationDetails ) > 0 ) {
@@ -105,14 +97,14 @@ class Quotations {
 	 * @param  string $hash The product identifier hash.
 	 * @return bool
 	 */
-	public function removeProductFromEnquirySession( $hash ) {
-		$products = $this->getProductsInEnquirySession();
+	public function removeProduct( $hash ) {
+		$products = $this->getProducts();
 
 		if ( is_array( $products ) && count( $products ) > 0 ) {
 			unset( $products[ $hash ] );
 		}
 
-		return $this->addProductsToEnquirySession( $products );
+		return $this->addProducts( $products );
 	}
 
 	/**
@@ -123,11 +115,11 @@ class Quotations {
 	 * @param string $hash     Product identifier hash.
 	 * @param mixed  $quantity New product quantity.
 	 */
-	private function changeQuantityInEnquirySession( $hash, $quantity = false ) {
-		$products = $this->getProductsInEnquirySession();
+	private function updateQuantity( $hash, $quantity = false ) {
+		$products = $this->getProducts();
 
 		if ( 0 === $quantity ) {
-			$this->removeProductFromEnquirySession( $hash );
+			$this->removeProduct( $hash );
 			return;
 		}
 
@@ -139,7 +131,7 @@ class Quotations {
 			}
 		}
 
-		$this->addProductsToEnquirySession( $products );
+		$this->addProducts( $products );
 	}
 
 	/**
@@ -150,14 +142,14 @@ class Quotations {
 	 * @param  array $products The products for add to the cart.
 	 * @return bool
 	 */
-	public function addProductsToEnquirySession( $products ) {
+	public function addProducts( $products ) {
 		$products = $this->sanitizeProducts( $products );
 
 		if ( isset( WC()->session ) ) {
 			WC()->session->set( 'pqfw_products_quotations_list', $products );
 		}
 
-		return $this->getProductsInEnquirySession();
+		return $this->getProducts();
 	}
 
 	/**
@@ -197,8 +189,8 @@ class Quotations {
 	 * @param  integer $variation_detail Product variation details.
 	 * @return bool
 	 */
-	public function addProductToEnquirySession( $id, $quantity, $variation, $variation_detail ) {
-		$products = $this->getProductsInEnquirySession();
+	public function addProduct( $id, $quantity, $variation, $variation_detail ) {
+		$products = $this->getProducts();
 		$message  = '';
 
 		if ( $this->isVariable( $id ) && false === $variation ) {
@@ -213,20 +205,20 @@ class Quotations {
 			'message'          => strip_tags( $message )
 		];
 
-		$hash = $this->hashGenerator( $new_product['id'], $variation_detail );
+		$hash = $this->generateHash( $new_product['id'], $variation_detail );
 
 		if ( $this->ifExistsInCart( $hash ) ) {
 			/**
 			 * This will increment it by one,
 			 * as we are not entering the new quantity variable
 			 */
-			$this->changeQuantityInEnquirySession( $hash, $new_product['quantity'] );
+			$this->updateQuantity( $hash, $new_product['quantity'] );
 			return;
 		} else {
 			$products[ $hash ] = $new_product;
 		}
 
-		return $this->addProductsToEnquirySession( $products );
+		return $this->addProducts( $products );
 	}
 
 	/**
@@ -235,7 +227,7 @@ class Quotations {
 	 * @since  1.2.0
 	 * @return array The product collection.
 	 */
-	public function getProductsInEnquirySession() {
+	public function getProducts() {
 		$products = [];
 
 		if ( isset( WC()->session ) ) {
