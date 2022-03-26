@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PQFW\Database;
+namespace PQFW\Classes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -148,7 +148,7 @@ class Utils {
 	 * @since 1.0.0
 	 *
 	 */
-	public static function fetch_entries( $count, $offset, $status = 'publish' ) {
+	public function fetch_entries( $count, $offset, $status = 'publish' ) {
 
 		global $wpdb;
 

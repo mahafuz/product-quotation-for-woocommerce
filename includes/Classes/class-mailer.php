@@ -1,4 +1,10 @@
 <?php
+/**
+ * Responsible for sending mails to users.
+ *
+ * @since 1.0.0
+ * @package PQFW
+ */
 
 namespace PQFW\Classes;
 
@@ -7,12 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 /**
- * Admin class
+ * Mailer class
  *
- *
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.0.0
+ * @since   1.0.0
  */
 class Mailer {
 
@@ -73,15 +76,14 @@ class Mailer {
 	/**
 	 * Constructor of the class
 	 *
-	 * @return \Mailer
 	 * @since 1.0.0
+	 * @param array $args Arguments for sending the mail.
 	 */
 	public function __construct( $args ) {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
 		$this->subject  = sprintf( '%s - %s', __( 'Request for quotation', 'pqfw' ), $this->blogname );
 		$this->email    = sanitize_email( get_option( 'admin_email' ) );
-
 
 		$this->prepare_message();
 		$this->prepare_headers();
@@ -95,17 +97,18 @@ class Mailer {
 	 */
 	private function prepare_headers() {
 		$headers = "Content-Type: text/html; charset=UTF-8\n";
-		$headers .= "From: " . esc_attr( $this->args['email'] ) . "\n";
-		$headers .= "Reply-To: " . esc_attr( $this->args['fullname'] ) . "<" . esc_attr( $this->args['email'] ) . ">\n";
+		$headers .= 'From: ' . esc_attr( $this->args['email'] ) . "\n";
+		$headers .= 'Reply-To: ' . esc_attr( $this->args['fullname'] ) . '<' . esc_attr( $this->args['email'] ) . ">\n";
+		$this->headers = $headers;
 
-		return $this->headers = $headers;
+		return $this->headers;
 	}
 
 	/**
 	 * Prepare the mail body.
 	 *
-	 * @return string $message
 	 * @since 1.0.0
+	 * @return string $message
 	 */
 	private function prepare_message() {
 		$message = '<html><head><meta charset="utf-8" /></head><body>';
@@ -120,17 +123,18 @@ class Mailer {
 		$message .= '<p><a href="' . esc_url( get_permalink( $this->args['product_id'] ) ) . '">' . get_the_post_thumbnail( $this->args['product_id'], 'thumbnail' ) . '</a></p>';
 		$message .= '</body></html>';
 
-		return $this->message = $message;
+		$this->message = $message;
+
+		return $this->message;
 	}
 
 	/**
 	 * Sending the mail.
 	 *
-	 * @return sucucess|error
 	 * @since 1.0.0
+	 * @return void|error
 	 */
 	public function send() {
-
 		$result = \wp_mail(
 			$this->email,
 			$this->subject,
@@ -141,7 +145,5 @@ class Mailer {
 		if ( ! $result ) {
 			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
 		}
-
 	}
-
 }

@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<ruleset name="WPOOL team">
+    <description>WPPOOL Plugin Coding Standard</description>
+
+    <!-- Scan all files in directory -->
+    <file>.</file>
+    <!-- Scan only PHP files -->
+    <arg name="extensions" value="php"/>
+    <arg value="ps"/>
+
+    <exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>*/languages/*.php</exclude-pattern>
+	<exclude-pattern>dist/*</exclude-pattern>
+	<exclude-pattern>*/PhpInsight/*</exclude-pattern>
+
+    
+
+    <!-- Show colors in console -->
+    <arg value="-colors"/>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="ns"/>
+
+    <!-- Include the WordPress-Extra standard. -->
+    <rule ref="WordPress-Extra">
+        <!-- Exclude any rules here -->
+        <exclude name="WordPress.PHP.DisallowShortTernary"/>
+    </rule>
+
+    <rule ref="WordPress-Core">
+		<!-- Allow with or without semicolons. -->
+		<exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon" />
+
+		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
+
+		<!-- Exclude other conflicting rules. -->
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+		<exclude name="WordPress.NamingConventions.ValidVariableName" />
+		<exclude name="WordPress.Arrays.CommaAfterArrayItem.NoComma" />
+		<exclude name="WordPress.NamingConventions.ValidFunctionName" />
+		<exclude name="WordPress.PHP.NoSilencedErrors.Discouraged" />
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
+	</rule>
+
+
+    <!-- Use generic WP escaping rule in place of excluded rule. -->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array">
+				<!-- Allow all the built-in URL functions -->
+				<element value="home_url" />
+				<element value="get_home_url" />
+				<element value="site_url" />
+				<element value="get_site_url" />
+				<element value="admin_url" />
+				<element value="get_admin_url" />
+				<element value="includes_url" />
+				<element value="content_url" />
+				<element value="plugins_url" />
+				<element value="network_site_url" />
+				<element value="network_home_url" />
+				<element value="network_admin_url" />
+				<element value="user_admin_url" />
+				<element value="self_admin_url" />
+​
+				<!-- Other URL functions -->
+				<element value="get_template_directory_uri" />
+				<element value="get_theme_file_uri" />
+				<element value="get_term_link" />
+				<element value="wp_nonce_url" />
+​
+				<!-- Other templating tags. -->
+				<element value="paginate_links" />
+				<element value="get_the_title" />
+				<element value="get_post_gallery" /> <!-- with param 2 set to true, the default -->
+			</property>
+		</properties>
+	</rule>
+
+    <rule ref="WordPress.Security.PluginMenuSlug" />
+	<rule ref="WordPress.Security.PluginMenuSlug.Using__FILE__">
+		<type>error</type>
+	</rule>
+
+	<!-- Allow the use of filesystem functions. -->
+	<rule ref="WordPress.WP.AlternativeFunctions">
+		<properties>
+			<property name="exclude" value="file_get_contents,file_system_read" />
+			<property name="exclude" value="json_encode,json_decode" />
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.CronInterval" />
+	<rule ref="WordPress.WP.CronInterval.CronSchedulesInterval">
+		<type>error</type>
+		<message>Scheduling crons at %s sec ( less than %s minutes ) is prohibited.</message>
+	</rule>
+
+    <rule ref="WordPress.DateTime.RestrictedFunctions" />
+
+    <!--
+		Restore the ability to have multiple arguments per line
+		WPCS disallowed this behavior in 1.1.0, but we'd like to keep it until
+		there is a reason to disallow multiple arguments.
+		Ref: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/commit/bb8a48671e213a5588a6439ea52411eeefab4b0f
+	-->
+	<rule ref="PEAR.Functions.FunctionCallSignature">
+		<properties>
+			<property name="allowMultipleArguments" value="true"/>
+		</properties>
+	</rule>
+	<rule ref="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket">
+		<severity>0</severity>
+	</rule>
+	<rule ref="PEAR.Functions.FunctionCallSignature.CloseBracketLine">
+		<severity>0</severity>
+	</rule>
+
+
+<!--
+	HM Rules / HM RULEZZZZ
+	https://engineering.hmn.md/how-we-work/style/php/
+	-->
+
+	<!-- Disallow long array syntax. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+	<!-- Single statement on same line. -->
+	<rule ref="Generic.Formatting.DisallowMultipleStatements" />
+
+	<!-- Namespacing required for classes. -->
+	<rule ref="PSR1.Classes.ClassDeclaration" />
+
+	<!-- Declare symbols or run code, but not both. -->
+	<rule ref="PSR1.Files.SideEffects" />
+
+	<!-- Namespacing required for functions. -->
+	<rule ref="PSR2.Namespaces.NamespaceDeclaration" />
+	<rule ref="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Namespacing of `use` statements. -->
+	<!--rule ref="PSR2.Namespaces.UseDeclaration">
+		<exclude name="PSR2.Namespaces.UseDeclaration.MultipleDeclarations" />
+	</rule>
+	<rule ref="PSR2R.Namespaces.UnusedUseStatement" />
+	<rule ref="PSR2R.Namespaces.UseInAlphabeticalOrder" /-->
+
+	<!-- Ban inline assignment in control structures (see note on Yoda Conditions above). -->
+	<!--rule ref="PSR2R.ControlStructures.NoInlineAssignment" /-->
+
+	<!--
+		Disregard WP's class file name rules which says:
+		"Class file names should be based on the class name with class-
+		prepended and the underscores in the class name replaced with hyphens."
+	-->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false" />
+		</properties>
+	</rule>
+
+	<!--
+		Disable the new line at the end of file rule.
+	-->
+	<rule ref="Generic.Files">
+		<exclude name="Generic.Files.EndFileNewline"/>
+		<exclude name="Generic.Files.LowercasedFilename.NotFound"/>
+		<exclude name="Generic.Files.InlineHTML.Found" />
+	</rule>
+
+	<rule ref="PSR1.Files">
+		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
+	</rule>
+
+	<!--
+		Warn about lines longer than 200 chars,
+		and error for lines longer than 200 chars.
+	-->
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="200" />
+			<property name="absoluteLineLimit" value="200" />
+		</properties>
+	</rule>
+
+	<rule ref="PSR1.Classes.ClassDeclaration">
+		<exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
+	</rule>
+
+    <!-- Prefer alignment over line length. -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="1000" />
+		</properties>
+	</rule>
+
+    
+
+	<rule ref="WordPress.DB.SlowDBQuery" />
+
+	<!-- Allow . in hook names. -->
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="." />
+		</properties>
+	</rule>
+
+    <!-- Let's also check that everything is properly documented. -->
+    <rule ref="WordPress-Docs"/>
+
+    <!-- Add in some extra rules from other standards. -->
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.Commenting.Todo"/>
+
+    <config name="minimum_supported_wp_version" value="4.9"/>
+</ruleset>

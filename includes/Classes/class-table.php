@@ -1,23 +1,23 @@
 <?php
+/**
+ * This class contains utilities methods for managing entries table.
+ *
+ * @since 1.0.0
+ * @package PQFW
+ */
 
 namespace PQFW\Classes;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
-
-use PQFW\Bootstrap;
-use \PQFW\Database\Utils;
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Responsible form Entries Table.
+ * Responsible for Entries Table.
  *
- *
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.0.0
+ * @package PQFW
+ * @since   1.0.0
  */
-class Entries_Table {
+class Table {
 
 	/**
 	 * Various information needed for displaying the pagination.
@@ -25,7 +25,7 @@ class Entries_Table {
 	 * @since 1.0.0
 	 * @var array
 	 */
-	protected $pagination_args = array ();
+	protected $pagination_args = [];
 
 	/**
 	 * Retrives entries per page count.
@@ -35,9 +35,7 @@ class Entries_Table {
 	 * @todo get data from options page in the future.
 	 */
 	public function get_per_page() {
-
 		return 10;
-
 	}
 
 	/**
@@ -47,11 +45,9 @@ class Entries_Table {
 	 * @since 1.0.0
 	 */
 	public function get_offset() {
-
 		$paged = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 1;
 
 		return absint( ( $this->get_per_page() * $paged ) - $this->get_per_page() );
-
 	}
 
 	/**
@@ -60,51 +56,46 @@ class Entries_Table {
 	 * @since 1.0.0
 	 */
 	protected function views() {
-
 		$before_list = '<div><div><ul class="subsubsub">';
 		$after_list  = '</ul></div></div>';
-		$sub_links   = array ();
+		$sub_links   = [];
 
 		$sub_links[] = sprintf(
 			'<li class="all"><a href="%s" %s>%s <span class="count">(%s)</span></a> | </li>',
-			Bootstrap::get_url_with_nonce(),
-			Utils::get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '',
+			pqfw()->get_url_with_nonce(),
+			pqfw()->utils->get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '',
 			esc_html__( 'All', 'pqfw' ),
-			esc_attr( Utils::count_entries() )
+			esc_attr( pqfw()->utils->count_entries() )
 		);
 
 		$sub_links[] = sprintf(
 			'<li class="trash"><a href="%s" %s>%s <span class="count">(%s)</span></a></li>',
-			Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ),
-			Utils::get_status( $_REQUEST ) === 'trash' ? ' class="current"' : '',
+			pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ),
+			pqfw()->utils->get_status( $_REQUEST ) === 'trash' ? ' class="current"' : '',
 			esc_html__( 'Trash', 'pqfw' ),
-			esc_attr( Utils::count_entries( 'trash' ) )
+			esc_attr( pqfw()->utils->count_entries( 'trash' ) )
 		);
 
 		echo $before_list . join( "\n", $sub_links ) . $after_list;
-
 	}
 
 	/**
 	 * Displays the bulk actions dropdown.
 	 *
-	 * @param string $which The location of the bulk actions: 'top' or 'bottom'.
-	 *
 	 * @since 1.0.0
-	 *
+	 * @param string $which The location of the bulk actions: 'top' or 'bottom'.
 	 */
 	protected function bulk_actions( $which ) {
-
 		echo '<div class="alignleft actions bulkactions">';
 		echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . __( 'Select bulk action' ) . '</label>';
 		echo '<select name="action" id="bulk-action-selector-' . esc_attr( $which ) . "\">\n";
-		echo '<option value="-1">' . __( 'Bulk actions' ) . "</option>\n";
+		echo '<option value="-1">' . esc_html__( 'Bulk actions', 'pqfw' ) . "</option>\n";
 
-		$actions = array (
+		$actions = [
 			'delete' => __( 'Delete Entries', 'pqfw' )
-		);
+		];
 
-		if ( Utils::get_status( $_REQUEST ) === 'trash' ) {
+		if ( 'trash' === pqfw()->utils->get_status( $_REQUEST ) ) {
 			$actions['restore'] = __( 'Restore', 'pqfw' );
 		}
 
@@ -114,23 +105,20 @@ class Entries_Table {
 
 		echo "</select>\n";
 
-		echo '<input type="hidden" name="_wpnonce" value="' . Bootstrap::get_url_with_nonce() . '" />';
+		echo '<input type="hidden" name="_wpnonce" value="' . esc_attr( pqfw()->get_url_with_nonce() ) . '" />';
 
 		submit_button( __( 'Apply' ), 'action', '', false );
 		echo '</div>';
 		echo "\n";
-
 	}
 
 	/**
 	 * Gets the current page number.
 	 *
+	 * @since  1.0.0
 	 * @return int
-	 * @since 1.0.0
-	 *
 	 */
 	protected function get_pagenum() {
-
 		$pagenum = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
 
 		if ( isset( $this->pagination_args['total_pages'] ) && $pagenum > $this->pagination_args['total_pages'] ) {
@@ -138,27 +126,23 @@ class Entries_Table {
 		}
 
 		return max( 1, $pagenum );
-
 	}
 
 	/**
 	 * An internal method that sets all the necessary pagination arguments
 	 *
-	 * @param array|string $args Array or string of arguments with information about the pagination.
-	 *
 	 * @since 1.0.0
-	 *
 	 */
 	protected function set_pagination_args() {
 
-		$args = array (
-			'total_items' => Utils::count_entries(),
+		$args = [
+			'total_items' => pqfw()->utils->count_entries(),
 			'total_pages' => 0,
 			'per_page'    => $this->get_per_page(),
-		);
+		];
 
-		if ( Utils::get_status( $_REQUEST ) === 'trash' ) {
-			$args['total_items'] = Utils::count_entries( 'trash' );
+		if ( pqfw()->utils->get_status( $_REQUEST ) === 'trash' ) {
+			$args['total_items'] = pqfw()->utils->count_entries( 'trash' );
 		}
 
 		if ( ! $args['total_pages'] && $args['per_page'] > 0 ) {
@@ -172,19 +156,16 @@ class Entries_Table {
 		}
 
 		$this->pagination_args = $args;
-
 	}
 
 	/**
 	 * Displays the pagination.
 	 *
-	 * @param string $which
-	 *
-	 * @since 1.0.0
-	 *
+	 * @since  1.0.0
+	 * @param  string $which Which position to show the pagination.
+	 * @return void
 	 */
 	protected function pagination( $which ) {
-
 		if ( empty( $this->pagination_args ) ) {
 			return;
 		}
@@ -194,9 +175,9 @@ class Entries_Table {
 
 		$output = '<span class="displaying-num">' . sprintf(
 			/* translators: %s: Number of items. */
-				_n( '%s item', '%s items', $total_items ),
-				number_format_i18n( $total_items )
-			) . '</span>';
+			_n( '%s item', '%s items', $total_items ),
+			number_format_i18n( $total_items )
+		) . '</span>';
 
 		$current              = $this->get_pagenum();
 		$removable_query_args = wp_removable_query_args();
@@ -206,7 +187,7 @@ class Entries_Table {
 		$current_url = remove_query_arg( $removable_query_args, $current_url );
 
 
-		$page_links = array ();
+		$page_links = [];
 
 		$total_pages_before = '<span class="paging-input">';
 		$total_pages_after  = '</span></span>';
@@ -216,16 +197,16 @@ class Entries_Table {
 		$disable_next  = false;
 		$disable_prev  = false;
 
-		if ( $current == 1 ) {
+		if ( 1 === $current ) {
 			$disable_first = true;
 			$disable_prev  = true;
 		}
 
-		if ( $current == 2 ) {
+		if ( 2 === $current ) {
 			$disable_first = true;
 		}
 
-		if ( $total_pages == $current ) {
+		if ( $total_pages === $current ) {
 			$disable_last = true;
 			$disable_next = true;
 		}
@@ -265,10 +246,11 @@ class Entries_Table {
 		}
 		$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
 		$page_links[]     = $total_pages_before . sprintf(
-				_x( '%1$s of %2$s', 'paging' ),
-				$html_current_page,
-				$html_total_pages
-			) . $total_pages_after;
+			/* translators: %1$s: pagination number */
+			_x( '%1$s of %2$s', 'paging' ),
+			$html_current_page,
+			$html_total_pages
+		) . $total_pages_after;
 
 		if ( $disable_next ) {
 			$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
@@ -310,14 +292,13 @@ class Entries_Table {
 	/**
 	 * Displays the pagination and stuffs.
 	 *
-	 * @param string $which
-	 *
 	 * @since 1.0.0
 	 *
+	 * @param string $which Which position to show the pagination.
+	 * @return void
 	 */
 	public function display( $which ) {
-
-		if ( $which == 'top' ) {
+		if ( 'top' === $which ) {
 			$this->views();
 		}
 
@@ -326,7 +307,5 @@ class Entries_Table {
 		$this->set_pagination_args();
 		$this->pagination( $which );
 		echo '</div>';
-
 	}
-
 }
