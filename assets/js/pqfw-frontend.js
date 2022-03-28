@@ -106,7 +106,6 @@ jQuery(function ( $ ) {
 				ev.preventDefault();
 
 				var t = $( this ),
-					fragments = t.data( 'fragments' ),
 					nonce = f.find( 'input[name="pqfw_form_nonce_field"]').val(),
 					loader = t.next('.loading-spinner');
 
@@ -172,15 +171,12 @@ jQuery(function ( $ ) {
 					}
 
 					if ( ! $.isEmptyObject( data ) ) {
-						//loading the product fragments and action.
-						data['fragments'] 	= fragments;
-						data['action']		= PQFW_OBJECT.actions.addToQuotations;
+						data['action']		= 'pqfw_quotation_submission';
 						data['nonce']		= nonce;
 
 						$.ajax({
 							type: 'POST',
 							url: PQFW_OBJECT.ajaxurl,
-							// dataType: "json",
 							data: data,
 							beforeSend: function() {
 								loader.addClass('loading');
@@ -228,5 +224,4 @@ jQuery(function ( $ ) {
 			});
 		})
 		.trigger("pqfw_init");
-
 });

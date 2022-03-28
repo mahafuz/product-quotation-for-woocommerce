@@ -285,32 +285,40 @@ class Utils {
 	 *
 	 * return \WP_Error
 	 */
-	public static function validate( $quantity, $fullname, $email, $product_id ) {
+	public function validate( $fields ) {
+		$errors = new \WP_Error();
 
-		$errors = new \WP_Error;
+		$requiredFields = [
+			'fullname',
+			'email'
+		];
 
-		if ( empty( $fullname ) || empty( $email ) || empty( $quantity ) ) {
-			$errors->add( 'field', __( 'Required form field is missing', 'pqfw' ) );
+		foreach ( $requiredFields as $required ) {
+			if ( empty( $fields[ $required ] ) ) {
+				$errors->add( 'field', sprintf( '%s %s', $required, __( 'is required.', 'pqfw' ) ) );
+			}
 		}
 
-		if ( strlen( $fullname ) < 4 ) {
+		if ( $errors->has_errors() ) {
+			return $errors;
+		}
+
+		if ( strlen( $fields['fullname'] ) < 4 ) {
 			$errors->add( 'username_length', __( 'Username too short. At least 4 characters is required', 'pqfw' ) );
 		}
 
-		if ( ! validate_username( $fullname ) ) {
+		if ( ! validate_username( $fields['fullname'] ) ) {
 			$errors->add( 'username_invalid', __( 'Sorry, the username you entered is not valid', 'pqfw' ) );
 		}
 
-		if ( ! is_email( $email ) ) {
+		if ( ! is_email( $fields['email'] ) ) {
 			$errors->add( 'email_invalid', __( 'Email is not valid', 'pqfw' ) );
 		}
 
-		if ( self::email_exists( $email, $product_id ) ) {
-			$errors->add( 'email', __( 'You\'ve already submitted a quotation with this email.', 'pqfw' ) );
-		}
+		// if ( self::email_exists( $email, $product_id ) ) {
+		// 	$errors->add( 'email', __( 'You\'ve already submitted a quotation with this email.', 'pqfw' ) );
+		// }
 
 		return $errors;
-
 	}
-
 }

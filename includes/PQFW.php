@@ -106,6 +106,7 @@ namespace PQFW {
 			$this->utils           = new \PQFW\Classes\Utils();
 			$this->table           = new \PQFW\Classes\Table();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
+			$this->product         = new \PQFW\Classes\Product();
 
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );

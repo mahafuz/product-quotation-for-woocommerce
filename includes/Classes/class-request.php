@@ -27,7 +27,7 @@ class Request {
 	public function __construct() {
 		// add_action( 'wp_ajax_pqfw_load_cart_data', [ $this, 'getCartData' ] );
 		add_action( 'wp_ajax_pqfw_load_cart_data', [ $this, 'InitializeCart' ] );
-		add_action( 'wp_ajax_handle_insert_entry', [ $this, 'addProduct' ] );
+		add_action( 'wp_ajax_pqfw_add_product', [ $this, 'addProduct' ] );
 		add_action( 'wp_ajax_pqfw_remove_product', [ $this, 'removeProduct' ] );
 		add_action( 'wp_ajax_pqfw_update_products', [ $this, 'updateProducts' ] );
 	}

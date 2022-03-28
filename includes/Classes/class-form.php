@@ -28,15 +28,6 @@ class Form {
 	private $errors = [];
 
 	/**
-	 * Product fragments container.
-	 *
-	 * @var    array
-	 * @access protected
-	 * @since  1.0.0
-	 */
-	protected $fragments;
-
-	/**
 	 * Constructor of the class
 	 *
 	 * @since 1.0.0
@@ -81,7 +72,7 @@ class Form {
 				'cartPageUrl'   => get_permalink( $cartPageId ),
 				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.gif',
 				'actions'       => [
-					'addToQuotations' => 'handle_insert_entry'
+					'addToQuotations' => 'pqfw_add_product'
 				]
 			]
 		);
@@ -133,8 +124,6 @@ class Form {
 	 * @since   1.0.0
 	 */
 	public function form() {
-		$this->fragments['products'] = wp_json_encode( pqfw()->quotations->getProducts() );
-
 		$form_title = apply_filters( 'pqfw_form_title', __( 'Request quotation for: ', 'pqfw' ) );
 		$settings   = pqfw()->settings->get();
 		$classes    = [];
@@ -156,7 +145,6 @@ class Form {
 
 					<div class="pqfw-form-field pqfw-submit">
 						<input
-							data-fragments='<?php echo wp_json_encode( $this->fragments ); ?>'
 							type="submit"
 							id="rsrfqfwc_submit"
 							name="rsrfqfwc_submit"
