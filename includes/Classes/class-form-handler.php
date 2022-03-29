@@ -43,13 +43,11 @@ class Form_Handler {
 		$email    = sanitize_email( $_POST['pqfw_customer_email'] );
 		$phone    = pqfw()->utils->sanitize_phone_number( $_POST['pqfw_customer_phone'] );
 		$comments = sanitize_text_field( $_POST['pqfw_customer_comments'] );
-		$products = ( $_POST['fragments']['products'] );
 		$mapedDataToSave = [
 			'fullname' => $fullname,
 			'email'    => $email,
 			'phone'    => $phone,
-			'comments' => $comments,
-			'products' => $products
+			'comments' => $comments
 		];
 
 		$validate = pqfw()->utils->validate( $mapedDataToSave );

@@ -119,7 +119,7 @@ class Admin {
 			'pqfw_quotation_detail',
 			__( 'Quotation Detail', 'pqfw' ),
 			[ $this, 'displayQuotationDetail' ],
-			$this->enquiry_type
+			self::POST_TYPE
 		);
 	}
 
@@ -131,7 +131,7 @@ class Admin {
 	 * @return void
 	 */
 	public function displayQuotationDetail( $quotation ) {
-		include_once 'partials/enquiry_detail.php';
+		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-detail.php';
 	}
 
 	/**
