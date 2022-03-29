@@ -58,20 +58,19 @@ class Form_Handler {
 			wp_send_json_error( $validate->errors );
 		}
 
-		pqfw()->product->save( $mapedDataToSave );
+		$insertID = pqfw()->product->save( $mapedDataToSave );
 
-		// TODO: Save the data in a new way because there is collection of products.
-		// ? TODO: is almost complete make it done.
-
-		// if ( $inserteID ) {
-		// 	// if ( Settings::get_setting( 'pqfw_form_send_mail' ) ) {
-		// 	// 	$mailer = new Mailer( $data );
-		// 	// 	$mailer->send();
-		// 	// }
-		// 	wp_send_json_success( __( 'Your entry was successfully submitted.', 'pqfw' ) );
-		// } else {
-		// 	wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );
-		// }
+		if ( $insertID ) {
+			// if ( Settings::get_setting( 'pqfw_form_send_mail' ) ) {
+			// 	$mailer = new Mailer( $data );
+			// 	$mailer->send();
+			// }
+			// TODO: clear the cart session.
+			// TODO: send mail to admin.
+			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );
+		} else {
+			wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );
+		}
 
 		die();
 	}
