@@ -59,12 +59,11 @@ class Form_Handler {
 		$insertID = pqfw()->product->save( $mapedDataToSave );
 
 		if ( $insertID ) {
-			// if ( Settings::get_setting( 'pqfw_form_send_mail' ) ) {
-			// 	$mailer = new Mailer( $data );
-			// 	$mailer->send();
-			// }
-			// TODO: clear the cart session.
-			// TODO: send mail to admin.
+			if ( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) {
+				pqfw()->mailer->prepare( $mapedDataToSave )->send();
+			}
+
+			pqfw()->quotations->purge();
 			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );
 		} else {
 			wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );

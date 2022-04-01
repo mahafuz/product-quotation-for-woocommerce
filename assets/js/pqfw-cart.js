@@ -6,9 +6,6 @@
      * 
      * @since 1.2.0
      */
-
-    // todo: enqueue this file.
-
     var pqfwCart = {
 
         init: function() {
@@ -120,5 +117,6 @@
 
     pqfwCart.init();
 
+    window.pqfwCart = pqfwCart;
 
 })(jQuery);

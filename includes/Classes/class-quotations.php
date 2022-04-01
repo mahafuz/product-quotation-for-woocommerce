@@ -240,4 +240,15 @@ class Quotations {
 
 		return $products;
 	}
+
+	/**
+	 * Purge the session cart.
+	 *
+	 * @since 1.2.0
+	 */
+	public function purge() {
+		if ( isset( WC()->session ) ) {
+			WC()->session->set( 'pqfw_products_quotations_list', [] );
+		}
+	}
 }

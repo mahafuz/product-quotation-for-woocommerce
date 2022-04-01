@@ -31,10 +31,12 @@ class Cart {
 		if ( ! is_array( $products ) || count( $products ) < 1 ) {
 			echo '<tr>';
 				echo '<td colspan="6" align="center">';
-					echo esc_html__( 'There are no product added in the enquiry cart', 'pqfw' );
+					echo esc_html__( 'There are no product added in the Quotations Cart', 'pqfw' );
 				echo '</td>';
 			echo '</tr>';
 		}
+
+		// var_dump( $products );
 
 		foreach ( $products as $key => $product ) {
 			$productOBJ = wc_get_product( $product['id'] );
@@ -48,7 +50,7 @@ class Cart {
 				<td class="product-thumbnail pqfw-thumbnail">
 					<?php
 						$thumbnail = $this->getThumbnail( $product['id'], $product['variation'] );
-						printf( '<a href="%s">%s</a>', esc_url( $permalink ), $thumbnail );	
+						printf( '<a href="%s">%s</a>', esc_url( $permalink ), $thumbnail );
 					?>
 				</td>
 				<td class="product-name" data-title="<?php esc_html_e( 'Product', 'woocommerce' ); ?>">

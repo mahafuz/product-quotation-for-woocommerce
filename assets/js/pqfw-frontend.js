@@ -198,6 +198,10 @@ jQuery(function ( $ ) {
 										$( this ).val( '' );
 									});
 
+									setTimeout(function() {
+										window.pqfwCart.initialize();
+									}, 2000);
+
 								}else {
 									resposneStatus.removeClass('success');
 									resposneStatus.addClass('error');

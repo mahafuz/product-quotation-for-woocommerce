@@ -1,0 +1,9 @@
+.pqfw-list-products {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pqfw-list-products thead {
+    border-collapse: collapse;
+    border-bottom: 2px solid #ddd;
+}

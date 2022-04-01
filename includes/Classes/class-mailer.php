@@ -79,7 +79,7 @@ class Mailer {
 	 * @since 1.0.0
 	 * @param array $args Arguments for sending the mail.
 	 */
-	public function __construct( $args ) {
+	public function prepare( $args ) {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
 		$this->subject  = sprintf( '%s - %s', __( 'Request for quotation', 'pqfw' ), $this->blogname );
@@ -87,6 +87,7 @@ class Mailer {
 
 		$this->prepare_message();
 		$this->prepare_headers();
+		return $this;
 	}
 
 	/**
@@ -118,9 +119,14 @@ class Mailer {
 		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . esc_attr( $this->args['phone'] );
 		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . esc_textarea( $this->args['comments'] ) . '</p>';
 		$message .= '<p>' . __( 'Request for quotation for:', 'pqfw' );
-		$message .= '<br><a href="' . get_permalink( $this->args['product_id'] ) . '">' . esc_attr( $this->args['product_title'] ) . '</a>';
-		$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $this->args['quantity'] ) . '</p>';
-		$message .= '<p><a href="' . esc_url( get_permalink( $this->args['product_id'] ) ) . '">' . get_the_post_thumbnail( $this->args['product_id'], 'thumbnail' ) . '</a></p>';
+
+		$this->products = pqfw()->quotations->getProducts();
+		foreach ( $this->products as $product ) {
+			$message .= '<br><a href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>';
+			$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $product['quantity'] ) . '</p>';
+			$message .= '<p><a href="' . esc_url( get_permalink( $product['id'] ) ) . '">' . get_the_post_thumbnail( $product['id'], 'thumbnail' ) . '</a></p>';
+		}
+
 		$message .= '</body></html>';
 
 		$this->message = $message;

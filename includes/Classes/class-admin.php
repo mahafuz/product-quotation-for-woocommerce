@@ -27,6 +27,7 @@ class Admin {
 		add_action( 'admin_menu', [ $this, 'menus' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 
+		add_action( 'admin_title', [ $this, 'editPageTitle' ] );
 		add_filter( 'manage_edit-pqfw_quotations', [ $this, 'manageColumns' ] );
 		// add_action( 'manage_pisol_enquiry_posts_custom_column', array($this,'columnsContent'), 10, 2 );
 	}
@@ -54,6 +55,14 @@ class Admin {
 	 */
 	public function assets() {
 		$screen = get_current_screen();
+
+		if ( 'pqfw_quotations' === $screen->id ) {
+			wp_enqueue_style(
+				'pqfw-admin',
+				PQFW_PLUGIN_URL . 'assets/css/pqfw-quotations.css',
+				[], '1.0.0', 'all'
+			);
+		}
 
 		if ( 'toplevel_page_pqfw-entries-page' === $screen->id || 'product-quotation_page_pqfw-settings' === $screen->id ) {
 			wp_enqueue_style(
@@ -117,11 +126,29 @@ class Admin {
 	public function QuotationAuthorDetail() {
 		add_meta_box(
 			'pqfw_quotation_detail',
-			__( 'Quotation Detail', 'pqfw' ),
+			__( 'Details about the quotation', 'pqfw' ),
 			[ $this, 'displayQuotationDetail' ],
 			self::POST_TYPE
 		);
 	}
+
+	/**
+	 * Change the title of the page.
+	 *
+	 * @since 1.2.0
+	 */
+	public function editPageTitle() {
+		global $post, $title, $action, $current_screen;
+
+		if ( isset( $current_screen->post_type ) && 'pqfw_quotations' === $current_screen->post_type && 'edit' === $action ) {
+			/* %d Quotation Post Id */
+			$title = sprintf( __( '#%d Quotation Detail', 'pqfw' ), $post->ID );
+		}
+
+		return $title;
+	}
+
+
 
 	/**
 	 * Displays quotation detail meta box.
@@ -131,6 +158,11 @@ class Admin {
 	 * @return void
 	 */
 	public function displayQuotationDetail( $quotation ) {
+		$screen = get_current_screen();
+		if ( 'pqfw_quotations' === $screen->id ) {
+			global $title;
+
+		}
 		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-detail.php';
 	}
 
