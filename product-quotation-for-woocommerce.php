@@ -41,3 +41,22 @@ require PQFW_PLUGIN_PATH . 'includes/PQFW.php';
 add_action( 'plugins_loaded', function() {
 	pqfw();
 });
+
+require __DIR__ . '/vendor/autoload.php';
+
+/**
+ * Initialize the plugin tracker
+ *
+ * @return void
+ */
+function appsero_init_tracker_product_quotation_for_woocommerce() {
+	if ( ! class_exists( 'Appsero\Client' ) ) {
+		require_once __DIR__ . '/appsero/src/Client.php';
+	}
+
+	$client = new Appsero\Client( 'e806fe7d-f314-425d-8be4-9f62fdaf71cf', 'Product Quotation &#8211; Product Quotation For WooCommerce', __FILE__ );
+
+	// Active insights.
+	$client->insights()->init();
+}
+appsero_init_tracker_product_quotation_for_woocommerce();
