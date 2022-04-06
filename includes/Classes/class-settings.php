@@ -63,7 +63,7 @@ class Settings {
 	 */
 	public function menu() {
 		add_submenu_page(
-			'pqfw-entries-page',
+			'edit.php?post_type=pqfw_quotations',
 			__( 'Settings', 'pqfw' ),
 			__( 'Settings', 'pqfw' ),
 			'manage_options',
@@ -235,7 +235,7 @@ class Settings {
 
 		$screen = get_current_screen();
 
-		if ( 'product-quotation_page_pqfw-settings' === $screen->id ) {
+		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id ) {
 			wp_enqueue_script(
 				'pqfw-options-handler', PQFW_PLUGIN_URL . 'assets/js/pqfw-settings.js',
 				[ 'jquery' ], PQFW_PLUGIN_VERSION, true

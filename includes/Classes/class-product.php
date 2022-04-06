@@ -58,7 +58,7 @@ class Product {
 	 * Get person message.
 	 */
 	private function getMessage() {
-		return isset( $this->dataToSave['message'] ) ? sanitize_text_field( $this->dataToSave['message'] ) : '';
+		return isset( $this->dataToSave['comments'] ) ? sanitize_text_field( $this->dataToSave['comments'] ) : '';
 	}
 
 	/**
@@ -99,11 +99,12 @@ class Product {
 			'post_type'   => Admin::POST_TYPE,
 			'post_status' => 'publish',
 			'meta_input'  => [
-				'pqfw_name'    => $this->getName(),
-				'pqfw_email'   => $this->getEmail(),
-				'pqfw_phone'   => $this->getPhone(),
-				'pqfw_subject' => $this->getSubject(),
-				'pqfw_message' => $this->getMessage()
+				'pqfw_customer_name'     => $this->getName(),
+				'pqfw_customer_email'    => $this->getEmail(),
+				'pqfw_customer_subject'  => $this->getSubject(),
+				'pqfw_customer_phone'    => $this->getPhone(),
+				'pqfw_subject'           => $this->getSubject(),
+				'pqfw_customer_comments' => $this->getMessage()
 			]
 		];
 

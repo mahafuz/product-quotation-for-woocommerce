@@ -28,8 +28,9 @@ class Admin {
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 
 		add_action( 'admin_title', [ $this, 'editPageTitle' ] );
-		add_filter( 'manage_edit-pqfw_quotations', [ $this, 'manageColumns' ] );
-		// add_action( 'manage_pisol_enquiry_posts_custom_column', array($this,'columnsContent'), 10, 2 );
+		add_filter( 'manage_edit-pqfw_quotations_columns', [ $this, 'manageColumns' ] );
+		add_action( 'manage_pqfw_quotations_posts_custom_column', [ $this, 'columnsContent' ], 10, 2 );
+		add_action( 'post_row_actions', [ $this, 'modifyQuickActions' ], 10, 2 );
 	}
 
 	/**
@@ -38,13 +39,13 @@ class Admin {
 	 * @since   1.0.0
 	 */
 	public function menus() {
-		add_menu_page(
-			__( 'Entries', 'PQFW' ),
-			__( 'Product Quotation', 'PQFW' ),
+		add_submenu_page(
+			'edit.php?post_type=pqfw_quotations',
+			__( 'Old backed up entries', 'PQFW' ),
+			__( 'Backup', 'PQFW' ),
 			'manage_options',
 			'pqfw-entries-page',
-			[ $this, 'display' ],
-			PQFW_PLUGIN_URL . 'assets/images/pqfw-dashboard-icon.png'
+			[ $this, 'display' ]
 		);
 	}
 
@@ -56,15 +57,13 @@ class Admin {
 	public function assets() {
 		$screen = get_current_screen();
 
-		if ( 'pqfw_quotations' === $screen->id ) {
+		if ( 'pqfw_quotations' === $screen->post_type ) {
 			wp_enqueue_style(
-				'pqfw-admin',
+				'pqfw-admin-quotations',
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-quotations.css',
 				[], '1.0.0', 'all'
 			);
-		}
 
-		if ( 'toplevel_page_pqfw-entries-page' === $screen->id || 'product-quotation_page_pqfw-settings' === $screen->id ) {
 			wp_enqueue_style(
 				'pqfw-admin',
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css',
@@ -126,8 +125,15 @@ class Admin {
 	public function QuotationAuthorDetail() {
 		add_meta_box(
 			'pqfw_quotation_detail',
-			__( 'Details about the quotation', 'pqfw' ),
+			__( 'Person Details', 'pqfw' ),
 			[ $this, 'displayQuotationDetail' ],
+			self::POST_TYPE
+		);
+
+		add_meta_box(
+			'pqfw_quotation_products_detail',
+			__( 'Product Details', 'pqfw' ),
+			[ $this, 'displayQuotationProductsDetail' ],
 			self::POST_TYPE
 		);
 	}
@@ -166,6 +172,15 @@ class Admin {
 		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-detail.php';
 	}
 
+	public function displayQuotationProductsDetail( $quotation ) {
+		$screen = get_current_screen();
+		if ( 'pqfw_quotations' === $screen->id ) {
+			global $title;
+
+		}
+		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-products-detail.php';
+	}
+
 	/**
 	 * Builds the variation tree based on the details.
 	 *
@@ -195,17 +210,44 @@ class Admin {
 	 */
 	public function manageColumns( $columns ) {
 		$columns = [
-			// 'cb' => '<input type="checkbox" />',
-			// 'id' => __( 'Enq no.', 'pisol-enquiry-quotation-woocommerce' ),
-			// 'title' => __( 'Name', 'pisol-enquiry-quotation-woocommerce'  ),
-			// 'pi_email' => __( 'Email', 'pisol-enquiry-quotation-woocommerce'  ),
-			// 'pi_phone' => __( 'Phone', 'pisol-enquiry-quotation-woocommerce'  ),
-			// 'pi_subject' => __( 'Subject', 'pisol-enquiry-quotation-woocommerce'  ),
-			// 'pi_message' => __( 'Message', 'pisol-enquiry-quotation-woocommerce'  ),
-			// 'date' => __( 'Date', 'pisol-enquiry-quotation-woocommerce'  )
+			'cb'           => '<input type="checkbox" />',
+			'id'           => __( 'Serial', 'pqfw' ),
+			'title'        => __( 'Name', 'pqfw' ),
+			'pqfw_email'   => __( 'Email', 'pqfw' ),
+			'pqfw_phone'   => __( 'Phone', 'pqfw' ),
+			'pqfw_subject' => __( 'Subject', 'pqfw' ),
+			'pqfw_message' => __( 'Message', 'pqfw' ),
+			'date'         => __( 'Date', 'pqfw' )
 		];
 
 		return $columns;
+	}
+
+	/**
+	 * Modified the post type rows action links.
+	 *
+	 * @since  1.2.0
+	 *
+	 * @param  array  $actions An associative array of action links.
+	 * @param  object $post    The post object.
+	 */
+	public function modifyQuickActions( $actions, $post ) {
+		if ( self::POST_TYPE === $post->post_type ) {
+			unset( $actions['inline hide-if-no-js'] );
+			unset( $actions['edit'] );
+
+			$url  = admin_url( 'post.php?post=' . $post->ID );
+			$view = wp_nonce_url( add_query_arg( [ 'action' => 'edit' ], $url ) );
+
+			$actions = array_merge(
+				[
+					'details' => '<a href="' . esc_url( $view ) . '">' . __( 'Details', 'pqfw' ) . '</a>',
+				],
+				$actions
+			);
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -223,24 +265,20 @@ class Admin {
 				echo '#' . absint( $postID );
 				break;
 
-			case 'pi_email':
-				$pi_email = get_post_meta( $postID, 'pi_email', true );
-					echo sanitize_email( $pi_email );
+			case 'pqfw_email':
+					echo esc_html( get_post_meta( $postID, 'pqfw_customer_email', true ) );
 				break;
 
-			case 'pi_phone':
-				$pi_phone = get_post_meta( $postID, 'pi_phone', true );
-				echo esc_html( $pi_phone );
+			case 'pqfw_phone':
+				echo esc_html( get_post_meta( $postID, 'pqfw_customer_phone', true ) );
 				break;
 
-			case 'pi_subject':
-				$pi_subject = get_post_meta( $postID, 'pi_subject', true );
-				echo esc_html( $pi_subject );
+			case 'pqfw_subject':
+				echo esc_html( get_post_meta( $postID, 'pqfw_customer_subject', true ) );
 				break;
 
-			case 'pi_message':
-				$pi_message = get_post_meta( $postID, 'pi_message', true );
-				echo esc_html( $pi_message );
+			case 'pqfw_message':
+				echo esc_html( get_post_meta( $postID, 'pqfw_customer_comments', true ) );
 				break;
 		}
 	}

@@ -64,7 +64,7 @@ $entries = pqfw()->utils->fetch_entries(
 								<?php if ( 'trash' === pqfw()->utils->get_status( $_REQUEST ) ) : ?>
 								<span>#<?php echo esc_attr( $entry->ID ); ?></span>
 								<?php else : ?>
-								<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entry=' . esc_attr( $entry->ID ) ) ); ?>"
+								<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( 'edit.php?post_type=pqfw_quotations&page=pqfw-entries-page&pqfw-entry=' . esc_attr( $entry->ID ) ) ); ?>"
 								class="">#<?php echo esc_attr( $entry->ID ); ?></a>
 								<?php endif; ?>
 							</th>
@@ -72,15 +72,15 @@ $entries = pqfw()->utils->fetch_entries(
 							<td><span><?php echo esc_attr( $entry->email ); ?></span></td>
 							<th class="col-entry-details">
 								<?php if ( pqfw()->utils->get_status( $_REQUEST ) === 'trash' ) : ?>
-									<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-restore-entry=' . esc_attr( $entry->ID ) ) ); ?>">
+									<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( 'edit.php?post_type=pqfw_quotations&page=pqfw-entries-page&pqfw-entries=trash&pqfw-restore-entry=' . esc_attr( $entry->ID ) ) ); ?>">
 										<?php esc_html_e( 'Restore', 'pqfw' ); ?>
 									</a>
 									<span style="color: rgb(221, 221, 221);">|</span>
-									<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash&pqfw-delete-entry=' . esc_attr( $entry->ID ) ) ); ?>">
+									<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( 'edit.php?post_type=pqfw_quotations&page=pqfw-entries-page&pqfw-entries=trash&pqfw-delete-entry=' . esc_attr( $entry->ID ) ) ); ?>">
 										<?php esc_html_e( 'Delete Permanently', 'pqfw' ); ?>
 									</a>
 								<?php else : ?>
-									<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entry=' . esc_attr( $entry->ID ) ) ); ?>"
+									<a href="<?php echo esc_url( pqfw()->get_url_with_nonce( 'edit.php?post_type=pqfw_quotations&page=pqfw-entries-page&pqfw-entry=' . esc_attr( $entry->ID ) ) ); ?>"
 									class=""><?php esc_html_e( 'Details', 'pqfw' ); ?></a>
 								<?php endif; ?>
 							</th>

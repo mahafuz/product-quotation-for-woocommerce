@@ -30,7 +30,7 @@ $entry = pqfw()->utils->fetch_entry( absint( $_REQUEST['pqfw-entry'] ) );
 				?>
 
                 <h1 class="wp-heading-inline"><?php _e( 'Entry Details', 'pqfw' ); ?></h1>
-                <a href="<?php echo pqfw()->get_url_with_nonce(); ?>"
+                <a href="<?php echo esc_url( pqfw()->get_url_with_nonce( 'edit.php?post_type=pqfw_quotations&page=pqfw-entries-page' ) ); ?>"
                    class="page-title-action"><?php _e( 'Back to Entries', 'pqfw' ); ?></a>
                 <form method="POST">
                     <div class="pqfw-entry-wrap">

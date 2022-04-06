@@ -82,7 +82,7 @@ class Mailer {
 	public function prepare( $args ) {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
-		$this->subject  = sprintf( '%s - %s', __( 'Request for quotation', 'pqfw' ), $this->blogname );
+		$this->subject  = sprintf( '%s - %s', $this->args['fullname'], $this->args['subject'] );
 		$this->email    = sanitize_email( get_option( 'admin_email' ) );
 
 		$this->prepare_message();
@@ -118,7 +118,7 @@ class Mailer {
 		$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email'] );
 		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . esc_attr( $this->args['phone'] );
 		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . esc_textarea( $this->args['comments'] ) . '</p>';
-		$message .= '<p>' . __( 'Request for quotation for:', 'pqfw' );
+		$message .= '<p>' . __( 'Quotation Products Details:', 'pqfw' );
 
 		$this->products = pqfw()->quotations->getProducts();
 		foreach ( $this->products as $product ) {
@@ -142,7 +142,7 @@ class Mailer {
 	 */
 	public function send() {
 		$result = \wp_mail(
-			$this->email,
+			'm.mahfuz.me@gmail.com',
 			$this->subject,
 			$this->message,
 			$this->headers

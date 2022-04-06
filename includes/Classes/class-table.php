@@ -61,8 +61,7 @@ class Table {
 		$sub_links   = [];
 
 		$sub_links[] = sprintf(
-			'<li class="all"><a href="%s" %s>%s <span class="count">(%s)</span></a> | </li>',
-			pqfw()->get_url_with_nonce(),
+			'<li class="all"><a href="edit.php?post_type=pqfw_quotations&page=pqfw-entries-page" %s>%s <span class="count">(%s)</span></a> | </li>',
 			pqfw()->utils->get_status( $_REQUEST ) === 'publish' ? ' class="current"' : '',
 			esc_html__( 'All', 'pqfw' ),
 			esc_attr( pqfw()->utils->count_entries() )
@@ -70,7 +69,7 @@ class Table {
 
 		$sub_links[] = sprintf(
 			'<li class="trash"><a href="%s" %s>%s <span class="count">(%s)</span></a></li>',
-			pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ),
+			pqfw()->get_url_with_nonce( 'edit.php?post_type=pqfw_quotations&page=pqfw-entries-page&pqfw-entries=trash' ),
 			pqfw()->utils->get_status( $_REQUEST ) === 'trash' ? ' class="current"' : '',
 			esc_html__( 'Trash', 'pqfw' ),
 			esc_attr( pqfw()->utils->count_entries( 'trash' ) )

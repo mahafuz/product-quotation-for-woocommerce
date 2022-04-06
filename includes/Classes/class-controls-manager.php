@@ -82,18 +82,23 @@ class Controls_Manager {
 				'required' => true
 			],
 			[
+				'name'     => 'pqfw_customer_subject',
+				'type'     => 'text',
+				'label'    => __( 'Subject:', 'pqfw' ),
+				'html_id'  => 'pqfw_customer_subject',
+				'required' => true
+			],
+			[
 				'name'    => 'pqfw_customer_phone',
 				'type'    => 'text',
 				'label'   => __( 'Phone:', 'pqfw' ),
 				'html_id' => 'pqfw_customer_phone',
-				// 'required'  => true
 			],
 			[
 				'name'    => 'pqfw_customer_comments',
 				'type'    => 'textarea',
 				'label'   => __( 'Comments:', 'pqfw' ),
 				'html_id' => 'pqfw_customer_comments',
-				// 'required'  => true
 			],
 		];
 
