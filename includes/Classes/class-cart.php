@@ -117,7 +117,7 @@ class Cart {
 			$image_src = $placeholder;
 		}
 
-		return sprintf( '<img src="%s" class="pi-eqw-product-thumb">', esc_url( $image_src ) );
+		return sprintf( '<img src="%s" class="pqfw-product-thumbnail">', esc_url( $image_src ) );
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Cart {
 		if ( is_array( $variations_label ) ) {
 			echo '<br>';
 			foreach ( $variations_label as $key => $value ) {
-				echo '<strong class="pi-attribute-label">' . esc_attr( $key ) . '</strong> : <span>' . esc_attr( $value ) . '</span><br>';
+				echo '<strong class="pqfw-attribute-label">' . esc_attr( $key ) . '</strong> : <span>' . esc_attr( $value ) . '</span><br>';
 			}
 		}
 	}

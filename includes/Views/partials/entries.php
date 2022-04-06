@@ -18,6 +18,14 @@ $entries = pqfw()->utils->fetch_entries(
 
 ?>
 
+<div class="pqfw-deprecation-notice" style="background-color: azure;border: 1px solid azure; padding: 10px 20px; margin-top: 20px; max-width: 95%;">
+	<p style="margin: 0; color: red">
+		<?php
+			_e( '<strong>Warning:</strong> Since, This plugin introduced new way to list the Quotaions. So, these old quotations will be removed in the next version <strong>2.0.0</strong> of release. Please backup these manually.', 'pqfw' );
+		?>
+	</p>
+</div>
+
 <div class="pqfw-entries-wrapper wrap">
 	<h1 class="screen-reader-text"><?php esc_html__( 'Product Quotation For WooCommerce', 'pqfw' ); ?></h1>
 

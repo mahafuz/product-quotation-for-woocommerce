@@ -11,7 +11,7 @@ jQuery(function ( $ ) {
 	var PQFW = {
 		init : function() {
 			$(document)
-				.on('click', '.pqfw-add-to-enquiry-single', function (ev) {
+				.on('click', '.pqfw-add-to-quotation-single', function (ev) {
 				ev.preventDefault();
 				PQFW.sendData(this);
 			});

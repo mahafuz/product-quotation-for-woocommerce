@@ -50,16 +50,16 @@
         },
         dataLoaded: function(response) {
             var $parsed = JSON.parse( response );
-            $('#pqfw-enquiry-list-row').html( $parsed.html );
+            $('#pqfw-quotations-list-row').html( $parsed.html );
             window.pqfwProducts = $parsed.products;
             this.hideLoader();
             this.visibleForm($parsed.products);
         },
         hideLoader: function () {
-            $('#pqfw-enquiry-list-row').unblock();
+            $('#pqfw-quotations-list-row').unblock();
         },
         showLoader: function() {
-            $('#pqfw-enquiry-list-row').block({
+            $('#pqfw-quotations-list-row').block({
                 message: '<img src="' + PQFW_OBJECT.loader + '" />',
                 css: {
                     width: '40px',

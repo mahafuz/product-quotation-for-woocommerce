@@ -16,7 +16,7 @@
             </th>
         </tr>
     </thead>
-    <tbody id="pqfw-enquiry-list-row"></tbody>
+    <tbody id="pqfw-quotations-list-row"></tbody>
 </table>
 
 <!-- Put form here. -->

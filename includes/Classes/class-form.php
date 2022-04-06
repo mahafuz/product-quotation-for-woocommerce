@@ -95,11 +95,11 @@ class Form {
 		global $product;
 
 		if ( $product->is_type( 'variable' ) ) {
-			echo '<a class="button pqfw-button pqfw-add-to-enquiry pqfw-add-to-enquiry-variable" href="' . esc_url( $product->get_permalink() ) . '">
+			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-variable" href="' . esc_url( $product->get_permalink() ) . '">
 			' . esc_html__( 'Add to Quotation', 'pqfw' ) . '
 			</a>';
 		} else {
-			echo '<a class="button pqfw-button pqfw-add-to-enquiry pqfw-add-to-enquiry-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
+			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
 			. esc_html__( 'Add to Quotation', 'pqfw' ) .
 			'</a>';
 		}
@@ -113,7 +113,7 @@ class Form {
 	public function add_quotation_button_single_page() {
 		global $product;
 
-		echo '<a class="button pqfw-button pqfw-add-to-enquiry pqfw-add-to-enquiry-single" href="javascript:void(0)" data-id="'.$product->get_id().'">'
+		echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="'.$product->get_id().'">'
 		. esc_html__( 'Add to Quotation', 'pqfw' ) .
 		'</a>';
 	}
