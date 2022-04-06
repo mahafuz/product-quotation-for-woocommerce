@@ -24,6 +24,19 @@ class Shortcode {
 	 */
 	public function __construct() {
 		add_shortcode( 'pqfw_quotations_cart', [ $this, 'render' ] );
+		add_filter( 'body_class', [ $this, 'addBodyClass' ] );
+	}
+
+	/**
+	 * Add body class to the page.
+	 *
+	 * @since 1.2.0
+	 */
+	public function addBodyClass( $classes ) {
+		$classes[] = 'pqfw-quotations-cart';
+		$classes[] = 'woocommerce-cart';
+		$classes[] = 'woocommerce-page';
+		return $classes;
 	}
 
 	/**

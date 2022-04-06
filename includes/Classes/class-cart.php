@@ -63,27 +63,31 @@ class Cart {
 					<?php echo wp_kses_post( wc_price( $this->getSimpleVariationPrice( $productOBJ, $product['variation'] ) ) ); ?>
 				</td>
 				<td class="product-quantity" data-title="<?php esc_html_e( 'Quantity', 'woocommerce' ); ?>">
-					<input
-						type="number"
-						class="input-text qty text pqfw-quantity"
-						value="<?php echo esc_attr( $product['quantity'] ); ?>"
-						name="products[<?php echo esc_attr( $key ); ?>][quantity]"
-						data-hash="<?php echo esc_attr( $key ); ?>"
-					/>
-					<input
-						type="hidden"
-						value="<?php echo ! empty( $product['variation'] ) && is_array( $product['variation'] ) ? wp_json_encode( $product['variation'] ) : ''; ?>"
-						data-hash="<?php echo esc_attr( $key ); ?>"
-						name="products[<?php echo esc_attr( $key ); ?>][variation]"
-					/>
+					<div class="quantity">
+						<input
+							type="number"
+							class="input-text qty text pqfw-quantity"
+							value="<?php echo esc_attr( $product['quantity'] ); ?>"
+							name="products[<?php echo esc_attr( $key ); ?>][quantity]"
+							data-hash="<?php echo esc_attr( $key ); ?>"
+						/>
+						<input
+							type="hidden"
+							value="<?php echo ! empty( $product['variation'] ) && is_array( $product['variation'] ) ? wp_json_encode( $product['variation'] ) : ''; ?>"
+							data-hash="<?php echo esc_attr( $key ); ?>"
+							name="products[<?php echo esc_attr( $key ); ?>][variation]"
+						/>
+					</div>
 				</td>
 				<td class="product-message" data-title="<?php esc_html_e( 'Message', 'woocommerce' ); ?>">
-					<textarea
-						name="message"
-						class="pqfw-message"
-						name="products[<?php echo esc_attr( $key ); ?>][message]"
-						data-hash="<?php echo esc_attr( $key ); ?>"
-					><?php echo esc_html( $product['message'] ); ?></textarea>
+					<div class="pqfw-message">
+						<textarea
+							name="message"
+							class="input-text"
+							name="products[<?php echo esc_attr( $key ); ?>][message]"
+							data-hash="<?php echo esc_attr( $key ); ?>"
+						><?php echo esc_html( $product['message'] ); ?></textarea>
+					</div>
 				</td>
 			</tr>
 			<?php
