@@ -106,8 +106,7 @@ class Cart {
 			$product = wc_get_product( $variation_id );
 		}
 
-			$image_id = $product->get_image_id();
-
+			$image_id    = $product->get_image_id();
 			$placeholder = wc_placeholder_img_src( 'thumbnail' );
 
 		if ( ! empty( $image_id ) ) {

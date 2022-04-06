@@ -27,7 +27,7 @@ class Migration {
 	 * @return  void
 	 */
 	public function run() {
-		$this->createTable();
+		// $this->createTable();
 		$this->createCartPage();
 	}
 
