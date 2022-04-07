@@ -1,42 +1,23 @@
 <?php
+/**
+ * Contains the methods releasted to managing controls.
+ *
+ * @since   1.0.0
+ * @package PQFW
+ */
 
 namespace PQFW\Classes;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Control Manager of form fields
  *
- *
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.0.0
+ * @package PQFW
+ * @since   1.0.0
  */
 class Controls_Manager {
-
-	/**
-	 * Single instance of the class
-	 *
-	 * @var \Controls_Manager
-	 * @since 1.0.0
-	 */
-	private static $instance = null;
-
-	/**
-	 * Returns single instance of the class
-	 *
-	 * @return \Controls_Manager
-	 * @since 1.0.0
-	 */
-	public static function instance() {
-		if ( self::$instance === null ) {
-			return self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
 
 	/**
 	 * Form fields container.
@@ -59,75 +40,69 @@ class Controls_Manager {
 	/**
 	 * Required form fields html.
 	 *
-	 * @access  private
-	 * @since   1.0.0
+	 * @var    boolean
+	 * @access private
+	 * @since  1.0.0
 	 */
 	private $requiredHTML;
 
 	/**
 	 * Required form fields attribute.
 	 *
-	 * @access  private
-	 * @since   1.0.0
+	 * @var    string
+	 * @access private
+	 * @since  1.0.0
 	 */
 	private $requiredAttr;
 
 	/**
 	 * Constructor of the class
 	 *
-	 * @return \Controls_Manager
-	 * @since 1.0.0
+	 * @return void
+	 * @since  1.0.0
 	 */
 	public function __construct() {
 
 		$this->requiredHTML = '<span class="field-required">*</span>';
 		$this->requiredAttr = 'required="1"';
 
-		/**
-		 * default form fields.
-		 *
-		 * @since 1.0.0
-		 */
-		$this->default_fields = array(
-			array(
-				'name'     => 'pqfw_product_quantity',
-				'type'     => 'number',
-				'label'    => __( 'Quantity:', 'pqfw' ),
-				'html_id'  => 'pqfw_product_quantity',
-				'required' => true
-			),
-			array(
+		$this->default_fields = [
+			[
 				'name'     => 'pqfw_customer_name',
 				'type'     => 'text',
 				'label'    => __( 'Full Name:', 'pqfw' ),
 				'html_id'  => 'pqfw_customer_name',
 				'required' => true
-			),
-			array(
+			],
+			[
 				'name'     => 'pqfw_customer_email',
 				'type'     => 'email',
 				'label'    => __( 'Email:', 'pqfw' ),
 				'html_id'  => 'pqfw_customer_email',
 				'required' => true
-			),
-			array(
+			],
+			[
+				'name'     => 'pqfw_customer_subject',
+				'type'     => 'text',
+				'label'    => __( 'Subject:', 'pqfw' ),
+				'html_id'  => 'pqfw_customer_subject',
+				'required' => true
+			],
+			[
 				'name'    => 'pqfw_customer_phone',
 				'type'    => 'text',
 				'label'   => __( 'Phone:', 'pqfw' ),
 				'html_id' => 'pqfw_customer_phone',
-//                'required'  => true
-			),
-			array(
+			],
+			[
 				'name'    => 'pqfw_customer_comments',
 				'type'    => 'textarea',
 				'label'   => __( 'Comments:', 'pqfw' ),
 				'html_id' => 'pqfw_customer_comments',
-//                'required'  => true
-			),
-		);
+			],
+		];
 
 		$this->fields = apply_filters( 'pqfw_add_form_fields', $this->default_fields );
-
 	}
 
 	/**
@@ -150,16 +125,14 @@ class Controls_Manager {
 	/**
 	 * Generate form field type text.
 	 *
-	 * @access  protected
+	 * @since 1.0.0
 	 *
-	 * @param array $args
-	 *
-	 * @return  string      $html
-	 * @since   1.0.0
+	 * @param  array $args The field arguments.
+	 * @return string $html
 	 */
 	protected function text( $args ) {
 
-		$defaults = array(
+		$defaults = [
 			'name'        => '',
 			'label'       => '',
 			'description' => '',
@@ -167,7 +140,7 @@ class Controls_Manager {
 			'html_class'  => '',
 			'html_id'     => '',
 			'required'    => ''
-		);
+		];
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -195,7 +168,6 @@ class Controls_Manager {
 			);
 		}
 
-
 		if ( ! empty( $args['description'] ) ) {
 			$html .= sprintf( '<p>%s</p>', esc_attr( $args['description'] ) );
 		}
@@ -209,16 +181,14 @@ class Controls_Manager {
 	/**
 	 * Generate form field type email.
 	 *
-	 * @access  protected
-	 *
-	 * @param array $args
-	 *
-	 * @return  string      $html
 	 * @since   1.0.0
+	 *
+	 * @param  array $args The field arguments.
+	 * @return string $html
 	 */
 	public function email( $args ) {
 
-		$defaults = array(
+		$defaults = [
 			'name'        => '',
 			'label'       => '',
 			'description' => '',
@@ -226,7 +196,7 @@ class Controls_Manager {
 			'html_class'  => '',
 			'html_id'     => '',
 			'required'    => ''
-		);
+		];
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -261,22 +231,19 @@ class Controls_Manager {
 		$html .= '</li>';
 
 		return $html;
-
 	}
 
 	/**
 	 * Generate form field type number.
 	 *
-	 * @access  protected
-	 *
-	 * @param array $args
-	 *
-	 * @return  string      $html
 	 * @since   1.0.0
+	 *
+	 * @param  array $args  The field arguments.
+	 * @return string $html
 	 */
 	public function number( $args ) {
 
-		$defaults = array(
+		$defaults = [
 			'name'        => '',
 			'label'       => '',
 			'description' => '',
@@ -284,7 +251,7 @@ class Controls_Manager {
 			'html_class'  => '',
 			'html_id'     => '',
 			'required'    => ''
-		);
+		];
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -325,16 +292,14 @@ class Controls_Manager {
 	/**
 	 * Generate form field type textarea.
 	 *
-	 * @access  protected
-	 *
-	 * @param array $args
-	 *
-	 * @return  string      $html
 	 * @since   1.0.0
+	 *
+	 * @param  array $args The field arguments.
+	 * @return string $html
 	 */
 	public function textarea( $args ) {
 
-		$defaults = array(
+		$defaults = [
 			'name'        => '',
 			'label'       => '',
 			'description' => '',
@@ -342,7 +307,7 @@ class Controls_Manager {
 			'html_class'  => '',
 			'html_id'     => '',
 			'required'    => ''
-		);
+		];
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -371,12 +336,11 @@ class Controls_Manager {
 		}
 
 		if ( ! empty( $args['description'] ) ) {
-			$html .= sprintf( '<p>%s</p>', esc_attr($args['description']) );
+			$html .= sprintf( '<p>%s</p>', esc_attr( $args['description'] ) );
 		}
 
 		$html .= '</li>';
 
 		return $html;
 	}
-
 }

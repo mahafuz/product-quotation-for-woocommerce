@@ -1,35 +1,35 @@
 <?php
-
 /**
  * Handling plugin spl autoloader golobally
- * 
- * @since 1.0.0
+ *
+ * @since   1.2.0
+ * @package PQFW
  */
 
-spl_autoload_register( function ( $class ) {
-    // project-specific namespace prefix
-    $prefix = 'PQFW\\';
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
-    // base directory for the namespace prefix
-    $base_dir = PQFW_PLUGIN_PATH . '/includes/';
+spl_autoload_register(function ( $class ) {
+	$prefix   = 'PQFW\\';
+	$base_dir = PQFW_PLUGIN_PATH . 'includes/';
+	$len      = strlen( $prefix );
 
-    // does the class use the namespace prefix?
-    $len = strlen( $prefix );
-    if ( strncmp( $prefix, $class, $len ) !== 0 ) {
-        // no, move to the next registered autoloader
-        return;
-    }
+	if ( strncmp( $prefix, $class, $len ) !== 0 ) {
+		return;
+	}
 
-    // get the relative class name
-    $relative_class = substr( $class, $len );
+	$class = substr( $class, $len );
+	$arr           = explode( '\\', $class );
+	$index         = absint( count( $arr ) - 1 );
+	$fileName      = strtolower( $arr[ $index ] );
+	$fileName      = str_replace( '_', '-', $fileName );
+	$fileName      = 'class-' . $fileName;
+	$arr[ $index ] = $fileName;
 
-    // replace the namespace prefix with the base directory, replace namespace
-    // separators with directory separators in the relative class name, append
-    // with .php
-    $file = $base_dir . str_replace( '\\', '/', $relative_class)  . '.php';
+	$class = join( '\\', $arr );
+	$file  = $base_dir . str_replace( '\\', '/', $class ) . '.php';
 
-    // if the file exists, require it
-    if ( file_exists( $file ) ) {
-        require $file;
-    }
-} );
+	if ( file_exists( $file ) ) {
+		require $file;
+	}
+});

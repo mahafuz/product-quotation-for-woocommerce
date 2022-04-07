@@ -1,4 +1,10 @@
 <?php
+/**
+ * Responsible for sending mails to users.
+ *
+ * @since 1.0.0
+ * @package PQFW
+ */
 
 namespace PQFW\Classes;
 
@@ -7,12 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 /**
- * Admin class
+ * Mailer class
  *
- *
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.0.0
+ * @since   1.0.0
  */
 class Mailer {
 
@@ -73,18 +76,18 @@ class Mailer {
 	/**
 	 * Constructor of the class
 	 *
-	 * @return \Mailer
 	 * @since 1.0.0
+	 * @param array $args Arguments for sending the mail.
 	 */
-	public function __construct( $args ) {
+	public function prepare( $args ) {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
-		$this->subject  = sprintf( '%s - %s', __( 'Request for quotation', 'pqfw' ), $this->blogname );
+		$this->subject  = sprintf( '%s - %s', $this->args['fullname'], $this->args['subject'] );
 		$this->email    = sanitize_email( get_option( 'admin_email' ) );
-
 
 		$this->prepare_message();
 		$this->prepare_headers();
+		return $this;
 	}
 
 	/**
@@ -95,17 +98,18 @@ class Mailer {
 	 */
 	private function prepare_headers() {
 		$headers = "Content-Type: text/html; charset=UTF-8\n";
-		$headers .= "From: " . esc_attr( $this->args['email'] ) . "\n";
-		$headers .= "Reply-To: " . esc_attr( $this->args['fullname'] ) . "<" . esc_attr( $this->args['email'] ) . ">\n";
+		$headers .= 'From: ' . esc_attr( $this->args['email'] ) . "\n";
+		$headers .= 'Reply-To: ' . esc_attr( $this->args['fullname'] ) . '<' . esc_attr( $this->args['email'] ) . ">\n";
+		$this->headers = $headers;
 
-		return $this->headers = $headers;
+		return $this->headers;
 	}
 
 	/**
 	 * Prepare the mail body.
 	 *
-	 * @return string $message
 	 * @since 1.0.0
+	 * @return string $message
 	 */
 	private function prepare_message() {
 		$message = '<html><head><meta charset="utf-8" /></head><body>';
@@ -114,25 +118,31 @@ class Mailer {
 		$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email'] );
 		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . esc_attr( $this->args['phone'] );
 		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . esc_textarea( $this->args['comments'] ) . '</p>';
-		$message .= '<p>' . __( 'Request for quotation for:', 'pqfw' );
-		$message .= '<br><a href="' . get_permalink( $this->args['product_id'] ) . '">' . esc_attr( $this->args['product_title'] ) . '</a>';
-		$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $this->args['quantity'] ) . '</p>';
-		$message .= '<p><a href="' . esc_url( get_permalink( $this->args['product_id'] ) ) . '">' . get_the_post_thumbnail( $this->args['product_id'], 'thumbnail' ) . '</a></p>';
+		$message .= '<p>' . __( 'Quotation Products Details:', 'pqfw' );
+
+		$this->products = pqfw()->quotations->getProducts();
+		foreach ( $this->products as $product ) {
+			$message .= '<br><a href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>';
+			$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $product['quantity'] ) . '</p>';
+			$message .= '<p><a href="' . esc_url( get_permalink( $product['id'] ) ) . '">' . get_the_post_thumbnail( $product['id'], 'thumbnail' ) . '</a></p>';
+		}
+
 		$message .= '</body></html>';
 
-		return $this->message = $message;
+		$this->message = $message;
+
+		return $this->message;
 	}
 
 	/**
 	 * Sending the mail.
 	 *
-	 * @return sucucess|error
 	 * @since 1.0.0
+	 * @return void|error
 	 */
 	public function send() {
-
 		$result = \wp_mail(
-			$this->email,
+			'm.mahfuz.me@gmail.com',
 			$this->subject,
 			$this->message,
 			$this->headers
@@ -141,7 +151,5 @@ class Mailer {
 		if ( ! $result ) {
 			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
 		}
-
 	}
-
 }

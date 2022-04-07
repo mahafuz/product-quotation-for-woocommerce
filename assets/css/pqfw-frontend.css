@@ -6,6 +6,11 @@
  * @version 1.0.0
  */
 
+
+#pqfw-frontend-form-wrap {
+    display: none;
+}
+
 .use-pqfw-form-default-design ul.pqfw-frontend-form {
     list-style: none !important;
     margin: 0 !important;
@@ -58,7 +63,7 @@
 .use-pqfw-form-default-design .pqfw-form .loading-spinner.loading {
     width: 16px;
     height: 16px;
-    background: url('../images/wpspin_light.gif') no-repeat;
+    background: url('../images/loader.gif') no-repeat;
     display: inline-block;
 }
 

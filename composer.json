@@ -1,0 +1,12 @@
+{
+    "name": "mahafuz/product-quotation-for-woocommerce",
+    "authors": [
+        {
+            "name": "mahafuz",
+            "email": "m.mahfuz.me@gmail.com"
+        }
+    ],
+    "require": {
+        "appsero/client": "^1.2"
+    }
+}
