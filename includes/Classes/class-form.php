@@ -36,9 +36,8 @@ class Form {
 
 		$this->quotationButtonPosition = 'woocommerce_after_shop_loop_item';
 
-		/* add_action( 'woocommerce_share', array( $this, 'form' ) ); */
-		add_action( 'woocommerce_single_product_summary', [ $this, 'add_quotation_button_single_page' ] );
-		add_action( $this->quotationButtonPosition, [ $this, 'add_quotation_button' ] );
+		add_action( 'woocommerce_single_product_summary', [ $this, 'addButtonOnSinglePage' ] );
+		add_action( $this->quotationButtonPosition, [ $this, 'addButton' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_stuffs' ] );
 	}
 
@@ -91,7 +90,7 @@ class Form {
 	 *
 	 * @since 1.2.0
 	 */
-	public function add_quotation_button() {
+	public function addButton() {
 		global $product;
 
 		if ( $product->is_type( 'variable' ) ) {
@@ -110,7 +109,7 @@ class Form {
 	 *
 	 * @since 1.2.0
 	 */
-	public function add_quotation_button_single_page() {
+	public function addButtonOnSinglePage() {
 		global $product;
 
 		echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="'.$product->get_id().'">'
@@ -124,7 +123,6 @@ class Form {
 	 * @since   1.0.0
 	 */
 	public function form() {
-		$form_title = apply_filters( 'pqfw_form_title', __( 'Request quotation for: ', 'pqfw' ) );
 		$settings   = pqfw()->settings->get();
 		$classes    = [];
 

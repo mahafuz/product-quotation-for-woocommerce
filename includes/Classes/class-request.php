@@ -8,6 +8,8 @@
 
 namespace PQFW\Classes;
 
+// TODO: add nonce verifications.
+
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
@@ -25,22 +27,10 @@ class Request {
 	 * @since 1.2.0
 	 */
 	public function __construct() {
-		// add_action( 'wp_ajax_pqfw_load_cart_data', [ $this, 'getCartData' ] );
 		add_action( 'wp_ajax_pqfw_load_cart_data', [ $this, 'InitializeCart' ] );
 		add_action( 'wp_ajax_pqfw_add_product', [ $this, 'addProduct' ] );
 		add_action( 'wp_ajax_pqfw_remove_product', [ $this, 'removeProduct' ] );
 		add_action( 'wp_ajax_pqfw_update_products', [ $this, 'updateProducts' ] );
-	}
-
-	/**
-	 * Get cart data.
-	 *
-	 * @since 1.0.0
-	 */
-	public function getCartData() {
-		$products = pqfw()->quotations->getProducts();
-		echo wp_json_encode( $products );
-		die;
 	}
 
 	/**

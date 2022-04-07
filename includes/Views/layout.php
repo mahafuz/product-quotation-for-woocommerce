@@ -46,7 +46,7 @@ if ( isset( $_REQUEST['action'] ) && 'delete' === $_REQUEST['action'] ) {
 	 */
 	if ( isset( $_REQUEST['pqfw-entry'] ) && ! empty( $_REQUEST['pqfw-entry'] ) ) {
 		pqfw()->utils->soft_delete( (int) $_REQUEST['pqfw-entry'] );
-		// wp_safe_redirect( \PQFW\Bootstrap::get_url_with_nonce() );
+		wp_safe_redirect( pqfw()->get_url_with_nonce() );
 	}
 
 	/**
@@ -60,9 +60,8 @@ if ( isset( $_REQUEST['action'] ) && 'delete' === $_REQUEST['action'] ) {
 			pqfw()->utils->delete( (int) $post );
 		}
 
-		// wp_safe_redirect( \PQFW\Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ) );
+		wp_safe_redirect( pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ) );
 	}
-
 }
 
 /**
@@ -89,7 +88,7 @@ if ( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash'
 			pqfw()->utils->restore( (int) $post );
 		}
 
-		// wp_safe_redirect( \PQFW\Bootstrap::get_url_with_nonce() );
+		wp_safe_redirect( pqfw()->get_url_with_nonce() );
 	}
 
 	/**
@@ -100,20 +99,20 @@ if ( isset( $_REQUEST['pqfw-entries'] ) && $_REQUEST['pqfw-entries'] === 'trash'
 	 */
 	if ( isset( $_REQUEST['pqfw-delete-entry'] ) && ! empty( $_REQUEST['pqfw-delete-entry'] ) ) {
 		pqfw()->utils->delete( (int) $_REQUEST['pqfw-delete-entry'] );
-		// wp_safe_redirect( \PQFW\Bootstrap::get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ) );
+		wp_safe_redirect( pqfw()->get_url_with_nonce( '?page=pqfw-entries-page&pqfw-entries=trash' ) );
 	}
 
 	/**
 	 * Perform single action: restore.
 	 * Get entry ID and pass it to the restore.
 	 *
-	 * after performing operation redirect to entries page.
+	 * After performing operation redirect to entries page.
 	 *
 	 * @since 1.0.0
 	 */
 	if ( isset( $_REQUEST['pqfw-restore-entry'] ) && ! empty( $_REQUEST['pqfw-restore-entry'] ) ) {
 		pqfw()->utils->restore( (int) $_REQUEST['pqfw-restore-entry'] );
-		// wp_safe_redirect( \PQFW\Bootstrap::get_url_with_nonce() );
+		wp_safe_redirect( pqfw()->get_url_with_nonce() );
 	}
 }
 

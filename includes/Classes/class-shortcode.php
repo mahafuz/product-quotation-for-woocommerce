@@ -31,6 +31,8 @@ class Shortcode {
 	 * Add body class to the page.
 	 *
 	 * @since 1.2.0
+	 * @param array $classes Array of classes.
+	 * @return array          Array of classes.
 	 */
 	public function addBodyClass( $classes ) {
 		$classes[] = 'pqfw-quotations-cart';

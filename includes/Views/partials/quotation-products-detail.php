@@ -5,6 +5,8 @@
  * @since 1.2.0
  * @package PQFW
  */
+
+// var_dump( get_post_meta( $quotation->ID ) );
 ?>
 <div class="pqfw-quotation-produts-detail">
 	<table class="pqfw-list-products">

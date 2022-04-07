@@ -224,9 +224,7 @@ class Utils {
 	}
 
 	public function get_status( $request ) {
-
 		return isset( $request['pqfw-entries'] ) && ! empty( $request['pqfw-entries'] ) ? esc_attr( $request['pqfw-entries'] ) : 'publish';
-
 	}
 
 	/**

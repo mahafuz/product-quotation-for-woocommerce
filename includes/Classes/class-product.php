@@ -138,10 +138,10 @@ class Product {
 		$permalink = $obj->get_permalink();
 		$imageID   = $obj->get_image_id();
 		$img       = wp_get_attachment_thumb_url( $imageID );
-		$price     = strip_tags( wc_price( pqfw()->cart->getSimpleVariationPrice( $obj, $product['variation'] ) ) );
+		$price     = wp_strip_all_tags( wc_price( pqfw()->cart->getSimpleVariationPrice( $obj, $product['variation'] ) ) );
 
 		$variation_id = ( false !== $product['variation'] ? (int) $product['variation'] : false );
-		$variation_detail = $this->variation_detail( $obj, $product['variation_detail'] );
+		$variation_detail = $this->variationDetail( $obj, $product['variation_detail'] );
 
 		return [
 			'name'             => $obj->get_name(),
@@ -178,7 +178,7 @@ class Product {
 	 * @param object $productOBJ The product object.
 	 * @param array  $variationDetail The product variation detail.
 	 */
-	private function variation_detail( $productOBJ, $variationDetail ) {
+	private function variationDetail( $productOBJ, $variationDetail ) {
 		$variations_label = pqfw()->cart->getVariations( $productOBJ, $variationDetail );
 		$return = '';
 

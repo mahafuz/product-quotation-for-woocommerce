@@ -63,7 +63,9 @@ class Admin {
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-quotations.css',
 				[], '1.0.0', 'all'
 			);
+		}
 
+		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id || 'pqfw_quotations_page_pqfw-entries-page' === $screen->id ) {
 			wp_enqueue_style(
 				'pqfw-admin',
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css',
@@ -154,8 +156,6 @@ class Admin {
 		return $title;
 	}
 
-
-
 	/**
 	 * Displays quotation detail meta box.
 	 *
@@ -164,20 +164,17 @@ class Admin {
 	 * @return void
 	 */
 	public function displayQuotationDetail( $quotation ) {
-		$screen = get_current_screen();
-		if ( 'pqfw_quotations' === $screen->id ) {
-			global $title;
-
-		}
 		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-detail.php';
 	}
 
+	/**
+	 * Displays quotation products detail meta box.
+	 *
+	 * @since  1.2.0
+	 * @param  array $quotation The single quotation array.
+	 * @return void
+	 */
 	public function displayQuotationProductsDetail( $quotation ) {
-		$screen = get_current_screen();
-		if ( 'pqfw_quotations' === $screen->id ) {
-			global $title;
-
-		}
 		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-products-detail.php';
 	}
 
@@ -258,8 +255,6 @@ class Admin {
 	 * @param integer $postID The current post id.
 	 */
 	public function columnsContent( $column, $postID ) {
-		global $post;
-
 		switch ( $column ) {
 			case 'id':
 				echo '#' . absint( $postID );

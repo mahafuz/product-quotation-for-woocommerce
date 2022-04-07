@@ -4,7 +4,7 @@
  *
  * @author      Mahafuz
  * @package     PQFW
- * @since       1.0.0
+ * @since       1.2.0
  */
 
 namespace PQFW {
@@ -46,7 +46,7 @@ namespace PQFW {
 		/**
 		 * Initialize pqfw
 		 *
-		 * @since 1.2.11
+		 * @since 1.2.0
 		 */
 		public function init() {
 			$this->includes();
@@ -117,12 +117,12 @@ namespace PQFW {
 		/**
 		 * Return plugin base url with valid nonce.
 		 *
-		 * @since 1.1.0
+		 * @since 1.0.0
 		 *
 		 * @param  string $url The raw url.
 		 * @return string $url with nonce.
 		 */
-		public static function get_url_with_nonce( $url = '' ) {
+		public function get_url_with_nonce( $url = '' ) {
 			if ( empty( $url ) ) {
 				$url = '?page=pqfw-entries-page';
 			}

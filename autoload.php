@@ -2,9 +2,12 @@
 /**
  * Handling plugin spl autoloader golobally
  *
- * @since   1.0.0
+ * @since   1.2.0
  * @package PQFW
  */
+
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 spl_autoload_register(function ( $class ) {
 	$prefix   = 'PQFW\\';

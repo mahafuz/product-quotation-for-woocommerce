@@ -202,7 +202,7 @@ class Quotations {
 			'quantity'         => (int) $quantity,
 			'variation'        => (int) $variation,
 			'variation_detail' => $variation_detail,
-			'message'          => strip_tags( $message )
+			'message'          => wp_strip_all_tags( $message )
 		];
 
 		$hash = $this->generateHash( $new_product['id'], $variation_detail );

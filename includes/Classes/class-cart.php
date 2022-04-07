@@ -36,8 +36,6 @@ class Cart {
 			echo '</tr>';
 		}
 
-		// var_dump( $products );
-
 		foreach ( $products as $key => $product ) {
 			$productOBJ = wc_get_product( $product['id'] );
 			$permalink  = $productOBJ->get_permalink();
@@ -134,7 +132,7 @@ class Cart {
 	 * @return string|html                Generated image.
 	 */
 	public function getVariations( $product, $variations_detail, $echo = false ) {
-		if ( null === $variations_detail || '' === $variations_detail || false === $variations_detail ) { 
+		if ( null === $variations_detail || '' === $variations_detail || false === $variations_detail ) {
 			return;
 		}
 
