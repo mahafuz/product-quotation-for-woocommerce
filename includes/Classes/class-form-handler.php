@@ -35,7 +35,7 @@ class Form_Handler {
 	 * @return void
 	 */
 	public function submitQuotation() {
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'pqfw_form_nonce_action' ) ) {
+		if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'pqfw_form_nonce_action' ) ) {
 			wp_send_json_error( [ 'message' => __( 'Invalid Request', 'PQFW' ) ] );
 		}
 
