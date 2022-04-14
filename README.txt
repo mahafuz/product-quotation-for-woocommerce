@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: product, quotation, woocommerce, contact form, mail
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

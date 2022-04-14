@@ -2,8 +2,8 @@
 Contributors: mahfuz01
 Tags: product, quotation, woocommerce, contact form, mail
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 1.2.0
+Tested up to: 5.9
+Stable tag: 1.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,6 +37,15 @@ Take product quotation from the buyers in one place with [Product Quotation For 
 
 Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/product-quotation-for-woocommerce) to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks]https://github.com/mahafuz/product-quotation-for-woocommerce).
 
+## Privacy Policy 
+Product Quotation &#8211; Product Quotation For WooCommerce uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+
+Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users. 
+
+Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+
+Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
+
 == Installation ==
 
 = Modern Way: =
@@ -66,6 +75,12 @@ Yes, it will only work with WooCommerce Plugin.
 3. Settings Page
 
 == Changelog ==
+
+= 1.2.2 - 14-04-2022 =
+* Added privacy policy
+
+= 1.2.1 - 14-04-2022 =
+* Updated readme
 
 = 1.2.0 - 14-04-2022 =
 * Rewrite the whole plugin features
