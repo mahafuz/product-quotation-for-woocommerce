@@ -1,0 +1,13 @@
+{
+    "exclude": [
+        ".gitignore",
+        ".distarchive",
+        "appsero.json",
+        "composer.json",
+        "composer.lock",
+        "package-lock.json",
+        "package.json",
+        "phpcs.xml",
+        "README.md"
+    ]
+}
