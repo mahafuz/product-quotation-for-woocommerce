@@ -5,18 +5,16 @@
  * @since 1.2.0
  * @package PQFW
  */
-
-// var_dump( get_post_meta( $quotation->ID ) );
 ?>
 <div class="pqfw-quotation-produts-detail">
-	<table class="pqfw-list-products">
+	<table class="pqfw-list-products widefat fixed striped table-view-list">
 		<thead>
 			<tr>
-				<th class="pqfw-product-thumbnail pqfw-list-products-head">Image</th>
-				<th class="pqfw-list-products-head">Product</th>
-				<th class="pqfw-list-products-head">Price</th>
-				<th class="pqfw-list-products-head">Quantity</th>
-				<th class="pqfw-list-products-head">Message</th>
+				<th class="pqfw-product-thumbnail pqfw-list-products-head"><?php esc_html_e( 'Image', 'pqfw' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Product', 'pqfw' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Price', 'pqfw' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Quantity', 'pqfw' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Message', 'pqfw' ); ?></th>
 			</tr>
 		</thead>
 		<tbody class="pqfw-list-products-body">
