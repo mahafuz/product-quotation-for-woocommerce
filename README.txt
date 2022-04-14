@@ -76,6 +76,9 @@ Yes, it will only work with WooCommerce Plugin.
 
 == Changelog ==
 
+= 1.2.2 - 14-04-2022 =
+* Added privacy policy
+
 = 1.2.1 - 14-04-2022 =
 * Updated readme
 
