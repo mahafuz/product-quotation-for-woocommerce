@@ -26,8 +26,9 @@
                 pqfwCart.updateProduct(products);
             });
 
-            $(document).on('change', '.pqfw-message', function () {
+            $(document).on('change', '.pqfw-message > textarea', function () {
                 var new_message = $(this).val();
+
                 var hash = $(this).data('hash');
                 window.pqfwProducts[hash]['message'] = new_message;
                 var products = window.pqfwProducts;
