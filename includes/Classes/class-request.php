@@ -8,8 +8,6 @@
 
 namespace PQFW\Classes;
 
-// TODO: add nonce verifications.
-
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 

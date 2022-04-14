@@ -39,7 +39,6 @@ class Form_Handler {
 			wp_send_json_error( [ 'message' => __( 'Invalid Request', 'PQFW' ) ] );
 		}
 
-		// TODO: Improve this validation it's happening twice.
 		$fullname = sanitize_user( $_POST['pqfw_customer_name'] );
 		$email    = sanitize_email( $_POST['pqfw_customer_email'] );
 		$phone    = pqfw()->utils->sanitize_phone_number( $_POST['pqfw_customer_phone'] );
