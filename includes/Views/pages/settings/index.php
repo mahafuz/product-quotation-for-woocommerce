@@ -233,87 +233,121 @@ defined( 'ABSPATH' ) || exit;
 </style>
 
 <div class="pqfw-container pqfw-options-wrapper wrap">
-    <h1 class="screen-reader-text"><?php __( 'Product Quotation For WooCommerce', 'pqfw' ); ?></h1>
+<h1 class="screen-reader-text"><?php __( 'Product Quotation For WooCommerce', 'pqfw' ); ?></h1>
 
-    <div class="pqfw-options-box postbox">
-        <h2 class="pqfw-options-box-header"><?php _e( 'Product Quotation Settings', '' ); ?></h2>
-    </div>
+<div class="pqfw-options-box postbox">
+	<h2 class="pqfw-options-box-header"><?php _e( 'Product Quotation Settings', '' ); ?></h2>
+</div>
 </div>
 
 <div class="pqfw-container pqfw-options-wrapper wrap">
 
-    <form action="options.php" id="pqfw-settings-form">
+	<form action="options.php" id="pqfw-settings-form">
 
-        <div class="pqfw-options-box postbox">
-            <h2 class="pqfw-options-box-header"><?php _e( 'General Settings', '' ); ?></h2>
-            <div class="pqfw-options-settings-section">
-                <ul class="pqfw-flex">
+		<div class="pqfw-options-box postbox">
+			<h2 class="pqfw-options-box-header"><?php esc_html_e( 'General Settings', 'pqfw' ); ?></h2>
+			<div class="pqfw-options-settings-section">
+				<ul class="pqfw-flex">
 
 
-                    <!-- Default Form Style Option Start-->
-                    <li><?php _e( 'Use Default Form Style', 'pqfw' ); ?></li>
-                    <li>
-                        <div class="control switch-control is-rounded">
-                            <label for="pqfw_form_default_design">
+					<!-- Default Form Style Option Start-->
+					<li><?php esc_html_e( 'Use Default Form Style', 'pqfw' ); ?></li>
+					<li>
+						<div class="control switch-control is-rounded">
+							<label for="pqfw_form_default_design">
 
-                                <input
-                                        type="checkbox"
-                                        class="pqfw-switch-control"
-                                        name="pqfw_form_default_design"
-                                        id="pqfw_form_default_design"
+								<input
+										type="checkbox"
+										class="pqfw-switch-control"
+										name="pqfw_form_default_design"
+										id="pqfw_form_default_design"
 									<?php checked( $settings['pqfw_form_default_design'], 1 ); ?>
-                                >
-                                <span class="switch"></span>
-                            </label>
-                        </div>
-                    </li><!-- -->
+								>
+								<span class="switch"></span>
+							</label>
+						</div>
+					</li><!-- -->
 
-                    <!-- Floating form style option style-->
-                    <li><?php _e( 'Floating Form', 'pqfw' ); ?></li>
-                    <li>
-                        <div class="control switch-control is-rounded">
-                            <label for="pqfw_floating_form">
-                                <input
-                                        type="checkbox"
-                                        class="pqfw-switch-control"
-                                        name="pqfw_floating_form"
-                                        id="pqfw_floating_form"
+					<!-- Floating form style option style-->
+					<li><?php esc_html_e( 'Floating Form', 'pqfw' ); ?></li>
+					<li>
+						<div class="control switch-control is-rounded">
+							<label for="pqfw_floating_form">
+								<input
+										type="checkbox"
+										class="pqfw-switch-control"
+										name="pqfw_floating_form"
+										id="pqfw_floating_form"
 									<?php checked( $settings['pqfw_floating_form'], 1 ); ?>
-                                >
-                                <span class="switch"></span>
-                            </label>
-                        </div>
-                    </li>  <!-- -->
-                </ul>
-            </div>
-        </div>
+								>
+								<span class="switch"></span>
+							</label>
+						</div>
+					</li>  <!-- -->
 
-        <div class="pqfw-options-box postbox">
-            <h2 class="pqfw-options-box-header"><?php _e( 'Mail Settings', '' ); ?></h2>
-            <div class="pqfw-options-settings-section">
-                <ul class="pqfw-flex">
+					<!-- Shop page button -->
+					<li><?php esc_html_e( 'Shop Page Button', 'pqfw' ); ?></li>
+					<li>
+						<div class="control switch-control is-rounded">
+							<label for="pqfw_shop_page_button">
+								<input
+										type="checkbox"
+										class="pqfw-switch-control"
+										name="pqfw_shop_page_button"
+										id="pqfw_shop_page_button"
+									<?php checked( $settings['pqfw_shop_page_button'], 1 ); ?>
+								>
+								<span class="switch"></span>
+							</label>
+						</div>
+					</li>  <!-- -->
 
-                    <li><?php _e( 'Send Mail For Each Entry', 'pqfw' ); ?></li>
-                    <li>
-                        <div class="control switch-control is-rounded">
-                            <label for="pqfw_form_send_mail">
-                                <input
-                                        type="checkbox"
-                                        class="pqfw-switch-control"
-                                        name="pqfw_form_send_mail"
-                                        id="pqfw_form_send_mail"
+					<!-- Shop page button -->
+					<li><?php esc_html_e( 'Product Page Button', 'pqfw' ); ?></li>
+					<li>
+						<div class="control switch-control is-rounded">
+							<label for="pqfw_product_page_button">
+								<input
+										type="checkbox"
+										class="pqfw-switch-control"
+										name="pqfw_product_page_button"
+										id="pqfw_product_page_button"
+									<?php checked( $settings['pqfw_product_page_button'], 1 ); ?>
+								>
+								<span class="switch"></span>
+							</label>
+						</div>
+					</li>  <!-- -->
+				</ul>
+			</div>
+		</div>
+
+		<div class="pqfw-options-box postbox">
+			<h2 class="pqfw-options-box-header"><?php _e( 'Mail Settings', '' ); ?></h2>
+			<div class="pqfw-options-settings-section">
+				<ul class="pqfw-flex">
+
+					<li><?php esc_html_e( 'Send Mail For Each Entry', 'pqfw' ); ?></li>
+					<li>
+						<div class="control switch-control is-rounded">
+							<label for="pqfw_form_send_mail">
+								<input
+										type="checkbox"
+										class="pqfw-switch-control"
+										name="pqfw_form_send_mail"
+										id="pqfw_form_send_mail"
 									<?php checked( $settings['pqfw_form_send_mail'], 1 ); ?>
-                                >
-                                <span class="switch"></span>
-                            </label>
-                        </div>
-                    </li><!-- -->
+								>
+								<span class="switch"></span>
+							</label>
+						</div>
+					</li><!-- -->
 
-                </ul>
-            </div>
-        </div>
+				</ul>
+			</div>
+		</div>
 
-        <input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'pqfw_settings_form_action' ); ?>">
-    </form>
+		<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'pqfw_settings_form_action' ); ?>">
+	</form>
 
 </div>

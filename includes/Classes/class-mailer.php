@@ -122,9 +122,12 @@ class Mailer {
 
 		$this->products = pqfw()->quotations->getProducts();
 		foreach ( $this->products as $product ) {
+			$img = wp_get_attachment_image_src( get_post_thumbnail_id( $product['id'] ), 'thumbnail' );
+			$img = ! empty( $img[0] ) ? ( $img[0] ) : false;
 			$message .= '<br><a href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>';
 			$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $product['quantity'] ) . '</p>';
-			$message .= '<p><a href="' . esc_url( get_permalink( $product['id'] ) ) . '">' . get_the_post_thumbnail( $product['id'], 'thumbnail' ) . '</a></p>';
+			$message .= '<p><a href="' . rawurlencode( esc_url( get_permalink( $product['id'] ) ) ) . '">
+			<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>';
 		}
 
 		$message .= '</body></html>';
@@ -142,7 +145,7 @@ class Mailer {
 	 */
 	public function send() {
 		$result = \wp_mail(
-			'm.mahfuz.me@gmail.com',
+			$this->email,
 			$this->subject,
 			$this->message,
 			$this->headers

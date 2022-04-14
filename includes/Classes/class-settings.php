@@ -215,6 +215,8 @@ class Settings {
 		$this->default = [
 			'pqfw_form_default_design',
 			'pqfw_floating_form',
+			'pqfw_shop_page_button',
+			'pqfw_product_page_button',
 			'pqfw_form_send_mail'
 		];
 

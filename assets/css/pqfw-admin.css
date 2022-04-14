@@ -96,8 +96,8 @@ table.wp-list-table.widefat.fixed.striped.posts {
 .pqfw-options-settings-section .switch-control label {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 22px;
 }
 
 .pqfw-options-settings-section .switch-control.is-rounded .switch {
@@ -123,10 +123,10 @@ table.wp-list-table.widefat.fixed.striped.posts {
 .pqfw-options-settings-section .switch-control .switch::before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 16px;
+    width: 16px;
     left: 4px;
-    bottom: 4px;
+    bottom: 3px;
     background-color: white;
     transition: 0.4s;
 }

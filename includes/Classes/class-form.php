@@ -38,6 +38,7 @@ class Form {
 
 		add_action( 'woocommerce_single_product_summary', [ $this, 'addButtonOnSinglePage' ] );
 		add_action( $this->quotationButtonPosition, [ $this, 'addButton' ] );
+
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_stuffs' ] );
 	}
 
@@ -91,6 +92,10 @@ class Form {
 	 * @since 1.2.0
 	 */
 	public function addButton() {
+		if ( ! pqfw()->settings->get( 'pqfw_shop_page_button' ) ) {
+			return;
+		}
+
 		global $product;
 
 		if ( $product->is_type( 'variable' ) ) {
@@ -110,9 +115,12 @@ class Form {
 	 * @since 1.2.0
 	 */
 	public function addButtonOnSinglePage() {
-		global $product;
+		if ( ! pqfw()->settings->get( 'pqfw_product_page_button' ) ) {
+			return;
+		}
 
-		echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="'.$product->get_id().'">'
+		global $product;
+		echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
 		. esc_html__( 'Add to Quotation', 'pqfw' ) .
 		'</a>';
 	}
