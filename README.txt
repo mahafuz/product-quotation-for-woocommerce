@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: product, quotation, woocommerce, contact form, mail
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,10 +67,12 @@ Yes, it will only work with WooCommerce Plugin.
 
 == Changelog ==
 
+= 1.2.0 - 14-04-2022 =
+* Rewrite the whole plugin features
+* Added new settings options.
+* Small bug fixes
+
 = 1.0.0 - 18-12-2020 =
 
 * Initial release
-
-
-== Upgrade Notice ==
 
