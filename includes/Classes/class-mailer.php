@@ -145,7 +145,7 @@ class Mailer {
 	 */
 	public function send() {
 		$result = \wp_mail(
-			'm.mahfuz.me@gmail.com',
+			$this->email,
 			$this->subject,
 			$this->message,
 			$this->headers
