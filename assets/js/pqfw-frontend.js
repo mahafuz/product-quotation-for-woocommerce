@@ -18,7 +18,6 @@ jQuery(function ( $ ) {
 		},
 
 		sendData : function(button) {
-			console.log($(button).data('id'));
 			var data = {
 				productID        : $(button).data('id'),
 				action           : PQFW_OBJECT.actions.addToQuotations,
