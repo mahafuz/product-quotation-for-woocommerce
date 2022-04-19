@@ -129,3 +129,7 @@
     width: auto;
     float: none;
 }
+
+a.button.pqfw-button.pqfw-add-to-quotation {font-size: 14px;margin: 10px 0;display: inline-block;}
+
+a.pqfw-view-quotation-cart {font-size: 14px;display: block;text-decoration: underline;}
