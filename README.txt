@@ -67,13 +67,6 @@ Yes, it will work with any standard WordPress theme.
 = Does it required WooCommerce plugin? =
 Yes, it will only work with WooCommerce Plugin.
 
-
-== Screenshots ==
-
-1. Quotation Form
-2. Form Entries
-3. Settings Page
-
 == Changelog ==
 
 = 1.2.3- 14-04-2022 =
@@ -94,3 +87,10 @@ Yes, it will only work with WooCommerce Plugin.
 
 * Initial release
 
+== Screenshots ==
+
+1. Add to Quotation from shop page
+2. Add to Quotation from Single Page
+3. Quotation Cart
+4. Quotations
+5. Settings
