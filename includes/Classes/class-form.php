@@ -63,6 +63,11 @@ class Form {
 
 		$cartPageId = get_option( 'pqfw_quotations_cart', false );
 
+		if ( ! $cartPageId ) {
+			pqfw()->migration->run();
+			$cartPageId = get_option( 'pqfw_quotations_cart', false );
+		}
+
 		wp_localize_script(
 			'pqfw-frontend',
 			'PQFW_OBJECT',
