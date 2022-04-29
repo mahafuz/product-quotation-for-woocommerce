@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: request a quote button, woocommerce request for quote, woocommerce request a quote shortcode, request a quote, quote, woocommerce, shop, ecommerce, e-commerce, quotations, request for quote, rfq, raq, proposal, ask an estimate, budget, email quote
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 1.2.3
+Stable tag: 1.2.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -11,7 +11,7 @@ Allow your customer to add products to Quotation Cart and ask for price or any i
 
 == Description ==
 
-**Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.**
+**🔥🔥 Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form. 🔥🔥**
 
 Get quotations on specific products by adding a quote button for each product and allow users to add products on a Quotation Cart as they like and submit the quotation form by filling up with their questions.
 You can also hide the quotation button from the single product page or the shop page.
@@ -66,6 +66,12 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.2.5- 28-04-2022 =
+* Fixed: Quotation Cart page issue
+
+= 1.2.4- 28-04-2022 =
+* Updated: Readme's
 
 = 1.2.3- 14-04-2022 =
 * Fixed: Quotation button style issue.
