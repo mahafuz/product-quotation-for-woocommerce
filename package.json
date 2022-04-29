@@ -1,0 +1,39 @@
+{
+  "name": "product-quotation-for-woocommerce",
+  "version": "1.0.0",
+  "description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahafuz/product-quotation-for-woocommerce.git"
+  },
+  "author": "Mahafuz <m.mahfuz.me@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
+  },
+  "homepage": "https://github.com/mahafuz/product-quotation-for-woocommerce#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^22.5.0"
+  },
+  "dependencies": {
+    "@wordpress/components": "^19.9.0",
+    "react-router-dom": "^6.3.0",
+    "react-toastify": "^8.2.0"
+  }
+}

@@ -1,0 +1,74 @@
+.pqfw-settings-tabs-warp {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+	background: #fff;
+	border-radius: 2px;
+	display: flex;
+	width: calc( 100% - 30px );
+
+	.Toastify__toast-container--top-right {
+		top: 80px;
+	}
+
+	&.pqfw-pro-deactivate {
+		width: 75%;
+    	float: left;
+	}
+
+	#pqfw-settings-tabs {
+		background: #f1f1f1;
+		min-width: 220px;
+		border-radius: 2px;
+		margin: 0;
+		padding: 0;
+		border-bottom: 0px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-right: 1px solid #e5e5e5;
+		.pqfw-settings-nav-tab {
+			display: block;
+			padding: 13px 25px;
+			text-decoration: none;
+			color: #444;
+			border: 0px;
+			transition: 0s;
+			border-bottom: 1px solid #e5e5e5;
+			margin-right: 0px;
+			&.pqfw-settings-nav-tab-active {
+				background: #fff;
+			}
+			img {
+				width: 20px;
+				margin-right: 10px;
+				vertical-align: middle;
+				max-height: 20px;
+			}
+		}
+	}
+
+	#pqfw-settings-tabs-contents {
+		.pqfw-tab-title {
+			border-bottom: 1px solid #eff4f6;
+			margin: 0px;
+			padding: 14.5px 20px;
+		}
+		.help {
+			font-size: 13px;
+		}
+
+		.inside {
+			padding: 0px 20px;
+
+			.form-table {
+				clear: right;
+			}
+		}
+
+		.submit-wrapper {
+			border-top: 1px solid #eff4f6;
+			margin-top: 10px;
+			padding: 14.5px 20px;
+		}
+	}
+}

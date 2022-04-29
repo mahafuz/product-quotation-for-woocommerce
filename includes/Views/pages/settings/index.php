@@ -43,32 +43,7 @@ defined( 'ABSPATH' ) || exit;
 	position: absolute;
 	right: 20px;
 }
-.pqfw-settings-tabs {
-	margin-left: 30px;
-}
-.pqfw-settings-tabs a,
-.pqfw-settings-tabs a:hover,
-.pqfw-settings-tabs a.nav-tab-active {
-	background: none;
-	border: none;
-	box-shadow: none;
-}
-.pqfw-settings-tabs a {
-	font-weight: 500;
-	padding: 0 10px;
-	color: #5f5f5f;
-}
-.pqfw-settings-tabs a.nav-tab-active {
-	color: #333;
-}
-.pqfw-settings-tabs a > span {
-	display: block;
-	padding: 10px 0;
-	border-bottom: 3px solid transparent;
-}
-.pqfw-settings-tabs a.nav-tab-active > span {
-	border-bottom: 3px solid #0073aa;
-}
+
 .pqfw-settings-content {
 	padding: 20px;
 }

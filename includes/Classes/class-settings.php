@@ -68,131 +68,9 @@ class Settings {
 			__( 'Settings', 'pqfw' ),
 			'manage_options',
 			'pqfw-settings',
-			[ $this, 'display_pqfw_settings_page' ],
+			[ $this, 'display' ],
 			null
 		);
-	}
-
-	/**
-	 * Renders settings tabs.
-	 *
-	 * @since 1.0.0
-	 * @return array Settings tabs list.
-	 */
-	public function tabs() {
-		return apply_filters(
-			'pqfw_elements_lite_admin_settings_tabs',
-			[
-				'button'  => [
-					'title'      => esc_html__( 'Button', 'powerpack' ),
-					'show'       => true,
-					'capability' => 'edit_posts',
-					'file'       => PQFW_PLUGIN_VIEWS . 'pages/settings/button.php',
-					'priority'   => 150,
-				],
-				'form'    => [
-					'title'      => esc_html__( 'Form', 'powerpack' ),
-					'show'       => true,
-					'capability' => 'edit_posts',
-					'file'       => PQFW_PLUGIN_VIEWS . 'pages/settings/form.php',
-					'priority'   => 200,
-				],
-				'email'   => [
-					'title'      => esc_html__( 'Email', 'powerpack' ),
-					'show'       => true,
-					'capability' => 'edit_posts',
-					'file'       => PQFW_PLUGIN_VIEWS . 'pages/settings/email.php',
-					'priority'   => 300,
-				],
-				'advance' => [
-					'title'      => esc_html__( 'Advance', 'powerpack' ),
-					'show'       => true,
-					'capability' => 'edit_posts',
-					'file'       => PQFW_PLUGIN_VIEWS . 'pages/settings/advance.php',
-					'priority'   => 400,
-				]
-			]
-		);
-	}
-
-	/**
-	 * Returns the form action type.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $type The action type.
-	 * @return string      The admin url with action type.
-	 */
-	public function getFormAction( $type = '' ) {
-		return admin_url( '/admin.php?page=pqfw-settings&tab=' . $type );
-	}
-
-	/**
-	 * Displays settings tabs.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $activeTab The active tab.
-	 */
-	public function displayTabs( $activeTab ) {
-		$sortedTabs = [];
-
-		foreach ( $this->tabs() as $index => $tab ) {
-			$tab['key'] = $index;
-			$sortedTabs[ $tab['priority'] ] = $tab;
-		}
-
-		ksort( $sortedTabs );
-
-		foreach ( $sortedTabs as $tab ) {
-			if ( $tab['show'] ) {
-				if ( isset( $tab['cap'] ) && ! current_user_can( $tab['capability'] ) ) {
-					continue;
-				}
-				printf(
-					'<a href="%s" class="nav-tab%s"><span>%s</span></a>',
-					esc_attr( $this->getFormAction( $tab['key'] ) ),
-					( $activeTab == $tab['key'] ? ' nav-tab-active' : '' ),
-					esc_html( $tab['title'] )
-				);
-			}
-		}
-	}
-
-	/**
-	 * Displays settings page.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $activeTab The active tab.
-	 * @return void
-	 */
-	public function displaySettingsPage( $activeTab ) {
-		$tabs = $this->tabs();
-
-		if ( isset( $tabs[ $activeTab ] ) ) {
-
-			if ( ! isset( $tabs[ $activeTab ]['file'] ) || empty( $tabs[ $activeTab ]['file'] ) || ! file_exists( $tabs[ $activeTab ]['file'] ) ) {
-				echo esc_html__( 'Setting page file could not be located.', 'powerpack' );
-				return;
-			}
-
-			$show = ! isset( $tabs[ $activeTab ]['show'] ) ? true : $tabs[ $activeTab ]['show'];
-			$cap  = 'manage_options';
-
-			if ( ! empty( $tabs[ $activeTab ]['capability'] ) ) {
-				$cap = $tabs[ $activeTab ]['capability'];
-			} else {
-				$cap = ! is_network_admin() ? 'manage_options' : 'manage_network_plugins';
-			}
-
-			if ( ! $show || ! current_user_can( $cap ) ) {
-				esc_html_e( 'You do not have permission to view this setting.', 'powerpack' );
-				return;
-			}
-
-			include $tabs[ $activeTab ]['file'];
-		}
 	}
 
 	/**
@@ -200,9 +78,8 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display_pqfw_settings_page() {
-		$settings = $this->getAll();
-		include PQFW_PLUGIN_VIEWS . 'pages/settings/index.php';
+	public function display() {
+		echo '<div id="pqfw-app" class="wrap-pqfw-app"></div>';
 	}
 
 	/**
@@ -213,17 +90,17 @@ class Settings {
 	 */
 	protected function getAll() {
 		$this->default = [
-			'pqfw_form_default_design',
-			'pqfw_floating_form',
-			'pqfw_shop_page_button',
-			'pqfw_product_page_button',
-			'pqfw_form_send_mail'
+			'pqfw_form_default_design' => true,
+			'pqfw_floating_form'       => true,
+			'pqfw_shop_page_button'    => true,
+			'pqfw_product_page_button' => true,
+			'pqfw_form_send_mail'      => true,
+			'recipient'                => sanitize_email( get_option( 'admin_email' ) )
 		];
 
-		$this->default = array_fill_keys( $this->default, true );
-		$this->saved   = get_option( 'pqfw_settings', $this->default );
+		$this->saved = get_option( 'pqfw_settings', $this->default );
+		$this->all   = wp_parse_args( $this->saved, $this->default );
 
-		$this->all = wp_parse_args( $this->saved, $this->default );
 		return $this->all;
 	}
 
@@ -238,17 +115,39 @@ class Settings {
 		$screen = get_current_screen();
 
 		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id ) {
+
+			$dependencies = require_once PQFW_PLUGIN_PATH . 'build/index.asset.php';
+			array_push( $dependencies['dependencies'], 'wp-util' );
+
+			wp_enqueue_style(
+				'pqfw-app',
+				PQFW_PLUGIN_URL . 'build/index.css',
+				[ 'wp-components' ],
+				PQFW_PLUGIN_VERSION,
+				'all'
+			);
+
 			wp_enqueue_script(
 				'pqfw-options-handler', PQFW_PLUGIN_URL . 'assets/js/pqfw-settings.js',
 				[ 'jquery' ], PQFW_PLUGIN_VERSION, true
 			);
 
+			wp_enqueue_script(
+				'pqfw-app',
+				PQFW_PLUGIN_URL . 'build/index.js',
+				$dependencies['dependencies'],
+				PQFW_PLUGIN_VERSION,
+				true
+			);
+
 			wp_localize_script(
-				'pqfw-options-handler',
+				'pqfw-app',
 				'PQFW_OBJECT',
 				[
-					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'actions' => [
+					'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+					'settings' => $this->getAll(),
+					'nonce'    => wp_create_nonce( 'pqfw-app-ui' ),
+					'actions'  => [
 						'save_settings' => 'pqrf_save_settings'
 					]
 				]
@@ -263,24 +162,30 @@ class Settings {
 	 * @return  void
 	 */
 	public function save() {
-		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw_settings_form_action' ) ) {
-			die( esc_html__( 'Unauthorized Action', 'pqfw' ) );
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw-app-ui' ) ) {
+			wp_send_json_error([
+				'message' => esc_html__( 'Unauthorized Action', 'pqfw' )
+			], 400 );
 		}
 
-		$name     = sanitize_text_field( $_REQUEST['name'] );
-		$status   = filter_var( $_REQUEST['status'], FILTER_VALIDATE_BOOLEAN );
-		$settings = $this->getAll();
+		$settings = isset( $_POST['settings'] ) ? (array) json_decode( wp_unslash( $_POST['settings'] ) ) : false;
 
-		if ( array_key_exists( $name, $settings ) ) {
-			$settings[ $name ] = $status;
-			update_option( 'pqfw_settings', $settings );
-
-			wp_send_json_success( __( 'Settings Saved', 'pqfw' ) );
+		if ( ! is_array( $settings ) ) {
+			wp_send_json_error([
+				'message' => esc_html__( 'Invalid Settings.', 'pqfw' )
+			], 400 );
 		}
 
-		wp_send_json_error( __( 'Error while saving settings', 'pqfw' ) );
+		$allowed   = $this->getAll();
+		$sanitized = array_filter( $settings, function( $key ) use ( $allowed ) {
+			return array_key_exists( $key, $allowed );
+		}, ARRAY_FILTER_USE_KEY );
 
-		die;
+		update_option( 'pqfw_settings', $sanitized );
+
+		wp_send_json_success([
+			'message' => esc_html__( 'Settings has been updated.', 'pqfw' )
+		], 200 );
 	}
 
 	/**
