@@ -43,8 +43,6 @@ add_action( 'plugins_loaded', function() {
 	pqfw();
 });
 
-require __DIR__ . '/vendor/autoload.php';
-
 /**
  * Initialize the plugin tracker
  *
@@ -52,7 +50,15 @@ require __DIR__ . '/vendor/autoload.php';
  * @return void
  */
 function appsero_init_tracker_product_quotation_for_woocommerce() {
-	$client = new Appsero\Client( 'e806fe7d-f314-425d-8be4-9f62fdaf71cf', 'Product Quotation &#8211; Product Quotation For WooCommerce', __FILE__ );
+	if ( ! class_exists( 'Appsero\Client' ) ) {
+		require __DIR__ . '/appsero/client/src/Client.php';
+	}
+
+	$client = new Appsero\Client(
+		'e806fe7d-f314-425d-8be4-9f62fdaf71cf',
+		'Product Quotation - Product Quotation For WooCommerce',
+		__FILE__
+	);
 
 	// Active insights.
 	$client->insights()->init();
