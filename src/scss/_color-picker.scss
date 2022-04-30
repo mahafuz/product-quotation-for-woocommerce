@@ -1,0 +1,25 @@
+.pqfw-color-picker-container {
+	position: relative;
+	.pqfw-hover-color-container,
+	.pqfw-normal-color-container {
+		display: inline-block;
+		padding: 25px 20px 0px;
+		background: #f8f8f8;
+	}
+	.component-color-indicator {
+		display: block;
+		margin: 0;
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+	}
+	.components-range-control__root {
+		width: 50%;
+	}
+}
+
+.form-table td p.color-picker-label {
+	margin: 20px 0 5px;
+	display: block;
+	font-size: 12px;
+}

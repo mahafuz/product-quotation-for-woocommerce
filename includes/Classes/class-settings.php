@@ -95,7 +95,17 @@ class Settings {
 			'pqfw_shop_page_button'    => true,
 			'pqfw_product_page_button' => true,
 			'pqfw_form_send_mail'      => true,
-			'recipient'                => sanitize_email( get_option( 'admin_email' ) )
+			'recipient'                => sanitize_email( get_option( 'admin_email' ) ),
+			'button_hover_color'       => '#0073aa',
+			'button_hover_bg_color'    => '#e5e5e5',
+			'button_normal_color'      => '#0073aa',
+			'button_normal_bg_color'   => '#e5e5e5',
+			'button_font_size'         => '16',
+			'button_width'             => '100',
+			'button_text'              => __( 'Add to Quote', 'pqfw' ),
+			'hide_add_to_cart_button'  => false,
+			'hide_product_prices'      => false,
+			'button_position'          => 'woocommerce_after_shop_loop_item'
 		];
 
 		$this->saved = get_option( 'pqfw_settings', $this->default );

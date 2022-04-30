@@ -2,6 +2,42 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/images/cog.svg":
+/*!****************************!*\
+  !*** ./src/images/cog.svg ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ReactComponent": function() { return /* binding */ SvgCog; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+var SvgCog = function SvgCog(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 20 21.24"
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
+    "data-name": "Layer 2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "m19.59 13.58-1.87-1.44a.27.27 0 0 1-.13-.3 6.53 6.53 0 0 0 0-2.42.28.28 0 0 1 .14-.33l1.87-1.44a.84.84 0 0 0 .24-1.2l-1.3-2.26a.86.86 0 0 0-1.18-.4l-2.2.91a.3.3 0 0 1-.36-.05 7.06 7.06 0 0 0-2-1.18.32.32 0 0 1-.24-.3c-.1-.78-.21-1.56-.3-2.34a.85.85 0 0 0-.91-.83H8.64a.85.85 0 0 0-.88.83c-.1.78-.21 1.56-.31 2.34a.3.3 0 0 1-.22.29 7 7 0 0 0-2 1.17.32.32 0 0 1-.38.06L2.66 3.8a.86.86 0 0 0-1.21.42L.2 6.36a.89.89 0 0 0 .27 1.36l1.82 1.39a.25.25 0 0 1 .12.29 6.45 6.45 0 0 0 0 2.4.34.34 0 0 1-.17.38c-.6.45-1.2.91-1.79 1.38a.87.87 0 0 0-.26 1.3L1.45 17a.87.87 0 0 0 1.2.41l2.18-.9a.32.32 0 0 1 .38.05 7 7 0 0 0 2 1.17.34.34 0 0 1 .25.31l.3 2.31a.86.86 0 0 0 .92.84h2.66a.85.85 0 0 0 .9-.84c.1-.78.21-1.56.31-2.34a.3.3 0 0 1 .22-.28 7 7 0 0 0 2-1.18.32.32 0 0 1 .38-.05l2.2.91a2.18 2.18 0 0 0 .31.09.88.88 0 0 0 .84-.46l1.3-2.26a.85.85 0 0 0-.21-1.2Zm-6.16-2.83a3.44 3.44 0 0 1-6.88-.13 3.44 3.44 0 1 1 6.88.13Z",
+    style: {
+      fill: "#9b59b6"
+    },
+    "data-name": "Layer 1"
+  })));
+};
+
+
+/* harmony default export */ __webpack_exports__["default"] = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMS4yNCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM5YjU5YjZ9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkdlbmVyYWwgU2V0dGluZzwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBkPSJNMTkuNTksMTMuNThsLTEuODctMS40NGEuMjcuMjcsMCwwLDEtLjEzLS4zLDYuNTMsNi41MywwLDAsMCwwLTIuNDIuMjguMjgsMCwwLDEsLjE0LS4zM2wxLjg3LTEuNDRhLjg0Ljg0LDAsMCwwLC4yNC0xLjJsLTEuMy0yLjI2YS44Ni44NiwwLDAsMC0xLjE4LS40bC0yLjIuOTFhLjMuMywwLDAsMS0uMzYtLjA1LDcuMDYsNy4wNiwwLDAsMC0yLTEuMTguMzIuMzIsMCwwLDEtLjI0LS4zYy0uMS0uNzgtLjIxLTEuNTYtLjMtMi4zNEEuODUuODUsMCwwLDAsMTEuMzUsMFExMCwwLDguNjQsMGEuODUuODUsMCwwLDAtLjg4LjgzYy0uMS43OC0uMjEsMS41Ni0uMzEsMi4zNGEuMy4zLDAsMCwxLS4yMi4yOSw3LDcsMCwwLDAtMiwxLjE3LjMyLjMyLDAsMCwxLS4zOC4wNkwyLjY2LDMuOGEuODYuODYsMCwwLDAtMS4yMS40MkwuMiw2LjM2QS44OS44OSwwLDAsMCwuNDcsNy43MkwyLjI5LDkuMTFhLjI1LjI1LDAsMCwxLC4xMi4yOSw2LjQ1LDYuNDUsMCwwLDAsMCwyLjQuMzQuMzQsMCwwLDEtLjE3LjM4Yy0uNi40NS0xLjIuOTEtMS43OSwxLjM4YS44Ny44NywwLDAsMC0uMjYsMS4zTDEuNDUsMTdhLjg3Ljg3LDAsMCwwLDEuMi40MWwyLjE4LS45YS4zMi4zMiwwLDAsMSwuMzguMDUsNyw3LDAsMCwwLDIsMS4xNy4zNC4zNCwwLDAsMSwuMjUuMzFjLjEuNzcuMiwxLjU0LjMsMi4zMWEuODYuODYsMCwwLDAsLjkyLjg0aDIuNjZhLjg1Ljg1LDAsMCwwLC45LS44NGMuMS0uNzguMjEtMS41Ni4zMS0yLjM0YS4zLjMsMCwwLDEsLjIyLS4yOCw3LDcsMCwwLDAsMi0xLjE4LjMyLjMyLDAsMCwxLC4zOC0uMDVsMi4yLjkxYTIuMTgsMi4xOCwwLDAsMCwuMzEuMDkuODguODgsMCwwLDAsLjg0LS40NmwxLjMtMi4yNkEuODUuODUsMCwwLDAsMTkuNTksMTMuNThabS02LjE2LTIuODNhMy40NCwzLjQ0LDAsMCwxLTYuODgtLjEzLDMuNDQsMy40NCwwLDEsMSw2Ljg4LjEzWiIgY2xhc3M9ImNscy0xIi8+PC9nPjwvZz48L3N2Zz4=");
+
+/***/ }),
+
 /***/ "./src/Helpers.js":
 /*!************************!*\
   !*** ./src/Helpers.js ***!
@@ -46,10 +82,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ButtonSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ButtonSettings */ "./src/components/ButtonSettings.tsx");
 /* harmony import */ var _EmailSettings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EmailSettings */ "./src/components/EmailSettings.tsx");
 /* harmony import */ var _FormSettings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FormSettings */ "./src/components/FormSettings.tsx");
-/* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../Helpers */ "./src/Helpers.js");
-/* harmony import */ var _images_button_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../images/button.png */ "./src/images/button.png");
-/* harmony import */ var _images_form_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../images/form.png */ "./src/images/form.png");
-/* harmony import */ var _images_email_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../images/email.png */ "./src/images/email.png");
+/* harmony import */ var _GeneralSettings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./GeneralSettings */ "./src/components/GeneralSettings.tsx");
+/* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../Helpers */ "./src/Helpers.js");
+/* harmony import */ var _images_button_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../images/button.png */ "./src/images/button.png");
+/* harmony import */ var _images_form_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../images/form.png */ "./src/images/form.png");
+/* harmony import */ var _images_email_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../images/email.png */ "./src/images/email.png");
+/* harmony import */ var _images_cog_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../images/cog.svg */ "./src/images/cog.svg");
+
+
 
 
 
@@ -65,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 const App = () => {
   const savedTab = localStorage.getItem('pqfw_settings_active_tab') || 'button';
   const [activeTab, setActiveTab] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(savedTab);
-  const [settings, setSettings] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)((0,_Helpers__WEBPACK_IMPORTED_MODULE_7__.getSavedSettings)());
+  const [settings, setSettings] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)((0,_Helpers__WEBPACK_IMPORTED_MODULE_8__.getSavedSettings)());
 
   const saveActiveTab = name => {
     localStorage.setItem('pqfw_settings_active_tab', name);
@@ -76,7 +116,7 @@ const App = () => {
     button.classList.add('updating-message');
     wp.ajax.send('pqrf_save_settings', {
       data: {
-        _wpnonce: (0,_Helpers__WEBPACK_IMPORTED_MODULE_7__.getNonce)(),
+        _wpnonce: (0,_Helpers__WEBPACK_IMPORTED_MODULE_8__.getNonce)(),
         settings: JSON.stringify(settings)
       },
       success: function (response) {
@@ -107,13 +147,22 @@ const App = () => {
     id: "pqfw-settings-tabs"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
+    className: `pqfw-settings-nav-tab${activeTab === 'general' ? ` pqfw-settings-nav-tab-active` : ''}`,
+    onClick: () => {
+      setActiveTab('general');
+      saveActiveTab('general');
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: _images_cog_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
+  }), " General Settings"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#",
     className: `pqfw-settings-nav-tab${activeTab === 'button' ? ` pqfw-settings-nav-tab-active` : ''}`,
     onClick: () => {
       setActiveTab('button');
       saveActiveTab('button');
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: _images_button_png__WEBPACK_IMPORTED_MODULE_8__
+    src: _images_button_png__WEBPACK_IMPORTED_MODULE_9__
   }), " Button"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: `pqfw-settings-nav-tab${activeTab === 'form' ? ` pqfw-settings-nav-tab-active` : ''}`,
@@ -122,7 +171,7 @@ const App = () => {
       saveActiveTab('form');
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: _images_form_png__WEBPACK_IMPORTED_MODULE_9__
+    src: _images_form_png__WEBPACK_IMPORTED_MODULE_10__
   }), " Form"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
     className: `pqfw-settings-nav-tab${activeTab === 'email' ? ` pqfw-settings-nav-tab-active` : ''}`,
@@ -131,10 +180,14 @@ const App = () => {
       saveActiveTab('email');
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: _images_email_png__WEBPACK_IMPORTED_MODULE_10__
+    src: _images_email_png__WEBPACK_IMPORTED_MODULE_11__
   }), " Email")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "pqfw-settings-tabs-contents"
-  }, activeTab === 'button' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ButtonSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, activeTab === 'general' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GeneralSettings__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    settings: settings,
+    setSettings: setSettings,
+    saveSettings: saveSettings
+  }), activeTab === 'button' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ButtonSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
     settings: settings,
     setSettings: setSettings,
     saveSettings: saveSettings
@@ -176,6 +229,42 @@ const ButtonSettings = _ref => {
     setSettings,
     saveSettings
   } = _ref;
+  const [hoverColorVisible, sethoverVisibleColor] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [hoverVisibleBg, sethoverVisibleBg] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [normalColorVisible, setNormalColorVisible] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const [normalBgVisible, setNormalBgVisible] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+  const hoverColorRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  const hoverBgRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  const normalColorRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  const normalBgRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+
+  const handleClickOutside = event => {
+    if (hoverColorRef.current && !hoverColorRef.current.contains(event.target)) {
+      sethoverVisibleColor(false);
+    }
+
+    if (hoverBgRef.current && !hoverBgRef.current.contains(event.target)) {
+      sethoverVisibleBg(false);
+    }
+
+    if (normalColorRef.current && !normalColorRef.current.contains(event.target)) {
+      setNormalColorVisible(false);
+    }
+
+    if (normalBgRef.current && !normalBgRef.current.contains(event.target)) {
+      setNormalBgVisible(false);
+    }
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+  console.log('settings', settings);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "pqfw-settings-button",
     className: "pqfw-settings-tab-content pqfw-settings-tab-content-active"
@@ -201,7 +290,129 @@ const ButtonSettings = _ref => {
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "description"
-  }, "Show ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Add To Quotation"), " button on product single page"))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, "Show ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Add To Quotation"), " button on product single page"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Button Text"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "text",
+    className: "regular-text",
+    value: settings === null || settings === void 0 ? void 0 : settings.button_text,
+    onChange: e => setSettings({ ...settings,
+      button_text: e.target.value
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "description"
+  }, "Show ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Add To Quotation"), " button on product single page"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Button position in Loop"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+    label: "Button position in Loop",
+    value: settings === null || settings === void 0 ? void 0 : settings.button_position,
+    hideLabelFromVision: true,
+    options: [{
+      label: 'At product end',
+      value: 'woocommerce_after_shop_loop_item'
+    }, {
+      label: 'At product start',
+      value: 'woocommerce_before_shop_loop_item'
+    }, {
+      label: 'Before product title',
+      value: 'woocommerce_before_shop_loop_item_title'
+    }, {
+      label: 'After product title',
+      value: 'woocommerce_after_shop_loop_item_title'
+    }],
+    onChange: position => setSettings({ ...settings,
+      button_position: position
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "description"
+  }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Button Style"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
+    className: "my-tab-panel",
+    activeClass: "active-tab",
+    initialTabName: "normal",
+    tabs: [{
+      name: 'normal',
+      title: 'Normal',
+      className: 'normal-color'
+    }, {
+      name: 'hover',
+      title: 'Hover',
+      className: 'hover-color'
+    }]
+  }, tab => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pqfw-color-picker-container"
+  }, tab.name === 'hover' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "color-picker-label"
+  }, "Text Color"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
+    colorValue: settings === null || settings === void 0 ? void 0 : settings.button_hover_color,
+    onClick: () => sethoverVisibleColor(!hoverColorVisible)
+  }), hoverColorVisible && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pqfw-hover-color-container",
+    ref: hoverColorRef
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    color: settings === null || settings === void 0 ? void 0 : settings.button_hover_color,
+    onChange: color => setSettings({ ...settings,
+      button_hover_color: color
+    }),
+    enableAlpha: false,
+    defaultValue: settings === null || settings === void 0 ? void 0 : settings.button_hover_color
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "color-picker-label"
+  }, "Background"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
+    colorValue: settings === null || settings === void 0 ? void 0 : settings.button_hover_bg_color,
+    onClick: () => sethoverVisibleBg(!hoverVisibleBg)
+  }), hoverVisibleBg && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pqfw-hover-color-container",
+    ref: hoverBgRef
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    color: settings === null || settings === void 0 ? void 0 : settings.button_hover_bg_color,
+    onChange: color => setSettings({ ...settings,
+      button_hover_bg_color: color
+    }),
+    enableAlpha: false,
+    defaultValue: settings === null || settings === void 0 ? void 0 : settings.button_hover_bg_color
+  }))), tab.name === 'normal' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "color-picker-label"
+  }, "Text Color"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
+    colorValue: settings === null || settings === void 0 ? void 0 : settings.button_normal_color,
+    onClick: () => setNormalColorVisible(!normalColorVisible)
+  }), normalColorVisible && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pqfw-normal-color-container",
+    ref: normalColorRef
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    color: settings === null || settings === void 0 ? void 0 : settings.button_normal_color,
+    onChange: color => setSettings({ ...settings,
+      button_normal_color: color
+    }),
+    enableAlpha: false,
+    defaultValue: settings === null || settings === void 0 ? void 0 : settings.button_normal_color
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "color-picker-label"
+  }, "Background"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
+    colorValue: settings === null || settings === void 0 ? void 0 : settings.button_normal_bg_color,
+    onClick: () => setNormalBgVisible(!normalBgVisible)
+  }), normalBgVisible && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pqfw-normal-color-container",
+    ref: normalBgRef
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    color: settings === null || settings === void 0 ? void 0 : settings.button_normal_bg_color,
+    onChange: color => setSettings({ ...settings,
+      button_normal_bg_color: color
+    }),
+    enableAlpha: false,
+    defaultValue: settings === null || settings === void 0 ? void 0 : settings.button_normal_bg_color
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "color-picker-label"
+  }, "Font Size"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    value: settings === null || settings === void 0 ? void 0 : settings.button_font_size,
+    onChange: value => setSettings({ ...settings,
+      button_font_size: value
+    }),
+    max: 50
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "color-picker-label"
+  }, "Width"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    value: settings === null || settings === void 0 ? void 0 : settings.button_width,
+    onChange: value => setSettings({ ...settings,
+      button_width: value
+    }),
+    max: 300
+  })))))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "submit-wrapper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "button button-primary",
@@ -332,6 +543,66 @@ const FormSettings = _ref => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormSettings);
+
+/***/ }),
+
+/***/ "./src/components/GeneralSettings.tsx":
+/*!********************************************!*\
+  !*** ./src/components/GeneralSettings.tsx ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+const GeneralSettings = _ref => {
+  let {
+    settings,
+    setSettings,
+    saveSettings
+  } = _ref;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "pqfw-settings-button",
+    className: "pqfw-settings-tab-content pqfw-settings-tab-content-active"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "pqfw-tab-title"
+  }, "General Settings"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "inside"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "help"
+  }, "Customize email settings for better experience that will ensure the ease of use as you like."), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", {
+    className: "form-table"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Hide \"Add to cart\" Button"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FormToggle, {
+    checked: settings === null || settings === void 0 ? void 0 : settings.hide_add_to_cart_button,
+    onChange: e => setSettings({ ...settings,
+      hide_add_to_cart_button: e.target.checked
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "description"
+  }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Hide product prices"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FormToggle, {
+    checked: settings === null || settings === void 0 ? void 0 : settings.hide_product_prices,
+    onChange: e => setSettings({ ...settings,
+      hide_product_prices: e.target.checked
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "description"
+  }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "submit-wrapper"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: "button button-primary",
+    onClick: saveSettings
+  }, "Save Changes")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (GeneralSettings);
 
 /***/ }),
 

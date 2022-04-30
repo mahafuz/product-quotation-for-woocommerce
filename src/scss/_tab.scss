@@ -1,0 +1,29 @@
+.components-button.components-tab-panel__tabs-item {
+	outline: none;
+	background-color: #f8f8f8;
+	color: #666;
+	height: auto;
+	padding: 9px 20px;
+	font-size: 13px;
+	line-height: 22px;
+	font-weight: 500;
+	box-shadow: none;
+	&:focus:not(:disabled) {
+		box-shadow: none;
+	}
+	&:first-child {
+		border-radius: 4px 0 0 4px;
+	}
+	&:last-child {
+		margin: 0;
+		border-radius: 0 4px 4px 0;
+	}
+	&.active-tab {
+		background-color: #e1f6ff;
+		color: #17a8e3;
+		box-shadow: none;
+		&:focus {
+			box-shadow: none;
+		}
+	}
+}

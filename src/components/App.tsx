@@ -4,11 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import ButtonSettings from './ButtonSettings';
 import EmailSettings from './EmailSettings';
 import FormSettings from './FormSettings';
+import GeneralSettings from './GeneralSettings';
 import { getSavedSettings, getNonce } from './../Helpers';
 
 import ButtonIcon from './../images/button.png';
 import FormIcon from './../images/form.png';
 import EmailIcon from './../images/email.png';
+import GeneralSettingsIcon from './../images/cog.svg';
 
 const App = () => {
 	const savedTab = localStorage.getItem( 'pqfw_settings_active_tab' ) || 'button';
@@ -56,6 +58,14 @@ const App = () => {
 		<div id="pqfw-settings-tabs">
 			<a
 				href="#"
+				className={`pqfw-settings-nav-tab${ activeTab === 'general' ? ` pqfw-settings-nav-tab-active` : ''}`}
+				onClick={() => {
+					setActiveTab( 'general' )
+					saveActiveTab( 'general' )
+				}}
+			><img src={GeneralSettingsIcon} /> General Settings</a>
+			<a
+				href="#"
 				className={`pqfw-settings-nav-tab${ activeTab === 'button' ? ` pqfw-settings-nav-tab-active` : ''}`}
 				onClick={() => {
 					setActiveTab( 'button' )
@@ -80,6 +90,11 @@ const App = () => {
 			><img src={EmailIcon} /> Email</a>
 		</div>
 		<div id="pqfw-settings-tabs-contents">
+			{ activeTab === 'general' && (<GeneralSettings
+				settings={settings}
+				setSettings={setSettings }
+				saveSettings={saveSettings}
+			/>)}
 			{ activeTab === 'button' && (<ButtonSettings
 				settings={settings}
 				setSettings={setSettings }
