@@ -1,6 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import { FormToggle, ColorPicker, TabPanel, ColorIndicator, RangeControl, SelectControl } from '@wordpress/components';
+import {
+	FormToggle,
+	ColorPicker,
+	TabPanel,
+	ColorIndicator,
+	RangeControl,
+	SelectControl
+} from '@wordpress/components';
+
+import resetIcon from './../images/reset.png';
 
 const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 	const [ hoverColorVisible, sethoverVisibleColor ] = useState(false);
@@ -108,6 +117,26 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 					</td>
 				</tr>
 				<tr>
+					<th>Button position in Single Product</th>
+					<td>
+						<SelectControl
+							label="Button position in Loop"
+							value={ settings?.button_position_single_product }
+							hideLabelFromVision={ true }
+							options={[
+								{ label: 'Before add to cart button', value: 'woocommerce_after_add_to_cart_quantity' },
+								{ label: 'After add to cart button', value: 'woocommerce_after_add_to_cart_button' },
+								{ label: 'End of product', value: 'woocommerce_share' },
+							]}
+							onChange={(position) => setSettings({
+								...settings,
+								button_position_single_product: position
+							})}
+						/>
+						<p className="description">Receive email for each user submitted quotatin from the <strong>Quotations Cart</strong> page.</p>
+					</td>
+				</tr>
+				<tr>
 					<th>Button Style</th>
 					<td>
 						<TabPanel
@@ -165,6 +194,16 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 													/>
 												</div>
 											)}
+
+											<button onClick={() => {
+												if ( confirm( 'Reset the custom style and back to theme default style?' ) ) {
+													setSettings({
+														...settings,
+														button_hover_color: '',
+														button_hover_bg_color: ''
+													})
+												}
+											}} className="pqfw-reset-btn"><img src={resetIcon} />Reset</button>
 										</>
 									)}
 									{
@@ -225,6 +264,17 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 													})}
 													max={ 300 }
 												/>
+												<button onClick={() => {
+													if ( confirm( 'Reset the custom style and back to theme default style?' ) ) {
+														setSettings({
+															...settings,
+															button_normal_color: '',
+															button_normal_bg_color: '',
+															button_font_size: 0,
+															button_width: 0
+														})
+													}
+												}} className="pqfw-reset-btn"><img src={resetIcon} />Reset</button>
 											</>
 										)
 									}

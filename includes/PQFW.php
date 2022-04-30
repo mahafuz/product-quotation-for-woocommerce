@@ -95,16 +95,17 @@ namespace PQFW {
 		 * @return void
 		 */
 		private function loader() {
+			$this->settings        = new \PQFW\Classes\Settings();
 			$this->form            = new \PQFW\Classes\Form();
 			$this->admin           = new \PQFW\Classes\Admin();
 			$this->cart            = new \PQFW\Classes\Cart();
 			$this->request         = new \PQFW\Classes\Request();
 			$this->form_handler    = new \PQFW\Classes\Form_Handler();
-			$this->settings        = new \PQFW\Classes\Settings();
 			$this->quotations      = new \PQFW\Classes\Quotations();
 			$this->shortcode       = new \PQFW\Classes\Shortcode();
 			$this->utils           = new \PQFW\Classes\Utils();
 			$this->table           = new \PQFW\Classes\Table();
+			$this->frontend        = new \PQFW\Classes\Frontend();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();

@@ -34,9 +34,10 @@ class Form {
 	 */
 	public function __construct() {
 
-		$this->quotationButtonPosition = 'woocommerce_after_shop_loop_item';
+		$this->quotationButtonPosition = pqfw()->settings->get( 'button_position' );
+		$this->quotationButtonPositionInSingleProduct = pqfw()->settings->get( 'button_position_single_product' );
 
-		add_action( 'woocommerce_single_product_summary', [ $this, 'addButtonOnSinglePage' ] );
+		add_action( $this->quotationButtonPositionInSingleProduct, [ $this, 'addButtonOnSinglePage' ] );
 		add_action( $this->quotationButtonPosition, [ $this, 'addButton' ] );
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_stuffs' ] );
@@ -89,6 +90,54 @@ class Form {
 			'1.0.0',
 			'all'
 		);
+
+		wp_add_inline_style( 'pqfw-frontend', $this->getInlineStyles() );
+	}
+
+	/**
+	 * Generate inline styles for the form or buttons.
+	 *
+	 * @since  1.0.0
+	 * @return mixed
+	 */
+	public function getInlineStyles() {
+		$css = '';
+		$buttonNormalColor = pqfw()->settings->get( 'button_normal_color' );
+		$buttonNormalBg    = pqfw()->settings->get( 'button_normal_bg_color' );
+		$buttonHoverColor  = pqfw()->settings->get( 'button_hover_color' );
+		$buttonHoverBg     = pqfw()->settings->get( 'button_hover_bg_color' );
+		$buttonFontSize    = pqfw()->settings->get( 'button_font_size' );
+		$buttonWidth       = pqfw()->settings->get( 'button_width' );
+
+		$css .= 'a.button.pqfw-button.pqfw-add-to-quotation {';
+		if ( ! empty( $buttonNormalColor ) ) {
+			$css .= 'color: ' . $buttonNormalColor . ';';
+		}
+
+		if ( ! empty( $buttonNormalBg ) ) {
+			$css .= 'background-color: ' . $buttonNormalBg . ';';
+		}
+
+		if ( ! empty( $buttonFontSize ) ) {
+			$css .= 'font-size: ' . $buttonFontSize . 'px;';
+		}
+
+		if ( ! empty( $buttonWidth ) ) {
+			$css .= 'width: ' . $buttonWidth . 'px;';
+		}
+		$css .= '}';
+
+		$css .= 'a.button.pqfw-button.pqfw-add-to-quotation:hover {';
+		if ( ! empty( $buttonHoverColor ) ) {
+			$css .= 'color: ' . $buttonHoverColor . ';';
+		}
+
+		if ( ! empty( $buttonHoverBg ) ) {
+			$css .= 'background-color: ' . $buttonHoverBg . ';';
+		}
+		$css .= '}';
+
+		return apply_filters( 'pqfw_frontend_css', $css );
 	}
 
 	/**
@@ -103,14 +152,18 @@ class Form {
 
 		global $product;
 
-		if ( $product->is_type( 'variable' ) ) {
-			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-variable" href="' . esc_url( $product->get_permalink() ) . '">
-			' . esc_html__( 'Add to Quotation', 'pqfw' ) . '
-			</a>';
-		} else {
-			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
-			. esc_html__( 'Add to Quotation', 'pqfw' ) .
-			'</a>';
+		$buttonText = pqfw()->settings->get( 'button_text' );
+
+		if ( ! empty( $buttonText ) ) {
+			if ( $product->is_type( 'variable' ) ) {
+				echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-variable" href="' . esc_url( $product->get_permalink() ) . '">
+				' . esc_html( $buttonText ) . '
+				</a>';
+			} else {
+				echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
+				. esc_html( $buttonText ) .
+				'</a>';
+			}
 		}
 	}
 
@@ -124,10 +177,14 @@ class Form {
 			return;
 		}
 
-		global $product;
-		echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
-		. esc_html__( 'Add to Quotation', 'pqfw' ) .
-		'</a>';
+		$buttonText = pqfw()->settings->get( 'button_text' );
+
+		if ( ! empty( $buttonText ) ) {
+			global $product;
+			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
+			. esc_html( $buttonText ) .
+			'</a>';
+		}
 	}
 
 	/**

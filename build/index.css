@@ -991,6 +991,15 @@
 .pqfw-settings-tabs-warp #pqfw-settings-tabs-contents .inside .form-table {
   clear: right;
 }
+.pqfw-settings-tabs-warp #pqfw-settings-tabs-contents .inside .form-table td .description {
+  display: block;
+  margin: 5px 0;
+  color: #888;
+  letter-spacing: -0.25px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 22px;
+}
 .pqfw-settings-tabs-warp #pqfw-settings-tabs-contents .submit-wrapper {
   border-top: 1px solid #eff4f6;
   margin-top: 10px;
@@ -1045,6 +1054,21 @@
 }
 .pqfw-color-picker-container .components-range-control__root {
   width: 50%;
+}
+.pqfw-color-picker-container .pqfw-reset-btn {
+  background: none;
+  border: 0px solid;
+  display: flex;
+  align-items: center;
+  width: 70px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 15px;
+}
+.pqfw-color-picker-container .pqfw-reset-btn img {
+  max-width: 12px;
+  margin-right: 2px;
 }
 
 .form-table td p.color-picker-label {

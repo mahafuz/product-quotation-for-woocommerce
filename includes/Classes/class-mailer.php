@@ -83,7 +83,8 @@ class Mailer {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
 		$this->subject  = sprintf( '%s - %s', $this->args['fullname'], $this->args['subject'] );
-		$this->email    = sanitize_email( get_option( 'admin_email' ) );
+		$recipient      = sanitize_email( pqfw()->settings->get( 'recipient' ) );
+		$this->email    = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
 
 		$this->prepare_message();
 		$this->prepare_headers();

@@ -16,6 +16,22 @@
 	.components-range-control__root {
 		width: 50%;
 	}
+
+	.pqfw-reset-btn {
+		background: none;
+		border: 0px solid;
+		display: flex;
+		align-items: center;
+		width: 70px;
+		text-decoration: underline;
+		cursor: pointer;
+		padding: 0;
+		margin-top: 15px;
+		img {
+			max-width: 12px;
+			margin-right: 2px;
+		}
+	}
 }
 
 .form-table td p.color-picker-label {

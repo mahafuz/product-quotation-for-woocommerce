@@ -219,6 +219,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _images_reset_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../images/reset.png */ "./src/images/reset.png");
+
 
 
 
@@ -321,6 +323,25 @@ const ButtonSettings = _ref => {
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "description"
+  }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Button position in Single Product"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+    label: "Button position in Loop",
+    value: settings === null || settings === void 0 ? void 0 : settings.button_position_single_product,
+    hideLabelFromVision: true,
+    options: [{
+      label: 'Before add to cart button',
+      value: 'woocommerce_after_add_to_cart_quantity'
+    }, {
+      label: 'After add to cart button',
+      value: 'woocommerce_after_add_to_cart_button'
+    }, {
+      label: 'End of product',
+      value: 'woocommerce_share'
+    }],
+    onChange: position => setSettings({ ...settings,
+      button_position_single_product: position
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "description"
   }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Button Style"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
     className: "my-tab-panel",
     activeClass: "active-tab",
@@ -366,7 +387,19 @@ const ButtonSettings = _ref => {
     }),
     enableAlpha: false,
     defaultValue: settings === null || settings === void 0 ? void 0 : settings.button_hover_bg_color
-  }))), tab.name === 'normal' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: () => {
+      if (confirm('Reset the custom style and back to theme default style?')) {
+        setSettings({ ...settings,
+          button_hover_color: '',
+          button_hover_bg_color: ''
+        });
+      }
+    },
+    className: "pqfw-reset-btn"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: _images_reset_png__WEBPACK_IMPORTED_MODULE_3__
+  }), "Reset")), tab.name === 'normal' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "color-picker-label"
   }, "Text Color"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
     colorValue: settings === null || settings === void 0 ? void 0 : settings.button_normal_color,
@@ -412,7 +445,21 @@ const ButtonSettings = _ref => {
       button_width: value
     }),
     max: 300
-  })))))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: () => {
+      if (confirm('Reset the custom style and back to theme default style?')) {
+        setSettings({ ...settings,
+          button_normal_color: '',
+          button_normal_bg_color: '',
+          button_font_size: 0,
+          button_width: 0
+        });
+      }
+    },
+    className: "pqfw-reset-btn"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: _images_reset_png__WEBPACK_IMPORTED_MODULE_3__
+  }), "Reset")))))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "submit-wrapper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "button button-primary",
@@ -527,14 +574,14 @@ const FormSettings = _ref => {
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "description"
-  }, "Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Floated Form"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FormToggle, {
+  }, "Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class."))), settings !== null && settings !== void 0 && settings.pqfw_form_default_design ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Floated Form"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FormToggle, {
     checked: settings === null || settings === void 0 ? void 0 : settings.pqfw_floating_form,
     onChange: e => setSettings({ ...settings,
       pqfw_floating_form: e.target.checked
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "description"
-  }, "Use floated or stacked styled form on the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " Page."))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, "Use floated or stacked styled form on the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " Page."))) : '')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "submit-wrapper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "button button-primary",
@@ -4381,6 +4428,16 @@ module.exports = __webpack_require__.p + "images/email.5183ffb9.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "images/form.3bf7f595.png";
+
+/***/ }),
+
+/***/ "./src/images/reset.png":
+/*!******************************!*\
+  !*** ./src/images/reset.png ***!
+  \******************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/reset.3bcbcd44.png";
 
 /***/ }),
 

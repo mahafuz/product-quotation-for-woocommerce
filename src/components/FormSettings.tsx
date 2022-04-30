@@ -24,19 +24,21 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 						<p className="description">Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class.</p>
 					</td>
 				</tr>
-				<tr>
-					<th>Floated Form</th>
-					<td>
-						<FormToggle
-							checked={ settings?.pqfw_floating_form }
-							onChange={(e) => setSettings({
-								...settings,
-								pqfw_floating_form: e.target.checked
-							})}
-						/>
-						<p className="description">Use floated or stacked styled form on the <strong>Quotations Cart</strong> Page.</p>
-					</td>
-				</tr>
+				{ settings?.pqfw_form_default_design ? (
+					<tr>
+						<th>Floated Form</th>
+						<td>
+							<FormToggle
+								checked={ settings?.pqfw_floating_form }
+								onChange={(e) => setSettings({
+									...settings,
+									pqfw_floating_form: e.target.checked
+								})}
+							/>
+							<p className="description">Use floated or stacked styled form on the <strong>Quotations Cart</strong> Page.</p>
+						</td>
+					</tr>
+				) : ''}
 			</table>
 		</div>
 		<div className="submit-wrapper">
