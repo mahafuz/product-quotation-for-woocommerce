@@ -62,6 +62,18 @@
 
 			.form-table {
 				clear: right;
+
+				td {
+					.description {
+						display: block;
+						margin: 5px 0;
+						color: #888;
+						letter-spacing: -0.25px;
+						font-weight: 400;
+						font-size: 13px;
+						line-height: 22px;
+					}
+				}
 			}
 		}
 
