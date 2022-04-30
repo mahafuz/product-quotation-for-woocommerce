@@ -2,5 +2,10 @@
 README.md
 composer.json
 composer.lock
+package.json
+package-lock.json
 phpcs.xml
 node_modules
+src
+.distignore
+appsero.json

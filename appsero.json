@@ -9,6 +9,7 @@
         "package-lock.json",
         "package.json",
         "phpcs.xml",
-        "README.md"
+        "README.md",
+        "src"
     ]
 }
