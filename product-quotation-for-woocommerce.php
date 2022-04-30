@@ -51,7 +51,7 @@ add_action( 'plugins_loaded', function() {
  */
 function appsero_init_tracker_product_quotation_for_woocommerce() {
 	if ( ! class_exists( 'Appsero\Client' ) ) {
-		require __DIR__ . '/appsero/client/src/Client.php';
+		require PQFW_PLUGIN_PATH . 'appsero/client/src/Client.php';
 	}
 
 	$client = new Appsero\Client(
