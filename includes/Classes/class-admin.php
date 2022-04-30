@@ -43,15 +43,6 @@ class Admin {
 
 		add_submenu_page(
 			'edit.php?post_type=pqfw_quotations',
-			__( 'Old backed up entries', 'PQFW' ),
-			__( 'Backup', 'PQFW' ),
-			'manage_options',
-			'pqfw-entries-page',
-			[ $this, 'display' ]
-		);
-
-		add_submenu_page(
-			'edit.php?post_type=pqfw_quotations',
 			__( 'Help', 'PQFW' ),
 			'<span style="color:#f18500">Help</span>',
 			'manage_options',
@@ -128,15 +119,6 @@ class Admin {
 				[], '1.0.0', 'all'
 			);
 		}
-	}
-
-	/**
-	 * Loading layout page tamplate.
-	 *
-	 * @since 1.0.0
-	 */
-	public function display() {
-		include PQFW_PLUGIN_VIEWS . 'layout.php';
 	}
 
 	/**
@@ -220,7 +202,7 @@ class Admin {
 	 * @return void
 	 */
 	public function displayQuotationDetail( $quotation ) {
-		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-detail.php';
+		include_once PQFW_PLUGIN_VIEWS . 'quotation-detail.php';
 	}
 
 	/**
@@ -231,7 +213,7 @@ class Admin {
 	 * @return void
 	 */
 	public function displayQuotationProductsDetail( $quotation ) {
-		include_once PQFW_PLUGIN_PATH . 'includes/Views/partials/quotation-products-detail.php';
+		include_once PQFW_PLUGIN_VIEWS . 'quotation-products-detail.php';
 	}
 
 	/**
