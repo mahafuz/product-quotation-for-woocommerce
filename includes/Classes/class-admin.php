@@ -58,6 +58,42 @@ class Admin {
 			'pqfw-help',
 			[ $this, 'displayHelp' ]
 		);
+
+		if ( 'pqfw_quotations' === $_GET['post_type'] ) {
+			// We don't want any plugin adding notices to our screens. Let's clear them out here.
+			add_action( 'admin_footer_text', [ $this, 'addFooterText' ] );
+		}
+	}
+
+	/**
+	 * Add footer text to the WordPress admin screens.
+	 *
+	 * @since  4.0.0
+	 * @return void
+	 */
+	public function addFooterText() {
+		$linkText = esc_html__( 'Give us a 5-star rating!', 'PQFW' );
+		$href     = 'https://wordpress.org/support/plugin/product-quotation-for-woocommerce/reviews/#new-post';
+
+		$link1 = sprintf(
+			'<a href="%1$s" target="_blank" title="%2$s">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
+			$href,
+			$linkText
+		);
+
+		$link2 = sprintf(
+			'<a href="%1$s" target="_blank" title="%2$s">WordPress.org</a>',
+			$href,
+			$linkText
+		);
+
+		printf(
+			// Translators: 1 - The plugin name ("PageSpeed Optimizer for Elementor"), - 2 - This placeholder will be replaced with star icons.
+			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'PQFW' ),
+			sprintf( '<strong>%1$s</strong>', esc_html( PQFW_PLUGIN_NAME ) ),
+			wp_kses_post( $link1 ),
+			wp_kses_post( $link2 )
+		);
 	}
 
 	/**
