@@ -56,9 +56,8 @@ jQuery(function ( $ ) {
 			return typeof variation != "undefined" && variation != 0 ? parseInt(variation) : 0;
 		},
 		getVariationDetails : function () {
-			var variation 
-			    = $("form.variations_form input[name='variation_id']").val(),
-				details = {};
+			var variation  = $("form.variations_form input[name='variation_id']").val(),
+				details    = {};
 
 			if (typeof variation != "undefined" && variation != 0) {
 				jQuery('select[name^=attribute_]').each(function (ind, obj) {
@@ -98,7 +97,7 @@ jQuery(function ( $ ) {
 				textarea = l.find( 'textarea' ),
 				emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
 				errors = null,
-				resposneStatus = f.find('.pqfw-form-response-status');
+				resposneStatus = $('.pqfw-form-response-status');
 
 			t.on( "click", "#rsrfqfwc_submit", function ( ev ) {
 
@@ -136,8 +135,7 @@ jQuery(function ( $ ) {
 								errors = false;
 							}
 						}
-						if( $input.attr( "type" ) === "email" ) {
-
+						if ( $input.attr( "type" ) === "email" ) {
 							if( $input.prop( "required" ) ) {
 								if( $input.val() !== '' && emailReg.test( $input.val() ) ) {
 									$this.removeClass( "hasError" );
@@ -147,13 +145,11 @@ jQuery(function ( $ ) {
 									errors = true;
 								}
 							}
-
 						}
 					}
 				});
 
-
-				if( !errors ) {
+				if ( ! errors ) {
 					// preparing data
 					var data = {};
 
@@ -197,10 +193,14 @@ jQuery(function ( $ ) {
 										$( this ).val( '' );
 									});
 
+									resposneStatus.removeClass('error');
+									resposneStatus.addClass('success');
+									console.log(resposneStatus);
+									resposneStatus.html( response.data );
+
 									setTimeout(function() {
 										window.pqfwCart.initialize();
-									}, 2000);
-
+									}, 1000);
 								}else {
 									resposneStatus.removeClass('success');
 									resposneStatus.addClass('error');
