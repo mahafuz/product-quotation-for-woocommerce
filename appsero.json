@@ -4,8 +4,6 @@
         ".gitignore",
         ".distignore",
         "appsero.json",
-        "composer.json",
-        "composer.lock",
         "package-lock.json",
         "package.json",
         "phpcs.xml",
