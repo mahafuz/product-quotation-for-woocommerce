@@ -59,7 +59,7 @@ class Admin {
 			[ $this, 'displayHelp' ]
 		);
 
-		if ( 'pqfw_quotations' === $_GET['post_type'] ) {
+		if ( isset( $_GET['post_type'] ) && 'pqfw_quotations' === $_GET['post_type'] ) {
 			// We don't want any plugin adding notices to our screens. Let's clear them out here.
 			add_action( 'admin_footer_text', [ $this, 'addFooterText' ] );
 		}
