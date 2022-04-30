@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: request a quote button, woocommerce request for quote, woocommerce request a quote shortcode, request a quote, quote, woocommerce, shop, ecommerce, e-commerce, quotations, request for quote, rfq, raq, proposal, ask an estimate, budget, email quote
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 1.2.5
+Stable tag: 2.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -66,6 +66,14 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 2.0.0- 30-04-2022 =
+* ADDED: New settings panel.
+* ADDED: Numbers of new features.
+* ADDED: Help Page
+* Added: Form submission response
+* REMOVED: Old entries backup
+* Fixed: Minor bug fixes
 
 = 1.2.5- 28-04-2022 =
 * Fixed: Quotation Cart page issue
