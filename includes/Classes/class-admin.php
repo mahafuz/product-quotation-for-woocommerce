@@ -39,6 +39,8 @@ class Admin {
 	 * @since   1.0.0
 	 */
 	public function menus() {
+		global $submenu;
+
 		add_submenu_page(
 			'edit.php?post_type=pqfw_quotations',
 			__( 'Old backed up entries', 'PQFW' ),
@@ -47,6 +49,24 @@ class Admin {
 			'pqfw-entries-page',
 			[ $this, 'display' ]
 		);
+
+		add_submenu_page(
+			'edit.php?post_type=pqfw_quotations',
+			__( 'Help', 'PQFW' ),
+			'<span style="color:#f18500">Help</span>',
+			'manage_options',
+			'pqfw-help',
+			[ $this, 'displayHelp' ]
+		);
+	}
+
+	/**
+	 * Displaying the 'Help' page.
+	 *
+	 * @since 1.2.6
+	 */
+	public function displayHelp() {
+		require_once PQFW_PLUGIN_PATH . 'includes/Views/help.php';
 	}
 
 	/**
@@ -65,7 +85,7 @@ class Admin {
 			);
 		}
 
-		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id || 'pqfw_quotations_page_pqfw-entries-page' === $screen->id ) {
+		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id || 'pqfw_quotations_page_pqfw-entries-page' === $screen->id || 'pqfw_quotations_page_pqfw-help' === $screen->id ) {
 			wp_enqueue_style(
 				'pqfw-admin',
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css',
