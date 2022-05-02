@@ -45,7 +45,6 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 		};
 	}, [handleClickOutside]);
 
-	console.log('settings', settings);
   return (
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
 		<h3 className='pqfw-tab-title'>Button Settings</h3>

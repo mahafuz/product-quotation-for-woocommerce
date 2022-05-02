@@ -150,6 +150,15 @@ jQuery(function ( $ ) {
 				});
 
 				if ( ! errors ) {
+					var privacyPolicy = $( '#pqfw_privacy_policy_checkbox' );
+					if ( privacyPolicy.length && ! privacyPolicy.prop('checked') ) {
+						errors = true;
+						privacyPolicy.parents( '.pqfw-privacy-policy' ).addClass('hasError');
+						alert( 'Please accept privacy policy If you want to proceed.' );
+					}
+				}
+
+				if ( ! errors ) {
 					// preparing data
 					var data = {};
 

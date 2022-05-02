@@ -107,6 +107,10 @@ class Settings {
 			'hide_product_prices'            => false,
 			'button_position'                => 'woocommerce_after_shop_loop_item',
 			'button_position_single_product' => 'woocommerce_after_add_to_cart_quantity',
+			'privacy_policy'                 => false,
+			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'pqfw' ),
+			'privacy_policy_content'         => __( 'Your personal data will be used to process your request,
+			support your experience throughout this website, and for other purposes described in our  [privacy_policy].', 'pqfw' )
 		];
 
 		$this->saved = get_option( 'pqfw_settings', $this->default );
