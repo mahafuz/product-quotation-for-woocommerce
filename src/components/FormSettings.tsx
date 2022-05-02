@@ -39,6 +39,52 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 						</td>
 					</tr>
 				) : ''}
+				<tr>
+					<th>Add Privacy Policy</th>
+					<td>
+						<FormToggle
+							checked={ settings?.privacy_policy }
+							onChange={(e) => setSettings({
+								...settings,
+								privacy_policy: e.target.checked
+							})}
+						/>
+						<p className="description">Ask user to accept terms and condition before submitting the quotation form.</p>
+					</td>
+				</tr>
+				{ settings?.privacy_policy ? (
+					<>
+						<tr>
+							<th>Privacy Policy Label</th>
+							<td>
+								<input
+									type="text"
+									className="regular-text"
+									value={ settings?.privacy_policy_label }
+									onChange={(e) => setSettings({
+										...settings,
+										privacy_policy_label: e.target.value
+									})}
+								/>
+								<p className="description">You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)</p>
+							</td>
+						</tr>
+						<tr>
+							<th>Privacy Policy</th>
+							<td>
+								<textarea
+									cols="30"
+									rows="5" className="regular-text"
+									onChange={(e) => setSettings({
+										...settings,
+										privacy_policy_content: e.target.value
+									})}
+								>{ settings?.privacy_policy_content }</textarea>
+								<p className="description">You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)</p>
+							</td>
+						</tr>
+					</>
+				) : ''}
 			</table>
 		</div>
 		<div className="submit-wrapper">

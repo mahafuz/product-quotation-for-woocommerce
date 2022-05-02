@@ -138,3 +138,21 @@ a.button.pqfw-button.pqfw-add-to-quotation {
 }
 
 a.pqfw-view-quotation-cart {font-size: 14px;display: block;text-decoration: underline;}
+
+li.pqfw-privacy-policy {
+    margin-left: 0;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.pqfw-privacy-policy-inner p {
+    margin: 0 0 10px;
+}
+
+.pqfw-privacy-policy-inner {
+    font-size: 16px;
+}
+
+.pqfw-privacy-policy-inner label {
+    margin-bottom: 0 !important;
+}
