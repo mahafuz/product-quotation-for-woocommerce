@@ -112,22 +112,41 @@ namespace PQFW {
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );
 			}
+
+			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
+			add_action( 'admin_init', [ $this, 'redirect' ] );
 		}
 
 		/**
-		 * Return plugin base url with valid nonce.
+		 * Add plugin action links
 		 *
-		 * @since 1.0.0
-		 *
-		 * @param  string $url The raw url.
-		 * @return string $url with nonce.
+		 * @since  2.0.1
+		 * @param  array $links The links array.
+		 * @return array
 		 */
-		public function get_url_with_nonce( $url = '' ) {
-			if ( empty( $url ) ) {
-				$url = '?page=pqfw-entries-page';
-			}
+		public function addPluginActionLinks( $links ) {
+			// return if pro is active.
+			$settings = '<a href="' . admin_url( 'admin.php?page=pqfw-settings' ) . '">' . esc_html__( 'Settings', 'pqfw' ) . '</a>';
+			$help = sprintf( '<a href="%s"><span style="color:#f18500; font-weight: bold;">%s</span></a>', admin_url( 'admin.php?page=pqfw-help' ), esc_html__( 'Help', 'pqfw' ) );
+			array_unshift( $links, $settings );
+			array_push( $links, $help );
 
-			return esc_url( wp_nonce_url( admin_url( $url ), 'pqfw_admin_nonce_action', '_wpnonce' ) );
+			return $links;
+		}
+
+		/**
+		 * Redirect on the settings page after plugin activation.
+		 *
+		 * @since 2.0.1
+		 */
+		public function redirect() {
+			if ( get_option( '_pqfw_activation_redirect', false ) ) {
+				delete_option( '_pqfw_activation_redirect' );
+
+				if ( ! isset( $_GET['activate-multi'] ) && ( ! empty( $_GET['activate'] ) ) && ( 'true' === $_GET['activate'] ) ) {
+					wp_safe_redirect( admin_url( 'admin.php?page=pqfw-settings' ) );
+				}
+			}
 		}
 
 		/**
