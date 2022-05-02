@@ -103,13 +103,11 @@ namespace PQFW {
 			$this->form_handler    = new \PQFW\Classes\Form_Handler();
 			$this->quotations      = new \PQFW\Classes\Quotations();
 			$this->shortcode       = new \PQFW\Classes\Shortcode();
-			$this->utils           = new \PQFW\Classes\Utils();
-			$this->table           = new \PQFW\Classes\Table();
+			$this->helpers         = new \PQFW\Classes\Helpers();
 			$this->frontend        = new \PQFW\Classes\Frontend();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();
-			$this->helpers         = new \PQFW\Classes\Helpers();
 
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );

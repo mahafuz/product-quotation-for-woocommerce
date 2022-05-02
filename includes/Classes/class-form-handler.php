@@ -41,7 +41,7 @@ class Form_Handler {
 
 		$fullname = sanitize_user( $_POST['pqfw_customer_name'] );
 		$email    = sanitize_email( $_POST['pqfw_customer_email'] );
-		$phone    = pqfw()->utils->sanitize_phone_number( $_POST['pqfw_customer_phone'] );
+		$phone    = pqfw()->helpers->sanitizePhoneNumber( $_POST['pqfw_customer_phone'] );
 		$subject  = sanitize_text_field( $_POST['pqfw_customer_subject'] );
 		$comments = sanitize_text_field( $_POST['pqfw_customer_comments'] );
 		$mapedDataToSave = [
@@ -52,7 +52,7 @@ class Form_Handler {
 			'comments' => $comments
 		];
 
-		$validate = pqfw()->utils->validate( $mapedDataToSave );
+		$validate = pqfw()->helpers->validate( $mapedDataToSave );
 
 		if ( $validate->has_errors() ) {
 			wp_send_json_error( $validate->errors );

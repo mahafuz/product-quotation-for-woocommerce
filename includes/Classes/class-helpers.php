@@ -29,4 +29,57 @@ class Helpers {
 	public function generatePrivacyPolicy( $text ) {
 		return function_exists( 'wc_replace_policy_page_link_placeholders' ) ? wc_replace_policy_page_link_placeholders( $text ) : $text;
 	}
+
+	/**
+	 * Sanitize phone number.
+	 * Allows only numbers and "+" (plus sign).
+	 *
+	 * @param string $phone Phone number.
+	 *
+	 * @return string
+	 * @since 1.0.0
+	 */
+	public function sanitizePhoneNumber( $phone ) {
+		return preg_replace( '/[^\d+]/', '', $phone );
+	}
+
+	/**
+	 * Validate user data.
+	 *
+	 * @since 2.0.0
+	 * @param array $fields The input fields value to validate.
+	 * return mixed
+	 */
+	public function validate( $fields ) {
+		$errors = new \WP_Error();
+
+		$requiredFields = [
+			'fullname',
+			'email'
+		];
+
+		foreach ( $requiredFields as $required ) {
+			if ( empty( $fields[ $required ] ) ) {
+				$errors->add( 'field', sprintf( '%s %s', $required, __( 'is required.', 'pqfw' ) ) );
+			}
+		}
+
+		if ( $errors->has_errors() ) {
+			return $errors;
+		}
+
+		if ( strlen( $fields['fullname'] ) < 4 ) {
+			$errors->add( 'username_length', __( 'Username too short. At least 4 characters is required', 'pqfw' ) );
+		}
+
+		if ( ! validate_username( $fields['fullname'] ) ) {
+			$errors->add( 'username_invalid', __( 'Sorry, the username you entered is not valid', 'pqfw' ) );
+		}
+
+		if ( ! is_email( $fields['email'] ) ) {
+			$errors->add( 'email_invalid', __( 'Email is not valid', 'pqfw' ) );
+		}
+
+		return $errors;
+	}
 }
