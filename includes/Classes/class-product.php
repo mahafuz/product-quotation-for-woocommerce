@@ -138,7 +138,7 @@ class Product {
 		$permalink = $obj->get_permalink();
 		$imageID   = $obj->get_image_id();
 		$img       = wp_get_attachment_thumb_url( $imageID );
-		$price     = wp_strip_all_tags( wc_price( pqfw()->cart->getSimpleVariationPrice( $obj, $product['variation'] ) ) );
+		$price     = wp_strip_all_tags( wc_price( $product['price'] ) );
 
 		$variation_id = ( false !== $product['variation'] ? (int) $product['variation'] : false );
 		$variation_detail = $this->variationDetail( $obj, $product['variation_detail'] );

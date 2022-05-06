@@ -20,8 +20,10 @@
             $(document).on('change', '.pqfw-quantity', function () {
                 var new_quantity = $(this).val();
                 var hash = $(this).data('hash');
+                var single = $(this).data('single');
 
                 window.pqfwProducts[hash]['quantity'] = new_quantity;
+                window.pqfwProducts[hash]['price'] = Math.floor( single * new_quantity );
                 var products = window.pqfwProducts;
                 pqfwCart.updateProduct(products);
             });
@@ -104,7 +106,10 @@
             $.ajax({
                 url     : PQFW_OBJECT.ajaxurl,
                 type    : 'POST',
-                data    : { action: 'pqfw_update_products', products: products },
+                data    : {
+                    action: 'pqfw_update_products',
+                    products: products
+                },
                 success : function( response ) {
                     pqfwCart.dataLoaded(response);
                 },

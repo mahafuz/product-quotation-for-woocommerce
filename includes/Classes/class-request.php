@@ -63,9 +63,11 @@ class Request {
 			$id        = absint( $_POST['productID'] );
 			$quantity  = (int) ( isset( $_POST['quantity'] ) ? $_POST['quantity'] : 1 );
 			$variation = absint( $_POST['variationID'] );
+			$product   = wc_get_product( $id );
 
 			$variationDetail = pqfw()->quotations->sanitizeVariationDetail( $_POST['variationDetails'] );
-			$products        = pqfw()->quotations->addProduct( $id, $quantity, $variation, $variationDetail );
+			$price           = pqfw()->cart->getSimpleVariationPrice( $product, $variation );
+			$products        = pqfw()->quotations->addProduct( $id, $quantity, $variation, $variationDetail, $price );
 		}
 
 		die;

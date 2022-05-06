@@ -32,6 +32,8 @@ class Frontend {
 			add_filter( 'woocommerce_get_price_html', [ $this, 'hideProductPrices' ], 10, 2 );
 			add_filter( 'woocommerce_get_variation_price_html', [ $this, 'hideProductPrices' ], 10, 2 );
 		}
+
+		add_filter( 'the_content', [ $this, 'pageContent' ] );
 	}
 
 	/**
@@ -64,5 +66,21 @@ class Frontend {
 	 */
 	public function hideProductPrices( $price, $product ) {
 		return '';
+	}
+
+	/**
+	 * Page template
+	 * Change the page template for the product quotation page
+	 * to the template of the product quotation page
+	 * instead of the default template
+	 *
+	 * @since 2.0.1
+	 */
+	public function pageContent( $content ) {
+		global $post;
+		if ( absint( pqfw()->settings->get( 'quotation_cart_page' ) ) === $post->ID ) {
+			$content = '[pqfw_quotations_cart]';
+		}
+		return $content;
 	}
 }

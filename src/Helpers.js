@@ -15,3 +15,11 @@ export function getNonce() {
 export function getSavedSettings() {
     return config.settings;
 }
+
+export function getPages() {
+    return config.pages;
+}
+
+export function getCart( field = 'url') {
+    return config.cart?.url;
+}

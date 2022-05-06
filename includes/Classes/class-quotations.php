@@ -189,7 +189,7 @@ class Quotations {
 	 * @param  integer $variation_detail Product variation details.
 	 * @return bool
 	 */
-	public function addProduct( $id, $quantity, $variation, $variation_detail ) {
+	public function addProduct( $id, $quantity, $variation, $variation_detail, $price = 0 ) {
 		$products = $this->getProducts();
 		$message  = '';
 
@@ -201,6 +201,7 @@ class Quotations {
 			'id'               => (int) $id,
 			'quantity'         => (int) $quantity,
 			'variation'        => (int) $variation,
+			'price'            => $price,
 			'variation_detail' => $variation_detail,
 			'message'          => wp_strip_all_tags( $message )
 		];
@@ -213,12 +214,34 @@ class Quotations {
 			 * as we are not entering the new quantity variable
 			 */
 			$this->updateQuantity( $hash, $new_product['quantity'] );
+			$this->updatePrice( $hash, $new_product['price'] );
 			return;
 		} else {
 			$products[ $hash ] = $new_product;
 		}
 
 		return $this->addProducts( $products );
+	}
+
+	/**
+	 * Update price for the product.
+	 *
+	 * @since 2.0.1
+	 * @param string $hash Product identifier hash.
+	 * @param float  $price Product price.
+	 */
+	public function updatePrice( $hash, $price ) {
+		$products = $this->getProducts();
+
+		if ( is_array( $products ) && count( $products ) > 0 ) {
+			if ( $price ) {
+				$products[ $hash ]['price'] = $products[ $hash ]['price'] + $price;
+			} else {
+				$products[ $hash ]['price'] = $products[ $hash ]['price'] + 1;
+			}
+		}
+
+		$this->addProducts( $products );
 	}
 
 	/**
