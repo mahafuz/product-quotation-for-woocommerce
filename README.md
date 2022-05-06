@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: request a quote button, woocommerce request for quote, woocommerce request a quote shortcode, request a quote, quote, woocommerce, shop, ecommerce, e-commerce, quotations, request for quote, rfq, raq, proposal, ask an estimate, budget, email quote
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -70,6 +70,11 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 
 == Changelog ==
 
+= 2.0.2- 06-05-2022 =
+* ADDED Feature: Price update while quantity gets updated.
+* ADDED Feature: Option for setting up Quotation Cart page.
+* Fixed: minor bugs
+
 = 2.0.1- 02-05-2022 =
 * ADDED Feature: Privacy policy field on the Quotation Cart form
 * Fixed: minor bugs
@@ -130,4 +135,4 @@ Thanks!
 2. Add to Quotation from Single Page
 3. Quotation Cart
 4. Quotations
-5. Settin**gs
+5. Settings
