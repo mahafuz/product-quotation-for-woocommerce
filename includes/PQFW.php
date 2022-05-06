@@ -95,6 +95,7 @@ namespace PQFW {
 		 * @return void
 		 */
 		private function loader() {
+			$this->helpers         = new \PQFW\Classes\Helpers();
 			$this->settings        = new \PQFW\Classes\Settings();
 			$this->form            = new \PQFW\Classes\Form();
 			$this->admin           = new \PQFW\Classes\Admin();
@@ -103,7 +104,6 @@ namespace PQFW {
 			$this->form_handler    = new \PQFW\Classes\Form_Handler();
 			$this->quotations      = new \PQFW\Classes\Quotations();
 			$this->shortcode       = new \PQFW\Classes\Shortcode();
-			$this->helpers         = new \PQFW\Classes\Helpers();
 			$this->frontend        = new \PQFW\Classes\Frontend();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();

@@ -47,7 +47,9 @@ var SvgCog = function SvgCog(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getAjaxUrl": function() { return /* binding */ getAjaxUrl; },
+/* harmony export */   "getCart": function() { return /* binding */ getCart; },
 /* harmony export */   "getNonce": function() { return /* binding */ getNonce; },
+/* harmony export */   "getPages": function() { return /* binding */ getPages; },
 /* harmony export */   "getSavedSettings": function() { return /* binding */ getSavedSettings; }
 /* harmony export */ });
 const config = Object.assign({}, window.PQFW_OBJECT);
@@ -62,6 +64,15 @@ function getNonce() {
 }
 function getSavedSettings() {
   return config.settings;
+}
+function getPages() {
+  return config.pages;
+}
+function getCart() {
+  var _config$cart;
+
+  let field = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'url';
+  return (_config$cart = config.cart) === null || _config$cart === void 0 ? void 0 : _config$cart.url;
 }
 
 /***/ }),
@@ -490,6 +501,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../Helpers */ "./src/Helpers.js");
+
 
 
 
@@ -500,6 +513,22 @@ const GeneralSettings = _ref => {
     setSettings,
     saveSettings
   } = _ref;
+  const [pages, setPages] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([...(0,_Helpers__WEBPACK_IMPORTED_MODULE_3__.getPages)()]);
+  const [cart, setCart] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)((0,_Helpers__WEBPACK_IMPORTED_MODULE_3__.getCart)('url'));
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    wp.ajax.send('pqfw_cart_get_permalink', {
+      data: {
+        _wpnonce: (0,_Helpers__WEBPACK_IMPORTED_MODULE_3__.getNonce)(),
+        pageID: settings === null || settings === void 0 ? void 0 : settings.quotation_cart_page
+      },
+      success: _ref2 => {
+        let {
+          url
+        } = _ref2;
+        setCart(url);
+      }
+    });
+  }, [settings.quotation_cart_page]);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "pqfw-settings-button",
     className: "pqfw-settings-tab-content pqfw-settings-tab-content-active"
@@ -525,7 +554,20 @@ const GeneralSettings = _ref => {
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "description"
-  }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, "Receive email for each user submitted quotatin from the ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotations Cart"), " page."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "\"Quotation cart\" page"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+    label: "Quotation cart page",
+    value: settings.quotation_cart_page,
+    hideLabelFromVision: true,
+    options: pages,
+    onChange: id => setSettings({ ...settings,
+      quotation_cart_page: id
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "description"
+  }, "Choose from this list the page on which users will see the list of products added to the quote and send the request. Visit current ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    target: "_blank",
+    href: cart
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quotation Cart Page"))))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "submit-wrapper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "button button-primary",

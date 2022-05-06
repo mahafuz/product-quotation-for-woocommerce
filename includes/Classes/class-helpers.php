@@ -82,4 +82,48 @@ class Helpers {
 
 		return $errors;
 	}
+
+	/**
+	 * Get pages list.
+	 *
+	 * @since 2.0.1
+	 */
+	public function getPages() {
+		$result = [
+			[
+				'value' => 0,
+				'label' => __( 'Select page for Enquiry cart', 'pqfw' )
+			]
+		];
+
+		$pages = get_posts([
+			'numberposts' => -1,
+			'post_type'   => 'page',
+			'post_status' => 'publish'
+		]);
+
+		if ( ! is_array( $pages ) || empty( $pages ) ) {
+			return [];
+		}
+
+		foreach ( $pages as $page ) {
+			$result[] = [
+				'value' => $page->ID,
+				'label' => $page->post_title
+			];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get default cart page.
+	 *
+	 * @since 2.0.1
+	 */
+	public function getCart( $field = 'id' ) {
+		$id = absint( get_option( 'pqfw_quotations_cart' ) );
+
+		return 'url' === $field ? esc_url( get_permalink( $id ) ) : $id;
+	}
 }

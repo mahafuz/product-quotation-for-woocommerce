@@ -52,6 +52,7 @@ class Settings {
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'menu' ] );
 		add_action( 'wp_ajax_pqrf_save_settings', [ $this, 'save' ] );
+		add_action( 'wp_ajax_pqfw_cart_get_permalink', [ $this, 'getCartPermalink' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 	}
 
@@ -109,7 +110,8 @@ class Settings {
 			'button_position_single_product' => 'woocommerce_after_add_to_cart_quantity',
 			'privacy_policy'                 => false,
 			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'pqfw' ),
-			'privacy_policy_content'         => __( 'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].', 'pqfw' )
+			'privacy_policy_content'         => __( 'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].', 'pqfw' ),
+			'quotation_cart_page'            => pqfw()->helpers->getCart()
 		];
 
 		$this->saved = get_option( 'pqfw_settings', $this->default );
@@ -142,11 +144,6 @@ class Settings {
 			);
 
 			wp_enqueue_script(
-				'pqfw-options-handler', PQFW_PLUGIN_URL . 'assets/js/pqfw-settings.js',
-				[ 'jquery' ], PQFW_PLUGIN_VERSION, true
-			);
-
-			wp_enqueue_script(
 				'pqfw-app',
 				PQFW_PLUGIN_URL . 'build/index.js',
 				$dependencies['dependencies'],
@@ -163,7 +160,12 @@ class Settings {
 					'nonce'    => wp_create_nonce( 'pqfw-app-ui' ),
 					'actions'  => [
 						'save_settings' => 'pqrf_save_settings'
-					]
+					],
+					'pages'    => pqfw()->helpers->getPages(),
+					'cart'     => [
+						'id'  => pqfw()->helpers->getCart(),
+						'url' => pqfw()->helpers->getCart( 'url' )
+					],
 				]
 			);
 		}
@@ -195,10 +197,39 @@ class Settings {
 			return array_key_exists( $key, $allowed );
 		}, ARRAY_FILTER_USE_KEY );
 
+		if ( isset( $sanitized['quotation_cart_page'] ) && absint( get_option( 'pqfw_quotations_cart' ) ) !== absint( $sanitized['quotation_cart_page'] ) ) {
+			update_option( 'pqfw_quotations_cart', absint( $sanitized['quotation_cart_page'] ) );
+		}
+
 		update_option( 'pqfw_settings', $sanitized );
 
 		wp_send_json_success([
 			'message' => esc_html__( 'Settings has been updated.', 'pqfw' )
+		], 200 );
+	}
+
+	/**
+	 * Get cart permalink
+	 *
+	 * @since 2.0.1
+	 */
+	public function getCartPermalink() {
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw-app-ui' ) ) {
+			wp_send_json_error([
+				'message' => esc_html__( 'Unauthorized Action', 'pqfw' )
+			], 400 );
+		}
+
+		$pageID = isset( $_POST['pageID'] ) ? absint( $_POST['pageID'] ) : false;
+
+		if ( ! $pageID ) {
+			wp_send_json_error([
+				'message' => esc_html__( 'Invalid Page ID.', 'pqfw' )
+			], 400 );
+		}
+
+		wp_send_json_success([
+			'url' => get_permalink( $pageID )
 		], 200 );
 	}
 

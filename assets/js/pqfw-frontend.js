@@ -204,7 +204,6 @@ jQuery(function ( $ ) {
 
 									resposneStatus.removeClass('error');
 									resposneStatus.addClass('success');
-									console.log(resposneStatus);
 									resposneStatus.html( response.data );
 
 									setTimeout(function() {
