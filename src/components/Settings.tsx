@@ -13,7 +13,7 @@ import EmailIcon from './../images/email.png';
 import GeneralSettingsIcon from './../images/cog.svg';
 
 const App = () => {
-	const savedTab = localStorage.getItem( 'pqfw_settings_active_tab' ) || 'button';
+	const savedTab = localStorage.getItem( 'pqfw_settings_active_tab' ) || 'general';
 	const [activeTab, setActiveTab ] = useState<string>( savedTab );
 	const [settings, setSettings ] = useState<Object>(getSavedSettings());
 

@@ -157,3 +157,7 @@ table.wp-list-table.widefat.fixed.striped.posts {
 .help-block > img {max-height: 70px;}
 
 .pqfw-help-page * {box-sizing: border-box;}
+
+td.pqfw-product-thumbnail > a {display: block;}
+
+td.pqfw-product-thumbnail > a > img {max-width: 100%;}

@@ -112,7 +112,7 @@ class Admin {
 			);
 		}
 
-		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id || 'pqfw_quotations_page_pqfw-entries-page' === $screen->id || 'pqfw_quotations_page_pqfw-help' === $screen->id ) {
+		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id || 'pqfw_quotations_page_pqfw-entries-page' === $screen->id || 'pqfw_quotations_page_pqfw-help' === $screen->id || 'pqfw_quotations' === $screen->id ) {
 			wp_enqueue_style(
 				'pqfw-admin',
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css',

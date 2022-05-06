@@ -58,7 +58,7 @@ class Cart {
 					?>
 				</td>
 				<td class="product-price" data-title="<?php esc_html_e( 'Price', 'woocommerce' ); ?>">
-					<?php echo wp_kses_post( wc_price( $this->getSimpleVariationPrice( $productOBJ, $product['variation'] ) ) ); ?>
+					<?php echo wp_kses_post( wc_price( $product['price'] ) ); ?>
 				</td>
 				<td class="product-quantity" data-title="<?php esc_html_e( 'Quantity', 'woocommerce' ); ?>">
 					<div class="quantity">
@@ -67,6 +67,7 @@ class Cart {
 							class="input-text qty text pqfw-quantity"
 							value="<?php echo esc_attr( $product['quantity'] ); ?>"
 							name="products[<?php echo esc_attr( $key ); ?>][quantity]"
+							data-single="<?php echo esc_attr( $this->getSimpleVariationPrice( $productOBJ, $product['variation'] ) ); ?>"
 							data-hash="<?php echo esc_attr( $key ); ?>"
 						/>
 						<input

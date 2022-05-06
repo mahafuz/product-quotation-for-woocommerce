@@ -35,6 +35,7 @@ define( 'PQFW_PLUGIN_VERSION', '2.0.1' );
  */
 register_activation_hook(__FILE__, function () {
 	pqfw()->migration->run();
+	add_option( '_pqfw_activation_redirect', true );
 });
 
 require PQFW_PLUGIN_PATH . 'includes/PQFW.php';
