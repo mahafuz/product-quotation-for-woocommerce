@@ -1,4 +1,4 @@
-=== Product Quotation - Product Quotation For WooCommerce ===
+=== Product Quotation - Request a Quote for WooCommerce ===
 Contributors: mahfuz01
 Tags: request a quote button, woocommerce request for quote, woocommerce request a quote shortcode, request a quote, quote, woocommerce, shop, ecommerce, e-commerce, quotations, request for quote, rfq, raq, proposal, ask an estimate, budget, email quote
 Requires at least: 4.0
@@ -17,7 +17,7 @@ Get quotations on specific products by adding a quote button for each product an
 You can also hide the quotation button from the single product page or the shop page.
 The site owner will receive an email with the quote request and can reply with a custom quote.
 
-## Product Quotation For WooCommerce ##
+## Product Quotation - Request a Quote for WooCommerce ##
 
 Get product quotations from the customers in one place in a simple and elegant way with the [Product Quotation For WooCommerce](https://github.com/mahafuz/product-quotation-for-woocommerce)
 
@@ -26,14 +26,17 @@ Get product quotations from the customers in one place in a simple and elegant w
 
 ## 🔥 Product Quotation For Woocommerce Features  ##
 
-* Simple and easy to use Quotation form with name, email, phone, questions, or comments fields.
-* Show the "Add to Quotation" button on all products pages
-* Show the "Add to Quotation" button on all single products page
+* Show the "Add to Quotation" button on all products page
+* Show the "Add to Quotation" button on shop/category pages
 * Support to variable products. Customers can select specific product variations from the quotations
-* Hide "Add to Quotation" button on all products
-* Flexibility to use any page for the quotation list and form on any page of your site
+* Get updated price on products quantity update.
+* Customize the “Add to quote” button style and the colors.
+* Hide "Add to cart" button for all products.
+* Hide price for all products
+* Show a Privacy Policy field in the form
 * Allows your customers to fill out the predefined form and send the quotation request
 * Admin gets an automatic email when a customer submits a new quotation request
+* Flexibility to use any page for the quotation list and form on any page of your site. No need to copy/paste the shortcode.
 * Automatically list each quotation submission on Dashboard.
 * No complicated settings. All is set up to go. Simply install it and it works.
 
@@ -127,4 +130,4 @@ Thanks!
 2. Add to Quotation from Single Page
 3. Quotation Cart
 4. Quotations
-5. Settings
+5. Settin**gs
