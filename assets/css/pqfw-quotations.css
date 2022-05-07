@@ -1,1 +1,20 @@
 .post-type-pqfw_quotations div#post-body-content {margin: 0;}
+ul.pqfw-list-of-person-detail {margin: 0;padding: 0;list-style: none;}
+
+ul.pqfw-list-of-person-detail > li > strong {float: left;width: 40%;}
+
+ul.pqfw-list-of-person-detail > li {padding: 25px 10px;border-bottom: 1px solid #e5e5e5;margin: 0;}
+
+ul.pqfw-list-of-person-detail > li:last-child {border-bottom: 0px;}
+
+table.pqfw-list-products.widefat.fixed.striped.table-view-list {box-shadow: none;border: 0px;}
+
+table.pqfw-list-products.widefat.fixed.striped.table-view-list > thead th {border: 0px;text-align: center;background: #f6f7f7;}
+
+td.pqfw-product-thumbnail > a {width: 60px;margin: 0 auto;}
+
+table.pqfw-list-products.widefat.fixed.striped.table-view-list tbody td {text-align: center;vertical-align: middle;}
+
+.alternate, .striped>tbody>:nth-child(odd), ul.striped>:nth-child(odd) {background: #fff;}
+
+div#pqfw_quotation_products_detail .inside {padding-left: 0;padding-right: 0;margin-top: 0;}
