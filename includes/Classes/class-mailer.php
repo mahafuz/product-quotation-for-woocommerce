@@ -133,7 +133,9 @@ class Mailer {
 			$img = wp_get_attachment_image_src( get_post_thumbnail_id( $product['id'] ), 'thumbnail' );
 			$img = ! empty( $img[0] ) ? ( $img[0] ) : false;
 			$message .= '<br><a href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>';
-			$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $product['quantity'] ) . '</p>';
+			$message .= '<br>' . __( 'Quantity', 'pqfw' ) . ': ' . absint( $product['quantity'] ) . '</p>';
+			$message .= '<br>' . __( 'Price', 'pqfw' ) . ': ' . wc_price( $product['price'] ) . '</p>';
+			$message .= '<br>' . __( 'Note', 'pqfw' ) . ': ' . wp_kses_post( $product['message'] ) . '</p>';
 			$message .= '<p><a href="' . rawurlencode( esc_url( get_permalink( $product['id'] ) ) ) . '">
 			<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>';
 		}
