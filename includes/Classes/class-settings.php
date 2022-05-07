@@ -96,6 +96,7 @@ class Settings {
 			'pqfw_shop_page_button'          => true,
 			'pqfw_product_page_button'       => true,
 			'pqfw_form_send_mail'            => true,
+			'pqfw_send_mail_to_customer'     => false,
 			'recipient'                      => sanitize_email( get_option( 'admin_email' ) ),
 			'button_hover_color'             => '',
 			'button_hover_bg_color'          => '',

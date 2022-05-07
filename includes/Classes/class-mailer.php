@@ -44,7 +44,7 @@ class Mailer {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private $email;
+	private $email = [];
 
 	/**
 	 * Generating full message body.
@@ -83,8 +83,15 @@ class Mailer {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
 		$this->subject  = sprintf( '%s - %s', $this->args['fullname'], $this->args['subject'] );
-		$recipient      = sanitize_email( pqfw()->settings->get( 'recipient' ) );
-		$this->email    = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
+
+		if ( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) {
+			$recipient     = sanitize_email( pqfw()->settings->get( 'recipient' ) );
+			$this->email[] = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
+		}
+
+		if ( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) {
+			$this->email[] = sanitize_email( $this->args['email'] );
+		}
 
 		$this->prepare_message();
 		$this->prepare_headers();
@@ -145,6 +152,10 @@ class Mailer {
 	 * @return void|error
 	 */
 	public function send() {
+		if ( ! is_array( $this->email ) || empty( $this->email ) ) {
+			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
+		}
+
 		$result = \wp_mail(
 			$this->email,
 			$this->subject,

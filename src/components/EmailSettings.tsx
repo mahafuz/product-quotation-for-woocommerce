@@ -10,7 +10,7 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 		<div className="inside">
 			<p className="help">Customize email settings for better experience that will ensure the ease of use as you like.</p>
 			<table className="form-table">
-        <tr>
+        		<tr>
 					<th>Receive Email</th>
 					<td>
 						<FormToggle
@@ -20,12 +20,10 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 								pqfw_form_send_mail: e.target.checked
 							})}
 						/>
-						<p className="description">Receive email for each user submitted quotatin from the 
-            <strong>Quotations Cart</strong> page.</p>
+						<p className="description">Receive email for each user submitted quotatin from the <strong>Quotations Cart</strong> page.</p>
 					</td>
 				</tr>
 				<tr>
-					{/* TODO: Mail validation */}
 					<th>Recipient</th>
 					<td>
 						<input
@@ -38,6 +36,19 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 							})}
 						/>
 						<p className="description">Add recipient email ID that will receive each quotation on the email.</p>
+					</td>
+				</tr>
+				<tr>
+					<th>Send Email</th>
+					<td>
+						<FormToggle
+							checked={ settings?.pqfw_send_mail_to_customer }
+							onChange={(e) => setSettings({
+								...settings,
+								pqfw_send_mail_to_customer: e.target.checked
+							})}
+						/>
+						<p className="description">Send a copy of the email to the customer as well for each submitted quotation from the <strong>Quotations Cart</strong> page.</p>
 					</td>
 				</tr>
 			</table>
