@@ -1,9 +1,9 @@
 === Product Quotation - Request a Quote for WooCommerce ===
 Contributors: mahfuz01
-Tags: request a quote button, woocommerce request for quote, woocommerce request a quote shortcode, request a quote, quote, woocommerce, shop, ecommerce, e-commerce, quotations, request for quote, rfq, raq, proposal, ask an estimate, budget, email quote
+Tags: request a quote, email quote, quotations, request for quote, rfq, raq, proposal
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -70,16 +70,22 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 
 == Changelog ==
 
-= 2.0.2- 06-05-2022 =
+= 2.0.3 - 07-05-2022 =
+* ADDED Feature: Send email to customers as well.
+* IMPROVEMENTS: Quotation details design improvements.
+* IMPROVEMENTS: added price and individual product note in the email template.
+* Fixed: minor bugs
+
+= 2.0.2 - 06-05-2022 =
 * ADDED Feature: Price update while quantity gets updated.
 * ADDED Feature: Option for setting up Quotation Cart page.
 * Fixed: minor bugs
 
-= 2.0.1- 02-05-2022 =
+= 2.0.1 - 02-05-2022 =
 * ADDED Feature: Privacy policy field on the Quotation Cart form
 * Fixed: minor bugs
 
-= 2.0.0- 30-04-2022 =
+= 2.0.0 - 30-04-2022 =
 * ADDED: New settings panel.
 * ADDED: Numbers of new features.
 * ADDED: Help Page
@@ -87,13 +93,13 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 * REMOVED: Old entries backup
 * Fixed: Minor bug fixes
 
-= 1.2.5- 28-04-2022 =
+= 1.2.5 - 28-04-2022 =
 * Fixed: Quotation Cart page issue
 
-= 1.2.4- 28-04-2022 =
+= 1.2.4 - 28-04-2022 =
 * Updated: Readme's
 
-= 1.2.3- 14-04-2022 =
+= 1.2.3 - 14-04-2022 =
 * Fixed: Quotation button style issue.
 
 = 1.2.2 - 14-04-2022 =
