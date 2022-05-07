@@ -155,18 +155,14 @@ class Mailer {
 	 */
 	public function send() {
 		if ( ! is_array( $this->email ) || empty( $this->email ) ) {
-			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
+			return;
 		}
 
-		$result = \wp_mail(
+		wp_mail(
 			$this->email,
 			$this->subject,
 			$this->message,
 			$this->headers
 		);
-
-		if ( ! $result ) {
-			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
-		}
 	}
 }

@@ -23,21 +23,23 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 						<p className="description">Receive email for each user submitted quotatin from the <strong>Quotations Cart</strong> page.</p>
 					</td>
 				</tr>
-				<tr>
-					<th>Recipient</th>
-					<td>
-						<input
-							type="text"
-							value={settings?.recipient}
-							className="regular-text"
-							onChange={(e) => setSettings({
-								...settings,
-								recipient: e.target.value
-							})}
-						/>
-						<p className="description">Add recipient email ID that will receive each quotation on the email.</p>
-					</td>
-				</tr>
+				{settings?.pqfw_form_send_mail && (
+					<tr>
+						<th>Recipient</th>
+						<td>
+							<input
+								type="text"
+								value={settings?.recipient}
+								className="regular-text"
+								onChange={(e) => setSettings({
+									...settings,
+									recipient: e.target.value
+								})}
+							/>
+							<p className="description">Add recipient email ID that will receive each quotation on the email.</p>
+						</td>
+					</tr>
+				)}
 				<tr>
 					<th>Send Email</th>
 					<td>
