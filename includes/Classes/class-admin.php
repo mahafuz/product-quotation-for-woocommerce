@@ -165,14 +165,14 @@ class Admin {
 	public function QuotationAuthorDetail() {
 		add_meta_box(
 			'pqfw_quotation_detail',
-			__( 'Person Details', 'pqfw' ),
+			__( 'Customer Information', 'pqfw' ),
 			[ $this, 'displayQuotationDetail' ],
 			self::POST_TYPE
 		);
 
 		add_meta_box(
 			'pqfw_quotation_products_detail',
-			__( 'Product Details', 'pqfw' ),
+			__( 'Quote Details', 'pqfw' ),
 			[ $this, 'displayQuotationProductsDetail' ],
 			self::POST_TYPE
 		);

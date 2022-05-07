@@ -44,7 +44,7 @@ class Mailer {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private $email;
+	private $email = [];
 
 	/**
 	 * Generating full message body.
@@ -83,8 +83,15 @@ class Mailer {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
 		$this->subject  = sprintf( '%s - %s', $this->args['fullname'], $this->args['subject'] );
-		$recipient      = sanitize_email( pqfw()->settings->get( 'recipient' ) );
-		$this->email    = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
+
+		if ( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) {
+			$recipient     = sanitize_email( pqfw()->settings->get( 'recipient' ) );
+			$this->email[] = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
+		}
+
+		if ( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) {
+			$this->email[] = sanitize_email( $this->args['email'] );
+		}
 
 		$this->prepare_message();
 		$this->prepare_headers();
@@ -126,7 +133,9 @@ class Mailer {
 			$img = wp_get_attachment_image_src( get_post_thumbnail_id( $product['id'] ), 'thumbnail' );
 			$img = ! empty( $img[0] ) ? ( $img[0] ) : false;
 			$message .= '<br><a href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>';
-			$message .= '<br>' . __( 'Quantity:', 'pqfw' ) . ': ' . esc_attr( $product['quantity'] ) . '</p>';
+			$message .= '<br>' . __( 'Quantity', 'pqfw' ) . ': ' . absint( $product['quantity'] ) . '</p>';
+			$message .= '<br>' . __( 'Price', 'pqfw' ) . ': ' . wc_price( $product['price'] ) . '</p>';
+			$message .= '<br>' . __( 'Note', 'pqfw' ) . ': ' . wp_kses_post( $product['message'] ) . '</p>';
 			$message .= '<p><a href="' . rawurlencode( esc_url( get_permalink( $product['id'] ) ) ) . '">
 			<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>';
 		}
@@ -145,15 +154,15 @@ class Mailer {
 	 * @return void|error
 	 */
 	public function send() {
-		$result = \wp_mail(
+		if ( ! is_array( $this->email ) || empty( $this->email ) ) {
+			return;
+		}
+
+		wp_mail(
 			$this->email,
 			$this->subject,
 			$this->message,
 			$this->headers
 		);
-
-		if ( ! $result ) {
-			wp_send_json_error( __( 'There was an error while we were trying to send your email. Please try again later or contact us in other way!', 'pqfw' ) );
-		}
 	}
 }
