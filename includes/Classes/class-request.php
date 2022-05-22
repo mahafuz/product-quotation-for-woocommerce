@@ -26,9 +26,13 @@ class Request {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_pqfw_load_cart_data', [ $this, 'InitializeCart' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_load_cart_data', [ $this, 'InitializeCart' ] );
 		add_action( 'wp_ajax_pqfw_add_product', [ $this, 'addProduct' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_add_product', [ $this, 'addProduct' ] );
 		add_action( 'wp_ajax_pqfw_remove_product', [ $this, 'removeProduct' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_remove_product', [ $this, 'removeProduct' ] );
 		add_action( 'wp_ajax_pqfw_update_products', [ $this, 'updateProducts' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_update_products', [ $this, 'updateProducts' ] );
 	}
 
 	/**
@@ -37,6 +41,12 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function InitializeCart() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
+			wp_send_json_error([
+				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' )
+			], 403);
+		}
+
 		$products = pqfw()->quotations->getProducts();
 		$cart     = '';
 
@@ -45,12 +55,10 @@ class Request {
 			$cart = ob_get_contents();
 		ob_end_clean();
 
-		echo wp_json_encode([
+		wp_send_json_success([
 			'html'     => $cart,
 			'products' => $products
-		], JSON_UNESCAPED_SLASHES );
-
-		die();
+		]);
 	}
 
 	/**
@@ -59,6 +67,12 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function addProduct() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
+			wp_send_json_error([
+				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' )
+			], 403);
+		}
+
 		if ( isset( $_POST['productID'] ) && isset( $_POST['variationID'] ) ) {
 			$id        = absint( $_POST['productID'] );
 			$quantity  = (int) ( isset( $_POST['quantity'] ) ? $_POST['quantity'] : 1 );
@@ -68,9 +82,16 @@ class Request {
 			$variationDetail = pqfw()->quotations->sanitizeVariationDetail( $_POST['variationDetails'] );
 			$price           = pqfw()->cart->getSimpleVariationPrice( $product, $variation );
 			$products        = pqfw()->quotations->addProduct( $id, $quantity, $variation, $variationDetail, $price );
-		}
 
-		die;
+			wp_send_json_success([
+				/* Translators: %d product id */
+				'message' => sprintf( __( '%d Product Successfully added.', 'pqfw' ), $id )
+			]);
+		} else {
+			wp_send_json_success([
+				'message' => __( 'Invalid product data to add to quote.', 'pqfw' )
+			]);
+		}
 	}
 
 	/**
@@ -79,6 +100,12 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function removeProduct() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
+			wp_send_json_error([
+				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' )
+			], 403);
+		}
+
 		$hash     = sanitize_text_field( $_POST['hash'] );
 		$cart     = '';
 		$products = pqfw()->quotations->removeProduct( $hash );
@@ -88,12 +115,10 @@ class Request {
 		$cart = ob_get_contents();
 		ob_end_clean();
 
-		echo wp_json_encode([
+		wp_send_json_success([
 			'html'     => $cart,
 			'products' => $products
-		], JSON_UNESCAPED_SLASHES );
-
-		die;
+		]);
 	}
 
 	/**
@@ -102,6 +127,12 @@ class Request {
 	 * @since 1.0.0
 	 */
 	public function updateProducts() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
+			wp_send_json_error([
+				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' )
+			], 403);
+		}
+
 		$cart     = '';
 		$products = pqfw()->quotations->addProducts( $_POST['products'] );
 
@@ -110,11 +141,9 @@ class Request {
 			$cart = ob_get_contents();
 		ob_end_clean();
 
-		echo wp_json_encode([
+		wp_send_json_success([
 			'html'     => $cart,
 			'products' => $products
-		], JSON_UNESCAPED_SLASHES );
-
-		die;
+		]);
 	}
 }

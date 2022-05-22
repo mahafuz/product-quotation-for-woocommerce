@@ -115,6 +115,7 @@ namespace PQFW {
 
 			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
 			add_action( 'admin_init', [ $this, 'redirect' ] );
+			add_action( 'woocommerce_init', [ $this, 'sessionStart' ] );
 		}
 
 		/**
@@ -191,6 +192,17 @@ namespace PQFW {
 			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
 
 			printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
+		}
+
+		/**
+		 * Start woocommerce session for users.
+		 *
+		 * @since 2.0.3
+		 */
+		public function sessionStart() {
+			if ( isset( WC()->session ) ) {
+				WC()->session->set_customer_session_cookie( true );
+			}
 		}
 	}
 
