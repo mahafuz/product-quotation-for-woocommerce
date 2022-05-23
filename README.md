@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: request a quote, email quote, quotations, request for quote, rfq, raq, proposal
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -69,6 +69,10 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 2.0.4 - 23-05-2022 =
+* IMPROVEMENTS: Cart functionality improvements for logged out users.
+* Fixed: minor bugs
 
 = 2.0.3 - 07-05-2022 =
 * ADDED Feature: Send email to customers as well.

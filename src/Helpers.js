@@ -23,3 +23,7 @@ export function getPages() {
 export function getCart( field = 'url') {
     return config.cart?.url;
 }
+
+export function translate( key ) {
+    return config.strings[key];
+}
