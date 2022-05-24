@@ -96,6 +96,7 @@ namespace PQFW {
 		 */
 		private function loader() {
 			$this->helpers         = new \PQFW\Classes\Helpers();
+			$this->assets          = new \PQFW\Classes\Assets();
 			$this->settings        = new \PQFW\Classes\Settings();
 			$this->form            = new \PQFW\Classes\Form();
 			$this->admin           = new \PQFW\Classes\Admin();
@@ -117,6 +118,9 @@ namespace PQFW {
 			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
 			add_action( 'admin_init', [ $this, 'redirect' ] );
 			add_action( 'woocommerce_init', [ $this, 'sessionStart' ] );
+
+			// Initialize the integrations.
+			$this->integrations();
 		}
 
 		/**
@@ -203,6 +207,22 @@ namespace PQFW {
 		public function sessionStart() {
 			if ( isset( WC()->session ) ) {
 				WC()->session->set_customer_session_cookie( true );
+			}
+		}
+
+		/**
+		 * Contains & runs the integration.
+		 *
+		 * @since 2.0.3
+		 */
+		private function integrations() {
+			// Elementor.
+			if ( defined( 'ELEMENTOR_PATH' ) ) {
+				add_action( 'elementor/editor/after_enqueue_styles', [ $this->assets, 'elmentorEditorStyle' ] );
+
+				add_action( 'elementor/widgets/widgets_registered', function() {
+					$this->elementor = \Elementor\Plugin::instance()->widgets_manager->register( new \PQFW\Classes\Addons\Elementor() );
+				});
 			}
 		}
 	}
