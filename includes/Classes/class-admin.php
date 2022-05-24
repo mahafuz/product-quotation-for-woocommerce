@@ -43,7 +43,7 @@ class Admin {
 
 		add_submenu_page(
 			'edit.php?post_type=pqfw_quotations',
-			__( 'Help', 'PQFW' ),
+			__( 'Help', 'pqfw' ),
 			'<span style="color:#f18500">Help</span>',
 			'manage_options',
 			'pqfw-help',
@@ -63,7 +63,7 @@ class Admin {
 	 * @return void
 	 */
 	public function addFooterText() {
-		$linkText = esc_html__( 'Give us a 5-star rating!', 'PQFW' );
+		$linkText = esc_html__( 'Give us a 5-star rating!', 'pqfw' );
 		$href     = 'https://wordpress.org/support/plugin/product-quotation-for-woocommerce/reviews/#new-post';
 
 		$link1 = sprintf(
@@ -80,7 +80,7 @@ class Admin {
 
 		printf(
 			// Translators: 1 - The plugin name ("PageSpeed Optimizer for Elementor"), - 2 - This placeholder will be replaced with star icons.
-			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'PQFW' ),
+			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'pqfw' ),
 			sprintf( '<strong>%1$s</strong>', esc_html( PQFW_PLUGIN_NAME ) ),
 			wp_kses_post( $link1 ),
 			wp_kses_post( $link2 )

@@ -59,7 +59,7 @@ class Form {
 		wp_enqueue_script(
 			'pqfw-quotation-cart',
 			PQFW_PLUGIN_URL . 'assets/js/pqfw-cart.js',
-			[ 'jquery' ], '1.0.0', true
+			[ 'jquery', 'wp-util' ], '1.0.0', true
 		);
 
 		$cartPageId = get_option( 'pqfw_quotations_cart', false );
@@ -77,9 +77,7 @@ class Form {
 				'ViewCartLabel' => __( 'View Quotation Cart', 'pqfw' ),
 				'cartPageUrl'   => get_permalink( $cartPageId ),
 				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.gif',
-				'actions'       => [
-					'addToQuotations' => 'pqfw_add_product'
-				]
+				'nonce'         => wp_create_nonce( 'pqfw_cart_actions' ),
 			]
 		);
 

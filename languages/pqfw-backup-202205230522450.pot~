@@ -1,0 +1,310 @@
+# Copyright (C) 2022 Mahafuz <m.mahfuz.me@gmail.com>
+# This file is distributed under the same license as the Products Quotation For WooCommerce plugin.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Products Quotation For WooCommerce 2.0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-quotation-"
+"for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-05-23 05:22+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: pqfw\n"
+"\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+
+#: includes/Classes/class-admin.php:191
+msgid "#%d Quotation Detail"
+msgstr ""
+
+#. %d product id
+#: includes/Classes/class-request.php:88
+msgid "%d Product Successfully added."
+msgstr ""
+
+#: includes/PQFW.php:185
+msgid ""
+"<strong>Product Quotation For WooCommerce</strong> requires <strong>"
+"WooCommerce</strong> plugin to be active. Please activate WooCommerce to "
+"continue."
+msgstr ""
+
+#: includes/PQFW.php:189
+msgid ""
+"<strong>Product Quotation For WooCommerce</strong> requires <strong>"
+"WooCommerce</strong> plugin to be installed and activated. Please install "
+"WooCommerce to continue."
+msgstr ""
+
+#: includes/PQFW.php:186
+msgid "Activate WooCommerce"
+msgstr ""
+
+#: includes/Classes/class-settings.php:107
+msgid "Add to Quote"
+msgstr ""
+
+#: includes/Classes/class-strings.php:30
+msgid "Button"
+msgstr ""
+
+#: includes/Classes/class-controls-manager.php:100
+msgid "Comments:"
+msgstr ""
+
+#: includes/Classes/class-admin.php:168
+msgid "Customer Information"
+msgstr ""
+
+#: includes/Classes/class-admin.php:255
+msgid "Date"
+msgstr ""
+
+#: includes/Classes/class-admin.php:279
+msgid "Details"
+msgstr ""
+
+#: includes/Classes/class-admin.php:251 includes/Classes/class-strings.php:32
+#: includes/Views/quotation-detail.php:12
+msgid "Email"
+msgstr ""
+
+#: includes/Classes/class-helpers.php:80
+msgid "Email is not valid"
+msgstr ""
+
+#: includes/Classes/class-controls-manager.php:80
+#: includes/Classes/class-mailer.php:126
+msgid "Email:"
+msgstr ""
+
+#: includes/Classes/class-strings.php:31
+msgid "Form"
+msgstr ""
+
+#: includes/Classes/class-controls-manager.php:73
+msgid "Full Name:"
+msgstr ""
+
+#: includes/Classes/class-strings.php:29
+msgid "General Settings"
+msgstr ""
+
+#: includes/Classes/class-admin.php:66
+msgid "Give us a 5-star rating!"
+msgstr ""
+
+#: includes/PQFW.php:132 includes/Classes/class-admin.php:46
+msgid "Help"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/mahafuz/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/mahafuz/product-quotation-for-woocommerce"
+msgstr ""
+
+#: includes/Classes/class-settings.php:113
+msgid "I have read and agree to the website terms and conditions."
+msgstr ""
+
+#: includes/Views/quotation-products-detail.php:13
+msgid "Image"
+msgstr ""
+
+#: includes/PQFW.php:190
+msgid "Install WooCommerce"
+msgstr ""
+
+#: includes/Classes/class-request.php:46 includes/Classes/class-request.php:72
+#: includes/Classes/class-request.php:105
+#: includes/Classes/class-request.php:132
+msgid "Invalid operation, could not verify nonce."
+msgstr ""
+
+#: includes/Classes/class-settings.php:233
+msgid "Invalid Page ID."
+msgstr ""
+
+#: includes/Classes/class-request.php:92
+msgid "Invalid product data to add to quote."
+msgstr ""
+
+#: includes/Classes/class-settings.php:197
+msgid "Invalid Settings."
+msgstr ""
+
+#: includes/Classes/class-helpers.php:63
+msgid "is required."
+msgstr ""
+
+#. Author of the plugin
+msgid "Mahafuz <m.mahfuz.me@gmail.com>"
+msgstr ""
+
+#: includes/Classes/class-admin.php:254
+#: includes/Views/quotation-products-detail.php:17
+#: includes/Views/quotation-detail.php:17
+msgid "Message"
+msgstr ""
+
+#: includes/Classes/class-admin.php:250 includes/Views/quotation-detail.php:11
+msgid "Name"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:125
+msgid "Name:"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:138
+msgid "Note"
+msgstr ""
+
+#: includes/Classes/class-admin.php:252 includes/Views/quotation-detail.php:15
+msgid "Phone"
+msgstr ""
+
+#: includes/Classes/class-controls-manager.php:94
+#: includes/Classes/class-mailer.php:127
+msgid "Phone:"
+msgstr ""
+
+#. 1 - The plugin name ("PageSpeed Optimizer for Elementor"), - 2 - This placeholder will be replaced with star icons.
+#: includes/Classes/class-admin.php:83
+msgid "Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!"
+msgstr ""
+
+#: includes/PQFW.php:72
+msgid ""
+"Plugin is missing required dependencies. Please contact support for more "
+"information."
+msgstr ""
+
+#: includes/Classes/class-mailer.php:137
+#: includes/Views/quotation-products-detail.php:15
+msgid "Price"
+msgstr ""
+
+#: includes/Views/quotation-products-detail.php:14
+msgid "Product"
+msgstr ""
+
+#. Name of the plugin
+#: product-quotation-for-woocommerce.php:24
+msgid "Products Quotation For WooCommerce"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:136
+#: includes/Views/quotation-products-detail.php:16
+msgid "Quantity"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:128
+msgid "Questions or comments:"
+msgstr ""
+
+#: includes/Classes/class-product.php:26 includes/Classes/class-admin.php:135
+#: includes/Classes/class-admin.php:136
+msgid "Quotation"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:129
+msgid "Quotation Products Details:"
+msgstr ""
+
+#: includes/Classes/class-admin.php:134
+msgid "Quotations"
+msgstr ""
+
+#: includes/Classes/class-migration.php:43
+msgid "Quotations Cart"
+msgstr ""
+
+#: includes/Classes/class-admin.php:175
+msgid "Quote Details"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Removes the 'Add to cart' button from WooCommerce and adds a simple 'Request "
+"for quotation' form on all product pages instead of it."
+msgstr ""
+
+#: includes/Classes/class-strings.php:33
+msgctxt "ualalalallala"
+msgid "Script translations test"
+msgstr ""
+
+#: includes/Classes/class-helpers.php:95
+msgid "Select page for Quotations cart"
+msgstr ""
+
+#: includes/Classes/class-admin.php:249
+msgid "Serial"
+msgstr ""
+
+#: includes/PQFW.php:131 includes/Classes/class-strings.php:28
+#: includes/Classes/class-settings.php:68
+#: includes/Classes/class-settings.php:69
+msgid "Settings"
+msgstr ""
+
+#: includes/Classes/class-settings.php:213
+msgid "Settings has been updated."
+msgstr ""
+
+#: includes/Classes/class-form-handler.php:70
+msgid "Something went wrong"
+msgstr ""
+
+#: includes/Classes/class-helpers.php:76
+msgid "Sorry, the username you entered is not valid"
+msgstr ""
+
+#: includes/Classes/class-admin.php:253 includes/Views/quotation-detail.php:16
+msgid "Subject"
+msgstr ""
+
+#: includes/Classes/class-controls-manager.php:87
+msgid "Subject:"
+msgstr ""
+
+#: includes/Classes/class-form.php:229
+msgid "Submit Query"
+msgstr ""
+
+#: includes/Classes/class-cart.php:34
+msgid "There are no product added in the Quotations Cart"
+msgstr ""
+
+#: includes/Classes/class-settings.php:189
+#: includes/Classes/class-settings.php:225
+msgid "Unauthorized Action"
+msgstr ""
+
+#: includes/Classes/class-helpers.php:72
+msgid "Username too short. At least 4 characters is required"
+msgstr ""
+
+#: includes/Classes/class-form.php:77
+msgid "View Quotation Cart"
+msgstr ""
+
+#: includes/Classes/class-settings.php:114
+msgid ""
+"Your personal data will be used to process your request, support your "
+"experience throughout this website, and for other purposes described in our  "
+"[privacy_policy]."
+msgstr ""
+
+#: includes/Classes/class-form-handler.php:68
+msgid "Your quotation is successfully submitted."
+msgstr ""

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-  import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ButtonSettings from './ButtonSettings';
 import EmailSettings from './EmailSettings';
 import FormSettings from './FormSettings';
 import GeneralSettings from './GeneralSettings';
-import { getSavedSettings, getNonce } from '../Helpers';
+import { getSavedSettings, getNonce, translate } from '../Helpers';
 
 import ButtonIcon from './../images/button.png';
 import FormIcon from './../images/form.png';
@@ -44,7 +44,7 @@ const App = () => {
 
   return (
 	  <>
-	  	<h1 className="pqfw-app-title">Settings</h1>
+	  	<h1 className="pqfw-app-title">{ translate( 'app-page-title' )}</h1>
 		<div className={`pqfw-settings-tabs-warp${ false ? ` pqfw-pro-deactivate` : ''}`}>
 			<ToastContainer
 				position="top-right"
@@ -65,7 +65,7 @@ const App = () => {
 						setActiveTab( 'general' )
 						saveActiveTab( 'general' )
 					}}
-				><img src={GeneralSettingsIcon} /> General Settings</a>
+				><img src={GeneralSettingsIcon} /> {translate( 'general-settings-menu-label' )}</a>
 				<a
 					href="#"
 					className={`pqfw-settings-nav-tab${ activeTab === 'button' ? ` pqfw-settings-nav-tab-active` : ''}`}
@@ -73,7 +73,7 @@ const App = () => {
 						setActiveTab( 'button' )
 						saveActiveTab( 'button' )
 					}}
-				><img src={ButtonIcon} /> Button</a>
+				><img src={ButtonIcon} /> { translate( 'button-settings-menu-label' )}</a>
 				<a
 					href="#"
 					className={`pqfw-settings-nav-tab${ activeTab === 'form' ? ` pqfw-settings-nav-tab-active` : ''}`}
@@ -81,7 +81,7 @@ const App = () => {
 						setActiveTab( 'form' )
 						saveActiveTab( 'form' )
 					}}
-				><img src={FormIcon} /> Form</a>
+				><img src={FormIcon} /> {translate( 'form-settings-menu-label' )}</a>
 				<a
 					href="#"
 					className={`pqfw-settings-nav-tab${ activeTab === 'email' ? ` pqfw-settings-nav-tab-active` : ''}`}
@@ -89,7 +89,7 @@ const App = () => {
 						setActiveTab( 'email' )
 						saveActiveTab( 'email' )
 					}}
-				><img src={EmailIcon} /> Email</a>
+				><img src={EmailIcon} /> {translate( 'email-settings-menu-label' )}</a>
 			</div>
 			<div id="pqfw-settings-tabs-contents">
 				{ activeTab === 'general' && (<GeneralSettings

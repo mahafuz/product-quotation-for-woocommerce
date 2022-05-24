@@ -144,7 +144,7 @@ class Settings {
 				'all'
 			);
 
-			wp_enqueue_script(
+			wp_register_script(
 				'pqfw-app',
 				PQFW_PLUGIN_URL . 'build/index.js',
 				$dependencies['dependencies'],
@@ -167,8 +167,12 @@ class Settings {
 						'id'  => pqfw()->helpers->getCart(),
 						'url' => pqfw()->helpers->getCart( 'url' )
 					],
+					'strings'  => pqfw()->strings->get()
 				]
 			);
+
+			wp_enqueue_script( 'pqfw-app' );
+			load_plugin_textdomain( 'pqfw', false, PQFW_PLUGIN_LANGUAGES_PATH );
 		}
 	}
 

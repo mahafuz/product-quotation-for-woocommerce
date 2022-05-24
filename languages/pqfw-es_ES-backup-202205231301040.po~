@@ -1,0 +1,562 @@
+# Copyright (C) 2022 Mahafuz <m.mahfuz.me@gmail.com>
+# This file is distributed under the same license as the Products Quotation For WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Products Quotation For WooCommerce 2.0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-quotation-"
+"for-woocommerce\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Spain)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-05-23 06:49+0000\n"
+"PO-Revision-Date: 2022-05-23 12:56+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: pqfw\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.6.1; wp-5.9.3"
+
+#: includes/Classes/class-strings.php:42
+msgid "\"Quotation cart\" page"
+msgstr "Página \"carrito de presupuesto\""
+
+#: includes/Classes/class-admin.php:191
+msgid "#%d Quotation Detail"
+msgstr "#%d Detalle de cotización"
+
+#. %d product id
+#: includes/Classes/class-request.php:88
+msgid "%d Product Successfully added."
+msgstr "%d Producto agregado con éxito."
+
+#: includes/PQFW.php:185
+msgid ""
+"<strong>Product Quotation For WooCommerce</strong> requires <strong>"
+"WooCommerce</strong> plugin to be active. Please activate WooCommerce to "
+"continue."
+msgstr ""
+"<strong>Cotización de productos para WooCommerce</strong> requiere que el "
+"complemento <strong>WooCommerce</strong> esté activo. Activa WooCommerce "
+"para continuar."
+
+#: includes/PQFW.php:189
+msgid ""
+"<strong>Product Quotation For WooCommerce</strong> requires <strong>"
+"WooCommerce</strong> plugin to be installed and activated. Please install "
+"WooCommerce to continue."
+msgstr ""
+"<strong>Cotización de productos para WooCommerce</strong> requiere que el "
+"complemento <strong>WooCommerce</strong> esté instalado y activado. Instale "
+"WooCommerce para continuar."
+
+#: includes/PQFW.php:186
+msgid "Activate WooCommerce"
+msgstr "Activar WooCommerce"
+
+#: includes/Classes/class-strings.php:82
+msgid "Add Privacy Policy"
+msgstr "Añadir política de privacidad"
+
+#: includes/Classes/class-strings.php:94
+msgid "Add recipient email ID that will receive each quotation on the email."
+msgstr ""
+"Agregue el ID de correo electrónico del destinatario que recibirá cada "
+"cotización en el correo electrónico."
+
+#: includes/Classes/class-settings.php:107
+msgid "Add to Quote"
+msgstr "Agregar a cotización"
+
+#: includes/Classes/class-strings.php:63
+msgid "After add to cart button"
+msgstr "Después del botón Agregar al carrito"
+
+#: includes/Classes/class-strings.php:59
+msgid "After product title"
+msgstr "Después del título del producto"
+
+#: includes/Classes/class-strings.php:83
+msgid ""
+"Ask user to accept terms and condition before submitting the quotation form."
+msgstr ""
+"Pida al usuario que acepte los términos y condiciones antes de enviar el "
+"formulario de cotización."
+
+#: includes/Classes/class-strings.php:56
+msgid "At product end"
+msgstr "al final del producto"
+
+#: includes/Classes/class-strings.php:57
+msgid "At product start"
+msgstr "Al inicio del producto"
+
+#: includes/Classes/class-strings.php:69
+msgid "Background"
+msgstr "Fondo"
+
+#: includes/Classes/class-strings.php:62
+msgid "Before add to cart button"
+msgstr "Antes de agregar al botón del carrito"
+
+#: includes/Classes/class-strings.php:58
+msgid "Before product title"
+msgstr "Antes del título del producto"
+
+#: includes/Classes/class-strings.php:31
+msgid "Button"
+msgstr "Botón"
+
+#: includes/Classes/class-strings.php:54
+msgid "Button position in Loop"
+msgstr "Posición del botón en bucle"
+
+#: includes/Classes/class-strings.php:60
+msgid "Button position in Single Product"
+msgstr "Posición del botón en un solo producto"
+
+#: includes/Classes/class-strings.php:47
+msgid "Button Settings"
+msgstr "Configuración de botones"
+
+#: includes/Classes/class-strings.php:65
+msgid "Button Style"
+msgstr "Estilo de botón"
+
+#: includes/Classes/class-strings.php:52
+msgid "Button Text"
+msgstr "Botón de texto"
+
+#: includes/Classes/class-strings.php:53
+msgid "Change Add To Quote button text"
+msgstr "Cambiar el texto del botón Agregar a cotización"
+
+#: includes/Classes/class-strings.php:43
+msgid ""
+"Choose the quote cart page from the list where users will see the list of "
+"added products to the quote. Visit current"
+msgstr ""
+"Elija la página del carrito de cotización de la lista donde los usuarios "
+"verán la lista de productos agregados a la cotización. Visita actual"
+
+#: includes/Classes/class-controls-manager.php:100
+msgid "Comments:"
+msgstr "Comentarios:"
+
+#: includes/Classes/class-admin.php:168
+msgid "Customer Information"
+msgstr "Información al cliente"
+
+#: includes/Classes/class-strings.php:90
+msgid ""
+"Customize email settings for better experience that will ensure the ease of "
+"use as you like."
+msgstr ""
+"Personalice la configuración del correo electrónico para una mejor "
+"experiencia que garantice la facilidad de uso que desea."
+
+#: includes/Classes/class-strings.php:37
+msgid ""
+"Customize general settings for better experience that will ensure the ease "
+"of use as you like."
+msgstr ""
+"Personaliza la configuración general para una mejor experiencia que "
+"garantizará la facilidad de uso que te gusta."
+
+#: includes/Classes/class-admin.php:255
+msgid "Date"
+msgstr "Fecha"
+
+#: includes/Classes/class-strings.php:78
+msgid "Default Form Style"
+msgstr "Estilo de formulario predeterminado"
+
+#: includes/Classes/class-admin.php:279
+msgid "Details"
+msgstr "Detalles"
+
+#: includes/Classes/class-admin.php:251 includes/Classes/class-strings.php:33
+#: includes/Views/quotation-detail.php:12
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: includes/Classes/class-helpers.php:80
+msgid "Email is not valid"
+msgstr "El correo no es válido"
+
+#: includes/Classes/class-strings.php:89
+msgid "Email Settings"
+msgstr "Ajustes del correo electrónico"
+
+#: includes/Classes/class-controls-manager.php:80
+#: includes/Classes/class-mailer.php:126
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#: includes/Classes/class-strings.php:64
+msgid "End of product"
+msgstr "fin de producto"
+
+#: includes/Classes/class-strings.php:80
+msgid "Floated Form"
+msgstr "Forma flotante"
+
+#: includes/Classes/class-strings.php:72
+msgid "Font Size"
+msgstr "Tamaño de fuente"
+
+#: includes/Classes/class-strings.php:48
+msgid ""
+"For better experience choose your own button settings and styles that will "
+"ensure the design compatibility with your active theme, as well as "
+"functionality"
+msgstr ""
+"Para una mejor experiencia, elija su propia configuración y estilos de "
+"botones que garanticen la compatibilidad del diseño con su tema activo, así "
+"como la funcionalidad."
+
+#: includes/Classes/class-strings.php:77
+msgid ""
+"For better experience choose your own form settings & styles that will "
+"ensure the design compatibility with your active theme."
+msgstr ""
+"Para una mejor experiencia, elija sus propias configuraciones y estilos de "
+"formulario que asegurarán la compatibilidad del diseño con su tema activo."
+
+#: includes/Classes/class-strings.php:32
+msgid "Form"
+msgstr "Forma"
+
+#: includes/Classes/class-strings.php:76
+msgid "Form Settings"
+msgstr "Configuración de formulario"
+
+#: includes/Classes/class-controls-manager.php:73
+msgid "Full Name:"
+msgstr "Nombre completo:"
+
+#: includes/Classes/class-strings.php:30 includes/Classes/class-strings.php:36
+msgid "General Settings"
+msgstr "Configuración general"
+
+#: includes/Classes/class-admin.php:66
+msgid "Give us a 5-star rating!"
+msgstr "¡Danos una calificación de 5 estrellas!"
+
+#: includes/PQFW.php:132 includes/Classes/class-admin.php:46
+msgid "Help"
+msgstr "Ayudar"
+
+#: includes/Classes/class-strings.php:38
+msgid "Hide \"Add to cart\" Button"
+msgstr "Ocultar el botón \"Añadir al carrito\""
+
+#: includes/Classes/class-strings.php:40 includes/Classes/class-strings.php:41
+msgid "Hide product prices"
+msgstr "Ocultar precios de productos"
+
+#: includes/Classes/class-strings.php:39
+msgid "Hide the \"Add to cart\" buttons on all products."
+msgstr "Oculte los botones \"Añadir al carrito\" en todos los productos."
+
+#: includes/Classes/class-strings.php:67
+msgid "Hover"
+msgstr "Flotar"
+
+#. Author URI of the plugin
+msgid "https://github.com/mahafuz/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/mahafuz/product-quotation-for-woocommerce"
+msgstr ""
+
+#: includes/Classes/class-settings.php:113
+msgid "I have read and agree to the website terms and conditions."
+msgstr "He leído y acepto los términos y condiciones del sitio web."
+
+#: includes/Views/quotation-products-detail.php:13
+msgid "Image"
+msgstr "Imagen"
+
+#: includes/PQFW.php:190
+msgid "Install WooCommerce"
+msgstr "Instalar WooCommerce"
+
+#: includes/Classes/class-request.php:46 includes/Classes/class-request.php:72
+#: includes/Classes/class-request.php:105
+#: includes/Classes/class-request.php:132
+msgid "Invalid operation, could not verify nonce."
+msgstr "Operación no válida, no se pudo verificar nonce."
+
+#: includes/Classes/class-settings.php:233
+msgid "Invalid Page ID."
+msgstr "ID de página no válido."
+
+#: includes/Classes/class-request.php:92
+msgid "Invalid product data to add to quote."
+msgstr "Datos de producto no válidos para agregar a la cotización."
+
+#: includes/Classes/class-settings.php:197
+msgid "Invalid Settings."
+msgstr "Configuración no válida."
+
+#: includes/Classes/class-helpers.php:63
+msgid "is required."
+msgstr "es requerido."
+
+#. Author of the plugin
+msgid "Mahafuz <m.mahfuz.me@gmail.com>"
+msgstr "Mahafuz <m.mahfuz.me@gmail.com>"
+
+#: includes/Classes/class-admin.php:254
+#: includes/Views/quotation-products-detail.php:17
+#: includes/Views/quotation-detail.php:17
+msgid "Message"
+msgstr "Mensaje"
+
+#: includes/Classes/class-admin.php:250 includes/Views/quotation-detail.php:11
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/Classes/class-mailer.php:125
+msgid "Name:"
+msgstr "Nombre:"
+
+#: includes/Classes/class-strings.php:66
+msgid "Normal"
+msgstr "Normal"
+
+#: includes/Classes/class-mailer.php:138
+msgid "Note"
+msgstr "Nota"
+
+#: includes/Classes/class-admin.php:252 includes/Views/quotation-detail.php:15
+msgid "Phone"
+msgstr "Teléfono"
+
+#: includes/Classes/class-controls-manager.php:94
+#: includes/Classes/class-mailer.php:127
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. 1 - The plugin name ("PageSpeed Optimizer for Elementor"), - 2 - This placeholder will be replaced with star icons.
+#: includes/Classes/class-admin.php:83
+msgid "Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!"
+msgstr "Califica a %1$s %2$s en %3$s para ayudarnos a correr la voz. ¡Gracias!"
+
+#: includes/PQFW.php:72
+msgid ""
+"Plugin is missing required dependencies. Please contact support for more "
+"information."
+msgstr ""
+"Al complemento le faltan las dependencias requeridas. Póngase en contacto "
+"con el soporte para obtener más información."
+
+#: includes/Classes/class-mailer.php:137
+#: includes/Views/quotation-products-detail.php:15
+msgid "Price"
+msgstr ""
+
+#: includes/Classes/class-strings.php:86
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/Classes/class-strings.php:84
+msgid "Privacy Policy Label"
+msgstr ""
+
+#: includes/Views/quotation-products-detail.php:14
+msgid "Product"
+msgstr ""
+
+#. Name of the plugin
+#: product-quotation-for-woocommerce.php:24
+msgid "Products Quotation For WooCommerce"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:136
+#: includes/Views/quotation-products-detail.php:16
+msgid "Quantity"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:128
+msgid "Questions or comments:"
+msgstr ""
+
+#: includes/Classes/class-product.php:26 includes/Classes/class-admin.php:135
+#: includes/Classes/class-admin.php:136
+msgid "Quotation"
+msgstr ""
+
+#: includes/Classes/class-strings.php:44
+msgid "Quotation Cart Page"
+msgstr ""
+
+#: includes/Classes/class-mailer.php:129
+msgid "Quotation Products Details:"
+msgstr ""
+
+#: includes/Classes/class-admin.php:134
+msgid "Quotations"
+msgstr ""
+
+#: includes/Classes/class-migration.php:43
+msgid "Quotations Cart"
+msgstr ""
+
+#: includes/Classes/class-admin.php:175
+msgid "Quote Details"
+msgstr ""
+
+#: includes/Classes/class-strings.php:91
+msgid "Receive Email"
+msgstr ""
+
+#: includes/Classes/class-strings.php:92
+msgid ""
+"Receive email for each user submitted quotation from the Quotations Cart page."
+msgstr ""
+
+#: includes/Classes/class-strings.php:93
+msgid "Recipient"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Removes the 'Add to cart' button from WooCommerce and adds a simple 'Request "
+"for quotation' form on all product pages instead of it."
+msgstr ""
+
+#: includes/Classes/class-strings.php:71
+msgid "Reset"
+msgstr ""
+
+#: includes/Classes/class-strings.php:70
+msgid "Reset the custom style and back to theme default style?"
+msgstr ""
+
+#: includes/Classes/class-strings.php:101
+msgid "Save Changes"
+msgstr ""
+
+#: includes/Classes/class-strings.php:55
+msgid "Select Add To Quote button position in the loop."
+msgstr ""
+
+#: includes/Classes/class-strings.php:61
+msgid "Select Add To Quote button position in the single product page."
+msgstr ""
+
+#: includes/Classes/class-helpers.php:95
+msgid "Select page for Quotations cart"
+msgstr ""
+
+#: includes/Classes/class-strings.php:96
+msgid ""
+"Send a copy of the email to the customer as well for each submitted "
+"quotation from the Quotations Cart page."
+msgstr ""
+
+#: includes/Classes/class-strings.php:95
+msgid "Send Email"
+msgstr ""
+
+#: includes/Classes/class-admin.php:249
+msgid "Serial"
+msgstr ""
+
+#: includes/PQFW.php:131 includes/Classes/class-strings.php:29
+#: includes/Classes/class-settings.php:68
+#: includes/Classes/class-settings.php:69
+msgid "Settings"
+msgstr ""
+
+#: includes/Classes/class-settings.php:213
+msgid "Settings has been updated."
+msgstr ""
+
+#: includes/Classes/class-strings.php:50
+msgid "Show Add To Quotation button on category/shop/loop page"
+msgstr ""
+
+#: includes/Classes/class-strings.php:51
+msgid "Show Add To Quotation button on product single page"
+msgstr ""
+
+#: includes/Classes/class-strings.php:49
+msgid "Show Button"
+msgstr ""
+
+#: includes/Classes/class-form-handler.php:70
+msgid "Something went wrong"
+msgstr ""
+
+#: includes/Classes/class-helpers.php:76
+msgid "Sorry, the username you entered is not valid"
+msgstr ""
+
+#: includes/Classes/class-admin.php:253 includes/Views/quotation-detail.php:16
+msgid "Subject"
+msgstr ""
+
+#: includes/Classes/class-controls-manager.php:87
+msgid "Subject:"
+msgstr ""
+
+#: includes/Classes/class-form.php:229
+msgid "Submit Query"
+msgstr ""
+
+#: includes/Classes/class-strings.php:68
+msgid "Text Color"
+msgstr ""
+
+#: includes/Classes/class-cart.php:34
+msgid "There are no product added in the Quotations Cart"
+msgstr ""
+
+#: includes/Classes/class-settings.php:189
+#: includes/Classes/class-settings.php:225
+msgid "Unauthorized Action"
+msgstr ""
+
+#: includes/Classes/class-strings.php:79
+msgid ""
+"Use default form style that comes with this plugin or you can clean design "
+"your own form styles rather not overriding each css class."
+msgstr ""
+
+#: includes/Classes/class-strings.php:81
+msgid "Use floated or stacked styled form on the Quotations Cart Page."
+msgstr ""
+
+#: includes/Classes/class-helpers.php:72
+msgid "Username too short. At least 4 characters is required"
+msgstr ""
+
+#: includes/Classes/class-form.php:77
+msgid "View Quotation Cart"
+msgstr ""
+
+#: includes/Classes/class-strings.php:73
+msgid "Width"
+msgstr ""
+
+#: includes/Classes/class-strings.php:85
+msgid ""
+"You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4."
+"0)"
+msgstr ""
+
+#: includes/Classes/class-settings.php:114
+msgid ""
+"Your personal data will be used to process your request, support your "
+"experience throughout this website, and for other purposes described in our  "
+"[privacy_policy]."
+msgstr ""
+
+#: includes/Classes/class-form-handler.php:68
+msgid "Your quotation is successfully submitted."
+msgstr ""

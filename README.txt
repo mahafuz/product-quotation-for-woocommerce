@@ -3,7 +3,7 @@ Contributors: mahfuz01
 Tags: request a quote, email quote, quotations, request for quote, rfq, raq, proposal
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,8 @@ Get product quotations from the customers in one place in a simple and elegant w
 * Flexibility to use any page for the quotation list and form on any page of your site. No need to copy/paste the shortcode.
 * Automatically list each quotation submission on Dashboard.
 * No complicated settings. All is set up to go. Simply install it and it works.
+* Quotation Cart **Elementor** integration.
+* Translations Support for any languages ( Already translations included for: **German, Spanish, French**).
 
 [See the Live Demo](http://wpdiscountx.com/shop/)
 
@@ -69,6 +71,13 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 2.0.4 - 24-05-2022 =
+* ADDED: Translations supports
+* INTEGRATED: Elementor addons for Quotation Cart.
+* INTEGRATED: Languages, German, Spanish, French.
+* IMPROVEMENTS: Cart functionality improvements for logged out users.
+* Fixed: minor bugs
 
 = 2.0.3 - 07-05-2022 =
 * ADDED Feature: Send email to customers as well.

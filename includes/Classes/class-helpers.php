@@ -92,7 +92,7 @@ class Helpers {
 		$result = [
 			[
 				'value' => 0,
-				'label' => __( 'Select page for Enquiry cart', 'pqfw' )
+				'label' => __( 'Select page for Quotations cart', 'pqfw' )
 			]
 		];
 
