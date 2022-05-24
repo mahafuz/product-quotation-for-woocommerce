@@ -39,6 +39,8 @@ Get product quotations from the customers in one place in a simple and elegant w
 * Flexibility to use any page for the quotation list and form on any page of your site. No need to copy/paste the shortcode.
 * Automatically list each quotation submission on Dashboard.
 * No complicated settings. All is set up to go. Simply install it and it works.
+* Quotation Cart **Elementor** integration.
+* Translations Support for any languages ( Already translations included for: **German, Spanish, French**).
 
 [See the Live Demo](http://wpdiscountx.com/shop/)
 
@@ -70,7 +72,10 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 
 == Changelog ==
 
-= 2.0.4 - 23-05-2022 =
+= 2.0.4 - 24-05-2022 =
+* ADDED: Translations supports
+* INTEGRATED: Elementor addons for Quotation Cart.
+* INTEGRATED: Languages, German, Spanish, French.
 * IMPROVEMENTS: Cart functionality improvements for logged out users.
 * Fixed: minor bugs
 
