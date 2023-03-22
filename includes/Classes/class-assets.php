@@ -20,7 +20,10 @@ class Assets {
 	 * @return void
 	 */
 	public function __construct() {
-
+		if ( defined( 'ELEMENTOR_PATH' ) ) {
+			add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'elementor_editor_style' ] );
+		}
+		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 	}
 
 	/**
@@ -28,7 +31,7 @@ class Assets {
 	 *
 	 * @since 2.0.3
 	 */
-	public function elmentorEditorStyle() {
+	public function elementor_editor_style() {
 		?>
 		<style>
 			body #elementor-panel-elements-wrapper .icon .pqfw-quote-cart-icon {
@@ -41,4 +44,34 @@ class Assets {
 		<?php
 	}
 
+	/**
+	 * Loading admin css.
+	 *
+	 * @since 1.0.0
+	 */
+	public function assets() {
+		$screen        = get_current_screen();
+		$valid_screens = [
+			'pqfw_quotations_page_pqfw-settings',
+			'pqfw_quotations_page_pqfw-entries-page',
+			'pqfw_quotations_page_pqfw-help',
+			'pqfw_quotations'
+		];
+
+		if ( 'pqfw_quotations' === $screen->post_type ) {
+			wp_enqueue_style(
+				'pqfw-admin-quotations',
+				PQFW_PLUGIN_URL . 'assets/css/pqfw-quotations.css',
+				[], '1.0.0', 'all'
+			);
+		}
+
+		if ( in_array( $screen->id, $valid_screens, true ) ) {
+			wp_enqueue_style(
+				'pqfw-admin',
+				PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css',
+				[], '1.0.0', 'all'
+			);
+		}
+	}
 }

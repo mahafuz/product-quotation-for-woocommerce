@@ -29,6 +29,18 @@ class Form_Handler {
 	}
 
 	/**
+	 * Degenerate input type field name.
+	 *
+	 * @since 2.0.7
+	 *
+	 * @param  string $label Form field label.
+	 * @return string         Generated field name.
+	 */
+	public function dGenerateFieldName( $label ) {
+		return str_replace( '_', ' ', trim( strtolower( $label ) ) );
+	}
+
+	/**
 	 * Responsible for submitting each entry.
 	 *
 	 * @since  1.0.0
@@ -39,30 +51,74 @@ class Form_Handler {
 			wp_send_json_error( [ 'message' => __( 'Invalid Request', 'PQFW' ) ] );
 		}
 
-		$fullname = sanitize_user( $_POST['pqfw_customer_name'] );
-		$email    = sanitize_email( $_POST['pqfw_customer_email'] );
-		$phone    = pqfw()->helpers->sanitizePhoneNumber( $_POST['pqfw_customer_phone'] );
-		$subject  = sanitize_text_field( $_POST['pqfw_customer_subject'] );
-		$comments = sanitize_text_field( $_POST['pqfw_customer_comments'] );
-		$mapedDataToSave = [
-			'fullname' => $fullname,
-			'email'    => $email,
-			'subject'  => $subject,
-			'phone'    => $phone,
-			'comments' => $comments
-		];
+		$errors = new \WP_Error();
+		$mapedDataToSave = [];
+		$savedFields = pqfw()->formApi->getFormatted();
+		$requiredFields = array_keys( array_filter($savedFields, function( $field ) {
+			if ( $field['required'] ) {
+				return $field;
+			}
+		}) );
 
-		$validate = pqfw()->helpers->validate( $mapedDataToSave );
+		foreach ( $_POST as $name => $value ) {
+			if ( isset( $savedFields[ $name ] ) ) {
+				if ( 'full_name' === $name ) {
+					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
+					if ( strlen( $mapedDataToSave[ $name ] ) < 4 ) {
+						$errors->add( 'username_length', __( 'Username too short. At least 4 characters is required', 'pqfw' ) );
+					}
 
-		if ( $validate->has_errors() ) {
-			wp_send_json_error( $validate->errors );
+					if ( ! validate_username( $mapedDataToSave[ $name ] ) ) {
+						$errors->add( 'username_invalid', __( 'Sorry, the username you entered is not valid', 'pqfw' ) );
+					}
+				}
+
+				if ( 'website_url' === $name ) {
+					$mapedDataToSave[ $name ] = esc_url( sanitize_text_field( $value ) );
+				}
+
+				if ( 'subject' === $name ) {
+					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
+				}
+
+				if ( 'address' === $name ) {
+					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
+				}
+
+				if ( 'comments' === $name ) {
+					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
+				}
+
+				if ( 'email' === $name ) {
+					$mapedDataToSave[ $name ] = sanitize_email( $value );
+
+					if ( ! is_email( $mapedDataToSave[ $name ] ) ) {
+						$errors->add( 'email_invalid', __( 'Email is not valid', 'pqfw' ) );
+					}
+				}
+
+				if ( 'phone_mobile' === $name ) {
+					$mapedDataToSave[ $name ] = pqfw()->helpers->sanitize_phone_number( $value );
+				}
+			}
+		}
+
+		foreach ( $requiredFields as $required ) {
+			if ( empty( $mapedDataToSave[ $required ] ) ) {
+				$errors->add( 'field', sprintf( '%s %s', $this->dGenerateFieldName( $required ), __( 'is required.', 'pqfw' ) ) );
+			}
+		}
+
+		if ( $errors->has_errors() ) {
+			wp_send_json_error( $errors->errors );
 		}
 
 		$insertID = pqfw()->product->save( $mapedDataToSave );
 
 		if ( $insertID ) {
 
-			pqfw()->mailer->prepare( $mapedDataToSave )->send();
+			// TODO: fix mailer class.
+			// pqfw()->mailer->prepare( $mapedDataToSave )->send();
 			pqfw()->quotations->purge();
 
 			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );

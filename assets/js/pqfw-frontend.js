@@ -12,7 +12,7 @@ jQuery(function ( $ ) {
 		.on( "pqfw_init", function () {
 
 			var t = $( this ),
-				f = $( '#pqfw-frontend-form' ),
+				inputs = $( '#pqfw-frontend-form-wrap .form-group' ),
 				u = $( '.pqfw-frontend-form' ),
 				l = u.children( 'li' ),
 				input = l.find( 'input' ),
@@ -26,25 +26,30 @@ jQuery(function ( $ ) {
 				ev.preventDefault();
 
 				var t = $( this ),
-					nonce = f.find( 'input[name="pqfw_form_nonce_field"]').val(),
-					loader = t.next('.loading-spinner');
+					nonce = $( '#pqfw_form_nonce_field').val(),
+					loader = t.next('.loading-spinner'),
+					data = {};
 
 				// validating fields empty value.
-				var $input, $textarea, $this;
-				l.each( function () {
+				inputs.each( function () {
 					$this   = $(this);
 					$input  = $this.children( "input" );
 
 					if ( $input.length === 0 ) {
 						$textarea = $this.children( "textarea" );
 
-						if ( $textarea.prop( "required" ) ) {
-							if( $textarea.val() == "" ) {
-								$this.addClass( "hasError" );
-								errors = true;
-							}else {
-								$this.removeClass( "hasError" );
-								errors = false;
+						if ( $textarea.length ) {
+							if ( $textarea.prop( "required" ) ) {
+								if( $textarea.val() == "" ) {
+									$this.addClass( "hasError" );
+									errors = true;
+									data[ $textarea.prop('name') ] = $textarea.val();
+								}else {
+									$this.removeClass( "hasError" );
+									errors = false;
+								}
+							} else {
+								data[ $textarea.prop('name') ] = $textarea.val();
 							}
 						}
 					} else {
@@ -55,7 +60,10 @@ jQuery(function ( $ ) {
 							}else {
 								$this.removeClass( "hasError" );
 								errors = false;
+								data[ $input.prop('name') ] = $input.val();
 							}
+						} else {
+							data[ $input.prop('name') ] = $input.val();
 						}
 						if ( $input.attr( "type" ) === "email" ) {
 							if( $input.prop( "required" ) ) {
@@ -65,11 +73,14 @@ jQuery(function ( $ ) {
 								}else {
 									$this.addClass( "hasError" );
 									errors = true;
+									data[ $input.prop('name') ] = $input.val();
 								}
 							}
 						}
 					}
 				});
+
+				console.log('errors', errors);
 
 				if ( ! errors ) {
 					var privacyPolicy = $( '#pqfw_privacy_policy_checkbox' );
@@ -80,22 +91,9 @@ jQuery(function ( $ ) {
 					}
 				}
 
+
+
 				if ( ! errors ) {
-					// preparing data
-					var data = {};
-
-					if ( input.length > 2 ) {
-						input.each( function () {
-							data[ $(this).attr("name") ] = $( this ).val();
-						} );
-					}
-
-					if (textarea.length >= 1) {
-						textarea.each(function () {
-							data[ $(this).attr("name") ] = $( this ).val();
-						});
-					}
-
 					if ( ! $.isEmptyObject( data ) ) {
 						data['action']		= 'pqfw_quotation_submission';
 						data['nonce']		= nonce;

@@ -82,15 +82,16 @@ class Mailer {
 	public function prepare( $args ) {
 		$this->args     = $args;
 		$this->blogname = esc_attr( get_option( 'blogname' ) );
-		$this->subject  = sprintf( '%s - %s', $this->args['fullname'], $this->args['subject'] );
+		$this->subject  = sprintf( '%s - %s', $this->args['full_name'], $this->args['subject'] ?? '' );
 
 		if ( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) {
 			$recipient     = sanitize_email( pqfw()->settings->get( 'recipient' ) );
 			$this->email[] = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
 		}
 
+		// TODO: dont send if email is empty.
 		if ( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) {
-			$this->email[] = sanitize_email( $this->args['email'] );
+			$this->email[] = sanitize_email( $this->args['email_address'] ?? '' );
 		}
 
 		$this->prepare_message();
@@ -106,8 +107,8 @@ class Mailer {
 	 */
 	private function prepare_headers() {
 		$headers = "Content-Type: text/html; charset=UTF-8\n";
-		$headers .= 'From: ' . esc_attr( $this->args['email'] ) . "\n";
-		$headers .= 'Reply-To: ' . esc_attr( $this->args['fullname'] ) . '<' . esc_attr( $this->args['email'] ) . ">\n";
+		$headers .= 'From: ' . esc_attr( $this->args['email_address'] ) . "\n";
+		$headers .= 'Reply-To: ' . esc_attr( $this->args['full_name'] ) . '<' . esc_attr( $this->args['email'] ) . ">\n";
 		$this->headers = $headers;
 
 		return $this->headers;
@@ -122,10 +123,18 @@ class Mailer {
 	private function prepare_message() {
 		$message = '<html><head><meta charset="utf-8" /></head><body>';
 		$message .= '<p><strong>' . esc_attr( $this->subject ) . '</strong></p>';
-		$message .= '<p>' . __( 'Name:', 'pqfw' ) . ' ' . esc_attr( $this->args['fullname'] );
-		$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email'] );
-		$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . esc_attr( $this->args['phone'] );
-		$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . esc_textarea( $this->args['comments'] ) . '</p>';
+		$message .= '<p>' . __( 'Name:', 'pqfw' ) . ' ' . esc_attr( $this->args['full_name'] ?? '' );
+		if ( ! empty( $this->args['email_address'] ) ) {
+			$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email_address'] );
+		}
+
+		if ( ! empty( $this->args['phone_mobile'] ) ) {
+			$message .= '<br>' . __( 'Phone:', 'pqfw' ) . ' ' . esc_attr( $this->args['phone_mobile'] );
+		}
+
+		if ( ! empty( $this->args['comments'] ) ) {
+			$message .= '<br>' . __( 'Questions or comments:', 'pqfw' ) . '<br>' . esc_textarea( $this->args['comments'] ) . '</p>';
+		}
 		$message .= '<p>' . __( 'Quotation Products Details:', 'pqfw' );
 
 		$this->products = pqfw()->quotations->getProducts();

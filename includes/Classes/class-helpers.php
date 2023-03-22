@@ -26,7 +26,7 @@ class Helpers {
 	 * @param  string $text Text to find/replace within.
 	 * @return string       Text with replaced placeholders.
 	 */
-	public function generatePrivacyPolicy( $text ) {
+	public function generate_privacy_policy( $text ) {
 		return function_exists( 'wc_replace_policy_page_link_placeholders' ) ? wc_replace_policy_page_link_placeholders( $text ) : $text;
 	}
 
@@ -34,53 +34,12 @@ class Helpers {
 	 * Sanitize phone number.
 	 * Allows only numbers and "+" (plus sign).
 	 *
-	 * @param string $phone Phone number.
-	 *
-	 * @return string
 	 * @since 1.0.0
+	 * @param string $phone Phone number.
+	 * @return string
 	 */
-	public function sanitizePhoneNumber( $phone ) {
+	public function sanitize_phone_number( $phone ) {
 		return preg_replace( '/[^\d+]/', '', $phone );
-	}
-
-	/**
-	 * Validate user data.
-	 *
-	 * @since 2.0.0
-	 * @param array $fields The input fields value to validate.
-	 * return mixed
-	 */
-	public function validate( $fields ) {
-		$errors = new \WP_Error();
-
-		$requiredFields = [
-			'fullname',
-			'email'
-		];
-
-		foreach ( $requiredFields as $required ) {
-			if ( empty( $fields[ $required ] ) ) {
-				$errors->add( 'field', sprintf( '%s %s', $required, __( 'is required.', 'pqfw' ) ) );
-			}
-		}
-
-		if ( $errors->has_errors() ) {
-			return $errors;
-		}
-
-		if ( strlen( $fields['fullname'] ) < 4 ) {
-			$errors->add( 'username_length', __( 'Username too short. At least 4 characters is required', 'pqfw' ) );
-		}
-
-		if ( ! validate_username( $fields['fullname'] ) ) {
-			$errors->add( 'username_invalid', __( 'Sorry, the username you entered is not valid', 'pqfw' ) );
-		}
-
-		if ( ! is_email( $fields['email'] ) ) {
-			$errors->add( 'email_invalid', __( 'Email is not valid', 'pqfw' ) );
-		}
-
-		return $errors;
 	}
 
 	/**
@@ -88,7 +47,7 @@ class Helpers {
 	 *
 	 * @since 2.0.1
 	 */
-	public function getPages() {
+	public function get_pages() {
 		$result = [
 			[
 				'value' => 0,
@@ -119,11 +78,33 @@ class Helpers {
 	/**
 	 * Get default cart page.
 	 *
+	 * @param string $field The return field type.
 	 * @since 2.0.1
 	 */
-	public function getCart( $field = 'id' ) {
+	public function get_cart( $field = 'id' ) {
 		$id = absint( get_option( 'pqfw_quotations_cart' ) );
 
 		return 'url' === $field ? esc_url( get_permalink( $id ) ) : $id;
+	}
+
+	/**
+	 * Builds the variation tree based on the details.
+	 *
+	 * @since  1.2.0
+	 * @param  string $details The variation details.
+	 * @return void
+	 */
+	public function build_variations( $details ) {
+		$attributesGroup = explode( ',', $details );
+
+		if ( is_array( $attributesGroup ) && count( $attributesGroup ) > 0 ) {
+			foreach ( $attributesGroup as $attribute ) {
+				if ( '' !== $attribute ) {
+					$pair = explode( '|', $attribute );
+					echo isset( $pair[0] ) ? '<strong>' . esc_html( $pair[0] ) . '</strong> : ' : '';
+					echo isset( $pair[1] ) ? '<span>' . esc_html( $pair[0] ) . '</span><br>' : '';
+				}
+			}
+		}
 	}
 }

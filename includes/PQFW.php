@@ -44,6 +44,132 @@ namespace PQFW {
 		}
 
 		/**
+		 * Contains plugins helper methods.
+		 *
+		 * @var mixed
+		 */
+		public $helpers;
+
+		/**
+		 * Contains plugin assets.
+		 *
+		 * @var mixed
+		 */
+		public $assets;
+
+		/**
+		 * Contains plugin settings.
+		 *
+		 * @var mixed
+		 */
+		public $settings;
+
+		/**
+		 * Contains plugin form.
+		 *
+		 * @var mixed
+		 */
+		public $form;
+
+		/**
+		 * Contains plugin admin.
+		 *
+		 * @var mixed
+		 */
+		public $admin;
+
+		/**
+		 * Contains plugin quotation cart.
+		 *
+		 * @var mixed
+		 */
+		public $cart;
+
+		/**
+		 * Contains plugin requests.
+		 *
+		 * @var mixed
+		 */
+		public $request;
+
+		/**
+		 * Contains plugin form handler.
+		 *
+		 * @var mixed
+		 */
+		public $form_handler;
+
+		/**
+		 * Contains plugin quotations.
+		 *
+		 * @var mixed
+		 */
+		public $quotations;
+
+		/**
+		 * Contains plugin shortcode.
+		 *
+		 * @var mixed
+		 */
+		public $shortcode;
+
+		/**
+		 * Contains plugin frontend.
+		 *
+		 * @var mixed
+		 */
+		public $frontend;
+
+		/**
+		 * Contains plugin controls manager.
+		 *
+		 * @var mixed
+		 */
+		public $controlsManager;
+
+		/**
+		 * Contains plugin product.
+		 *
+		 * @var mixed
+		 */
+		public $product;
+
+		/**
+		 * Contains plugin mailer.
+		 *
+		 * @var mixed
+		 */
+		public $mailer;
+
+		/**
+		 * Contains translatable strings.
+		 *
+		 * @var \PQFW\Classes\Strings
+		 */
+		public $strings;
+
+		/**
+		 * Contains plugin form apis.
+		 *
+		 * @var mixed
+		 */
+		public $formApi;
+
+		/**
+		 * Contains plugin form builder.
+		 *
+		 * @var mixed
+		 */
+		public $formBuilder;
+
+		/**
+		 * Contains plugin migrations.
+		 *
+		 * @var mixed
+		 */
+		public $migration;
+
+		/**
 		 * Initialize pqfw
 		 *
 		 * @since 1.2.0
@@ -95,21 +221,24 @@ namespace PQFW {
 		 * @return void
 		 */
 		private function loader() {
+			$this->strings         = new \PQFW\Classes\Strings();
 			$this->helpers         = new \PQFW\Classes\Helpers();
+			$this->admin           = new \PQFW\Classes\Admin();
 			$this->assets          = new \PQFW\Classes\Assets();
 			$this->settings        = new \PQFW\Classes\Settings();
 			$this->form            = new \PQFW\Classes\Form();
-			$this->admin           = new \PQFW\Classes\Admin();
+			$this->form_handler    = new \PQFW\Classes\Form_Handler();
 			$this->cart            = new \PQFW\Classes\Cart();
 			$this->request         = new \PQFW\Classes\Request();
-			$this->form_handler    = new \PQFW\Classes\Form_Handler();
 			$this->quotations      = new \PQFW\Classes\Quotations();
 			$this->shortcode       = new \PQFW\Classes\Shortcode();
 			$this->frontend        = new \PQFW\Classes\Frontend();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();
-			$this->strings         = new \PQFW\Classes\Strings();
+			
+			$this->formApi         = new \PQFW\Form\Form_Api();
+			$this->formBuilder     = new \PQFW\Form\Form_Builder();
 
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );
@@ -218,8 +347,6 @@ namespace PQFW {
 		private function integrations() {
 			// Elementor.
 			if ( defined( 'ELEMENTOR_PATH' ) ) {
-				add_action( 'elementor/editor/after_enqueue_styles', [ $this->assets, 'elmentorEditorStyle' ] );
-
 				add_action( 'elementor/widgets/widgets_registered', function() {
 					$this->elementor = \Elementor\Plugin::instance()->widgets_manager->register( new \PQFW\Classes\Addons\Elementor() );
 				});

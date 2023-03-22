@@ -23,28 +23,28 @@ class Product {
 	 * Get product title.
 	 */
 	private function getTitle() {
-		return isset( $this->dataToSave['fullname'] ) ? sanitize_text_field( $this->dataToSave['fullname'] ) : __( 'Quotation', 'pqfw' );
+		return isset( $this->dataToSave['full_name'] ) ? sanitize_text_field( $this->dataToSave['full_name'] ) : __( 'Untitled Quotation', 'pqfw' );
 	}
 
 	/**
 	 * Get person name.
 	 */
 	private function getName() {
-		return isset( $this->dataToSave['fullname'] ) ? sanitize_text_field( $this->dataToSave['fullname'] ) : '';
+		return isset( $this->dataToSave['full_name'] ) ? sanitize_text_field( $this->dataToSave['full_name'] ) : '';
 	}
 
 	/**
 	 * Get person email.
 	 */
 	private function getEmail() {
-		return isset( $this->dataToSave['email'] ) ? sanitize_email( $this->dataToSave['email'] ) : '';
+		return isset( $this->dataToSave['email_address'] ) ? sanitize_email( $this->dataToSave['email_address'] ) : '';
 	}
 
 	/**
 	 * Get person phone number
 	 */
 	private function getPhone() {
-		return isset( $this->dataToSave['phone'] ) ? sanitize_text_field( $this->dataToSave['phone'] ) : '';
+		return isset( $this->dataToSave['phone_mobile'] ) ? sanitize_text_field( $this->dataToSave['phone_mobile'] ) : '';
 	}
 
 	/**
@@ -59,6 +59,13 @@ class Product {
 	 */
 	private function getMessage() {
 		return isset( $this->dataToSave['comments'] ) ? sanitize_text_field( $this->dataToSave['comments'] ) : '';
+	}
+
+	/**
+	 * Get person message.
+	 */
+	private function getWebsiteUrl() {
+		return isset( $this->dataToSave['website_url'] ) ? sanitize_text_field( $this->dataToSave['website_url'] ) : '';
 	}
 
 	/**
@@ -104,7 +111,8 @@ class Product {
 				'pqfw_customer_subject'  => $this->getSubject(),
 				'pqfw_customer_phone'    => $this->getPhone(),
 				'pqfw_subject'           => $this->getSubject(),
-				'pqfw_customer_comments' => $this->getMessage()
+				'pqfw_customer_comments' => $this->getMessage(),
+				'pqfw_website_url'       => $this->getWebsiteUrl()
 			]
 		];
 
@@ -151,7 +159,7 @@ class Product {
 			'variation'        => $variation_id,
 			'variation_detail' => $variation_detail,
 			'quantity'         => $product['quantity'],
-			'message'          => strip_tags( $product['message'] )
+			'message'          => wp_strip_all_tags( $product['message'] )
 		];
 	}
 

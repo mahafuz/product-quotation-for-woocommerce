@@ -1,6 +1,6 @@
 <?php
 /**
- * Responsible for registering shortocde.
+ * Responsible for containing translatable strings for using in plugin react app.
  *
  * @since 1.2.0
  * @package PQFW
@@ -12,14 +12,14 @@ namespace PQFW\Classes;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers shortcode for cart.
+ * Contains translatable strings for using in plugin react app.
  *
  * @since 1.0.0
  */
 class Strings {
 
 	/**
-	 * Return all translateable strings for settings panel.
+	 * Return all translatable strings for settings panel.
 	 *
 	 * @since 2.0.3
 	 */
@@ -95,10 +95,8 @@ class Strings {
 			'send-email-label'              => __( 'Send Email', 'pqfw' ),
 			'send-email-desc'               => __( 'Send a copy of the email to the customer as well for each submitted quotation from the Quotations Cart page.', 'pqfw' ),
 
-			// '' => __( '', 'pqfw' ),
-
 			// Save changes.
-			'save-changes' => __( 'Save Changes', 'pqfw' ),
+			'save-changes'                  => __( 'Save Changes', 'pqfw' ),
 		];
 	}
 }

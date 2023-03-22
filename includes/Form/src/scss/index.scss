@@ -1,0 +1,218 @@
+.col-md-9.react-form-builder-preview.float-left {
+  margin-right: 380px;
+  width: calc( 100% - 440px );
+}
+
+.react-form-builder .react-form-builder-toolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 380px;
+  height: calc( 100% - 35px );
+  box-shadow: none;
+  background: #f0f0f1;
+  padding-top: 95px;
+
+  h4{
+    visibility: hidden;
+  }
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.react-form-builder .react-form-builder-preview.is-editing .edit-form {
+  right: 0;
+  left: auto;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+  max-width: calc(100% - 200px);
+  margin: 0 auto;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable + div {
+  max-width: calc( 100% - 60px );
+  .form-place-holder {
+    margin: 0;
+  }
+}
+
+.react-form-builder .react-form-builder-preview .Sortable > div {
+  padding: 0 25px;
+}
+
+.react-form-builder .react-form-builder-preview {
+  border: 0px solid;
+  box-shadow: none;
+  background-color: #6b6b6b;
+  padding: 30px;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable .rfb-item {
+  border: 1px dashed transparent;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable .rfb-item:hover {
+  background: rgba(255, 185, 0, 0.08);
+  border: 1px dashed #ffb900;
+  box-shadow: none;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable .rfb-item .toolbar-header .toolbar-header-buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -14px 0 0 -61px;
+  line-height: 1;
+  color: #eee;
+  background-color: #23282d;
+  width: 80px;
+}
+
+.badge {
+  display: none;
+}
+
+.btn:hover {
+  color: #FFFFFF;
+}
+
+.toolbar-header-buttons .btn.is-isolated:last-child {
+  display: none;
+}
+
+.react-form-builder .react-form-builder-toolbar ul li {
+  width: 43.5%;
+  display: inline-block;
+  color: #2271b1;
+  border-color: #2271b1;
+  background: #f6f7f7;
+  border-style: solid;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.react-form-builder .react-form-builder-toolbar ul {
+  max-width: 100%;
+  padding: 15px 20px 0;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable .rfb-item.SortableItem .form-group {
+  .custom-control:not(.custom-checkbox, .custom-radio) {
+    input, textarea {
+      background: #fafafa;
+      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 10%);
+      box-shadow: inset 0 1px 1px rgb(0 0 0 / 10%);
+      border: 1px solid #ddd;
+      color: #888;
+      width: 100%;
+      padding: 5px;
+    }
+  }
+
+  input.form-control, textarea.form-control {
+    background: #fafafa;
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 10%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 10%);
+    border: 1px solid #ddd;
+    color: #888;
+    width: 100%;
+    padding: 5px;
+  }
+}
+
+.react-form-builder .react-form-builder-preview .Sortable .rfb-item.SortableItem .form-group > label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.rating-container {
+  padding: 3px 0;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable > div:first-child {
+  padding-top: 25px;
+}
+
+.react-form-builder .react-form-builder-preview .Sortable > div:last-child {
+  padding-bottom: 25px;
+}
+
+input[type=checkbox], input[type=radio] {
+  margin-top: 2px;
+}
+
+.edit-form > div > div:nth-child(4), .edit-form > div > div:nth-child(5), .edit-form > div > div:nth-child(6) {
+  display: none;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.dynamic-option-list > ul li.clearfix > div.row > .col-sm-1 {
+  display: none;
+}
+
+// shortcode copy
+
+.shortcode-copy-board {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+.shortcode-copy-board > .shortcode-to-copy {
+  margin: 0 15px;
+  background: #ddd;
+  border: 0px solid;
+  text-align: center;
+  width: 120px;
+}
+
+.shortcode-copy-board > .shortcode-to-copy:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.shortcode-copy-board > button {
+  color: #fff;
+  background-color: #008ec2;
+  line-height: 170%;
+  padding: 0 15px;
+  border-radius: 2px;
+  font-size: 13px;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+}
+
+.shortcode-copy-board > button.copied {
+  background-color: #084257;
+}

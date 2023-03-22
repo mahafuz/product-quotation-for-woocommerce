@@ -33,7 +33,7 @@
 						<a href="<?php echo esc_url( $product['link'] ); ?>" target="_blank">
 							<?php echo esc_html( $product['name'] ); ?>
 						</a><br>
-						<?php $this->buildVariations( $product['variation_detail'] ); ?>
+						<?php pqfw()->helpers->build_variations( $product['variation_detail'] ); ?>
 					</td>
 					<td><strong><?php echo esc_html( $product['price'] ); ?></strong></td>
 					<td><strong><?php echo esc_html( $product['quantity'] ); ?></strong></td>

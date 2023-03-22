@@ -112,7 +112,7 @@ class Settings {
 			'privacy_policy'                 => false,
 			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'pqfw' ),
 			'privacy_policy_content'         => __( 'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].', 'pqfw' ),
-			'quotation_cart_page'            => pqfw()->helpers->getCart()
+			'quotation_cart_page'            => pqfw()->helpers->get_cart()
 		];
 
 		$this->saved = get_option( 'pqfw_settings', $this->default );
@@ -128,7 +128,6 @@ class Settings {
 	 * @return  void
 	 */
 	public function assets() {
-
 		$screen = get_current_screen();
 
 		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id ) {
@@ -162,10 +161,10 @@ class Settings {
 					'actions'  => [
 						'save_settings' => 'pqrf_save_settings'
 					],
-					'pages'    => pqfw()->helpers->getPages(),
+					'pages'    => pqfw()->helpers->get_pages(),
 					'cart'     => [
-						'id'  => pqfw()->helpers->getCart(),
-						'url' => pqfw()->helpers->getCart( 'url' )
+						'id'  => pqfw()->helpers->get_cart(),
+						'url' => pqfw()->helpers->get_cart( 'url' )
 					],
 					'strings'  => pqfw()->strings->get()
 				]
@@ -246,7 +245,7 @@ class Settings {
 	 * @param string $key Setting key.
 	 * @return mixed      Saved settings.
 	 */
-	public function get( $key = null ) {
+	public function get( $key = null, $default = null ) {
 		if ( empty( $key ) ) {
 			return $this->getAll();
 		}
@@ -255,6 +254,10 @@ class Settings {
 
 		if ( isset( $settings[ $key ] ) ) {
 			return $settings[ $key ];
+		}
+
+		if ( $default ) {
+			return $default;
 		}
 
 		return false;
