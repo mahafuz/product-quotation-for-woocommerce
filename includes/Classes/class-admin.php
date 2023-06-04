@@ -117,6 +117,25 @@ class Admin {
 			// We don't want any plugin adding notices to our screens. Let's clear them out here.
 			add_action( 'admin_footer_text', [ $this, 'add_footer_text' ] );
 		}
+
+		add_submenu_page(
+			'edit.php?post_type=pqfw_quotations',
+			__( 'Settings', 'pqfw' ),
+			__( 'Settings', 'pqfw' ),
+			'manage_options',
+			'pqfw-settings',
+			[ $this, 'display' ],
+			null
+		);
+	}
+
+	/**
+	 * Loading settings page template.
+	 *
+	 * @since 1.0.0
+	 */
+	public function display() {
+		echo '<div id="pqfw-app" class="wrap-pqfw-app"></div>';
 	}
 
 	/**

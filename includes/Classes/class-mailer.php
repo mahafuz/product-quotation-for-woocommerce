@@ -91,7 +91,7 @@ class Mailer {
 
 		// TODO: dont send if email is empty.
 		if ( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) {
-			$this->email[] = sanitize_email( $this->args['email_address'] ?? '' );
+			$this->email[] = sanitize_email( $this->args['email'] ?? '' );
 		}
 
 		$this->prepare_message();
@@ -107,7 +107,7 @@ class Mailer {
 	 */
 	private function prepare_headers() {
 		$headers = "Content-Type: text/html; charset=UTF-8\n";
-		$headers .= 'From: ' . esc_attr( $this->args['email_address'] ) . "\n";
+		$headers .= 'From: ' . esc_attr( $this->args['email'] ) . "\n";
 		$headers .= 'Reply-To: ' . esc_attr( $this->args['full_name'] ) . '<' . esc_attr( $this->args['email'] ) . ">\n";
 		$this->headers = $headers;
 
@@ -124,8 +124,8 @@ class Mailer {
 		$message = '<html><head><meta charset="utf-8" /></head><body>';
 		$message .= '<p><strong>' . esc_attr( $this->subject ) . '</strong></p>';
 		$message .= '<p>' . __( 'Name:', 'pqfw' ) . ' ' . esc_attr( $this->args['full_name'] ?? '' );
-		if ( ! empty( $this->args['email_address'] ) ) {
-			$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email_address'] );
+		if ( ! empty( $this->args['email'] ) ) {
+			$message .= '<br>' . __( 'Email:', 'pqfw' ) . ' ' . esc_attr( $this->args['email'] );
 		}
 
 		if ( ! empty( $this->args['phone_mobile'] ) ) {

@@ -54,7 +54,7 @@ var items = [
     {
         key   : 'TextInput',
         canHaveAnswer : true,
-        name  : 'Email Address',
+        name  : 'Email',
         label : 'Email',
         icon  : 'fa fa-envelope'
     },
@@ -62,7 +62,7 @@ var items = [
 
 const Page = () => {
     return(
-        <div className={`gstm-form-page tab-content`}>
+        <div className={`pqfw-form-page tab-content`}>
             <ReactFormBuilder
                 url={`${window.PQFW_FORM_SCRIPT.restUrl}pqfw/v1/form`}
                 toolbarItems={items}

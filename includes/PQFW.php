@@ -223,9 +223,9 @@ namespace PQFW {
 		private function loader() {
 			$this->strings         = new \PQFW\Classes\Strings();
 			$this->helpers         = new \PQFW\Classes\Helpers();
+			$this->settings        = new \PQFW\Classes\Settings();
 			$this->admin           = new \PQFW\Classes\Admin();
 			$this->assets          = new \PQFW\Classes\Assets();
-			$this->settings        = new \PQFW\Classes\Settings();
 			$this->form            = new \PQFW\Classes\Form();
 			$this->form_handler    = new \PQFW\Classes\Form_Handler();
 			$this->cart            = new \PQFW\Classes\Cart();
@@ -236,9 +236,9 @@ namespace PQFW {
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();
-			
 			$this->formApi         = new \PQFW\Form\Form_Api();
 			$this->formBuilder     = new \PQFW\Form\Form_Builder();
+			$this->ajax            = new \PQFW\Classes\Ajax();
 
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );

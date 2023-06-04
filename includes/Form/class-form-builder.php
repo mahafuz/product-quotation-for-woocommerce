@@ -20,8 +20,8 @@ class Form_Builder {
 	public function __construct() {
 		add_shortcode( 'pqfw_quote_form', [ $this, 'render' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-		add_action( 'wp_ajax_gstm_form_data', [ $this, 'post_data' ] );
-		add_action( 'wp_ajax_nopriv_gstm_form_data', [ $this, 'post_data' ] );
+		add_action( 'wp_ajax_pqfw_form_data', [ $this, 'post_data' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_form_data', [ $this, 'post_data' ] );
 		add_action( 'admin_menu', [ $this, 'registerMenus' ] );
 		add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
 	}
@@ -143,7 +143,7 @@ class Form_Builder {
 		$formData = pqfw()->formApi->getFormMarkup();
 		$html     = '';
 
-		$html .= sprintf( '<h2 class="gstm-form-title">%s</h2>', pqfw()->settings->get( 'formTitle', __( 'Testimonial Submission Form', 'pqfw' ) ) );
+		$html .= sprintf( '<h2 class="pqfw-form-title">%s</h2>', pqfw()->settings->get( 'formTitle', __( 'Testimonial Submission Form', 'pqfw' ) ) );
 
 		if ( $formData ) {
 			foreach ( $formData as $field ) {
@@ -345,8 +345,8 @@ class Form_Builder {
 				case 'organization':
 					$meta_key = 'gs_t_client_company';
 					break;
-				case 'email_address':
-					$meta_key = 'gs_t_client_email_address';
+				case 'email':
+					$meta_key = 'gs_t_client_email';
 					break;
 				case 'rating':
 					$meta_key = 'gs_t_rating';
@@ -381,7 +381,7 @@ class Form_Builder {
 	 */
 	private function checkForRequiredFields( $values ) {
 		$errors = [];
-		$required = get_option( 'gstm_form_required_fields', [] );
+		$required = get_option( 'pqfw_form_required_fields', [] );
 
 		if ( empty( $required ) ) {
 			return;
@@ -433,7 +433,7 @@ class Form_Builder {
 	 * @since  2.0.12.
 	 */
 	public function post_data() {
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'gstm-form-action' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw-form-action' ) ) {
 			wp_send_json_error( [ 'message' => __( "You're not allowed to submit the form", 'pqfw' ) ] );
 		}
 

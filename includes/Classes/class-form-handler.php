@@ -26,6 +26,7 @@ class Form_Handler {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_pqfw_quotation_submission', [ $this, 'submitQuotation' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_quotation_submission', [ $this, 'submitQuotation' ] );
 	}
 
 	/**
@@ -85,6 +86,10 @@ class Form_Handler {
 					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
 				}
 
+				if ( 'organization' === $name ) {
+					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
+				}
+
 				if ( 'comments' === $name ) {
 					$mapedDataToSave[ $name ] = sanitize_text_field( $value );
 				}
@@ -97,7 +102,7 @@ class Form_Handler {
 					}
 				}
 
-				if ( 'phone_mobile' === $name ) {
+				if ( 'phone/mobile' === $name ) {
 					$mapedDataToSave[ $name ] = pqfw()->helpers->sanitize_phone_number( $value );
 				}
 			}

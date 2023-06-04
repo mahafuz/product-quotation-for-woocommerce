@@ -7,7 +7,7 @@ import '../scss/settings.scss';
 
 
 const Settings = () => {
-    const strings = window?.GSTM_STRINGS?.strings;
+    const strings = window?.PQFW_OBJECT?.strings;
     const [ formTitle, setFormTitle ]               = useState( 'Testimonial Submission Form' );
     const [ message, setMessage ]                   = useState( 'Thanks! Sent for admin approval.' );
     const [ buttonText, setButtonText ]             = useState( 'Submit' );
@@ -16,7 +16,7 @@ const Settings = () => {
 
     useEffect( () => {
         apiFetch( {
-            path: 'gstm/v1/formSettings'
+            path: 'pqfw/v1/formSettings'
         } ).then( ( res ) => {
             if ( res ) {
                 setFormTitle( res.formTitle );
@@ -42,7 +42,7 @@ const Settings = () => {
         };
 
         apiFetch( {
-            path: 'gstm/v1/formSettings',
+            path: 'pqfw/v1/formSettings',
             method: 'POST',
             data: data,
         } ).then( ( res ) => {
@@ -52,10 +52,10 @@ const Settings = () => {
         } );
     }
 
-    return (<div className={`gstm-form-settings-page tab-content`}>
+    return (<div className={`pqfw-form-settings-page tab-content`}>
         <form onSubmit={(ev) => handleSubmit(ev) }>
             <table className="form-table">
-                <tr className="gstm-form-successfull-submission-message">
+                <tr className="pqfw-form-successfull-submission-message">
                     <th>{strings?.form_title}</th>
                     <td>
                         <textarea
@@ -69,7 +69,7 @@ const Settings = () => {
                         </textarea>
                     </td>
                 </tr>
-                <tr className="gstm-form-successfull-submission-message">
+                <tr className="pqfw-form-successfull-submission-message">
                     <th>{strings?.messageToShow}</th>
                     <td>
                         <textarea
@@ -83,7 +83,7 @@ const Settings = () => {
                         </textarea>
                     </td>
                 </tr>
-                <tr className="gstm-submit-btn-text">
+                <tr className="pqfw-submit-btn-text">
                     <th>{ strings?.submitButtonText }</th>
                     <td>
                         <input
@@ -114,7 +114,7 @@ const Settings = () => {
                     </td>
                 </tr>
 
-                <tr className="gstm-submit-btn-text">
+                <tr className="pqfw-submit-btn-text">
                     <button className="button button-primary">{strings?.saveSettings}</button>
                 </tr>
             </table>

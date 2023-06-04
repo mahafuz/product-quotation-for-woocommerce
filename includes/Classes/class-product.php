@@ -37,7 +37,7 @@ class Product {
 	 * Get person email.
 	 */
 	private function getEmail() {
-		return isset( $this->dataToSave['email_address'] ) ? sanitize_email( $this->dataToSave['email_address'] ) : '';
+		return isset( $this->dataToSave['email'] ) ? sanitize_email( $this->dataToSave['email'] ) : '';
 	}
 
 	/**

@@ -83360,14 +83360,14 @@ var items = [{
 }, {
   key: 'TextInput',
   canHaveAnswer: true,
-  name: 'Email Address',
+  name: 'Email',
   label: 'Email',
   icon: 'fa fa-envelope'
 }];
 
 const Page = () => {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: `gstm-form-page tab-content`
+    className: `pqfw-form-page tab-content`
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_form_builder2__WEBPACK_IMPORTED_MODULE_2__.ReactFormBuilder, {
     url: `${window.PQFW_FORM_SCRIPT.restUrl}pqfw/v1/form`,
     toolbarItems: items,
@@ -83403,9 +83403,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Settings = () => {
-  var _window, _window$GSTM_STRINGS;
+  var _window, _window$PQFW_OBJECT;
 
-  const strings = (_window = window) === null || _window === void 0 ? void 0 : (_window$GSTM_STRINGS = _window.GSTM_STRINGS) === null || _window$GSTM_STRINGS === void 0 ? void 0 : _window$GSTM_STRINGS.strings;
+  const strings = (_window = window) === null || _window === void 0 ? void 0 : (_window$PQFW_OBJECT = _window.PQFW_OBJECT) === null || _window$PQFW_OBJECT === void 0 ? void 0 : _window$PQFW_OBJECT.strings;
   const [formTitle, setFormTitle] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('Testimonial Submission Form');
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('Thanks! Sent for admin approval.');
   const [buttonText, setButtonText] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('Submit');
@@ -83413,7 +83413,7 @@ const Settings = () => {
   const [isCategoryChecked, setCategoryChecked] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
-      path: 'gstm/v1/formSettings'
+      path: 'pqfw/v1/formSettings'
     }).then(res => {
       if (res) {
         setFormTitle(res.formTitle);
@@ -83437,7 +83437,7 @@ const Settings = () => {
       isCategoryChecked
     };
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
-      path: 'gstm/v1/formSettings',
+      path: 'pqfw/v1/formSettings',
       method: 'POST',
       data: data
     }).then(res => {
@@ -83448,13 +83448,13 @@ const Settings = () => {
   };
 
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: `gstm-form-settings-page tab-content`
+    className: `pqfw-form-settings-page tab-content`
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
     onSubmit: ev => handleSubmit(ev)
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", {
     className: "form-table"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
-    className: "gstm-form-successfull-submission-message"
+    className: "pqfw-form-successfull-submission-message"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, strings === null || strings === void 0 ? void 0 : strings.form_title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
     rows: "3",
     cols: "40",
@@ -83463,7 +83463,7 @@ const Settings = () => {
     value: formTitle,
     onChange: ev => setFormTitle(ev.target.value)
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
-    className: "gstm-form-successfull-submission-message"
+    className: "pqfw-form-successfull-submission-message"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, strings === null || strings === void 0 ? void 0 : strings.messageToShow), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
     rows: "3",
     cols: "40",
@@ -83472,7 +83472,7 @@ const Settings = () => {
     value: message,
     onChange: ev => setMessage(ev.target.value)
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
-    className: "gstm-submit-btn-text"
+    className: "pqfw-submit-btn-text"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, strings === null || strings === void 0 ? void 0 : strings.submitButtonText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     type: "text",
     className: "regular-text",
@@ -83492,7 +83492,7 @@ const Settings = () => {
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "components-form-toggle__thumb"
   })))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
-    className: "gstm-submit-btn-text"
+    className: "pqfw-submit-btn-text"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "button button-primary"
   }, strings === null || strings === void 0 ? void 0 : strings.saveSettings)))));
