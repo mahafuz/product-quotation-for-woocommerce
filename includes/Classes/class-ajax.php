@@ -12,7 +12,6 @@ class Ajax {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		error_log( 'hello world' );
 		add_action( 'wp_ajax_pqfw_save_settings', [ $this, 'save_settings' ] );
 		add_action( 'wp_ajax_pqfw_cart_get_permalink', [ $this, 'get_cart_permalink' ] );
 	}

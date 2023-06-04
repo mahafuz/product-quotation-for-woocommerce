@@ -121,16 +121,22 @@ class Form_Handler {
 		$insertID = pqfw()->product->save( $mapedDataToSave );
 
 		if ( $insertID ) {
+			$response = pqfw()->mailer->prepare( $mapedDataToSave );
 
-			// TODO: fix mailer class.
-			// pqfw()->mailer->prepare( $mapedDataToSave )->send();
-			pqfw()->quotations->purge();
+			if ( $response ) {
+				pqfw()->quotations->purge();
+				wp_send_json_success([
+					'message' => __( 'Your quotation is successfully submitted.', 'pqfw' )
+				]);
+			}
 
-			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );
-		} else {
-			wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );
+			wp_send_json_error([
+				'message' => __( 'Your quotation created successfully but error while sending emails.', 'pqfw' )
+			]);
 		}
 
-		die();
+		wp_send_json_error([
+			'message' => __( 'Something went wrong, while submitting quote.', 'pqfw' )
+		]);
 	}
 }

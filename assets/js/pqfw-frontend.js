@@ -126,9 +126,9 @@ jQuery(function ( $ ) {
 									resposneStatus.addClass('success');
 									resposneStatus.html( response.data );
 
-									setTimeout(function() {
-										window.pqfwCart.initialize();
-									}, 1000);
+									// setTimeout(function() {
+									// 	window.pqfwCart.initialize();
+									// }, 1000);
 								}else {
 									resposneStatus.removeClass('success');
 									resposneStatus.addClass('error');
