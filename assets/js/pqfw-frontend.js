@@ -80,8 +80,6 @@ jQuery(function ( $ ) {
 					}
 				});
 
-				console.log('errors', errors);
-
 				if ( ! errors ) {
 					var privacyPolicy = $( '#pqfw_privacy_policy_checkbox' );
 					if ( privacyPolicy.length && ! privacyPolicy.prop('checked') ) {
@@ -112,7 +110,7 @@ jQuery(function ( $ ) {
 								if( response.success ) {
 									resposneStatus.removeClass('error');
 									resposneStatus.addClass('success');
-									resposneStatus.html( response.data );
+									resposneStatus.html( response.data.message );
 
 									input.each( function () {
 										$( this ).val( '' );
@@ -124,11 +122,11 @@ jQuery(function ( $ ) {
 
 									resposneStatus.removeClass('error');
 									resposneStatus.addClass('success');
-									resposneStatus.html( response.data );
+									resposneStatus.html( response.data.message );
 
-									// setTimeout(function() {
-									// 	window.pqfwCart.initialize();
-									// }, 1000);
+									setTimeout(function() {
+										window.pqfwCart.initialize();
+									}, 1000);
 								}else {
 									resposneStatus.removeClass('success');
 									resposneStatus.addClass('error');

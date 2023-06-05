@@ -31,7 +31,7 @@ const App = () => {
 				settings: JSON.stringify(settings)
 			},
 			success: function (response) {
-				toast.success(response.message);
+				toast.success(response.data.message);
 			},
 			error: function (error) {
 				toast.error(error.message);
