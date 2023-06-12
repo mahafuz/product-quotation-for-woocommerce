@@ -106,7 +106,10 @@ $html = '<!doctype html>
 												if ( ! empty( $products ) ) {
 													foreach( $products as $product ) {
 														$img = wp_get_attachment_image_src( get_post_thumbnail_id( $product['id'] ), 'thumbnail' );
+														$productOBJ = wc_get_product( absint( $product['id'] ) );
 														$img = ! empty( $img[0] ) ? ( $img[0] ) : false;
+														$suffix = get_option('woocommerce_price_display_suffix', '');
+														$suffix = str_replace( "{price_excluding_tax}", '', $suffix );
 														$html .= '<tr>
 														<td style="padding: 10px; border-right: 1px solid #ededed; border-top: 1px solid #ededed; width: 35%;font-weight:500; color:rgba(0,0,0,.64)">
 															<p><a href="' . esc_url( get_permalink( $product['id'] ) ) . '">
@@ -114,9 +117,16 @@ $html = '<!doctype html>
 														</td>
 														<td style="padding: 10px; color: #455056; border-top: 1px solid #ededed;">
 															<a style="font-size: 18px; color: color: #455056; text-decoration: none;" href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>
-															<br> <p>Quantity: ' .  absint( $product['quantity'] ) . '
-															<br>Price: ' . wc_price( $product['regular_price'] ) . '
-															<br>Note: ' . wp_kses_post( $product['message'] ) . '</p>
+															<br> <p>Quantity: ' .  absint( $product['quantity'] );
+															if ( $productOBJ->is_taxable() ) {
+																$html .= '<br> Price: ' . wc_price( $product['regular_price'] ) . ' ';
+																	$html .= $suffix;
+																	$html .= isset( $product['exc_tax_price'] ) ? wc_price( $product['exc_tax_price'] ) : '';
+																$html .= '</span>';
+															} else {
+																$html .= '<br> Price: ' . wc_price( $product['regular_price'] );
+															}
+															$html .= '<br>Note: ' . wp_kses_post( $product['message'] ) . '</p>
 														</td>
 													</tr>';
 													}
