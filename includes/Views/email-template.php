@@ -1,6 +1,8 @@
 <?php
 $site_name = esc_attr( get_bloginfo( 'blogname' ) );
 $site_url  = esc_url( get_site_url() );
+$table_columns = pqfw()->settings->get( 'cart_table_columns' );
+$table_columns = wp_list_pluck( $table_columns, 'value' );
 
 $html = '<!doctype html>
 <html lang="en-US">
@@ -110,25 +112,39 @@ $html = '<!doctype html>
 														$img = ! empty( $img[0] ) ? ( $img[0] ) : false;
 														$suffix = get_option('woocommerce_price_display_suffix', '');
 														$suffix = str_replace( "{price_excluding_tax}", '', $suffix );
-														$html .= '<tr>
-														<td style="padding: 10px; border-right: 1px solid #ededed; border-top: 1px solid #ededed; width: 35%;font-weight:500; color:rgba(0,0,0,.64)">
-															<p><a href="' . esc_url( get_permalink( $product['id'] ) ) . '">
-															<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>
-														</td>
-														<td style="padding: 10px; color: #455056; border-top: 1px solid #ededed;">
-															<a style="font-size: 18px; color: color: #455056; text-decoration: none;" href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>
-															<br> <p>Quantity: ' .  absint( $product['quantity'] );
-															if ( $productOBJ->is_taxable() ) {
-																$html .= '<br> Price: ' . wc_price( $product['regular_price'] ) . ' ';
-																	$html .= $suffix;
-																	$html .= isset( $product['exc_tax_price'] ) ? wc_price( $product['exc_tax_price'] ) : '';
-																$html .= '</span>';
-															} else {
-																$html .= '<br> Price: ' . wc_price( $product['regular_price'] );
+														$html .= '<tr>';
+
+														if ( empty( $table_columns ) || in_array( 'thumbnail', $table_columns, true ) ) {
+															$html .= '<td style="padding: 10px; border-right: 1px solid #ededed; border-top: 1px solid #ededed; width: 35%;font-weight:500; color:rgba(0,0,0,.64)">
+																<p><a href="' . esc_url( get_permalink( $product['id'] ) ) . '">
+																<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>
+															</td>';
+														}
+														
+														$html .= '<td style="padding: 10px; color: #455056; border-top: 1px solid #ededed;">';
+															if ( empty( $table_columns ) || in_array( 'product', $table_columns, true ) ) {
+																$html .= '<a style="font-size: 18px; color: color: #455056; text-decoration: none;" href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>';
 															}
-															$html .= '<br>Note: ' . wp_kses_post( $product['message'] ) . '</p>
-														</td>
-													</tr>';
+
+															if ( empty( $table_columns ) || in_array( 'quantity', $table_columns, true ) ) {
+																$html .= '<br> <p>Quantity: ' .  absint( $product['quantity'] );
+															}
+
+															if ( empty( $table_columns ) || in_array( 'price', $table_columns, true ) ) {
+																if ( $productOBJ->is_taxable() ) {
+																	$html .= '<br> Price: ' . wc_price( $product['regular_price'] ) . ' ';
+																		$html .= $suffix;
+																		$html .= isset( $product['exc_tax_price'] ) ? wc_price( $product['exc_tax_price'] ) : '';
+																	$html .= '</span>';
+																} else {
+																	$html .= '<br> Price: ' . wc_price( $product['regular_price'] );
+																}
+															}
+															if ( empty( $table_columns ) || in_array( 'message', $table_columns, true ) ) {
+																$html .= '<br>Note: ' . wp_kses_post( $product['message'] ) . '</p>';
+															}
+														$html .='</td>
+														</tr>';
 													}
 												}
 											$html .= '</tbody>
