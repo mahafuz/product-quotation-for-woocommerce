@@ -80,8 +80,9 @@ class Request {
 			$product   = wc_get_product( $id );
 
 			$variationDetail = pqfw()->quotations->sanitizeVariationDetail( $_POST['variationDetails'] );
-			$price           = pqfw()->cart->getSimpleVariationPrice( $product, $variation );
-			$products        = pqfw()->quotations->addProduct( $id, $quantity, $variation, $variationDetail, $price );
+			$prices           = pqfw()->cart->getSimpleVariationPrice( $product, $variation );
+			$products        = pqfw()->quotations->addProduct( $id, $quantity, $variation, $variationDetail, $prices );
+
 
 			wp_send_json_success([
 				/* Translators: %d product id */

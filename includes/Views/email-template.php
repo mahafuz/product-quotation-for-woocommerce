@@ -115,7 +115,7 @@ $html = '<!doctype html>
 														<td style="padding: 10px; color: #455056; border-top: 1px solid #ededed;">
 															<a style="font-size: 18px; color: color: #455056; text-decoration: none;" href="' . get_permalink( $product['id'] ) . '">' . esc_attr( get_the_title( $product['id'] ) ) . '</a>
 															<br> <p>Quantity: ' .  absint( $product['quantity'] ) . '
-															<br>Price: ' . wc_price( $product['price'] ) . '
+															<br>Price: ' . wc_price( $product['regular_price'] ) . '
 															<br>Note: ' . wp_kses_post( $product['message'] ) . '</p>
 														</td>
 													</tr>';

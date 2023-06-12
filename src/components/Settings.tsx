@@ -5,11 +5,13 @@ import ButtonSettings from './ButtonSettings';
 import EmailSettings from './EmailSettings';
 import FormSettings from './FormSettings';
 import GeneralSettings from './GeneralSettings';
+import CartSettings from './CartSettings';
 import { getSavedSettings, getNonce, translate } from '../Helpers';
 
 import ButtonIcon from './../images/button.png';
 import FormIcon from './../images/form.png';
 import EmailIcon from './../images/email.png';
+import Cart from './../images/shopping-cart.png';
 import GeneralSettingsIcon from './../images/cog.svg';
 
 const App = () => {
@@ -30,8 +32,8 @@ const App = () => {
 				_wpnonce: getNonce(),
 				settings: JSON.stringify(settings)
 			},
-			success: function (response) {
-				toast.success(response.data.message);
+			success: function ({ message }) {
+				toast.success(message);
 			},
 			error: function (error) {
 				toast.error(error.message);
@@ -90,6 +92,14 @@ const App = () => {
 							saveActiveTab('email')
 						}}
 					><img src={EmailIcon} /> {translate('email-settings-menu-label')}</a>
+					<a
+						href="#"
+						className={`pqfw-settings-nav-tab${activeTab === 'cart' ? ` pqfw-settings-nav-tab-active` : ''}`}
+						onClick={() => {
+							setActiveTab('cart')
+							saveActiveTab('cart')
+						}}
+					><img src={Cart} /> Cart</a>
 				</div>
 				<div id="pqfw-settings-tabs-contents">
 					{activeTab === 'general' && (<GeneralSettings
@@ -108,6 +118,11 @@ const App = () => {
 						saveSettings={saveSettings}
 					/>)}
 					{activeTab === 'form' && (<FormSettings
+						settings={settings}
+						setSettings={setSettings}
+						saveSettings={saveSettings}
+					/>)}
+					{activeTab === 'cart' && (<CartSettings
 						settings={settings}
 						setSettings={setSettings}
 						saveSettings={saveSettings}

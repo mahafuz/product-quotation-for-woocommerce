@@ -126,12 +126,12 @@ class Form_Handler {
 			if ( $response ) {
 				pqfw()->quotations->purge();
 				wp_send_json_success([
-					'message' => __( 'Your quotation is successfully submitted.', 'pqfw' )
+					'message' => pqfw()->settings->get( 'success_message', __( 'Your quotation is successfully submitted.', 'pqfw' ) )
 				]);
 			}
 
 			wp_send_json_error([
-				'message' => __( 'Your quotation created successfully but error while sending emails.', 'pqfw' )
+				'message' => pqfw()->settings->get( 'error_message', __( 'Your quotation created successfully but error occurred while sending emails.', 'pqfw' ) )
 			]);
 		}
 

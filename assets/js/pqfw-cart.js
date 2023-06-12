@@ -26,9 +26,13 @@
                 var new_quantity = $(this).val();
                 var hash = $(this).data('hash');
                 var single = $(this).data('single');
+                var single_inc_tax = $(this).data('single-inc-tax');
+                var single_exc_tax = $(this).data('single-exc-tax');
 
                 window.pqfwProducts[hash]['quantity'] = new_quantity;
-                window.pqfwProducts[hash]['price'] = Math.floor( single * new_quantity );
+                window.pqfwProducts[hash]['regular_price'] = Math.floor( single * new_quantity );
+                window.pqfwProducts[hash]['inc_tax_price'] = Math.floor( single_inc_tax * new_quantity );
+                window.pqfwProducts[hash]['exc_tax_price'] = Math.floor( single_exc_tax * new_quantity );
                 var products = window.pqfwProducts;
                 pqfwCart.updateProduct(products);
             });

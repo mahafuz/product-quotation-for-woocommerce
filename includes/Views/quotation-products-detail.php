@@ -27,7 +27,7 @@
 							<a href="<?php echo esc_url( $product['link'] ); ?>" target="_blank">
 								<img src="<?php echo esc_url( $product['img'] ); ?>">
 							</a>
-						<?php endif; ?> 
+						<?php endif; ?>
 					</td>
 					<td>
 						<a href="<?php echo esc_url( $product['link'] ); ?>" target="_blank">
@@ -35,7 +35,16 @@
 						</a><br>
 						<?php pqfw()->helpers->build_variations( $product['variation_detail'] ); ?>
 					</td>
-					<td><strong><?php echo esc_html( $product['price'] ); ?></strong></td>
+					<td>
+						<span class="pqfw-cart-price-inc-tax"><strong><?php echo isset( $product['regular_price'] ) ? esc_attr( $product['regular_price'] ) : ''; ?></strong></span>
+						<?php if ( ! empty( $product['exc_tax_price'] ) ) : ?>
+						<?php 
+							$suffix = get_option( 'woocommerce_price_display_suffix', '' );
+							$suffix = str_replace( '{price_excluding_tax}', '', $suffix );
+						?>
+						<span class="pqfw-cart-price-exc-tax"><?php echo esc_attr( $suffix ); ?><?php echo esc_attr( $product['exc_tax_price'] ); ?></span>
+						<?php endif; ?>
+					</td>
 					<td><strong><?php echo esc_html( $product['quantity'] ); ?></strong></td>
 					<td><?php echo esc_html( $product['message'] ); ?></td>
 				</tr>

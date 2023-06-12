@@ -73,7 +73,10 @@ class Settings {
 			'privacy_policy'                 => false,
 			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'pqfw' ),
 			'privacy_policy_content'         => __( 'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].', 'pqfw' ),
-			'quotation_cart_page'            => pqfw()->helpers->get_cart()
+			'quotation_cart_page'            => pqfw()->helpers->get_cart(),
+			'success_message'                => __( 'Your quotation is successfully submitted.', 'pqfw' ),
+			'error_message'                  => __( 'Something went wrong, while submitting quote.', 'pqfw' ),
+			'cart_table_columns'             => [],
 		];
 
 		$this->saved = get_option( 'pqfw_settings', $this->default );

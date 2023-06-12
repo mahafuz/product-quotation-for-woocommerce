@@ -146,7 +146,9 @@ class Product {
 		$permalink = $obj->get_permalink();
 		$imageID   = $obj->get_image_id();
 		$img       = wp_get_attachment_thumb_url( $imageID );
-		$price     = wp_strip_all_tags( wc_price( $product['price'] ) );
+		$regular_price     = wp_strip_all_tags( wc_price( $product['regular_price'] ) );
+		$inc_tax_price     = wp_strip_all_tags( wc_price( $product['inc_tax_price'] ) );
+		$exc_tax_price     = wp_strip_all_tags( wc_price( $product['exc_tax_price'] ) );
 
 		$variation_id = ( false !== $product['variation'] ? (int) $product['variation'] : false );
 		$variation_detail = $this->variationDetail( $obj, $product['variation_detail'] );
@@ -155,7 +157,9 @@ class Product {
 			'name'             => $obj->get_name(),
 			'img'              => $img,
 			'link'             => $permalink,
-			'price'            => $price,
+			'regular_price'    => $regular_price,
+			'inc_tax_price'    => $inc_tax_price,
+			'exc_tax_price'    => $exc_tax_price,
 			'variation'        => $variation_id,
 			'variation_detail' => $variation_detail,
 			'quantity'         => $product['quantity'],

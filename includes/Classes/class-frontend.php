@@ -24,11 +24,11 @@ class Frontend {
 	 * @since 1.2.6
 	 */
 	public function __construct() {
-		if ( pqfw()->settings->get( 'hide_add_to_cart_button' ) ) {
+		if ( wp_validate_boolean( pqfw()->settings->get( 'hide_add_to_cart_button' ) ) ) {
 			add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'hideAddToCartButton' ], 10, 2 );
 		}
 
-		if ( pqfw()->settings->get( 'hide_product_prices' ) ) {
+		if ( wp_validate_boolean( pqfw()->settings->get( 'hide_product_prices' ) ) ) {
 			add_filter( 'woocommerce_get_price_html', [ $this, 'hideProductPrices' ], 10, 2 );
 			add_filter( 'woocommerce_get_variation_price_html', [ $this, 'hideProductPrices' ], 10, 2 );
 		}

@@ -170,6 +170,20 @@ namespace PQFW {
 		public $migration;
 
 		/**
+		 * Contains plugin ajax endpoints.
+		 *
+		 * @var \PQFW\Classes\Ajax
+		 */
+		public $ajax;
+
+		/**
+		 * Contains elementor plugins integration.
+		 *
+		 * @var \PQFW\Classes\Elementor
+		 */
+		public $elementor;
+
+		/**
 		 * Initialize pqfw
 		 *
 		 * @since 1.2.0
@@ -278,7 +292,7 @@ namespace PQFW {
 			if ( get_option( '_pqfw_activation_redirect', false ) ) {
 				delete_option( '_pqfw_activation_redirect' );
 
-				if ( ! isset( $_GET['activate-multi'] ) && ( ! empty( $_GET['activate'] ) ) && ( 'true' === $_GET['activate'] ) ) {
+				if ( ! isset( $_GET['activate-multi'] ) && ( ! empty( $_GET['activate'] ) ) && ( 'true' === $_GET['activate'] ) ) { //phpcs:ignore
 					wp_safe_redirect( admin_url( 'admin.php?page=pqfw-settings' ) );
 				}
 			}
@@ -319,13 +333,14 @@ namespace PQFW {
 				$button_text = __( 'Activate WooCommerce', 'pqfw' );
 			} else {
 				$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
-				$message        = __( '<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be installed and activated. Please install WooCommerce to continue.', 'pqfw' );
+				$message        = __( '<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> 
+				plugin to be installed and activated. Please install WooCommerce to continue.', 'pqfw' );
 				$button_text    = __( 'Install WooCommerce', 'pqfw' );
 			}
 
 			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
 
-			printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
+			printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button ); //phpcs:ignore
 		}
 
 		/**

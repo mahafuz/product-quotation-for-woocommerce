@@ -96,6 +96,8 @@ a.button.pqfw-button.pqfw-add-to-quotation {
     margin: 10px 0;
     display: inline-block;
     transition: all 0.3s ease-in-out;
+    border: 1.5px solid;
+    border-radius: 5px;
 }
 
 a.pqfw-view-quotation-cart {
@@ -197,4 +199,21 @@ div#pqfw-frontend-form-wrap .form-group .form-control {
             cursor: pointer;
         }
     }
+}
+
+.pqfw-cart-price-exc-tax {
+    font-size: 13px;
+    padding: 0 5px 0;
+}
+
+.pqfw-cart-price-inc-tax {
+    font-weight: 600;
+}
+
+#pqfw-quotations-list-row .woocommerce-page .qty.input-text {
+    padding: 0.5rem 0.5rem;
+}
+
+.elementor-section .quantity .pqfw-quantity {
+    padding: 10px !important;
 }
