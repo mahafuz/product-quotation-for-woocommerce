@@ -81,10 +81,10 @@ class Mailer {
 	 */
 	public function prepare( $args ) {
 		$emails_to_send = [];
-		
+		$alt_sub = __( 'Product Quotation', 'pqfw' );
 
 		if ( wp_validate_boolean( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) ) {
-			$subject   = sprintf( '%s - %s', esc_attr( $args['full_name'] ), esc_attr( $args['subject'] ) );
+			$subject   = sprintf( '%s - %s', esc_attr( $args['full_name'] ), esc_attr( $args['subject'] ?? $alt_sub ) );
 			$recipient = sanitize_email( pqfw()->settings->get( 'recipient' ) );
 			$recipient = $recipient ? $recipient : sanitize_email( get_option( 'admin_email' ) );
 			$name = ! empty( $args['full_name'] ) ? sanitize_text_field( $args['full_name'] ) : '';
@@ -100,7 +100,7 @@ class Mailer {
 			}
 
 
-			$subject          = sprintf( '%s - %s', esc_attr( get_bloginfo( 'name' ) ), esc_attr( $args['subject'] ) );
+			$subject          = sprintf( '%s - %s', esc_attr( get_bloginfo( 'name' ) ), esc_attr( $args['subject'] ?? $alt_sub ) );
 			$recipient        = sanitize_email( $args['email'] );
 			$name             = esc_attr( get_the_author_meta( 'display_name', get_current_user_id() ) );
 			$emails_to_send[] = $this->prepare_email_payload( $name, $subject, $recipient, $args );

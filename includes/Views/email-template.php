@@ -49,41 +49,55 @@ $html = '<!doctype html>
 											<tbody>
 												<tr>
 													<td style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-														Full Name:</td>
-													<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['full_name'] ) . '</td>
-												</tr>
+														Full Name:</td>';
+												if ( ! empty( $args['full_name'] ) ) {
+													$html .= '<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['full_name'] ) . '</td>';
+												}
+												$html .= '</tr>
 												 <tr>
 													<td style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-														Email</td>
-													<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['email'] ) . '</td>
-												</tr>
+														Email</td>';
+														if ( ! empty( $args['email'] ) ) {
+															$html .= '<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['email'] ) . '</td>';
+														}
+												$html .= '</tr>
 												 <tr>
 													<td style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-														Organization:</td>
-													<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['organization'] ) . '</td>
-												</tr>
+														Organization:</td>';
+													if ( ! empty( $args['organization'] ) ) {
+														$html .= '<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['organization'] ) . '</td>';
+													}
+												$html .= '</tr>
 												 <tr>
 													<td style="padding: 10px; border-bottom: 1px solid #ededed;border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-														Address:</td>
-													<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['address'] ) . '</td>
-												</tr>
+														Address:</td>';
+													if ( ! empty( $args['address'] ) ) {
+														$html .= '<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">' . esc_attr( $args['address'] ) . '</td>';
+													}
+												$html .= '</tr>
 												 <tr>
 													<td style="padding: 10px;  border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%;font-weight:500; color:rgba(0,0,0,.64)">
-														Phone/Mobile</td>
-													<td style="padding: 10px; border-bottom: 1px solid #ededed; color:#455056;">' . esc_attr( $args['phone/mobile'] ) . '</td>
-												</tr>
+														Phone/Mobile</td>';
+													if ( ! empty( $args['address'] ) ) {
+														$html .= '<td style="padding: 10px; border-bottom: 1px solid #ededed; color:#455056;">' . esc_attr( $args['phone/mobile'] ) . '</td>';
+													}
+												$html .= '</tr>
 												 <tr>
 													<td style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%;font-weight:500; color:rgba(0,0,0,.64)">
 														Website URL:</td>
-													<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056; ">
-														<a href="' . esc_url( $args['website_url'] ) . '">' . esc_url( $args['website_url'] ) . '</a>
-													</td>
+													<td style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056; ">';
+														if ( ! empty( $args['address'] ) ) {
+															$html .= '<a href="' . esc_url( $args['website_url'] ) . '">' . esc_url( $args['website_url'] ) . '</a>';
+														}
+													$html .= '</td>
 												</tr>
 												 <tr>
 													<td style="padding: 10px; border-right: 1px solid #ededed; width: 35%;font-weight:500; color:rgba(0,0,0,.64)">
-														Comments:</td>
-													<td style="padding: 10px; color: #455056;">' . wp_kses_post( $args['comments'] ) . '</td>
-												</tr>
+														Comments:</td>';
+													if ( ! empty( $args['comments'] ) ) {
+														$html .= '<td style="padding: 10px; color: #455056;">' . wp_kses_post( $args['comments'] ) . '</td>';
+													}
+												$html .= '</tr>
 											</tbody>
 										</table>
 									</td>

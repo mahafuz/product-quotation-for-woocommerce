@@ -238,14 +238,15 @@ class Quotations {
 		if ( is_array( $products ) && count( $products ) > 0 ) {
 			if ( $price ) {
 				// $products[ $hash ]['price'] = $products[ $hash ]['price'] + $price;
-				$products[ $hash ]['regular_price'] = $products[ $hash ]['regular_price'] + $price;
-				$products[ $hash ]['exc_tax_price'] = $products[ $hash ]['exc_tax_price'] + $price;
-				$products[ $hash ]['inc_tax_price'] = $products[ $hash ]['inc_tax_price'] + $price;
+				$price = intval( $price );
+				$products[ $hash ]['regular_price'] = intval( $products[ $hash ]['regular_price'] ) + $price;
+				$products[ $hash ]['exc_tax_price'] = intval( $products[ $hash ]['exc_tax_price'] ) + $price;
+				$products[ $hash ]['inc_tax_price'] = intval( $products[ $hash ]['inc_tax_price'] ) + $price;
 			} else {
 				// $products[ $hash ]['price'] = $products[ $hash ]['price'] + 1;
-				$products[ $hash ]['regular_price'] = $products[ $hash ]['regular_price'] + 1;
-				$products[ $hash ]['exc_tax_price'] = $products[ $hash ]['exc_tax_price'] + 1;
-				$products[ $hash ]['inc_tax_price'] = $products[ $hash ]['inc_tax_price'] + 1;
+				$products[ $hash ]['regular_price'] = intval( $products[ $hash ]['regular_price'] ) + 1;
+				$products[ $hash ]['exc_tax_price'] = intval( $products[ $hash ]['exc_tax_price'] ) + 1;
+				$products[ $hash ]['inc_tax_price'] = intval( $products[ $hash ]['inc_tax_price'] ) + 1;
 			}
 		}
 

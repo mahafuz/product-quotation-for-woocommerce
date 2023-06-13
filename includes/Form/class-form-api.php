@@ -113,6 +113,13 @@ class Form_Api extends Rest_Controller {
 	 */
 	public function getFormMarkup() {
 		$form = get_option( $this->key, false );
+
+		if ( ! $form ) {
+			$default_form = '[{"id":"ECCABDAD-43C6-46BF-A7DD-F5D9F78F3062","element":"TextInput","text":"Full Name","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Full Name"},{"id":"F6C2115E-A76E-4C6C-AC14-892F69CBD197","element":"TextInput","text":"Subject","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Subject"},{"id":"7891386B-6EC1-4490-A8CA-E0D5C4C51CC5","element":"TextInput","text":"Email","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Email"},{"id":"A2417105-B266-4537-A14F-5282951710EF","element":"TextInput","text":"Phone\/Mobile","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Phone\/Mobile"},{"id":"07C2E624-F875-43E4-94CF-B0A0A0E60237","element":"TextArea","text":"Comments","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Comments"}]';
+
+			return json_decode( $default_form );
+		}
+
 		return json_decode( $form );
 	}
 
