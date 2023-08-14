@@ -25,7 +25,6 @@ const CartSettings = ({ settings, setSettings, saveSettings }) => {
 									{ value: 'thumbnail', label: 'Thumbnail' },
 									{ value: 'product', label: 'Product' },
 									{ value: 'price', label: 'Price' },
-									{ value: 'taxed_price', label: 'Price Including Tax.' },
 									{ value: 'quantity', label: 'Quantity' },
 									{ value: 'message', label: 'Message' }
 								]}

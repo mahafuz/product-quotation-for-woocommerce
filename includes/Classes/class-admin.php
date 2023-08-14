@@ -39,6 +39,7 @@ class Admin {
 		add_filter( 'manage_edit-pqfw_quotations_columns', [ $this, 'manage_columns' ] );
 		add_action( 'manage_pqfw_quotations_posts_custom_column', [ $this, 'columns_content' ], 10, 2 );
 		add_action( 'post_row_actions', [ $this, 'add_quick_actions' ], 10, 2 );
+		add_action( 'save_post', [ $this, 'update_quotation' ], 10, 2 );
 	}
 
 	/**
@@ -63,7 +64,7 @@ class Admin {
 				'show_in_nav_menus'   => false,
 				'query_var'           => false,
 				'has_archive'         => false,
-				'supports'            => [ 'title' ],
+				'supports'            => [ 'title', 'revisions' ],
 				'menu_icon'           => PQFW_PLUGIN_URL . 'assets/images/pqfw-dashboard-icon.png',
 				'capability_type'     => 'post',
 				'capabilities'        => [
@@ -75,6 +76,17 @@ class Admin {
 
 		remove_post_type_support( self::POST_TYPE, 'title' );
 		remove_post_type_support( self::POST_TYPE, 'slugdiv' );
+	}
+
+	/**
+	 * Updates quotation details from edit screen.
+	 *
+	 * @param Object $post The post object.
+	 */
+	public function update_quotation( $post_id, $post ) {
+		if ( 'pqfw_quotations' === $post->post_type && isset( $_POST['products'] ) ) {
+			update_post_meta( $post_id, 'pqfw_products_info', serialize( $_POST['products'] ) );
+		}
 	}
 
 	/**

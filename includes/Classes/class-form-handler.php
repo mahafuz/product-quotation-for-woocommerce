@@ -120,13 +120,20 @@ class Form_Handler {
 
 		$insertID = pqfw()->product->save( $mapedDataToSave );
 
-		if ( $insertID ) {
-			$response = pqfw()->mailer->prepare( $mapedDataToSave );
 
-			if ( ! $response ) {
-				wp_send_json_error([
-					'message' => pqfw()->settings->get( 'error_message', __( 'Your quotation created successfully but error occurred while sending emails.', 'pqfw' ) )
-				]);
+		if ( $insertID ) {
+			if ( wp_validate_boolean( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) || wp_validate_boolean( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) ) {
+				$response = pqfw()->mailer->prepare( $mapedDataToSave );
+				if ( ! $response ) {
+					wp_send_json_error([
+						'message' => pqfw()->settings->get( 'error_message', __( 'Your quotation created successfully but error occurred while sending emails.', 'pqfw' ) )
+					]);
+				} else {
+					pqfw()->quotations->purge();
+					wp_send_json_success([
+						'message' => pqfw()->settings->get( 'success_message', __( 'Your quotation is successfully submitted.', 'pqfw' ) )
+					]);
+				}
 			} else {
 				pqfw()->quotations->purge();
 				wp_send_json_success([

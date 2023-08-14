@@ -106,6 +106,8 @@ class Mailer {
 			$emails_to_send[] = $this->prepare_email_payload( $name, $subject, $recipient, $args );
 		}
 
+		var_dump( $emails_to_send );
+
 
 		if ( empty( $emails_to_send ) ) {
 			return false;

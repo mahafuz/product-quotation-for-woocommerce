@@ -1,5 +1,6 @@
 {
   "name": "product-quotation-for-woocommerce",
+  "private": true,
   "version": "1.0.0",
   "description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
   "main": "index.js",

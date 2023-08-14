@@ -65,4 +65,5 @@ function appsero_init_tracker_product_quotation_for_woocommerce() {
 	// Active insights.
 	$client->insights()->init();
 }
+
 appsero_init_tracker_product_quotation_for_woocommerce();

@@ -52,7 +52,7 @@ class Cart {
 				<td class="product-thumbnail pqfw-thumbnail">
 					<?php
 						$thumbnail = $this->getThumbnail( $product['id'], $product['variation'] );
-						printf( '<a href="%s">%s</a>', esc_url( $permalink ), $thumbnail );
+						printf( '<a href="%s">%s</a>', esc_url( $permalink ), esc_url( $thumbnail ) );
 					?>
 				</td>
 				<?php endif; ?>
@@ -67,16 +67,21 @@ class Cart {
 				<?php endif; ?>
 
 					<?php if ( empty( $table_columns ) || in_array( 'price', $table_columns, true ) ) : ?>
-					<td class="product-taxed-price" data-title="<?php esc_html_e( 'Price including tax.', 'woocommerce' ); ?>">
+					<td class="product-price" data-title="<?php esc_html_e( 'Product price.', 'woocommerce' ); ?>">
 						<?php if ( $productOBJ->is_taxable() ) : ?>
-							<span class="pqfw-cart-price-inc-tax"><?php echo isset( $product['regular_price'] ) ? ( wc_price( $product['regular_price'] ) ) : ''; ?></span>
-							<?php 
-								$suffix = get_option('woocommerce_price_display_suffix', '');
-								$suffix = str_replace( "{price_excluding_tax}", '', $suffix );
+							<span class="pqfw-cart-price-inc-tax">
+								<?php echo isset( $product['regular_price'] ) ? wp_kses_data( wc_price( $product['regular_price'] ) ) : ''; ?>
+							</span>
+							<?php
+								$suffix = get_option( 'woocommerce_price_display_suffix', '' );
+								$suffix = str_replace( '{price_excluding_tax}', '', $suffix );
 							?>
-							<span class="pqfw-cart-price-exc-tax"><?php echo $suffix; echo isset( $product['exc_tax_price'] ) ? ( wc_price( $product['exc_tax_price'] ) ) : ''; ?></span>
-						<?php else: ?>
-							<?php echo isset( $product['regular_price'] ) ? ( wc_price( $product['regular_price'] ) ) : ''; ?>
+							<span class="pqfw-cart-price-exc-tax">
+								<?php echo esc_attr( $suffix ); ?>
+								<?php echo isset( $product['exc_tax_price'] ) ? wp_kses_data( wc_price( $product['exc_tax_price'] ) ) : ''; ?>
+							</span>
+						<?php else : ?>
+							<?php echo isset( $product['regular_price'] ) ? wp_kses_data( wc_price( $product['regular_price'] ) ) : ''; ?>
 						<?php endif; ?>
 					</td>
 					<?php endif; ?>
@@ -89,13 +94,15 @@ class Cart {
 							class="input-text qty text pqfw-quantity"
 							value="<?php echo esc_attr( $product['quantity'] ); ?>"
 							name="products[<?php echo esc_attr( $key ); ?>][quantity]"
-							<?php $variation_price = $this->getSimpleVariationPrice( $productOBJ, $product['variation'] ); error_log( print_r( $variation_price, 1 ) ); ?>
+							<?php
+								$variation_price = $this->getSimpleVariationPrice( $productOBJ, $product['variation'] );
+							?>
 							data-single="<?php echo esc_attr( $variation_price['regular_price'] ); ?>"
 							data-single-inc-tax="<?php echo esc_attr( $variation_price['inc_tax_price'] ); ?>"
 							data-single-exc-tax="<?php echo esc_attr( $variation_price['exc_tax_price'] ); ?>"
 							data-hash="<?php echo esc_attr( $key ); ?>"
 						/>
-						
+
 						<input
 							type="hidden"
 							value="<?php echo ! empty( $product['variation'] ) && is_array( $product['variation'] ) ? wp_json_encode( $product['variation'] ) : ''; ?>"
@@ -230,22 +237,6 @@ class Cart {
 
 		return $prices;
 	}
-
-public function get_price_including_tax( $product, $variation_id, $quantity ) {
-	$product_price = 0;
-
-	$price_excl_tax = wc_get_price_excluding_tax( $product ); // price without VAT
-	$price_incl_tax = wc_get_price_including_tax( $product );  // price with VAT
-	$tax_amount     = $price_incl_tax - $price_excl_tax; // VAT amount
-
-	if ( $product->is_type( 'simple' ) ) {
-		return wc_get_price_including_tax( $product );
-	} elseif ( $product->is_type( 'variable' ) ) {
-		$variation_product = wc_get_product( $variation_id );
-		return wc_get_price_including_tax( $variation_product );
-	}
-}
-
 
 	/**
 	 * Retrieves simple variation price

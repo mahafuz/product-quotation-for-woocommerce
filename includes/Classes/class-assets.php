@@ -107,6 +107,12 @@ class Assets {
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-quotations.css',
 				[], '1.0.0', 'all'
 			);
+
+			wp_enqueue_script(
+				'pqfw-admin-edit-quote',
+				PQFW_PLUGIN_URL . 'assets/js/pqfw-edit-quote.js',
+				[ 'jquery' ], '1.0.0', true
+			);
 		}
 
 		if ( in_array( $screen->id, $valid_screens, true ) ) {
@@ -163,7 +169,8 @@ class Assets {
 						'id'  => pqfw()->helpers->get_cart(),
 						'url' => pqfw()->helpers->get_cart( 'url' )
 					],
-					'strings'  => pqfw()->strings->get()
+					'strings'     => pqfw()->strings->get(),
+					'tax_enabled' => wc_tax_enabled()
 				]
 			);
 
