@@ -29,7 +29,10 @@ $tax_enabled   = wc_tax_enabled();
 			</tr>
 		</thead>
 		<tbody class="pqfw-list-products-body">
-			<?php $quoteProducts = unserialize( get_post_meta( $quotation->ID, 'pqfw_products_info', true ) ); ?>
+			<?php
+				$quoteProducts = get_post_meta( $quotation->ID, 'pqfw_products_info', true );
+				$quoteProducts = ! is_array( $quoteProducts ) ? unserialize( $quoteProducts ) : $quoteProducts;
+			?>
 			<?php if ( is_array( $quoteProducts ) ) : ?>
 				<?php
 					foreach ( $quoteProducts as $key => $product ) :

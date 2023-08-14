@@ -9,12 +9,16 @@
 	var pqfwCart = {
 		editScreen: function( $this ) {
 			var new_quantity = $this.val();
-			console.log( 'running 1' );
 
 			// Price including taxes.
 			var price_including_tax_input = $this.parents('.pqfw-list-of-single-product').find('.pqfw-product-regular-price');
+			var single_price_inc_tax = '';
 			
-			var single_price_inc_tax = parseFloat( $this.data('price-inc-tax').replace('$', '') );
+			if ( $this.data('price-inc-tax').toString().includes('$') ) {
+				single_price_inc_tax = parseFloat( $this.data('price-inc-tax').replace('$', '') );
+			} else {
+				single_price_inc_tax = parseFloat( $this.data('price-inc-tax') );
+			}
 
 			var updated_price = (single_price_inc_tax * new_quantity);
 
@@ -23,14 +27,16 @@
 			var total_price_inc_tax = $('.pqfw-product-regular-price');
 
 			total_price_inc_tax = pqfwCart.calculateTotal(total_price_inc_tax);
-			console.log( total_price_inc_tax );
 
 			$('#display-total-price-inc-tax').text( '$' + total_price_inc_tax );
 
-			console.log( 'running 2', $('#display-total-price-inc-tax') );
 
-			// price excluding tax.
-			var single_price_exc_tax = parseFloat( $this.data('exc-tax-price').replace('$', '') );
+			if ( $this.data('exc-tax-price').toString().includes('$')) {
+				// price excluding tax.
+				var single_price_exc_tax = parseFloat( $this.data('exc-tax-price').replace('$', '') );
+			} else {
+				var single_price_exc_tax = parseFloat( $this.data('exc-tax-price') );
+			}
 
 			var exc_tax_price_value = $this.parents('.pqfw-list-of-single-product').find('.pqfw-product-price-exc-tax');
 			var single_exc_tax = (single_price_exc_tax * new_quantity);
@@ -44,9 +50,12 @@
 		init: function () {
 			var quantities = $('.pqfw-quote-edit-quantity');
 
-			quantities.each(function(){
-				pqfwCart.editScreen( $(this) );
-			});
+			if ( quantities.length ) {
+
+				quantities.each(function(){
+					pqfwCart.editScreen( $(this) );
+				});
+			}
 
 			$(document).on('change', '.pqfw-quote-edit-quantity', function () {
 				pqfwCart.editScreen($(this));
