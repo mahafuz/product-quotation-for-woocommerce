@@ -72,7 +72,9 @@
 		},
 	};
 
-	pqfwCart.init();
-	window.pqfwCart = pqfwCart;
+	$(document).ready(function() {
+		pqfwCart.init();
+		window.pqfwCart = pqfwCart;
+	});
 
 })(jQuery);
