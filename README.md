@@ -1,18 +1,22 @@
 === Product Quotation - Request a Quote for WooCommerce ===
 
 Contributors: mahfuz01  
-Tags: request a quote, email quote, quotations, invoice, RFQ, RAQ, proposal
-Requires at least: 4.0  
+Tags: request a quote button, woocommerce request for quote, woocommerce request a quote shortcode, request a quote, quote, YITH, woocommerce, shop, ecommerce, e-commerce, quotations, request for quote, rfq, raq, proposal, ask an estimate, budget, email quote
+Requires at least: 6.0  
 Tested up to: 6.3  
 Stable tag: 2.0.5  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.html  
 
-## Description
+=== Description ===
 
 **Enable customers to request quotations for products and seek pricing and order information through a streamlined Quotation form.**
 
-Empower your customers to gather product quotations by incorporating a quote button for each product, enabling users to compile products within a Quotation Cart and submit the quotation form with their queries. This plugin also provides the option to conceal the quotation button on single product pages or shop pages. Store owners will receive quote request emails and can respond with customized quotes.
+Make it easy for your customers to request product quotations by adding a dedicated "Request a Quote" button to each product.
+This special feature lets users effortlessly gather their chosen products in a customized Quotation Cart, simplifying the process of submitting detailed quote requests.
+You also have the flexibility to show or hide the quotation button on individual product pages or throughout your entire shop.
+When customers make quote requests, store owners will receive prompt email notifications, allowing them to respond with personalized quotes that cater to each customer's specific requirements.
+This integrated functionality not only enhances the user experience but also promotes effective communication between customers and store owners.
 
 ### Product Quotation - Request a Quote for WooCommerce
 
@@ -22,26 +26,48 @@ Effortlessly gather product quotations from customers in an elegant and efficien
 
 ## 🔥 Notable Features of Product Quotation For WooCommerce  ##
 
-* Display the "Add to Quotation" button on all product pages
-* Showcase the "Add to Quotation" button on the shop and category pages
-* Support for variable products, allowing customers to select specific product variations within quotations
-* Real-time price updates based on changes in product quantities
-* Customize the style and colors of the "Add to quote" button
-* Conceal the "Add to Cart" button for all products
-* Hide prices for all products
-* Integrate a Privacy Policy field within the form
-* Enable customers to complete a predefined form for submitting quotation requests
-* Automatic email notification for site administrators upon customer submission of a new quotation request
-* Flexibility to feature the quotation list and form on any desired page without manual shortcode copying/pasting
-* Automatic listing of each quotation submission within the Dashboard
-* Straightforward setup, requiring no complex configurations. Install and use seamlessly.
-* Send emails to customers upon submitting a quote request
-* Receive a copy of each quotation via email
-* Seamlessly integrates with **Elementor** for Quotation Cart functionality
-* Drag and Drop form builder.
-* Quote edit screen.
-* Support for tax prices.
-* Support for translations into various languages (Translations already available for: **German, Spanish, French**)
+
+## Prioritized Features of Product Quotation For WooCommerce ##
+
+1. **"Add to Quotation" Button Display:** The core feature that enables customers to initiate the quotation process conveniently.
+
+2. **Automatic Email Notifications:** Ensures site administrators are promptly notified about new customer quotation submissions.
+
+3. **Variable Product Support:** Essential for accommodating customers' specific product variation preferences within quotations.
+
+4. **Real-time Price Updates:** Improves accuracy and transparency by dynamically adjusting prices based on quantity changes.
+
+5. **Privacy Policy Integration:** Ensures compliance with privacy regulations and builds trust with customers.
+
+6. **Predefined Form:** Simplifies the quotation submission process for customers, enhancing user experience.
+
+7. **Flexible Display Options:** Allows you to strategically position the quotation form, enhancing user engagement.
+
+8. **Administrator Copies:** Provides seamless communication by sending copies of each quotation to administrators.
+
+9. **Dashboard Quotation Listing:** Simplifies tracking and managing customer quotation requests.
+
+10. **Elementor Integration:** Enhances the overall shopping experience by integrating smoothly with the popular Elementor page builder.
+
+11. **Quote Editing:** Offers flexibility for administrators to make adjustments as needed.
+
+12. **Customizable Button Style:** Adds a touch of personalization to the user interface, enhancing visual appeal.
+
+13. **Cart Customization:** Enhances the quotation-focused shopping experience by concealing the "Add to Cart" button.
+
+14. **Price Concealment:** Encourages direct engagement by hiding prices, promoting communication for custom pricing.
+
+15. **Simplified Setup:** Ensures easy adoption and utilization of the plugin without complex configurations.
+
+16. **Customer Communication:** Provides automatic confirmation to customers about their quotation request submissions.
+
+17. **Intuitive Form Building:** Enables easy customization of the quotation request form.
+
+18. **Tax Price Support:** Ensures accurate calculation of taxes within the quotation process.
+
+19. **Multilingual Ready:** Increases accessibility by offering translations in various languages.
+
+20. **Extended Visibility:** While important, this feature may be slightly less critical than others in terms of immediate impact.
 
 [Experience the Live Demo](http://wpdiscountx.com/shop/)
 
@@ -59,7 +85,7 @@ Integrating the Appsero SDK **does not initiate immediate data collection withou
 
 To learn more about data collection and utilization, refer to the [Appsero privacy policy](https://appsero.com/privacy-policy/).
 
-## Installation
+=== Installation ===
 
 = Modern Approach: =
 1. Navigate to the WordPress Dashboard's "Add New Plugin" section.
@@ -70,7 +96,7 @@ To learn more about data collection and utilization, refer to the [Appsero priva
 1. Upload the `product-quotation-for-woocommerce` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
-## Changelog
+=== Changelog ===
 
 = 2.0.5 - 14-08-2023 =
 * FIXED: Mailing feature
@@ -132,7 +158,7 @@ To learn more about data collection and utilization, refer to the [Appsero priva
 = 1.0.0 - 18-12-2020 =
 * Initial release
 
-## Frequently Asked Questions
+=== Frequently Asked Questions ===
 
 = Is it compatible with any WordPress theme? =
 Yes, the plugin is designed to be compatible with all standard WordPress themes.
