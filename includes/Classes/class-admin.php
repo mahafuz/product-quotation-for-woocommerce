@@ -86,6 +86,10 @@ class Admin {
 	public function update_quotation( $post_id, $post ) {
 		if ( 'pqfw_quotations' === $post->post_type && isset( $_POST['products'] ) ) {
 			update_post_meta( $post_id, 'pqfw_products_info', serialize( $_POST['products'] ) );
+
+			if ( ! empty( $_POST['total_price_inc_tax' ] ) ) {
+				update_post_meta( $post_id, 'pqfw_products_total_price_inc_tax', sanitize_text_field( $_POST['total_price_inc_tax' ] ) );
+			}
 		}
 	}
 

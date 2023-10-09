@@ -56,7 +56,6 @@ $tax_enabled   = wc_tax_enabled();
 							<?php echo esc_html( $product['name'] ); ?>
 						</a>
 						<br>
-						<?php // pqfw()->helpers->build_variations( $product['variation_detail'] ); ?>
 					</td>
 
 					<?php if ( $tax_enabled ) : ?>
@@ -82,15 +81,17 @@ $tax_enabled   = wc_tax_enabled();
 								type="text"
 								name="products[<?php echo $key; ?>][regular_price]"
 								id="regular_price"
-								value="<?php echo isset( $product['regular_price'] ) ? esc_attr( $product['regular_price'] ) : ''; ?>"
+								value="<?php echo isset( $product['regular_price'] ) ? esc_attr( number_format( intval( $product['regular_price'] ) ), 2 ) : ''; ?>"
 							>
 						</span>
 					</td>
 
 					<td>
 						<input
-							data-price-inc-tax="<?php echo isset( $product['regular_price'] ) ? esc_attr( $product['regular_price'] ) : ''; ?>"
-							data-exc-tax-price="<?php echo isset( $product['exc_tax_price'] ) ? esc_attr( $product['exc_tax_price'] ) : ''; ?>"
+							data-price-inc-tax="<?php echo number_format( isset( $product['regular_price'] ) 
+								? esc_attr( intval( trim( $product['regular_price'], '$' ) ) / intval( $product['quantity'] ) ) : esc_attr( intval( trim( $product['price'], '$' ) ) / intval( $product['quantity'] ) ?? '' ), 2 ); ?>"
+							data-exc-tax-price="<?php echo isset( $product['exc_tax_price'] ) 
+							? esc_attr( $product['exc_tax_price'] ) : esc_attr( $product['price'] ?? '' ); ?>"
 							type="number"
 							class="pqfw-quote-text-input pqfw-quote-edit-quantity"
 							name="products[<?php echo $key; ?>][quantity]"
