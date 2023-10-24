@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { FormToggle, SelectControl } from '@wordpress/components';
-import { getPages, getCart, getNonce, translate } from './../Helpers';
+import { getPages, getCart, getNonce, translate } from '../Helpers';
 
 const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 	const [pages, setPages] = useState([...getPages()]);

@@ -148,8 +148,8 @@ class Assets {
 
 			wp_register_script(
 				'pqfw-app',
-				PQFW_PLUGIN_URL . 'build/index.js',
-				$dependencies['dependencies'],
+				PQFW_PLUGIN_URL . 'build/backend.js',
+				['jquery', 'wp-util'],
 				PQFW_PLUGIN_VERSION,
 				true
 			);

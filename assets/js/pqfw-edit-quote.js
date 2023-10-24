@@ -10,10 +10,6 @@
 		editScreen: function( $this ) {
 			var new_quantity = $this.val();
 
-			console.log(new_quantity);
-
-
-
 			// Price including taxes.
 			var price_including_tax_input = $this.parents('.pqfw-list-of-single-product').find('.pqfw-product-regular-price');
 			var single_price_inc_tax = '';
@@ -33,22 +29,6 @@
 			total_price_inc_tax = pqfwCart.calculateTotal(total_price_inc_tax);
 
 			$('#display-total-price-inc-tax').text( '$' + parseFloat( total_price_inc_tax ) );
-
-
-			if ( $this.data('exc-tax-price').toString().includes('$')) {
-				// price excluding tax.
-				var single_price_exc_tax = parseFloat( $this.data('exc-tax-price').replace('$', '') );
-			} else {
-				var single_price_exc_tax = parseFloat( $this.data('exc-tax-price') );
-			}
-
-			var exc_tax_price_value = $this.parents('.pqfw-list-of-single-product').find('.pqfw-product-price-exc-tax');
-			var single_exc_tax = (single_price_exc_tax * new_quantity);
-			exc_tax_price_value.val('$' + single_exc_tax);
-
-			var total_price_exc_tax = $('.pqfw-product-price-exc-tax');
-			total_price_exc_tax = pqfwCart.calculateTotal(total_price_exc_tax );
-			$('#display-total-price-exc-tax').text( '$' + parseFloat( total_price_exc_tax.toFixed(2) ) );
 		},
 
 		init: function () {

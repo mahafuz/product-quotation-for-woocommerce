@@ -68,21 +68,9 @@ class Cart {
 
 					<?php if ( empty( $table_columns ) || in_array( 'price', $table_columns, true ) ) : ?>
 					<td class="product-price" data-title="<?php esc_html_e( 'Product price.', 'woocommerce' ); ?>">
-						<?php if ( $productOBJ->is_taxable() ) : ?>
-							<span class="pqfw-cart-price-inc-tax">
-								<?php echo isset( $product['regular_price'] ) ? wp_kses_data( wc_price( $product['regular_price'] ) ) : ''; ?>
-							</span>
-							<?php
-								$suffix = get_option( 'woocommerce_price_display_suffix', '' );
-								$suffix = str_replace( '{price_excluding_tax}', '', $suffix );
-							?>
-							<span class="pqfw-cart-price-exc-tax">
-								<?php echo esc_attr( $suffix ); ?>
-								<?php echo isset( $product['exc_tax_price'] ) ? wp_kses_data( wc_price( $product['exc_tax_price'] ) ) : ''; ?>
-							</span>
-						<?php else : ?>
+						<span class="pqfw-cart-price-inc-tax">
 							<?php echo isset( $product['regular_price'] ) ? wp_kses_data( wc_price( $product['regular_price'] ) ) : ''; ?>
-						<?php endif; ?>
+						</span>
 					</td>
 					<?php endif; ?>
 
@@ -99,7 +87,6 @@ class Cart {
 							?>
 							data-single="<?php echo esc_attr( $variation_price['regular_price'] ); ?>"
 							data-single-inc-tax="<?php echo esc_attr( $variation_price['inc_tax_price'] ); ?>"
-							data-single-exc-tax="<?php echo esc_attr( $variation_price['exc_tax_price'] ); ?>"
 							data-hash="<?php echo esc_attr( $key ); ?>"
 						/>
 

@@ -33,7 +33,7 @@ class Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_post_type' ] );
-		add_action( 'add_meta_boxes', [ $this, 'quotation_author_detail' ] );
+		// add_action( 'add_meta_boxes', [ $this, 'quotation_author_detail' ] );
 		add_action( 'admin_menu', [ $this, 'menus' ] );
 		add_action( 'admin_title', [ $this, 'edit_page_title' ] );
 		add_filter( 'manage_edit-pqfw_quotations_columns', [ $this, 'manage_columns' ] );
@@ -108,9 +108,17 @@ class Admin {
 
 		add_meta_box(
 			'pqfw_quotation_products_detail',
-			__( 'Quote Details', 'pqfw' ),
+			__( 'Quote Items', 'pqfw' ),
 			[ $this, 'display_quotation_products_detail' ],
 			self::POST_TYPE
+		);
+
+		add_meta_box(
+			'pqfw_quotation_details_info',
+			__( 'Quote Details', 'pqfw' ),
+			[ $this, 'display_quotation_products_details_info' ],
+			self::POST_TYPE,
+			'side'
 		);
 	}
 
@@ -288,6 +296,10 @@ class Admin {
 	 */
 	public function display_help_page() {
 		require_once PQFW_PLUGIN_PATH . 'includes/Views/help.php';
+	}
+
+	public function display_quotation_products_details_info() {
+		echo "<h1>Quote Details</h1>";
 	}
 
 	/**

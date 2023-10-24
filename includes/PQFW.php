@@ -254,6 +254,10 @@ namespace PQFW {
 			$this->formBuilder     = new \PQFW\Form\Form_Builder();
 			$this->ajax            = new \PQFW\Classes\Ajax();
 
+			$this->editQuote = new \PQFW\Classes\Edit_Quote();
+			\PQFW\Admin\Menu::init();
+			\PQFW\Assets::init();
+
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );
 			}

@@ -28,6 +28,7 @@ define( 'PQFW_PLUGIN_LANGUAGES_PATH', plugin_dir_path( __FILE__ ) . 'languages/'
 define( 'PQFW_PLUGIN_VIEWS', trailingslashit( plugin_dir_path( __FILE__ ) . 'includes/Views' ) );
 define( 'PQFW_PLUGIN_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
 define( 'PQFW_PLUGIN_VERSION', '2.0.5' );
+define( 'QUOTE_PACKER_PLUGIN_SLUG', 'quote-packer' );
 
 /**
  * Initializing the plugin migration.

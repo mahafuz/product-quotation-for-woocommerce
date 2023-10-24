@@ -18,9 +18,6 @@ $tax_enabled   = wc_tax_enabled();
 
 				<th class="pqfw-list-products-head"><?php esc_html_e( 'Product', 'pqfw' ); ?></th>
 
-				<?php if ( $tax_enabled ) : ?>
-					<th class="pqfw-list-products-head"><?php esc_html_e( 'Price Excluding Tax.', 'pqfw' ); ?></th>
-				<?php endif; ?>
 				<th class="pqfw-list-products-head"><?php esc_html_e( 'Price', 'pqfw' ); ?></th>
 
 				<th class="pqfw-list-products-head"><?php esc_html_e( 'Quantity', 'pqfw' ); ?></th>
@@ -58,22 +55,6 @@ $tax_enabled   = wc_tax_enabled();
 						<br>
 					</td>
 
-					<?php if ( $tax_enabled ) : ?>
-						<td>
-							<?php if ( ! empty( $product['exc_tax_price'] ) ) : ?>
-							<span class="pqfw-cart-price-exc-tax">
-								<input
-									type="text"
-									class="pqfw-quote-text-input pqfw-product-price-exc-tax"
-									name="products[<?php echo $key; ?>][exc_tax_price]"
-									id="exc_tax_price"
-									value="<?php echo esc_attr( $product['exc_tax_price'] ); ?>"
-								>
-							</span>
-						<?php endif; ?>
-						</td>
-					<?php endif; ?>
-
 					<td>
 						<span class="pqfw-cart-price-inc-tax">
 							<input
@@ -102,57 +83,94 @@ $tax_enabled   = wc_tax_enabled();
 					<td><textarea name="products[<?php echo $key; ?>][message]" class="pqfw-quote-text-input"><?php echo esc_html( $product['message'] ); ?></textarea></td>
 				</tr>
 				<?php endforeach; ?>
-
-				<?php if ( $tax_enabled ) : ?>
+	
 				<tr>
 					<td></td>
 					<td></td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td class="display-total">
-						<span>Total Price: </span>
-						<span id="display-total-price-exc-tax">$130</span>
-						<input type="hidden" name="products[<?php echo $key; ?>][total_price_exc_tax]" id="total_price_exc_tax" value="" />
-					</td>
-				</tr>
+					<td colspan="2">
+						<div class="pqfw-display-total">
+							<h3><?php echo esc_attr( 'Quote Totals', 'pqfw' ); ?></h3>
+							<div class="pqfw-subtotal">
+								<div class="pqfw-label">
+									<span>Subtotal Price: </span>
+								</div>
+								<div class="pqfw-input">
+									<span id="display-total-price-inc-tax">$100</span>
+									<input type="hidden" name="products[<?php echo $key; ?>][total_price_inc_tax]" id="total_price_inc_tax" value="" />
+								</div>
+							</div>
 
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="display-total" style="border-top: 1px solid #e5e5e5;">
-						<span>Total price including tax: </br>
-							<a
-								style="font-size: 10px; font-style: italic; text-decoration: underline;" target="_blank"
-								rel="nofollow"
-								href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=tax&section=standard' ) ); ?>"
-							>
-								see tax rates.
-							</a>
-						</span>
-						<span id="display-total-price-inc-tax">$100</span>
-						<input type="hidden" name="products[<?php echo $key; ?>][total_price_inc_tax]" id="total_price_inc_tax" value="" />
+							<div class="tax">
+								<div class="pqfw-label">
+									<span>Tax Rate (%)</span>
+									<span class="edit-tax">edit</span>
+
+									<div class="pqfw-tax-add">
+										<input type="text" name="pqfw_quote_tax" id="pqfw_quote_tax">
+										<button class="button" type="button">Apply</button>
+									</div>
+								</div>
+								<div class="pqfw-input">
+									<span id="display-total-tax">$0</span>
+									<input type="hidden" name="products[<?php echo $key; ?>][total_tax]" id="total_tax" value="" />
+								</div>
+							</div>
+
+							<div class="discount">
+								<div class="pqfw-label">
+									<span>Discount</span>
+									<span class="edit-discount">edit</span>
+
+									<div class="pqfw-discount-add">
+										<input type="text" name="pqfw_quote_discount" id="pqfw_quote_discount">
+										<button class="button" type="button">Apply</button>
+
+										<div class="discount-type-wrapper">
+											<ul class="pqfw_quote_discount">
+												<li>
+													<input
+														type="radio"
+														class="pqfw_quote_discount"
+														name="pqfw_quote_discount_type"
+														id="pqfw_quote_discount_type1"
+														value="amount"
+														checked="checked"
+													>
+													<label for="pqfw_quote_discount_type1">Fixed Amount</label>
+												</li>
+												<li>
+													<input
+														type="radio"
+														class="pqfw_quote_discount"
+														name="pqfw_quote_discount_type"
+														id="pqfw_quote_discount_type2"
+														value="percentage"
+													>
+													<label for="pqfw_quote_discount_type2">Percentage</label>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="pqfw-input">
+									<span id="display-total-discount">$0</span>
+									<input type="hidden" name="products[<?php echo $key; ?>][total_discount]" id="total_discount" value="" />
+								</div>
+							</div>
+
+							<div class="grand-total">
+								<div class="pqfw-label">
+									<span>Total Price: </span>
+								</div>
+								<div class="pqfw-input">
+									<span id="display-total-price-inc-tax">$100</span>
+									<input type="hidden" name="products[<?php echo $key; ?>][total_price_inc_tax]" id="total_price_inc_tax" value="" />
+								</div>
+							</div>
+						</div>
 					</td>
 				</tr>
-				<?php else : ?>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<?php if ( $tax_enabled ) : ?>
-							<td></td>
-						<?php endif; ?>
-						<td class="display-total">
-							<span>Total Price: </span>
-							<span id="display-total-price-inc-tax">$100</span>
-							<input type="hidden" name="products[<?php echo $key; ?>][total_price_inc_tax]" id="total_price_inc_tax" value="" />
-						</td>
-					</tr>
-				<?php endif; ?>	
 			<?php endif; ?>
 		</tbody>
 	</table>

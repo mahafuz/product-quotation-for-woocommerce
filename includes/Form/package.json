@@ -18,13 +18,14 @@
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/api-fetch": "^5.2.2",
-    "react-form-builder2": "^0.9.5",
-    "react-router-dom": "^5.3.0",
+    "@wordpress/scripts": "^26.15.0"
+  },
+  "dependencies": {
+    "react-form-builder2": "^0.16.5",
+    "react-router-dom": "^6.17.0",
     "sweetalert": "^2.1.2"
   }
 }

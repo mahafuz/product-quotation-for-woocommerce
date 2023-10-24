@@ -8,6 +8,7 @@ import Settings from './Settings';
 
 const App = () => (
     <>
+        <h2>Form Builder</h2>
         <Page />
     </>
 );

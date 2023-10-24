@@ -16,8 +16,8 @@ import GeneralSettingsIcon from './../images/cog.svg';
 
 const App = () => {
 	const savedTab = localStorage.getItem('pqfw_settings_active_tab') || 'general';
-	const [activeTab, setActiveTab] = useState<string>(savedTab);
-	const [settings, setSettings] = useState<Object>(getSavedSettings());
+	const [activeTab, setActiveTab] = useState(savedTab);
+	const [settings, setSettings] = useState(getSavedSettings());
 
 	const saveActiveTab = (name) => {
 		localStorage.setItem('pqfw_settings_active_tab', name);

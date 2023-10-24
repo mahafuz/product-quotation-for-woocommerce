@@ -1,40 +1,46 @@
 {
   "name": "product-quotation-for-woocommerce",
-  "private": true,
   "version": "1.0.0",
-  "description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
-  "main": "index.js",
+  "description": "=== Product Quotation - Request a Quote for WooCommerce ===",
+  "main": "webpack.config.js",
   "scripts": {
-    "build": "wp-scripts build",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses",
-    "format": "wp-scripts format",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:pkg-json": "wp-scripts lint-pkg-json",
-    "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start",
-    "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js"
+    "start": "webpack --mode=development"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mahafuz/product-quotation-for-woocommerce.git"
   },
-  "author": "Mahafuz <m.mahfuz.me@gmail.com>",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
   },
   "homepage": "https://github.com/mahafuz/product-quotation-for-woocommerce#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^22.5.0"
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "node-sass": "^9.0.0",
+    "postcss-loader": "^7.3.3",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@wordpress/components": "^19.9.0",
-    "react-select": "^5.7.3",
-    "react-toastify": "^8.2.0"
+    "@wordpress/components": "^25.10.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-select": "^5.7.7",
+    "react-toastify": "^9.1.3"
   }
 }

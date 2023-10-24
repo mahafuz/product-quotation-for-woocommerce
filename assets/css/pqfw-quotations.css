@@ -89,3 +89,59 @@ td.display-total span:last-child {
 	font-family: inherit;
 	font-size: 12px;
 }
+
+.pqfw-display-total {
+    background: #fff none repeat scroll 0 0;
+    font-weight: 600;
+    text-align: right;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0 0 10px;
+    min-width: 40%;
+}
+
+.pqfw-display-total > h3 {
+    background: #fff none repeat scroll 0 0;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4em;
+    margin: 0;
+    padding: 8px 12px;
+    text-align: right;
+}
+
+.grand-total {
+    background: #f8f8f8 none repeat scroll 0 0;
+    font-weight: bold;
+    border-top: 1px solid #e1e1e1;
+}
+
+.pqfw-display-total > div {
+    padding: 7px 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-tax, .edit-discount {
+    font-size: 12px;
+    text-decoration: underline;
+    color: blue;
+    font-style: italic;
+    cursor: pointer;
+}
+
+.pqfw-tax-add, .pqfw-discount-add {
+    display: inline-block;
+}
+
+.pqfw_quote_discount {
+	margin: 0;
+	padding: 0;
+}
+
+.pqfw_quote_discount li {
+	display: inline-block;
+}
