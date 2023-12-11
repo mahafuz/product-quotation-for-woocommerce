@@ -205,6 +205,23 @@ class Form_Builder {
 			}
 		}
 
+		if ( pqfw()->settings->get( 'privacy_policy' ) ) :
+			$html .= '<li class="pqfw-privacy-policy">';
+				$html .= '<div class="pqfw-privacy-policy-inner">';
+					$html .= '<p>';
+						$html .= wp_kses_post( pqfw()->helpers->generate_privacy_policy( pqfw()->settings->get( 'privacy_policy_content' ) ) );
+					$html .= '</p>';
+
+					$html .= '<div class="pqfw-privacy-policy-checkbox">';
+						$html .= '<input type="checkbox" name="pqfw_privacy_policy_checkbox" id="pqfw_privacy_policy_checkbox" required="1">';
+						$html .= '<label for="pqfw_privacy_policy_checkbox">';
+							$html .= wp_kses_post( pqfw()->helpers->generate_privacy_policy( pqfw()->settings->get( 'privacy_policy_label' ) ) );
+						$html .= '</label>';
+					$html .= '</div>';
+				$html .= '</div>';
+			$html .= '</li>';
+		endif;
+
 		$html .= '<div class="pqfw-form-field pqfw-submit">';
 			$html .= '<input
 				type="submit"

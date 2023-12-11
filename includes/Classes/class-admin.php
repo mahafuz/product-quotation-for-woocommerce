@@ -122,6 +122,16 @@ class Admin {
 	public function menus() {
 		add_submenu_page(
 			'edit.php?post_type=pqfw_quotations',
+			__( 'Settings', 'pqfw' ),
+			__( 'Settings', 'pqfw' ),
+			'manage_options',
+			'pqfw-settings',
+			[ $this, 'display' ],
+			null
+		);
+
+		add_submenu_page(
+			'edit.php?post_type=pqfw_quotations',
 			__( 'Help', 'pqfw' ),
 			'<span style="color:#f18500">Help</span>',
 			'manage_options',
@@ -133,16 +143,6 @@ class Admin {
 			// We don't want any plugin adding notices to our screens. Let's clear them out here.
 			add_action( 'admin_footer_text', [ $this, 'add_footer_text' ] );
 		}
-
-		add_submenu_page(
-			'edit.php?post_type=pqfw_quotations',
-			__( 'Settings', 'pqfw' ),
-			__( 'Settings', 'pqfw' ),
-			'manage_options',
-			'pqfw-settings',
-			[ $this, 'display' ],
-			null
-		);
 	}
 
 	/**
