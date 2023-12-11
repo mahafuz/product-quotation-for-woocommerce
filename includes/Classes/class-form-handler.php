@@ -54,7 +54,7 @@ class Form_Handler {
 
 		$errors = new \WP_Error();
 		$mapedDataToSave = [];
-		$savedFields = pqfw()->formApi->getFormatted();
+		$savedFields = pqfw()->formBuilder->getFormatted();
 		$requiredFields = array_keys( array_filter($savedFields, function( $field ) {
 			if ( $field['required'] ) {
 				return $field;

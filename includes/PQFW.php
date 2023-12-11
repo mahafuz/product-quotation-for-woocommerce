@@ -250,8 +250,7 @@ namespace PQFW {
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();
-			$this->formApi         = new \PQFW\Form\Form_Api();
-			$this->formBuilder     = new \PQFW\Form\Form_Builder();
+			$this->formBuilder     = new \PQFW\Classes\Form_Builder();
 			$this->ajax            = new \PQFW\Classes\Ajax();
 
 			if ( ! function_exists( 'WC' ) ) {

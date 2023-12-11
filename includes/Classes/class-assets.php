@@ -64,7 +64,7 @@ class Assets {
 				'cartPageUrl'   => get_permalink( $cartPageId ),
 				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.gif',
 				'nonce'         => wp_create_nonce( 'pqfw_cart_actions' ),
-				'fields'        => pqfw()->formApi->getFormMarkup()
+				'fields'        => pqfw()->formBuilder->get_form_markup()
 			]
 		);
 	}
@@ -214,7 +214,7 @@ class Assets {
 				'cartPageUrl'   => get_permalink( $cartPageId ),
 				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.gif',
 				'nonce'         => wp_create_nonce( 'pqfw_cart_actions' ),
-				'fields'        => pqfw()->formApi->getFormMarkup()
+				'fields'        => pqfw()->formBuilder->get_form_markup()
 			]
 		);
 

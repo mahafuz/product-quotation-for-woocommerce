@@ -1,6 +1,6 @@
 <?php
 
-namespace PQFW\Form;
+namespace PQFW\Classes;
 
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
@@ -12,6 +12,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class Form_Builder {
 
+	public $form_markup;
+
 	/**
 	 * Class constructor.
 	 *
@@ -19,85 +21,6 @@ class Form_Builder {
 	 */
 	public function __construct() {
 		add_shortcode( 'pqfw_quote_form', [ $this, 'render' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-		add_action( 'wp_ajax_pqfw_form_data', [ $this, 'post_data' ] );
-		add_action( 'wp_ajax_nopriv_pqfw_form_data', [ $this, 'post_data' ] );
-		add_action( 'admin_menu', [ $this, 'registerMenus' ] );
-		add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
-	}
-
-	/**
-	 * Register form menu.
-	 *
-	 * @since 2.0.5
-	 */
-	public function registerMenus() {
-		add_submenu_page(
-			'edit.php?post_type=pqfw_quotations',
-			__( 'Product Quotation Form Builder', 'pqfw' ),
-			__( 'Form', 'pqfw' ),
-			'manage_options',
-			'pqfw-form-builder',
-			[ $this, 'displayForm' ]
-		);
-	}
-
-	/**
-	 * Displaying the 'Form' editor page.
-	 *
-	 * @since 2.0.5
-	 */
-	public function displayForm() {
-		echo '<div id="pqfw-form-builder"></div>';
-	}
-
-	/**
-	 * Enqueue scripts for the form shortcode.
-	 *
-	 * @since 2.0.5
-	 * @return void
-	 */
-	public function scripts() {
-		$screen = get_current_screen();
-
-		if ( 'pqfw_quotations_page_pqfw-form-builder' !== $screen->id ) {
-			return;
-		}
-
-		$dependencies = require_once PQFW_PLUGIN_PATH . 'includes/Form/build/index.asset.php';
-
-		wp_enqueue_style(
-			'font-awesome4.3',
-			'//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
-		);
-
-		wp_register_script(
-			'pqfw-form-builder',
-			PQFW_PLUGIN_URL . 'includes/Form/build/index.js',
-			$dependencies['dependencies'],
-			$dependencies['version'],
-			true
-		);
-
-		wp_localize_script(
-			'pqfw-form-builder',
-			'PQFW_FORM_SCRIPT',
-			[
-				'nonce'   => wp_create_nonce( 'pqfw_form_builder_nonce' ),
-				'home'    => home_url(),
-				'restUrl' => rest_url(),
-			]
-		);
-
-		wp_enqueue_script( 'pqfw-form-builder' );
-
-		wp_enqueue_style(
-			'pqfw-form-builder',
-			PQFW_PLUGIN_URL . 'includes/Form/build/index.css',
-			[],
-			$dependencies['version'],
-			'all'
-		);
 	}
 
 	/**
@@ -113,16 +36,6 @@ class Form_Builder {
 	}
 
 	/**
-	 * Remove all notice in setup wizard page
-	 */
-	public function remove_notice() {
-		if ( isset( $_GET['page'] ) && 'pqfw-form-builder' === sanitize_text_field( $_GET['page'] ) ) {
-			remove_all_actions( 'admin_notices' );
-			remove_all_actions( 'all_admin_notices' );
-		}
-	}
-
-	/**
 	 * Degenerate input type field name.
 	 *
 	 * @since 2.0.7
@@ -135,12 +48,23 @@ class Form_Builder {
 	}
 
 	/**
+	 * Get form markup.
+	 *
+	 * @since 2.0.4
+	 */
+	public function get_form_markup() {
+		$default_form = '[{"id":"ECCABDAD-43C6-46BF-A7DD-F5D9F78F3062","element":"TextInput","text":"Full Name","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Full Name"},{"id":"F6C2115E-A76E-4C6C-AC14-892F69CBD197","element":"TextInput","text":"Subject","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Subject"},{"id":"7891386B-6EC1-4490-A8CA-E0D5C4C51CC5","element":"TextInput","text":"Email","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Email"},{"id":"A2417105-B266-4537-A14F-5282951710EF","element":"TextInput","text":"Phone\/Mobile","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Phone\/Mobile"},{"id":"07C2E624-F875-43E4-94CF-B0A0A0E60237","element":"TextArea","text":"Comments","required":false,"canHaveAnswer":true,"canHavePageBreakBefore":true,"canHaveAlternateForm":true,"canHaveDisplayHorizontal":true,"canHaveOptionCorrect":true,"canHaveOptionValue":true,"canPopulateFromApi":true,"label":"Comments"}]';
+
+		return json_decode( $default_form );
+	}
+
+	/**
 	 * Render form frontend.
 	 *
 	 * @since 2.0.7
 	 */
 	public function render() {
-		$formData = pqfw()->formApi->getFormMarkup();
+		$formData = $this->get_form_markup();
 		$html     = '';
 
 		$html .= sprintf( '<h2 class="pqfw-form-title">%s</h2>', pqfw()->settings->get( 'formTitle', __( 'Testimonial Submission Form', 'pqfw' ) ) );
@@ -427,49 +351,18 @@ class Form_Builder {
 	}
 
 	/**
-	 * Form ajax action callback.
-	 * Responsible for saving the form data.
+	 * Undocumented function
 	 *
-	 * @since  2.0.12.
+	 * @return json
 	 */
-	public function post_data() {
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw-form-action' ) ) {
-			wp_send_json_error( [ 'message' => __( "You're not allowed to submit the form", 'pqfw' ) ] );
+	public function getFormatted() {
+		$fields = [];
+		foreach ( $this->get_form_markup() as $field ) {
+			$fields[ $this->getFieldName( $field->text ) ] = [
+				'name'     => $this->getFieldName( $field->text ),
+				'required' => wp_validate_boolean( $field->required )
+			];
 		}
-
-		if ( empty( $_POST['values'] ) ) {
-			wp_send_json_error( [ 'message' => __( "Invalid data.", 'pqfw' ) ] );
-		}
-
-		$values = json_decode( wp_unslash( $_POST['values'] ) );
-
-		if ( empty( $values ) ) {
-			wp_send_json_error( [ 'message' => __( "Invalid data.", 'pqfw' ) ] );
-		}
-
-		// Check for required fields.
-		$this->checkForRequiredFields( $values );
-
-		$title   = sanitize_text_field( $this->getValue( 'name', $values ) );
-		$content = wp_kses_post( $this->getValue( 'content', $values ) );
-
-		require_once ABSPATH . 'wp-admin/includes/image.php';
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		require_once ABSPATH . 'wp-admin/includes/media.php';
-
-		$new_post = [
-			'post_type'    => 'gs_testimonial',
-			'post_status'  => 'pending',
-			'post_title'   => $title,
-			'post_content' => $content,
-		];
-
-		$post_id = wp_insert_post( $new_post );
-
-		$this->handleMediaUpload( $post_id );
-		$this->saveMetaValues( $values, $post_id );
-
-		$message = pqfw()->db->formSettings->get( 'message', __( 'Thanks! Sent for admin approval.', 'pqfw' ) );
-		wp_send_json_success( [ 'message' => $message ] );
+		return $fields;
 	}
 }
