@@ -12,7 +12,7 @@
             this.initialize();
 
             $(document)
-				.on('click', '.pqfw-add-to-quotation-single', function (ev) {
+				.on('click', '.pqfw-add-to-quotation', function (ev) {
 				ev.preventDefault();
 				pqfwCart.sendData(this);
 			});

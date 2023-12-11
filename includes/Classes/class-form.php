@@ -34,11 +34,11 @@ class Form {
 	 */
 	public function __construct() {
 
-		$this->quotationButtonPosition = pqfw()->settings->get( 'button_position' );
-		$this->quotationButtonPositionInSingleProduct = pqfw()->settings->get( 'button_position_single_product' );
+		$quotation_button_position                   = pqfw()->settings->get( 'button_position' );
+		$quotation_button_position_in_single_product = pqfw()->settings->get( 'button_position_single_product' );
 
-		add_action( $this->quotationButtonPositionInSingleProduct, [ $this, 'addButtonOnSinglePage' ] );
-		add_action( $this->quotationButtonPosition, [ $this, 'addButton' ] );
+		add_action( $quotation_button_position, [ $this, 'add_button_on_products_loop' ] );
+		add_action( $quotation_button_position_in_single_product, [ $this, 'add_button_on_single_product' ] );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Form {
 	 *
 	 * @since 1.2.0
 	 */
-	public function addButton() {
+	public function add_button_on_single_product() {
 		if ( ! pqfw()->settings->get( 'pqfw_shop_page_button' ) ) {
 			return;
 		}
@@ -56,15 +56,9 @@ class Form {
 		$buttonText = pqfw()->settings->get( 'button_text' );
 
 		if ( ! empty( $buttonText ) ) {
-			if ( $product->is_type( 'variable' ) ) {
-				echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-variable" href="' . esc_url( $product->get_permalink() ) . '">
-				' . esc_html( $buttonText ) . '
-				</a>';
-			} else {
-				echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
-				. esc_html( $buttonText ) .
-				'</a>';
-			}
+			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single wp-element-button" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
+			. esc_html( $buttonText ) .
+			'</a>';
 		}
 	}
 
@@ -73,7 +67,7 @@ class Form {
 	 *
 	 * @since 1.2.0
 	 */
-	public function addButtonOnSinglePage() {
+	public function add_button_on_products_loop() {
 		if ( ! pqfw()->settings->get( 'pqfw_product_page_button' ) ) {
 			return;
 		}
@@ -82,9 +76,20 @@ class Form {
 
 		if ( ! empty( $buttonText ) ) {
 			global $product;
-			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
-			. esc_html( $buttonText ) .
-			'</a>';
+
+			if ( $product->is_type( 'variable' ) ) {
+				echo '<div class="pqfw-quote-btn-block wp-block-button wc-block-components-product-button align-center">';
+					echo '<a class="button pqfw-button pqfw-add-to-quotation-variable wp-element-button" href="' . esc_url( $product->get_permalink() ) . '">
+					' . esc_html( $buttonText ) . '
+					</a>';
+				echo '</div>';
+			} else {
+				echo '<div class="pqfw-quote-btn-block wp-block-button wc-block-components-product-button align-center">';
+					echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single wp-element-button" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
+					. esc_html( $buttonText ) .
+					'</a>';
+				echo '</div>';
+			}
 		}
 	}
 

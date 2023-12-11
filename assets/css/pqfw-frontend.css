@@ -93,16 +93,22 @@
 
 a.button.pqfw-button.pqfw-add-to-quotation {
     font-size: 14px;
-    margin: 10px 0;
+    margin: 5px;
     display: inline-block;
     transition: all 0.3s ease-in-out;
     border: 1.5px solid;
     border-radius: 5px;
 }
 
-a.pqfw-view-quotation-cart {
+.product .pqfw-view-quotation-cart {
+    display: inline;
+}
+
+.pqfw-quote-btn-block .pqfw-view-quotation-cart {
+    float: none;
     font-size: 14px;
-    display: block;
+    display: flex;
+    justify-content: center;
     text-decoration: underline;
 }
 
