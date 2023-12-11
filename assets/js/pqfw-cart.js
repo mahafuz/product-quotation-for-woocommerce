@@ -144,9 +144,9 @@
             $('#pqfw-quotations-list-row').unblock();
         },
         showLoader: function() {
-            $('#pqfw-quotations-list-row').block({
-                message: ''
-            });
+            // $('#pqfw-quotations-list-row').block({
+            //     message: ''
+            // });
             // $('#pqfw-quotations-list-row').block({
             //     message: '<img src="' + PQFW_OBJECT.loader + '" />',
             //     css: {
