@@ -170,7 +170,6 @@ class Assets {
 						'url' => pqfw()->helpers->get_cart( 'url' )
 					],
 					'strings'     => pqfw()->strings->get(),
-					'tax_enabled' => wc_tax_enabled()
 				]
 			);
 

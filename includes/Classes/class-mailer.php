@@ -20,60 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Mailer {
 
 	/**
-	 * Retrives the blog name.
-	 *
-	 * @var     string
-	 * @access  private
-	 * @since   1.0.0
-	 */
-	private $blogname;
-
-	/**
-	 * Mail subject.
-	 *
-	 * @var     string
-	 * @access  private
-	 * @since   1.0.0
-	 */
-	private $subject;
-
-	/**
-	 * Admin email to receive.
-	 *
-	 * @var     string
-	 * @access  private
-	 * @since   1.0.0
-	 */
-	private $email = [];
-
-	/**
-	 * Generating full message body.
-	 *
-	 * @var     string
-	 * @access  private
-	 * @since   1.0.0
-	 */
-	private $message;
-
-	/**
-	 * Contain the headers for sending mail.
-	 *
-	 * @var     string
-	 * @access  private
-	 * @since   1.0.0
-	 */
-	private $headers;
-
-	/**
-	 * Data to attach with the email.
-	 *
-	 * @var     string
-	 * @access  private
-	 * @since   1.0.0
-	 */
-	private $args;
-
-	/**
 	 * Constructor of the class
 	 *
 	 * @since 1.0.0
