@@ -262,7 +262,7 @@ class Quotations {
 	public function getProducts() {
 		$products = [];
 
-		if ( isset( WC()->session ) ) {
+		if ( function_exists( 'WC' ) && isset( WC()->session ) ) {
 			$products = WC()->session->get( 'pqfw_products_quotations_list' );
 
 			if ( null === $products ) {

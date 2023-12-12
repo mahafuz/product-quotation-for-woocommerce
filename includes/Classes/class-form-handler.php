@@ -54,7 +54,7 @@ class Form_Handler {
 
 		$errors = new \WP_Error();
 		$mapedDataToSave = [];
-		$savedFields = pqfw()->formApi->getFormatted();
+		$savedFields = pqfw()->formBuilder->getFormatted();
 		$requiredFields = array_keys( array_filter($savedFields, function( $field ) {
 			if ( $field['required'] ) {
 				return $field;
@@ -121,33 +121,20 @@ class Form_Handler {
 		$insertID = pqfw()->product->save( $mapedDataToSave );
 
 		if ( $insertID ) {
-			if ( wp_validate_boolean( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) ) {
-				if ( ! wp_validate_boolean( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) ) {
-					pqfw()->quotations->purge();
+			if ( wp_validate_boolean( pqfw()->settings->get( 'pqfw_form_send_mail' ) ) || wp_validate_boolean( pqfw()->settings->get( 'pqfw_send_mail_to_customer' ) ) ) {
+				$response = pqfw()->mailer->prepare( $mapedDataToSave );
 
+				if ( ! $response ) {
+					pqfw()->quotations->purge();
 					wp_send_json_error([
 						'message' => pqfw()->settings->get( 'error_message', __( 'Your quotation created successfully but error occurred while sending emails.', 'pqfw' ) )
 					]);
 				} else {
-					$response = pqfw()->mailer->prepare( $mapedDataToSave );
-
-					if ( ! $response ) {
-						pqfw()->quotations->purge();
-						wp_send_json_error([
-							'message' => pqfw()->settings->get( 'error_message', __( 'Your quotation created successfully but error occurred while sending emails.', 'pqfw' ) )
-						]);
-					} else {
-						pqfw()->quotations->purge();
-						wp_send_json_success([
-							'message' => pqfw()->settings->get( 'success_message', __( 'Your quotation is successfully submitted.', 'pqfw' ) )
-						]);
-					}
+					pqfw()->quotations->purge();
+					wp_send_json_success([
+						'message' => pqfw()->settings->get( 'success_message', __( 'Your quotation is successfully submitted.', 'pqfw' ) )
+					]);
 				}
-			} else {
-				pqfw()->quotations->purge();
-				wp_send_json_success([
-					'message' => pqfw()->settings->get( 'success_message', __( 'Your quotation is successfully submitted.', 'pqfw' ) )
-				]);
 			}
 		} else {
 			wp_send_json_error([

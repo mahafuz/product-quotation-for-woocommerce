@@ -109,6 +109,7 @@ class Product {
 		$variation_detail = $this->variationDetail( $obj, $product['variation_detail'] );
 
 		return [
+			'id'               => $obj->ID,
 			'name'             => $obj->get_name(),
 			'img'              => $img,
 			'link'             => $permalink,

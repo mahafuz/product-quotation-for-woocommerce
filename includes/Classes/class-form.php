@@ -33,7 +33,6 @@ class Form {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-
 		$quotation_button_position                   = pqfw()->settings->get( 'button_position' );
 		$quotation_button_position_in_single_product = pqfw()->settings->get( 'button_position_single_product' );
 
@@ -47,7 +46,7 @@ class Form {
 	 * @since 1.2.0
 	 */
 	public function add_button_on_single_product() {
-		if ( ! pqfw()->settings->get( 'pqfw_shop_page_button' ) ) {
+		if ( ! pqfw()->settings->get( 'pqfw_product_page_button' ) ) {
 			return;
 		}
 
@@ -68,7 +67,7 @@ class Form {
 	 * @since 1.2.0
 	 */
 	public function add_button_on_products_loop() {
-		if ( ! pqfw()->settings->get( 'pqfw_product_page_button' ) ) {
+		if ( ! pqfw()->settings->get( 'pqfw_shop_page_button' ) ) {
 			return;
 		}
 

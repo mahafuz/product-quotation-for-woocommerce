@@ -8,7 +8,6 @@
 
 $table_columns = pqfw()->settings->get( 'cart_table_columns' );
 $table_columns = wp_list_pluck( $table_columns, 'value' );
-$tax_enabled   = wc_tax_enabled();
 ?>
 <div class="pqfw-quotation-products-detail">
 	<table class="pqfw-list-products widefat fixed striped table-view-list">
@@ -18,9 +17,6 @@ $tax_enabled   = wc_tax_enabled();
 
 				<th class="pqfw-list-products-head"><?php esc_html_e( 'Product', 'pqfw' ); ?></th>
 
-				<?php if ( $tax_enabled ) : ?>
-					<th class="pqfw-list-products-head"><?php esc_html_e( 'Price Excluding Tax.', 'pqfw' ); ?></th>
-				<?php endif; ?>
 				<th class="pqfw-list-products-head"><?php esc_html_e( 'Price', 'pqfw' ); ?></th>
 
 				<th class="pqfw-list-products-head"><?php esc_html_e( 'Quantity', 'pqfw' ); ?></th>
@@ -58,22 +54,6 @@ $tax_enabled   = wc_tax_enabled();
 						<br>
 					</td>
 
-					<?php if ( $tax_enabled ) : ?>
-						<td>
-							<?php if ( ! empty( $product['exc_tax_price'] ) ) : ?>
-							<span class="pqfw-cart-price-exc-tax">
-								<input
-									type="text"
-									class="pqfw-quote-text-input pqfw-product-price-exc-tax"
-									name="products[<?php echo $key; ?>][exc_tax_price]"
-									id="exc_tax_price"
-									value="<?php echo esc_attr( $product['exc_tax_price'] ); ?>"
-								>
-							</span>
-						<?php endif; ?>
-						</td>
-					<?php endif; ?>
-
 					<td>
 						<span class="pqfw-cart-price-inc-tax">
 							<input
@@ -103,56 +83,17 @@ $tax_enabled   = wc_tax_enabled();
 				</tr>
 				<?php endforeach; ?>
 
-				<?php if ( $tax_enabled ) : ?>
 				<tr>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td class="display-total">
 						<span>Total Price: </span>
-						<span id="display-total-price-exc-tax">$130</span>
-						<input type="hidden" name="products[<?php echo $key; ?>][total_price_exc_tax]" id="total_price_exc_tax" value="" />
-					</td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="display-total" style="border-top: 1px solid #e5e5e5;">
-						<span>Total price including tax: </br>
-							<a
-								style="font-size: 10px; font-style: italic; text-decoration: underline;" target="_blank"
-								rel="nofollow"
-								href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=tax&section=standard' ) ); ?>"
-							>
-								see tax rates.
-							</a>
-						</span>
 						<span id="display-total-price-inc-tax">$100</span>
 						<input type="hidden" name="products[<?php echo $key; ?>][total_price_inc_tax]" id="total_price_inc_tax" value="" />
 					</td>
 				</tr>
-				<?php else : ?>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<?php if ( $tax_enabled ) : ?>
-							<td></td>
-						<?php endif; ?>
-						<td class="display-total">
-							<span>Total Price: </span>
-							<span id="display-total-price-inc-tax">$100</span>
-							<input type="hidden" name="products[<?php echo $key; ?>][total_price_inc_tax]" id="total_price_inc_tax" value="" />
-						</td>
-					</tr>
-				<?php endif; ?>	
 			<?php endif; ?>
 		</tbody>
 	</table>

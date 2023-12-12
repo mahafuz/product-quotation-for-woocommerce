@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains releated class of cart functionalities.
+ * Contains related class of cart functionalities.
  *
  * @since   1.0.0
  * @package PQFW
@@ -52,7 +52,8 @@ class Cart {
 				<td class="product-thumbnail pqfw-thumbnail">
 					<?php
 						$thumbnail = $this->getThumbnail( $product['id'], $product['variation'] );
-						printf( '<a href="%s">%s</a>', esc_url( $permalink ), esc_url( $thumbnail ) );
+
+						printf( '<a href="%s">%s</a>', esc_url( $permalink ), wp_kses_post( $thumbnail ) );
 					?>
 				</td>
 				<?php endif; ?>
