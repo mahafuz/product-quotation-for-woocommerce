@@ -12,7 +12,7 @@
             this.initialize();
 
             $(document)
-				.on('click', '.pqfw-add-to-quotation-single', function (ev) {
+				.on('click', '.pqfw-add-to-quotation', function (ev) {
 				ev.preventDefault();
 				pqfwCart.sendData(this);
 			});
@@ -26,9 +26,13 @@
                 var new_quantity = $(this).val();
                 var hash = $(this).data('hash');
                 var single = $(this).data('single');
+                var single_inc_tax = $(this).data('single-inc-tax');
+                var single_exc_tax = $(this).data('single-exc-tax');
 
                 window.pqfwProducts[hash]['quantity'] = new_quantity;
-                window.pqfwProducts[hash]['price'] = Math.floor( single * new_quantity );
+                window.pqfwProducts[hash]['regular_price'] = Math.floor( single * new_quantity );
+                window.pqfwProducts[hash]['inc_tax_price'] = Math.floor( single_inc_tax * new_quantity );
+                window.pqfwProducts[hash]['exc_tax_price'] = Math.floor( single_exc_tax * new_quantity );
                 var products = window.pqfwProducts;
                 pqfwCart.updateProduct(products);
             });
@@ -140,9 +144,9 @@
             $('#pqfw-quotations-list-row').unblock();
         },
         showLoader: function() {
-            $('#pqfw-quotations-list-row').block({
-                message: ''
-            });
+            // $('#pqfw-quotations-list-row').block({
+            //     message: ''
+            // });
             // $('#pqfw-quotations-list-row').block({
             //     message: '<img src="' + PQFW_OBJECT.loader + '" />',
             //     css: {

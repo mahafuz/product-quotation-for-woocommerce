@@ -99,42 +99,7 @@ class Elementor extends Widget_Base {
 	 */
 	protected function render() {
 		$shortcode = '[pqfw_quotations_cart]';
-		echo do_shortcode( shortcode_unautop( $shortcode ) );
-		?>
-			<script>
-				(function($) {
-					var pqfwCart = $('#pqfw-quotations-list-row');
-
-					function visibleForm( products ) {
-						if (products == null || products.length == 0) {
-							$("#pqfw-frontend-form-wrap").css( "display", "none" );
-						} else {
-							$("#pqfw-frontend-form-wrap").css( "display", "block" );
-						}
-					};
-
-					function dataLoaded(response) {
-						$('#pqfw-quotations-list-row').html( response.html );
-						visibleForm(response.products);
-					};
-
-					wp.ajax.send(
-						'pqfw_load_cart_data',
-						{
-							data : {
-								nonce : PQFW_OBJECT.nonce
-							},
-							success : function( response ) {
-								dataLoaded(response);
-							},
-							error   : function( response ) {
-								console.error(response);
-							}
-						}
-					);
-				})(jQuery);
-			</script>
-		<?php
+		$output = do_shortcode( $shortcode );
+		echo '<div class="pqfw-shortcode-output">' . $output . '</div>'; // phpcs:ignore
 	}
-
 }

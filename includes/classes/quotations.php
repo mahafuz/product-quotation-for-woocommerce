@@ -189,7 +189,7 @@ class Quotations {
 	 * @param  integer $variation_detail Product variation details.
 	 * @return bool
 	 */
-	public function addProduct( $id, $quantity, $variation, $variation_detail, $price = 0 ) {
+	public function addProduct( $id, $quantity, $variation, $variation_detail, $prices = [] ) {
 		$products = $this->getProducts();
 		$message  = '';
 
@@ -201,7 +201,9 @@ class Quotations {
 			'id'               => (int) $id,
 			'quantity'         => (int) $quantity,
 			'variation'        => (int) $variation,
-			'price'            => $price,
+			'regular_price'    => $prices['regular_price'],
+			'inc_tax_price'    => $prices['inc_tax_price'],
+			'exc_tax_price'    => $prices['exc_tax_price'],
 			'variation_detail' => $variation_detail,
 			'message'          => wp_strip_all_tags( $message )
 		];
@@ -214,7 +216,7 @@ class Quotations {
 			 * as we are not entering the new quantity variable
 			 */
 			$this->updateQuantity( $hash, $new_product['quantity'] );
-			$this->updatePrice( $hash, $new_product['price'] );
+			$this->updatePrice( $hash, $new_product );
 			return;
 		} else {
 			$products[ $hash ] = $new_product;
@@ -235,9 +237,16 @@ class Quotations {
 
 		if ( is_array( $products ) && count( $products ) > 0 ) {
 			if ( $price ) {
-				$products[ $hash ]['price'] = $products[ $hash ]['price'] + $price;
+				// $products[ $hash ]['price'] = $products[ $hash ]['price'] + $price;
+				$price = intval( $price );
+				$products[ $hash ]['regular_price'] = intval( $products[ $hash ]['regular_price'] ) + $price;
+				$products[ $hash ]['exc_tax_price'] = intval( $products[ $hash ]['exc_tax_price'] ) + $price;
+				$products[ $hash ]['inc_tax_price'] = intval( $products[ $hash ]['inc_tax_price'] ) + $price;
 			} else {
-				$products[ $hash ]['price'] = $products[ $hash ]['price'] + 1;
+				// $products[ $hash ]['price'] = $products[ $hash ]['price'] + 1;
+				$products[ $hash ]['regular_price'] = intval( $products[ $hash ]['regular_price'] ) + 1;
+				$products[ $hash ]['exc_tax_price'] = intval( $products[ $hash ]['exc_tax_price'] ) + 1;
+				$products[ $hash ]['inc_tax_price'] = intval( $products[ $hash ]['inc_tax_price'] ) + 1;
 			}
 		}
 
@@ -253,7 +262,7 @@ class Quotations {
 	public function getProducts() {
 		$products = [];
 
-		if ( isset( WC()->session ) ) {
+		if ( function_exists( 'WC' ) && isset( WC()->session ) ) {
 			$products = WC()->session->get( 'pqfw_products_quotations_list' );
 
 			if ( null === $products ) {

@@ -4,6 +4,6 @@ package.json
 package-lock.json
 phpcs.xml
 node_modules
-src
+./src
 .distignore
 appsero.json

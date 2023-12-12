@@ -20,61 +20,18 @@ defined( 'ABSPATH' ) || exit;
 class Product {
 
 	/**
-	 * Get product title.
-	 */
-	private function getTitle() {
-		return isset( $this->dataToSave['fullname'] ) ? sanitize_text_field( $this->dataToSave['fullname'] ) : __( 'Quotation', 'pqfw' );
-	}
-
-	/**
-	 * Get person name.
-	 */
-	private function getName() {
-		return isset( $this->dataToSave['fullname'] ) ? sanitize_text_field( $this->dataToSave['fullname'] ) : '';
-	}
-
-	/**
-	 * Get person email.
-	 */
-	private function getEmail() {
-		return isset( $this->dataToSave['email'] ) ? sanitize_email( $this->dataToSave['email'] ) : '';
-	}
-
-	/**
-	 * Get person phone number
-	 */
-	private function getPhone() {
-		return isset( $this->dataToSave['phone'] ) ? sanitize_text_field( $this->dataToSave['phone'] ) : '';
-	}
-
-	/**
-	 * Get quotation subject.
-	 */
-	private function getSubject() {
-		return isset( $this->dataToSave['subject'] ) ? sanitize_text_field( $this->dataToSave['subject'] ) : '';
-	}
-
-	/**
-	 * Get person message.
-	 */
-	private function getMessage() {
-		return isset( $this->dataToSave['comments'] ) ? sanitize_text_field( $this->dataToSave['comments'] ) : '';
-	}
-
-	/**
 	 * Prepare the product to save in db.
 	 *
 	 * @since 1.2.0
 	 */
-	public function prepare() {
-		$mappedProducts       = $this->mapProducts();
-		$unserializedProducts = unserialize( $mappedProducts );
+	public function prepare( $data_to_save ) {
+		$products = $this->mapProducts();
 
-		if ( empty( $unserializedProducts ) ) {
+		if ( empty( $products ) ) {
 			return false;
 		}
 
-		$arg        = $this->getAruguments();
+		$arg        = $this->get_arguments( $data_to_save );
 		$postID     = wp_insert_post( $arg );
 		$productsId = $this->getProductsID();
 
@@ -82,29 +39,30 @@ class Product {
 			return false;
 		}
 
-		update_post_meta( $postID, 'pqfw_products_info', $mappedProducts );
+		update_post_meta( $postID, 'pqfw_products_info', $products );
 		update_post_meta( $postID, 'pqfw_products_ids', $productsId );
 
 		return $postID;
 	}
 
 	/**
-	 * Prepare post arugments.
+	 * Prepare post arguments.
 	 *
 	 * @since 1.2.0
 	 */
-	private function getAruguments() {
+	private function get_arguments( $data ) {
 		$arg = [
-			'post_title'  => $this->getTitle(),
+			'post_title'  => isset( $data['full_name'] ) ? sanitize_text_field( $data['full_name'] ) : __( 'Untitled Quotation', 'pqfw' ),
 			'post_type'   => Admin::POST_TYPE,
 			'post_status' => 'publish',
 			'meta_input'  => [
-				'pqfw_customer_name'     => $this->getName(),
-				'pqfw_customer_email'    => $this->getEmail(),
-				'pqfw_customer_subject'  => $this->getSubject(),
-				'pqfw_customer_phone'    => $this->getPhone(),
-				'pqfw_subject'           => $this->getSubject(),
-				'pqfw_customer_comments' => $this->getMessage()
+				'pqfw_customer_name'     => isset( $data['full_name'] ) ? sanitize_text_field( $data['full_name'] ) : '',
+				'pqfw_customer_email'    => isset( $data['email'] ) ? sanitize_email( $data['email'] ) : '',
+				'pqfw_customer_subject'  => isset( $data['subject'] ) ? sanitize_text_field( $data['subject'] ) : '',
+				'pqfw_customer_phone'    => isset( $data['phone_mobile'] ) ? sanitize_text_field( $data['phone_mobile'] ) : '',
+				'pqfw_subject'           => isset( $data['subject'] ) ? sanitize_text_field( $data['subject'] ) : '',
+				'pqfw_customer_comments' => isset( $data['comments'] ) ? sanitize_text_field( $data['comments'] ) : '',
+				'pqfw_website_url'       => isset( $data['website_url'] ) ? sanitize_text_field( $data['website_url'] ) : ''
 			]
 		];
 
@@ -117,13 +75,16 @@ class Product {
 	 * @since 1.2.0
 	 */
 	public function mapProducts() {
-		$static_products = [];
+		$products = pqfw()->quotations->getProducts();
+		$result   = [];
+		$total_price_inc_tax = 0;
+		$total_price_exc_tax = 0;
 
-		foreach ( $this->products as $product ) {
-			$static_products[] = $this->filterFields( $product );
+		foreach ( $products as $product ) {
+			$result[] = $this->filterFields( $product, $total_price_inc_tax, $total_price_exc_tax );
 		}
 
-		return serialize( $static_products );
+		return $result;
 	}
 
 	/**
@@ -131,27 +92,34 @@ class Product {
 	 *
 	 * @since 1.2.0
 	 * @param array $product Product array.
-	 * @retrun               Returns product array with additional values.
+	 * @return               Returns product array with additional values.
 	 */
-	private function filterFields( $product ) {
+	private function filterFields( $product, &$total_price_inc_tax, &$total_price_exc_tax ) {
 		$obj       = wc_get_product( $product['id'] );
 		$permalink = $obj->get_permalink();
 		$imageID   = $obj->get_image_id();
 		$img       = wp_get_attachment_thumb_url( $imageID );
-		$price     = wp_strip_all_tags( wc_price( $product['price'] ) );
+		$regular_price     = wp_strip_all_tags( $product['regular_price'] );
+		$inc_tax_price     = wp_strip_all_tags( $product['inc_tax_price'] );
+		$exc_tax_price     = wp_strip_all_tags( $product['exc_tax_price'] );
+		$total_price_inc_tax += $inc_tax_price;
+		$total_price_exc_tax += $exc_tax_price;
 
 		$variation_id = ( false !== $product['variation'] ? (int) $product['variation'] : false );
 		$variation_detail = $this->variationDetail( $obj, $product['variation_detail'] );
 
 		return [
+			'id'               => $obj->ID,
 			'name'             => $obj->get_name(),
 			'img'              => $img,
 			'link'             => $permalink,
-			'price'            => $price,
+			'regular_price'    => $regular_price,
+			'inc_tax_price'    => $inc_tax_price,
+			'exc_tax_price'    => $exc_tax_price,
 			'variation'        => $variation_id,
 			'variation_detail' => $variation_detail,
 			'quantity'         => $product['quantity'],
-			'message'          => strip_tags( $product['message'] )
+			'message'          => wp_strip_all_tags( $product['message'] )
 		];
 	}
 
@@ -201,6 +169,6 @@ class Product {
 		$this->dataToSave = $dataToSave;
 		$this->products   = pqfw()->quotations->getProducts();
 
-		return $this->prepare();
+		return $this->prepare( $dataToSave );
 	}
 }
