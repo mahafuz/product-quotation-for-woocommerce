@@ -1,0 +1,9 @@
+export const CREATE_NEW_QUOTATION = 'create_new_quotation';
+export const UPDATE_QUOTATIONS = 'update_quotation';
+export const DELETE_QUOTATION = 'delete_quotation';
+export const FETCH_QUOTATIONS = 'fetch_quotation';
+export const FETCH_ALL_QUOTATIONS = 'fetch_all_quotations';
+export const UPDATE_CURRENT_PAGE = 'update_current_page';
+export const MOVE_TO_TRASH = 'move_to_trash';
+export const RESTORE_QUOTATIONS = 'restore_quotation';
+export const STATUS_UPDATE = 'status_update';

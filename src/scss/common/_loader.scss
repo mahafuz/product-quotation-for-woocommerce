@@ -1,0 +1,24 @@
+.pqfw-initial-preloader {
+    font-size: 30px;
+    text-align: center;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.pqfw-icon--spinner {
+	animation: rotating 2s linear infinite;
+}
+
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}

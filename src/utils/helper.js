@@ -1,0 +1,199 @@
+/* eslint-disable camelcase */
+
+import { __ } from '@wordpress/i18n';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
+
+let config = Object.assign( {}, window.PqfwGlobal );
+
+export const {
+	nonce,
+	pqfw_nonce,
+	rest_url,
+	ajaxurl,
+	namespace,
+	plugin_root_url,
+	plugin_root_path,
+	site_url,
+	route_path,
+	menu,
+	admin_url,
+	dashboard,
+	logout_url,
+	woocommerce_is_active,
+	current_user_id,
+	is_admin,
+	is_rtl,
+	addons,
+	current_user_can,
+	customize_url,
+	woo_store,
+	editor_settings,
+	login_url,
+	current_permalink,
+	toplevel_menu_icon_url,
+	toplevel_menu_title,
+	logo_url,
+	version,
+} = config;
+
+export const useQuery = () => {
+	return new URLSearchParams( useLocation().search );
+};
+
+export function getAjaxUrl() {
+	return config.ajaxurl;
+}
+
+export function getNonce() {
+	return config.nonce;
+}
+
+export function getSavedSettings() {
+	return config.settings;
+}
+
+export function getPages() {
+	return config.pages;
+}
+
+export function getCart( field = 'url' ) {
+	return config.cart?.url;
+}
+
+export const getAllAddons = () => {
+	if ( typeof addons != 'string' ) {
+		return addons;
+	}
+
+	return JSON.parse( addons );
+};
+
+export const getAddonActiveStatus = ( name, isPro = false ) => {
+	const allAddons = getAllAddons();
+
+	return allAddons?.[ name ] ?? false;
+};
+
+function getAddonInfo( name ) {
+	return [
+		{
+			label: __( 'Contact Form 7', 'pqfw' ),
+			name: 'contact-form-7',
+			is_pro: false,
+			required_plugin: true,
+			details: __(
+				'Use contact form 7 as quotation submission form.',
+				'pqfw'
+			),
+			icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
+			url: `${ admin_url }admin.php?page=forms`,
+			docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
+		},
+		{
+			label: __( 'WPForms', 'pqfw' ),
+			name: 'wpforms',
+			is_pro: false,
+			required_plugin: false,
+			details: __( 'Use WPForms as quotation submission form.', 'pqfw' ),
+			icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
+			url: `${ admin_url }admin.php?page=forms`,
+			docsUrl: `https://wpindiedev.xyz/docs/wpforms/`,
+		},
+	].find( ( item ) => name === item.name );
+}
+
+export const API = axios.create( {
+	baseURL: rest_url,
+	headers: {
+		'content-type': 'application/json',
+		'X-WP-Nonce': nonce,
+		'Cache-Control': 'no-cache', // Prevent caching
+	},
+} );
+
+export const makeRequest = async ( payload = {}, isRaw = false ) => {
+	let form_data = new FormData(); // eslint-disable-line
+	form_data.append( 'security', pqfw_nonce );
+	Object.entries( payload ).forEach( ( [ key, value ] ) => {
+		if ( ! isRaw && typeof value === 'object' && value !== null ) {
+			form_data.append( key, JSON.stringify( value ) );
+		} else {
+			form_data.append( key, value );
+		}
+	} );
+	return await axios.post( ajaxurl, form_data ).then(
+		( response ) => {
+			return response;
+		},
+		( error ) => {
+			fireNotify( error?.message, 'error' );
+			console.log( error ); // eslint-disable-line
+		}
+	);
+};
+
+export const fireNotify = ( message, type = '', position = 'top-right' ) => {
+	switch ( type ) {
+		case 'error':
+			return toast.error(
+				<div className="academy-toasts">
+					<div className="academy-toasts__icon">
+						<span className="academy-icon academy-icon--information academy-icon--information-error"></span>
+					</div>
+					<p className="academy-toasts-message">{ message }</p>
+				</div>,
+				{
+					position,
+					hideProgressBar: true,
+				}
+			);
+		case 'info':
+			return toast.info(
+				<div className="academy-toasts">
+					<div className="academy-toasts__icon">
+						<span className="academy-icon academy-icon--information"></span>
+					</div>
+					<p className="academy-toasts-message">{ message }</p>
+				</div>,
+				{
+					position,
+					hideProgressBar: true,
+				}
+			);
+		case 'warning':
+			return toast.warning(
+				<div className="academy-toasts">
+					<div className="academy-toasts__icon">
+						<span className="academy-icon academy-icon--notification"></span>
+					</div>
+					<p className="academy-toasts-message">{ message }</p>
+				</div>,
+				{
+					position,
+					hideProgressBar: true,
+				}
+			);
+		default:
+			return toast.success(
+				<div className="academy-toasts">
+					<div className="academy-toasts__icon">
+						<span className="academy-icon academy-icon--check"></span>
+					</div>
+					<p className="academy-toasts-message">{ message }</p>
+				</div>,
+				{
+					position,
+					hideProgressBar: true,
+				}
+			);
+	}
+};
+
+export const renderError = ( e ) => {
+	fireNotify(
+		e?.response?.data?.message ? e?.response?.data?.message : e?.message,
+		'error'
+	);
+};

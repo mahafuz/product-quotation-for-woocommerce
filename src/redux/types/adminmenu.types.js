@@ -1,0 +1,1 @@
+export const FETCH_ADMIN_MENU = 'fetch_admin_menu_items';

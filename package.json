@@ -22,17 +22,49 @@
     "type": "git",
     "url": "git+https://github.com/mahafuz/product-quotation-for-woocommerce.git"
   },
-  "author": "Mahafuz <m.mahfuz.me@gmail.com>",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
   },
   "homepage": "https://github.com/mahafuz/product-quotation-for-woocommerce#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^22.5.0"
+    "@babel/core": "^7.28.3",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@wordpress/eslint-plugin": "^22.14.0",
+    "@wordpress/scripts": "^30.21.0",
+    "autoprefixer": "^10.4.21",
+    "babel-loader": "^10.0.0",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "^54.1.0",
+    "mini-css-extract-plugin": "^2.9.4",
+    "node-sass": "^9.0.0",
+    "postcss-loader": "^8.1.1",
+    "sass": "^1.90.0",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.101.2",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@wordpress/components": "^19.9.0",
-    "react-toastify": "^8.2.0"
+    "@chakra-ui/icon": "^3.2.0",
+    "@chakra-ui/react": "^2.10.9",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@headwayapp/react-widget": "^0.0.4",
+    "@reduxjs/toolkit": "^2.8.2",
+    "@wordpress/i18n": "^6.1.0",
+    "framer-motion": "^12.23.12",
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.8.1",
+    "react-toastify": "^11.0.5"
   }
 }

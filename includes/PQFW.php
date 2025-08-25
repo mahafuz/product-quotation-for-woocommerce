@@ -63,7 +63,8 @@ namespace PQFW {
 		 */
 		private function includes() {
 			$dependencies = [
-				'autoload.php'
+				'autoload.php',
+				'functions.php',
 			];
 
 			foreach ( $dependencies as $path ) {
@@ -95,8 +96,13 @@ namespace PQFW {
 		 * @return void
 		 */
 		private function loader() {
+			$this->ajax            = new \PQFW\Ajax();
 			$this->helpers         = new \PQFW\Classes\Helpers();
 			$this->assets          = new \PQFW\Classes\Assets();
+			$this->menu            = new \PQFW\Classes\Menu();
+
+
+
 			$this->settings        = new \PQFW\Classes\Settings();
 			$this->form            = new \PQFW\Classes\Form();
 			$this->admin           = new \PQFW\Classes\Admin();
@@ -110,6 +116,9 @@ namespace PQFW {
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();
 			$this->strings         = new \PQFW\Classes\Strings();
+
+
+			$this->addons = new \PQFW\Addons;
 
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );
