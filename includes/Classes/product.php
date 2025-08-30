@@ -68,7 +68,7 @@ class Product {
 	 */
 	public function prepare() {
 		$mappedProducts       = $this->mapProducts();
-		$unserializedProducts = unserialize( $mappedProducts );
+		$unserializedProducts = maybe_unserialize( $mappedProducts );
 
 		if ( empty( $unserializedProducts ) ) {
 			return false;
@@ -82,7 +82,7 @@ class Product {
 			return false;
 		}
 
-		update_post_meta( $postID, 'pqfw_products_info', $mappedProducts );
+		update_post_meta( $postID, 'pqfw_products_info', $unserializedProducts );
 		update_post_meta( $postID, 'pqfw_products_ids', $productsId );
 
 		return $postID;
@@ -123,7 +123,7 @@ class Product {
 			$static_products[] = $this->filterFields( $product );
 		}
 
-		return serialize( $static_products );
+		return $static_products;
 	}
 
 	/**

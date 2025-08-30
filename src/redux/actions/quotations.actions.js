@@ -3,38 +3,28 @@ import {
 	current_user_can,
 	current_user_id,
 	fireNotify,
-	namespace,
 	is_admin,
 	renderError,
+	makeRequest,
 } from '@Utils/helper';
 
 import {
-	CREATE_NEW_QUOTATION,
 	DELETE_QUOTATION,
 	FETCH_ALL_QUOTATIONS,
 	FETCH_QUOTATION,
-	UPDATE_QUOTATION,
 	UPDATE_CURRENT_PAGE,
 	MOVE_TO_TRASH,
 	RESTORE_QUOTATION,
-	STATUS_UPDATE,
 } from '@Redux/types/quotations.types';
 
 import { __ } from '@wordpress/i18n';
 import { ajaxurl } from '@Utils/helper';
 
-export const createNewQuotation = (courseFormData) => async (dispatch) => { };
-export const getQuotation = (ID) => async (dispatch) => { };
-export const updateQuotation = (courseFormData) => async (dispatch) => { };
-export const deleteQuotation = (params) => async (dispatch) => { };
-export const moveQuotationToTrash = (params) => async (dispatch) => { };
-export const restoreQuotation = (courseFormData) => async (dispatch) => { };
-export const quotationStatusUpdate = (courseFormData) => async (dispatch) => { };
-
-export const fetchAllQuotations = (status = 'publish', page = 1, per_page = 10, search = '') =>
+export const fetchAllQuotations =
+	(status = 'publish', page = 1, per_page = 10, search = '') =>
 	async (dispatch) => {
 		let params = {
-			action: 'pqfw_get_quotations',
+			action: 'quotify/ajax/load',
 			status: status === 'all' ? 'any' : status,
 			page,
 			per_page,
@@ -56,16 +46,16 @@ export const fetchAllQuotations = (status = 'publish', page = 1, per_page = 10, 
 		return await API.get(ajaxurl, {
 			params,
 		}).then(
-			(res) => {
+			(response) => {
 				dispatch({
 					type: FETCH_ALL_QUOTATIONS,
 					payload: {
-						data: res.data,
-						totalItems: parseInt(res.headers['x-wp-total']),
+						data: response?.data?.data,
+						totalItems: parseInt(response.headers['x-wp-total']),
 						status,
 					},
 				});
-				return res;
+				return response;
 			},
 			(e) => {
 				renderError(e);
@@ -77,5 +67,88 @@ export const updateCurrentPage = (page) => (dispatch) => {
 	dispatch({
 		type: UPDATE_CURRENT_PAGE,
 		payload: page,
+	});
+};
+
+export const getQuote = (id) => async (dispatch) => {
+	return await API.get(ajaxurl, {
+		params: {
+			action: 'quotify/quotation/get',
+			id,
+		},
+	}).then(
+		(response) => {
+			dispatch({
+				type: FETCH_QUOTATION,
+				payload: {
+					quotation: response?.data?.data,
+				},
+			});
+
+			return response;
+		},
+		(e) => {
+			renderError(e);
+		}
+	);
+};
+
+export const moveQuoteToTrash = (id) => async (dispatch) => {
+	makeRequest({
+		action: 'quotify/quotations/delete',
+		id,
+		force: false,
+	}).then((response) => {
+		if (response.data?.success) {
+			dispatch({
+				type: MOVE_TO_TRASH,
+				payload: response.data,
+			});
+
+			fireNotify(__(`Moved to Trash!`, 'quotify'), 'success');
+		} else {
+			renderError(e);
+		}
+	});
+};
+
+export const deleteQuote = (id) => async (dispatch) => {
+	makeRequest({
+		action: 'quotify/quotations/delete',
+		id,
+		force: true,
+	}).then((response) => {
+		console.log('response', response);
+		if (response.data?.success) {
+			dispatch({
+				type: DELETE_QUOTATION,
+				payload: response.data,
+			});
+
+			fireNotify(__(`Quotation Deleted!`, 'quotify'), 'success');
+		} else {
+			renderError(e);
+		}
+	});
+};
+
+export const restoreQuote = (params) => async (dispatch) => {
+	makeRequest({
+		action: 'quotify/quotations/restore',
+		id: params.id,
+	}).then((response) => {
+		if (response.data?.success) {
+			dispatch({
+				type: RESTORE_QUOTATION,
+				payload: response.data,
+			});
+
+			fireNotify(
+				__(`Quotation restored successfully!`, 'quotify'),
+				'success'
+			);
+		} else {
+			renderError(e);
+		}
 	});
 };

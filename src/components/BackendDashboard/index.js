@@ -1,4 +1,5 @@
 import Quotations from "@Containers/Quotations";
+import ViewQuotation from "@Containers/ViewQuotation";
 import Addons from "@Containers/Addons";
 
 import Navbar from "@Components/Navbar";
@@ -6,11 +7,17 @@ import Settings from "@Components/Settings";
 import PopupNotification from "@Components/PopupNotification";
 
 import { useQuery } from "@Utils/helper";
-import { Container } from "@chakra-ui/react";
 
 const renderSwitch = (page, id, action, path) => {
+    console.log('id', id);
+    console.log('action', action);
+    console.log('page', page);
+
     switch (page) {
         case "pqfw-product-quotations":
+            if ( id && 'view' === action ) {
+               return <ViewQuotation id={id} />; 
+            }
             return <Quotations />;
         case "pqfw-product-quotations-addons":
             return <Addons />;
@@ -30,14 +37,14 @@ export default function BackendDashboard() {
         <>
             <Navbar />
             <PopupNotification icon={false} hideProgressBar={true} />
-            <Container fluid maxW={`95%`}>
+            {/* <Container fluid maxW={`95%`}> */}
                 {renderSwitch(
                     query.get("page"),
                     parseInt(query.get("id")),
                     query.get("action"),
                     query.get("path")
                 )}
-            </Container>
+            {/* </Container> */}
         </>
     );
 }

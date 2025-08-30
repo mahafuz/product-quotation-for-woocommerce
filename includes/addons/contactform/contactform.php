@@ -19,6 +19,7 @@ class Contactform implements Addon {
 	public function get_metadata() {
 		$metadata = file_get_contents( PQFW_CF7_DIR_PATH . 'metadata.json' );
 	}
+
 	public static function init() {
 		static $instance = false;
 
@@ -43,11 +44,14 @@ class Contactform implements Addon {
 		// fire addon activation hook
 		add_action( "pqfw/addons/activated_{$this->addon_name}", array( $this, 'addon_activation_hook' ) );
 
-		// if disable then stop running addons
-		if ( ! pqfw()->helpers->get_addon_active_status( $this->addon_name ) ) {
-			return;
-		}
+		// var_dump( pqfw()->helpers->get_addon_active_status( $this->addon_name ) );
 
+		// if disable then stop running addons
+		// if ( ! pqfw()->helpers->get_addon_active_status( $this->addon_name ) ) {
+		// 	return;
+		// }
+
+		Knot::init();
 		// Database::init();
 		// API::init();
 		// Ajax::init();

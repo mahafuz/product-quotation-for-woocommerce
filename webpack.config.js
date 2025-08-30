@@ -8,6 +8,8 @@ const config = {
 	...defaultConfig,
 	entry: {
 		backend: path.resolve(__dirname, 'src/backend.js'),
+		button: path.resolve(__dirname, 'src/button.js'),
+		cart: path.resolve(__dirname, 'src/cart.js'),
 	},
 	output: {
 		filename: `[name].${PRODUCT_QUOTATION_VERSION}.js`,

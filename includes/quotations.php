@@ -1,12 +1,14 @@
 <?php
+
 /**
- * Responsible for handling quotations operations.
+ * PQFW class
  *
- * @since 1.0.0
- * @package PQFW
+ * @author      Mahafuz
+ * @package     PQFW
+ * @since       1.2.0
  */
 
-namespace PQFW\Classes;
+namespace PQFW; 
 
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
@@ -75,7 +77,7 @@ class Quotations {
 	 * @param  array   $variationDetails The variation detail.
 	 * @return string                    Generated hash.
 	 */
-	private function generateHash( $id, $variationDetails ) {
+	private function generateHash( $id, $variationDetails = '' ) {
 		$value = '';
 
 		if ( is_array( $variationDetails ) && count( $variationDetails ) > 0 ) {
@@ -254,10 +256,7 @@ class Quotations {
 		$products = [];
 
 		if ( isset( WC()->session ) ) {
-
-			if ( null === $products ) {
-				return [];
-			}
+			$products = WC()->session->get('pqfw_products_quotations_list');
 		}
 
 		return $products;

@@ -19,8 +19,9 @@
 			</thead>
 			<tbody id="pqfw-quotations-list-row"></tbody>
 		</table>
-
-		<!-- Put form here. -->
-		<?php pqfw()->form->form(); ?>
 	</form>
+
+	<?php
+		do_action( 'quotify/templates/cart/form' );
+	?>
 </div>

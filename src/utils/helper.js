@@ -115,7 +115,7 @@ export const API = axios.create( {
 
 export const makeRequest = async ( payload = {}, isRaw = false ) => {
 	let form_data = new FormData(); // eslint-disable-line
-	form_data.append( 'security', pqfw_nonce );
+	form_data.append( 'security', PqfwGlobal.pqfw_nonce);
 	Object.entries( payload ).forEach( ( [ key, value ] ) => {
 		if ( ! isRaw && typeof value === 'object' && value !== null ) {
 			form_data.append( key, JSON.stringify( value ) );
@@ -196,4 +196,46 @@ export const renderError = ( e ) => {
 		e?.response?.data?.message ? e?.response?.data?.message : e?.message,
 		'error'
 	);
+};
+
+export const variationAlert = () => {
+	if ( jQuery('.variation_id').length > 0 && jQuery('.variation_id').val() == '' || jQuery('.variation_id').val() == 0 ) {
+		alert('Variation not selected');
+		return false;
+	}
+	return true;
+}
+
+export const getVariationDetails = () => {
+	var variation  = jQuery("form.variations_form input[name='variation_id']").val(),
+		details    = {};
+
+	if (typeof variation != "undefined" && variation != 0) {
+		jQuery('select[name^=attribute_]').each(function (ind, obj) {
+			details[jQuery(this).attr('name')] = jQuery(this).val();
+		});
+	}
+
+	if (jQuery.isEmptyObject(details)) {
+		return 0;
+	}
+
+	return details;
+}
+
+export const getVariationID = () => {
+	const variation = jQuery("form.variations_form input[name='variation_id']").val();
+	return typeof variation != "undefined" && variation != 0 ? parseInt(variation) : 0;
+}
+
+export const getQuantity = () => {
+	var quantity = jQuery('form.cart input[name="quantity"]').val();
+	return typeof quantity != "undefined" ? quantity : 1;
+}
+
+export const sliceString = (text, length = 20, more = '...') => {
+	if (!text || text.length < length) {
+		return text;
+	}
+	return text.slice(0, length).replace(/(^[\s]+|[\s]+$)/g, '') + more;
 };

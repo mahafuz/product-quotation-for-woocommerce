@@ -11,11 +11,11 @@
         init: function() {
             this.initialize();
 
-            $(document)
-				.on('click', '.pqfw-add-to-quotation-single', function (ev) {
-				ev.preventDefault();
-				pqfwCart.sendData(this);
-			});
+            // $(document)
+			// 	.on('click', '.pqfw-add-to-quotation-single', function (ev) {
+			// 	ev.preventDefault();
+			// 	pqfwCart.sendData(this);
+			// });
 
             $(document).on('click', '.pqfw-remove-product', function () {
                 var $hash = $(this).data( 'id' );
@@ -46,10 +46,10 @@
             pqfwCart.showLoader();
 
             wp.ajax.send(
-                'pqfw_load_cart_data',
+                'quotify/ajax/cart/load',
                 {
                     data : {
-                        nonce : PQFW_OBJECT.nonce
+                        nonce : PqfwGlobal.cart_nonce
                     },
                     success : function( response ) {
                         pqfwCart.dataLoaded(response);
@@ -72,7 +72,7 @@
                             variationID      : pqfwCart.getVariationID(),
                             variationDetails : pqfwCart.getVariationDetails(),
                             quantity         : pqfwCart.getQuantity(),
-                            nonce            : PQFW_OBJECT.nonce
+                            nonce            : PqfwGlobal.cart_nonce
                         },
                         success : function( response ) {
                             pqfwCart.addToQuotationCart(button);
@@ -137,12 +137,12 @@
             this.visibleForm(response.products);
         },
         hideLoader: function () {
-            $('#pqfw-quotations-list-row').unblock();
+            // $('#pqfw-quotations-list-row').unblock();
         },
         showLoader: function() {
-            $('#pqfw-quotations-list-row').block({
-                message: ''
-            });
+            // $('#pqfw-quotations-list-row').block({
+            //     message: ''
+            // });
             // $('#pqfw-quotations-list-row').block({
             //     message: '<img src="' + PQFW_OBJECT.loader + '" />',
             //     css: {
@@ -167,7 +167,7 @@
                 {
                     data : {
                         hash  : $hash,
-                        nonce : PQFW_OBJECT.nonce
+                        nonce : PqfwGlobal.cart_nonce
                     },
                     success : function( response ) {
                         pqfwCart.dataLoaded(response);
@@ -189,11 +189,11 @@
             pqfwCart.showLoader();
 
             wp.ajax.send(
-                'pqfw_update_products',
+                'quotify/ajax/cart/update',
                 {
                     data    : {
                         products : products,
-                        nonce    : PQFW_OBJECT.nonce
+                        nonce    : PqfwGlobal.cart_nonce
                     },
                     success : function( response ) {
                         pqfwCart.dataLoaded(response);

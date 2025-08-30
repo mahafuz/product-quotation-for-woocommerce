@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Grid } from '@chakra-ui/react';
 
@@ -25,17 +24,7 @@ const addonsInfo = [
 		icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
 		url: `${ admin_url }admin.php?page=forms`,
 		docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
-	},
-	{
-		label: __( 'WPForms', 'pqfw' ),
-		name: 'wpforms',
-		is_pro: false,
-		required_plugin: false,
-		details: __( 'Use WPForms as quotation submission form.', 'pqfw' ),
-		icon: 'https://ps.w.org/wpforms-lite/assets/icon.svg',
-		url: `${ admin_url }admin.php?page=forms`,
-		docsUrl: `https://wpindiedev.xyz/docs/wpforms/`,
-	},
+	}
 ];
 
 export default function index() {

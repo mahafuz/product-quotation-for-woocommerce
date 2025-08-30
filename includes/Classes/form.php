@@ -41,6 +41,7 @@ class Form {
 		add_action( $this->quotationButtonPosition, [ $this, 'addButton' ] );
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_stuffs' ] );
+		add_action( 'quotify/templates/cart/form', [$this, 'form'] );
 	}
 
 	/**
@@ -54,12 +55,6 @@ class Form {
 			'pqfw-frontend',
 			PQFW_PLUGIN_URL . 'assets/js/pqfw-frontend.js',
 			[ 'jquery' ], '1.0.0', true
-		);
-
-		wp_enqueue_script(
-			'pqfw-quotation-cart',
-			PQFW_PLUGIN_URL . 'assets/js/pqfw-cart.js',
-			[ 'jquery', 'wp-util' ], '1.0.0', true
 		);
 
 		$cartPageId = get_option( 'pqfw_quotations_cart', false );

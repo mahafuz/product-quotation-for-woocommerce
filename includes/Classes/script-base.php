@@ -16,28 +16,21 @@ class Script_Base {
 
 		return array(
 			'nonce'                 => wp_create_nonce( 'wp_rest' ),
-			'pqfw_nonce'         => wp_create_nonce( 'pqfw_nonce' ),
+			'pqfw_nonce'            => wp_create_nonce( 'pqfw_nonce' ),
+			'cart_nonce'            => wp_create_nonce( 'pqfw_cart_actions' ),
 			'rest_url'              => esc_url_raw( rest_url() ),
 			'namespace'             => PQFW_PLUGIN_ROOT_URI . '/v1/',
-			'plugin_root_url'       => PQFW_PLUGIN_ROOT_URI,
-			'plugin_root_path'      => PQFW_PLUGIN_ROOT_DIR_PATH,
 			'ajaxurl'               => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'admin_url'             => admin_url(),
 			'site_url'              => site_url(),
 			'route_path'            => wp_parse_url( admin_url(), PHP_URL_PATH ),
 			'menu'                  => wp_json_encode( Menu::getList() ),
 			'woocommerce_is_active' => Helpers::isWoocommerceActive(),
 			'current_user_id'       => get_current_user_id(),
 			'is_rtl'                => is_rtl(),
-			'is_admin'              => is_admin(),
-			'addons'                => \PQFW\Addons::get_saved(),
 			'current_user_can'      => [
 				'manage_options'            => current_user_can( 'manage_options' ),
-				'manage_academy_instructor' => current_user_can( 'manage_academy_instructor' ),
-				'publish_academy_courses'   => current_user_can( 'publish_academy_courses' ),
 				'manage_categories'         => current_user_can( 'manage_categories' ),
 			],
-			'editor_settings'        => $this->get_isolated_gutenberg_settings(),
 			'toplevel_menu_icon_url' => Menu::get_toplevel_menu_icon_url(),
 			'toplevel_menu_title'    => Menu::get_toplevel_menu_title(),
 			'logo_url'               => Menu::get_logo_url(),
@@ -155,8 +148,38 @@ class Script_Base {
 		);
 	}
 
+	public function get_frontend_scripts_data() {
+		$site_url = site_url();
+		$args = array();
+
+		return apply_filters(
+			'pqfw/assets/frontend_scripts_data',
+			array_merge(
+				[
+					'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+					'nonce'    => wp_create_nonce( 'pqfw-frontend' ),
+					'pages'    => pqfw()->helpers->getPages(),
+					'cart'     => [
+						'id'  => pqfw()->helpers->getCart(),
+						'url' => trim( pqfw()->helpers->getCart( 'url' ), $site_url )
+					],
+					'route_path' => wp_parse_url( $site_url, PHP_URL_PATH ),
+					'current_permalink' => esc_url( get_permalink() ),
+				],
+				$this->get_scripts_data(),
+				$args
+			)
+		);
+	}
+
 	public function get_backend_scripts_data() {
 		$args = array(
+			'plugin_root_url'       => PQFW_PLUGIN_ROOT_URI,
+			'plugin_root_path'      => PQFW_PLUGIN_ROOT_DIR_PATH,
+			'admin_url'             => admin_url(),
+			'is_admin'              => is_admin(),
+			'addons'                => \PQFW\Addons::get_saved(),
+			'editor_settings'        => $this->get_isolated_gutenberg_settings(),
 		);
 		return apply_filters(
 			'pqfw/assets/backend_scripts_data',

@@ -86,6 +86,7 @@ namespace PQFW {
 		 */
 		private function preLoad() {
 			$this->migration = new \PQFW\Classes\Migration();
+			add_action( 'woocommerce_init', [ $this, 'sessionStart' ] );
 		}
 
 
@@ -100,6 +101,7 @@ namespace PQFW {
 			$this->helpers         = new \PQFW\Classes\Helpers();
 			$this->assets          = new \PQFW\Classes\Assets();
 			$this->menu            = new \PQFW\Classes\Menu();
+			$this->quotations      = new \PQFW\Quotations();
 
 
 
@@ -107,9 +109,7 @@ namespace PQFW {
 			$this->form            = new \PQFW\Classes\Form();
 			$this->admin           = new \PQFW\Classes\Admin();
 			$this->cart            = new \PQFW\Classes\Cart();
-			$this->request         = new \PQFW\Classes\Request();
 			$this->form_handler    = new \PQFW\Classes\Form_Handler();
-			$this->quotations      = new \PQFW\Classes\Quotations();
 			$this->shortcode       = new \PQFW\Classes\Shortcode();
 			$this->frontend        = new \PQFW\Classes\Frontend();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
@@ -126,10 +126,20 @@ namespace PQFW {
 
 			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
 			add_action( 'admin_init', [ $this, 'redirect' ] );
-			add_action( 'woocommerce_init', [ $this, 'sessionStart' ] );
+
+			add_action( 'quotify/templates/form', array( $this, 'display_form' ) );
+
+
 
 			// Initialize the integrations.
 			$this->integrations();
+		}
+
+		public function display_form() {
+			$source = 'contact-form-7';
+			$form_id = '1';
+
+			echo do_shortcode('[contact-form-7 id="9d86c9d" title="Contact form 1"]');
 		}
 
 		/**
@@ -214,6 +224,7 @@ namespace PQFW {
 		 * @since 2.0.3
 		 */
 		public function sessionStart() {
+			// d( isset( WC()->session ) );
 			if ( isset( WC()->session ) ) {
 				WC()->session->set_customer_session_cookie( true );
 			}

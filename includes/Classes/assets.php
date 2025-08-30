@@ -63,7 +63,24 @@ class Assets extends \PQFW\Classes\Script_Base {
 	 * @since 2.0.3
 	 */
 	public function enqueueFrontendScripts() {
+		wp_enqueue_script(
+			'pqfw-quotation-button',
+			PQFW_PLUGIN_ASSETS . sprintf( 'build/button.%s.js', PQFW_PLUGIN_VERSION ),
+			[ 'wp-util' ],
+			PQFW_PLUGIN_VERSION,
+			true
+		);
 
+
+		wp_enqueue_script(
+			'pqfw-quotation-cart',
+			PQFW_PLUGIN_ASSETS . sprintf( 'build/cart.%s.js', PQFW_PLUGIN_VERSION ),
+			[ 'wp-util', 'jquery' ],
+			PQFW_PLUGIN_VERSION,
+			true
+		);
+
+		wp_localize_script( 'pqfw-quotation-cart', 'PqfwGlobal', $this->get_frontend_scripts_data() );
 	}
 
 	/**
