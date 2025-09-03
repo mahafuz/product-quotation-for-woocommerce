@@ -1,4 +1,15 @@
 <?php
+/**
+ * PQFW class
+ *
+ * @author      Mahafuz
+ * @package     PQFW
+ * @since       1.2.0
+ */
+
+namespace PQFW\Ajax;
+
+use WP_Query;
 
 /**
  * PQFW class
@@ -7,12 +18,8 @@
  * @package     PQFW
  * @since       1.2.0
  */
-namespace PQFW\Ajax;
-
-use WP_Query;
-
 class Quotations {
-	
+
 
 	/**
 	 * Initialize ajax actions.
@@ -85,7 +92,7 @@ class Quotations {
 			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
 		}
 
-		$post = get_post( $id, ARRAY_A, 'display');
+		$post = get_post( $id, ARRAY_A, 'display' );
 
 		if ( is_wp_error( $post ) ) {
 			return $post;
@@ -93,30 +100,30 @@ class Quotations {
 
 		$post = [
 			'ID'            => $post->ID,
-			'title'         => get_the_title($post),
-			'content'       => apply_filters('the_content', $post->post_content),
-			'excerpt'       => get_the_excerpt($post),
-			'date'          => get_the_date('', $post),
-			'modified_date' => get_the_modified_date('', $post),
+			'title'         => get_the_title( $post ),
+			'content'       => apply_filters( 'the_content', $post->post_content ),
+			'excerpt'       => get_the_excerpt( $post ),
+			'date'          => get_the_date( '', $post ),
+			'modified_date' => get_the_modified_date( '', $post ),
 			'slug'          => $post->post_name,
 			'status'        => $post->post_status,
 			'type'          => $post->post_type,
-			'author'        => get_the_author_meta( 'display_name', $post->post_author),
-			'permalink'     => get_permalink($post),
+			'author'        => get_the_author_meta( 'display_name', $post->post_author ),
+			'permalink'     => get_permalink( $post ),
 		];
 
 		$meta = get_post_meta( $id );
-		
-		$meta = array_map(function( $item ) {
+
+		$meta = array_map(function ( $item ) {
 			$item = array_shift( $item );
-			return  maybe_unserialize( $item );
+			return maybe_unserialize( $item );
 		}, $meta );
 
 		$quotation = array_merge( $post, $meta );
-		
+
 		wp_send_json_success([
 			'message'   => __( 'Quotation fetched successfully.', 'quotify' ),
-			'quotation' => $quotation
+			'quotation' => $quotation,
 		]);
 	}
 
@@ -129,7 +136,7 @@ class Quotations {
 
 		$force = isset( $_POST['force'] ) ? wp_validate_boolean( $_POST['force'] ) : false;
 		$id = json_decode( wp_unslash( $_POST['id'] ), true );
-		$id    = ! empty( $id['ID'] ) ?  absint( $id['ID'] ): 0;
+		$id    = ! empty( $id['ID'] ) ? absint( $id['ID'] ) : 0;
 
 		if ( ! $id ) {
 			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
@@ -140,15 +147,15 @@ class Quotations {
 
 			wp_send_json_success([
 				'message' => __( 'Quotation permanently deleted!', 'quotify' ),
-				'post'    => $post
+				'post'    => $post,
 			]);
 		} else {
 			$trashed_post = wp_trash_post( $id );
 
-			wp_send_json_success(array(
+			wp_send_json_success([
 				'message'   => __( 'Quotation Moved to Trash!', 'quotify' ),
-				'quotation' => $trashed_post
-			));
+				'quotation' => $trashed_post,
+			]);
 		}
 	}
 
@@ -158,7 +165,7 @@ class Quotations {
 			wp_die();
 		}
 
-		$id = ! empty( $_POST['id'] ) ?  absint( $_POST['id'] ): 0;
+		$id = ! empty( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 
 		if ( ! $id ) {
 			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
@@ -166,10 +173,9 @@ class Quotations {
 
 		$post = wp_untrash_post( $id );
 
-		wp_send_json_success(array(
+		wp_send_json_success([
 			'message'   => __( 'Quotation Moved to Trash!', 'quotify' ),
-			'quotation' => $post
-		));
+			'quotation' => $post,
+		]);
 	}
-
 }

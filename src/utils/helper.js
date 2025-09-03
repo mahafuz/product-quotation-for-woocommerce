@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 
-let config = Object.assign( {}, window.PqfwGlobal );
+let config = Object.assign({}, window.PqfwGlobal);
 
 export const {
 	nonce,
@@ -39,7 +39,7 @@ export const {
 } = config;
 
 export const useQuery = () => {
-	return new URLSearchParams( useLocation().search );
+	return new URLSearchParams(useLocation().search);
 };
 
 export function getAjaxUrl() {
@@ -58,28 +58,28 @@ export function getPages() {
 	return config.pages;
 }
 
-export function getCart( field = 'url' ) {
+export function getCart(field = 'url') {
 	return config.cart?.url;
 }
 
 export const getAllAddons = () => {
-	if ( typeof addons != 'string' ) {
+	if (typeof addons != 'string') {
 		return addons;
 	}
 
-	return JSON.parse( addons );
+	return JSON.parse(addons);
 };
 
-export const getAddonActiveStatus = ( name, isPro = false ) => {
+export const getAddonActiveStatus = (name, isPro = false) => {
 	const allAddons = getAllAddons();
 
-	return allAddons?.[ name ] ?? false;
+	return allAddons?.[name] ?? false;
 };
 
-function getAddonInfo( name ) {
+function getAddonInfo(name) {
 	return [
 		{
-			label: __( 'Contact Form 7', 'pqfw' ),
+			label: __('Contact Form 7', 'pqfw'),
 			name: 'contact-form-7',
 			is_pro: false,
 			required_plugin: true,
@@ -88,61 +88,61 @@ function getAddonInfo( name ) {
 				'pqfw'
 			),
 			icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
-			url: `${ admin_url }admin.php?page=forms`,
+			url: `${admin_url}admin.php?page=forms`,
 			docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
 		},
 		{
-			label: __( 'WPForms', 'pqfw' ),
+			label: __('WPForms', 'pqfw'),
 			name: 'wpforms',
 			is_pro: false,
 			required_plugin: false,
-			details: __( 'Use WPForms as quotation submission form.', 'pqfw' ),
+			details: __('Use WPForms as quotation submission form.', 'pqfw'),
 			icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
-			url: `${ admin_url }admin.php?page=forms`,
+			url: `${admin_url}admin.php?page=forms`,
 			docsUrl: `https://wpindiedev.xyz/docs/wpforms/`,
 		},
-	].find( ( item ) => name === item.name );
+	].find((item) => name === item.name);
 }
 
-export const API = axios.create( {
+export const API = axios.create({
 	baseURL: rest_url,
 	headers: {
 		'content-type': 'application/json',
 		'X-WP-Nonce': nonce,
 		'Cache-Control': 'no-cache', // Prevent caching
 	},
-} );
+});
 
-export const makeRequest = async ( payload = {}, isRaw = false ) => {
+export const makeRequest = async (payload = {}, isRaw = false) => {
 	let form_data = new FormData(); // eslint-disable-line
-	form_data.append( 'security', PqfwGlobal.pqfw_nonce);
-	Object.entries( payload ).forEach( ( [ key, value ] ) => {
-		if ( ! isRaw && typeof value === 'object' && value !== null ) {
-			form_data.append( key, JSON.stringify( value ) );
+	form_data.append('security', PqfwGlobal.pqfw_nonce);
+	Object.entries(payload).forEach(([key, value]) => {
+		if (!isRaw && typeof value === 'object' && value !== null) {
+			form_data.append(key, JSON.stringify(value));
 		} else {
-			form_data.append( key, value );
+			form_data.append(key, value);
 		}
-	} );
-	return await axios.post( ajaxurl, form_data ).then(
-		( response ) => {
+	});
+	return await axios.post(ajaxurl, form_data).then(
+		(response) => {
 			return response;
 		},
-		( error ) => {
-			fireNotify( error?.message, 'error' );
-			console.log( error ); // eslint-disable-line
+		(error) => {
+			fireNotify(error?.message, 'error');
+			console.log(error); // eslint-disable-line
 		}
 	);
 };
 
-export const fireNotify = ( message, type = '', position = 'top-right' ) => {
-	switch ( type ) {
+export const fireNotify = (message, type = '', position = 'top-right') => {
+	switch (type) {
 		case 'error':
 			return toast.error(
 				<div className="academy-toasts">
 					<div className="academy-toasts__icon">
 						<span className="academy-icon academy-icon--information academy-icon--information-error"></span>
 					</div>
-					<p className="academy-toasts-message">{ message }</p>
+					<p className="academy-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -155,7 +155,7 @@ export const fireNotify = ( message, type = '', position = 'top-right' ) => {
 					<div className="academy-toasts__icon">
 						<span className="academy-icon academy-icon--information"></span>
 					</div>
-					<p className="academy-toasts-message">{ message }</p>
+					<p className="academy-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -168,7 +168,7 @@ export const fireNotify = ( message, type = '', position = 'top-right' ) => {
 					<div className="academy-toasts__icon">
 						<span className="academy-icon academy-icon--notification"></span>
 					</div>
-					<p className="academy-toasts-message">{ message }</p>
+					<p className="academy-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -181,7 +181,7 @@ export const fireNotify = ( message, type = '', position = 'top-right' ) => {
 					<div className="academy-toasts__icon">
 						<span className="academy-icon academy-icon--check"></span>
 					</div>
-					<p className="academy-toasts-message">{ message }</p>
+					<p className="academy-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -191,7 +191,7 @@ export const fireNotify = ( message, type = '', position = 'top-right' ) => {
 	}
 };
 
-export const renderError = ( e ) => {
+export const renderError = (e) => {
 	fireNotify(
 		e?.response?.data?.message ? e?.response?.data?.message : e?.message,
 		'error'
@@ -199,18 +199,41 @@ export const renderError = ( e ) => {
 };
 
 export const variationAlert = () => {
-	if ( jQuery('.variation_id').length > 0 && jQuery('.variation_id').val() == '' || jQuery('.variation_id').val() == 0 ) {
+	if (
+		(jQuery('.variation_id').length > 0 &&
+			jQuery('.variation_id').val() == '') ||
+		jQuery('.variation_id').val() == 0
+	) {
 		alert('Variation not selected');
 		return false;
 	}
 	return true;
-}
+};
+
+export const viewQuotationCart = (button) => {
+	const $ = jQuery;
+	const url = PqfwGlobal?.cart?.url;
+	const btnLabel = 'View Quotation Cart';
+
+	if (url != false) {
+		$('.pqfw-view-quotation-cart').remove();
+		$(button).after(
+			'<a class="pqfw-view-quotation-cart"  href="' +
+				url +
+				'">' +
+				btnLabel +
+				'</a>'
+		);
+	}
+};
 
 export const getVariationDetails = () => {
-	var variation  = jQuery("form.variations_form input[name='variation_id']").val(),
-		details    = {};
+	var variation = jQuery(
+			"form.variations_form input[name='variation_id']"
+		).val(),
+		details = {};
 
-	if (typeof variation != "undefined" && variation != 0) {
+	if (typeof variation != 'undefined' && variation != 0) {
 		jQuery('select[name^=attribute_]').each(function (ind, obj) {
 			details[jQuery(this).attr('name')] = jQuery(this).val();
 		});
@@ -221,17 +244,21 @@ export const getVariationDetails = () => {
 	}
 
 	return details;
-}
+};
 
 export const getVariationID = () => {
-	const variation = jQuery("form.variations_form input[name='variation_id']").val();
-	return typeof variation != "undefined" && variation != 0 ? parseInt(variation) : 0;
-}
+	const variation = jQuery(
+		"form.variations_form input[name='variation_id']"
+	).val();
+	return typeof variation != 'undefined' && variation != 0
+		? parseInt(variation)
+		: 0;
+};
 
 export const getQuantity = () => {
 	var quantity = jQuery('form.cart input[name="quantity"]').val();
-	return typeof quantity != "undefined" ? quantity : 1;
-}
+	return typeof quantity != 'undefined' ? quantity : 1;
+};
 
 export const sliceString = (text, length = 20, more = '...') => {
 	if (!text || text.length < length) {

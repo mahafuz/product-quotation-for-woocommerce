@@ -48,7 +48,7 @@ class Cart {
 				<td class="product-thumbnail pqfw-thumbnail">
 					<?php
 						$thumbnail = $this->getThumbnail( $product['id'], $product['variation'] );
-						printf( '<a href="%s">%s</a>', esc_url( $permalink ), esc_attr( $thumbnail ) );
+						printf( '<a href="%s">%s</a>', esc_url( $permalink ), wp_kses_post( $thumbnail ) );
 					?>
 				</td>
 				<td class="product-name" data-title="<?php esc_html_e( 'Product', 'woocommerce' ); ?>">

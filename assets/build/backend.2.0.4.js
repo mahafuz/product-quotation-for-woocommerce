@@ -115375,6 +115375,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   useQuery: () => (/* binding */ useQuery),
 /* harmony export */   variationAlert: () => (/* binding */ variationAlert),
 /* harmony export */   version: () => (/* binding */ version),
+/* harmony export */   viewQuotationCart: () => (/* binding */ viewQuotationCart),
 /* harmony export */   woo_store: () => (/* binding */ woo_store),
 /* harmony export */   woocommerce_is_active: () => (/* binding */ woocommerce_is_active)
 /* harmony export */ });
@@ -115576,10 +115577,19 @@ const variationAlert = () => {
   }
   return true;
 };
+const viewQuotationCart = button => {
+  const $ = jQuery;
+  const url = PqfwGlobal?.cart?.url;
+  const btnLabel = 'View Quotation Cart';
+  if (url != false) {
+    $('.pqfw-view-quotation-cart').remove();
+    $(button).after('<a class="pqfw-view-quotation-cart"  href="' + url + '">' + btnLabel + '</a>');
+  }
+};
 const getVariationDetails = () => {
   var variation = jQuery("form.variations_form input[name='variation_id']").val(),
     details = {};
-  if (typeof variation != "undefined" && variation != 0) {
+  if (typeof variation != 'undefined' && variation != 0) {
     jQuery('select[name^=attribute_]').each(function (ind, obj) {
       details[jQuery(this).attr('name')] = jQuery(this).val();
     });
@@ -115591,11 +115601,11 @@ const getVariationDetails = () => {
 };
 const getVariationID = () => {
   const variation = jQuery("form.variations_form input[name='variation_id']").val();
-  return typeof variation != "undefined" && variation != 0 ? parseInt(variation) : 0;
+  return typeof variation != 'undefined' && variation != 0 ? parseInt(variation) : 0;
 };
 const getQuantity = () => {
   var quantity = jQuery('form.cart input[name="quantity"]').val();
-  return typeof quantity != "undefined" ? quantity : 1;
+  return typeof quantity != 'undefined' ? quantity : 1;
 };
 const sliceString = (text, length = 20, more = '...') => {
   if (!text || text.length < length) {

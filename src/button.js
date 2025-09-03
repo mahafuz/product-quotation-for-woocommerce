@@ -1,40 +1,45 @@
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { createPortal } from '@wordpress/element';
-import { makeRequest } from '@Utils/helper';
-import { getQuantity, getVariationDetails, getVariationID } from './utils/helper';
+import {
+	getQuantity,
+	getVariationDetails,
+	getVariationID,
+	variationAlert,
+	viewQuotationCart,
+} from './utils/helper';
 
-document.addEventListener( 'DOMContentLoaded', () => {
-	console.log( 'loading button file' );
-
+document.addEventListener('DOMContentLoaded', () => {
 	const $ = jQuery;
 
-	$( document ).on(
+	$(document).on(
 		'click',
-		'.pqfw-add-to-quotation-single',
-		function ( event ) {
+		'.quotify-quote-btn-wrap > .pqfw-add-to-quotation-single',
+		function (event) {
 			event.preventDefault();
 
-			const $product_id = $(this).data('id');
-			
-			wp.ajax.send(
-				'quotify/product/add',
-				{
-					data   : {
-						productId : parseInt( $product_id ),
-						variationID: parseInt( getVariationID() ),
+			if (variationAlert()) {
+				const button = $(this);
+				const $product_id = button.data('id');
+				const loader = button.children('.loading-spinner');
+
+				wp.ajax.send('quotify/product/add', {
+					data: {
+						productId: parseInt($product_id),
+						variationID: parseInt(getVariationID()),
 						variationDetails: getVariationDetails(),
 						quantity: parseInt(getQuantity()),
-						security : PqfwGlobal.pqfw_nonce
+						security: PqfwGlobal.pqfw_nonce,
 					},
-					success : function( response ) {
-						console.log('response', response);
+					beforeSend: function () {
+						loader.addClass('loading');
 					},
-					error   : function( error ) {
-						console.log( error );
-					}
-				}
-			)
+					success: function (response) {
+						loader.removeClass('loading');
+						viewQuotationCart(button);
+					},
+					error: function (error) {
+						console.log(error);
+					},
+				});
+			}
 		}
 	);
-} );
+});

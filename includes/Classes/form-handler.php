@@ -26,6 +26,7 @@ class Form_Handler {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_pqfw_quotation_submission', [ $this, 'submitQuotation' ] );
+		add_action( 'wp_ajax_nopriv_pqfw_quotation_submission', [ $this, 'submitQuotation' ] );
 	}
 
 	/**
@@ -44,6 +45,7 @@ class Form_Handler {
 		$phone    = pqfw()->helpers->sanitizePhoneNumber( $_POST['pqfw_customer_phone'] );
 		$subject  = sanitize_text_field( $_POST['pqfw_customer_subject'] );
 		$comments = sanitize_text_field( $_POST['pqfw_customer_comments'] );
+
 		$collection = [
 			'fullname' => $fullname,
 			'email'    => $email,

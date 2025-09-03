@@ -10,7 +10,6 @@ jQuery(function ( $ ) {
 
 	$( document )
 		.on( "pqfw_init", function () {
-
 			var t = $( this ),
 				f = $( '#pqfw-frontend-form' ),
 				u = $( '.pqfw-frontend-form' ),

@@ -30,7 +30,7 @@ class Cart {
 
 		add_action( 'wp_ajax_pqfw_remove_product', [ $this, 'removeProduct' ] );
 		add_action( 'wp_ajax_nopriv_pqfw_remove_product', [ $this, 'removeProduct' ] );
-		
+
 		add_action( 'wp_ajax_quotify/ajax/cart/update', [ $this, 'update' ] );
 		add_action( 'wp_ajax_nopriv_quotify/ajax/cart/update', [ $this, 'update' ] );
 	}

@@ -161,4 +161,87 @@ class Helpers {
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
+
+	/**
+	 * Escape a complete HTML form while keeping allowed tags safe.
+	 *
+	 * @param string $html The raw HTML form content.
+	 * @return string Escaped HTML with only allowed tags/attributes.
+	 */
+	public function escape_html_form( $html ) {
+		$allowed_tags = [
+			'form' => [
+				'action'   => true,
+				'method'   => true,
+				'id'       => true,
+				'class'    => true,
+				'enctype'  => true,
+			],
+			'input' => [
+				'type'     => true,
+				'name'     => true,
+				'value'    => true,
+				'id'       => true,
+				'class'    => true,
+				'checked'  => true,
+				'placeholder' => true,
+				'required' => true,
+			],
+			'textarea' => [
+				'name'     => true,
+				'id'       => true,
+				'class'    => true,
+				'rows'     => true,
+				'cols'     => true,
+				'placeholder' => true,
+				'required' => true,
+			],
+			'select' => [
+				'name'     => true,
+				'id'       => true,
+				'class'    => true,
+				'required' => true,
+			],
+			'option' => [
+				'value'    => true,
+				'selected' => true,
+			],
+			'button' => [
+				'type'     => true,
+				'name'     => true,
+				'value'    => true,
+				'id'       => true,
+				'class'    => true,
+			],
+			'label' => [
+				'for'      => true,
+				'class'    => true,
+			],
+			'p' => [
+				'class'    => true,
+			],
+			'ul' => [
+				'class'    => true,
+			],
+			'ol' => [
+				'class'    => true,
+			],
+			'li' => [
+				'class'    => true,
+			],
+			'div' => [
+				'class'    => true,
+				'id'       => true,
+			],
+			'span' => [
+				'class'    => true,
+				'id'       => true,
+			],
+			'br' => [],
+			'strong' => [],
+			'em' => [],
+		];
+
+		return wp_kses( $html, $allowed_tags );
+	}
 }

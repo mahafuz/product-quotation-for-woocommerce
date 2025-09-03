@@ -35,10 +35,6 @@ class Product {
 	public function add() {
 		check_ajax_referer( 'pqfw_nonce', 'security' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die();
-		}
-
 		if ( isset( $_POST['productId'] ) && isset( $_POST['variationID'] ) ) {
 			$id        = absint( $_POST['productId'] );
 			$quantity  = (int) ( isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1 );

@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use \PQFW\Utils\Interfaces\Addon;
+use PQFW\Utils\Interfaces\Addon;
 
 class Contactform implements Addon {
 	private $addon_name = 'cf7';
@@ -17,7 +17,7 @@ class Contactform implements Addon {
 	}
 
 	public function get_metadata() {
-		$metadata = file_get_contents( PQFW_CF7_DIR_PATH . 'metadata.json' );
+		// $metadata = file_get_contents( PQFW_CF7_DIR_PATH . 'metadata.json' );
 	}
 
 	public static function init() {
@@ -42,13 +42,13 @@ class Contactform implements Addon {
 
 	public function init_addon() {
 		// fire addon activation hook
-		add_action( "pqfw/addons/activated_{$this->addon_name}", array( $this, 'addon_activation_hook' ) );
+		add_action( "pqfw/addons/activated_{$this->addon_name}", [ $this, 'addon_activation_hook' ] );
 
 		// var_dump( pqfw()->helpers->get_addon_active_status( $this->addon_name ) );
 
 		// if disable then stop running addons
 		// if ( ! pqfw()->helpers->get_addon_active_status( $this->addon_name ) ) {
-		// 	return;
+		// return;
 		// }
 
 		Knot::init();

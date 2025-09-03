@@ -116,7 +116,7 @@ class Controls_Manager {
 		if ( $this->fields ) {
 			foreach ( $this->fields as $field ) {
 				$type = sanitize_text_field( $field['type'] );
-				echo esc_attr( $this->{$type}( $field ) );
+				echo pqfw()->helpers->escape_html_form( $this->{$type}( $field ) ); //phpcs:ignore
 			}
 		}
 	}

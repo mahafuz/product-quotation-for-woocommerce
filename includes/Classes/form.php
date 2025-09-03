@@ -33,11 +33,11 @@ class Form {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$buttonPosition = pqfw()->settings->get( 'button_position' );
+		$buttonPosition           = pqfw()->settings->get( 'button_position' );
 		$singlePageButtonPosition = pqfw()->settings->get( 'button_position_single_product' );
 
-		add_action( $buttonPosition, [ $this, 'addButtonOnSinglePage' ] );
-		add_action( $singlePageButtonPosition, [ $this, 'addButton' ] );
+		add_action( $singlePageButtonPosition, [ $this, 'addButtonOnSinglePage' ] );
+		add_action( $buttonPosition, [ $this, 'addButton' ] );
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_stuffs' ] );
 		add_action( 'quotify/templates/cart/form', [ $this, 'form' ] );
@@ -144,17 +144,25 @@ class Form {
 
 		global $product;
 
-		$buttonText = pqfw()->settings->get( 'button_text' );
+		$buttonText = apply_filters(
+			'quotify/frontend/product_loop/button_text',
+			pqfw()->settings->get( 'button_text' )
+		);
+
+		$viewText = '';
 
 		if ( ! empty( $buttonText ) ) {
 			if ( $product->is_type( 'variable' ) ) {
-				echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-variable" href="' . esc_url( $product->get_permalink() ) . '">
-				' . esc_html( $buttonText ) . '
-				</a>';
+				echo '<div class="quotify-add-to-quote-btn quotify-quote-btn-wrap quotify-quote-btn-loop quotify-quote-btn-product-type-variable">';
+					echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-variable" href="' . esc_url( $product->get_permalink() ) . '">';
+					echo '<div class="loading-spinner"></div>' . esc_html( $buttonText ) . '</a>';
+				echo '</div>';
 			} else {
-				echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
-				. esc_html( $buttonText ) .
-				'</a>';
+				echo '<div class="quotify-add-to-quote-btn quotify-quote-btn-wrap quotify-quote-btn-loop quotify-quote-btn-product-type-regular">';
+					echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="' . esc_url( $product->get_permalink() ) . '"
+					data-id="' . absint( $product->get_id() ) . '">';
+					echo '<div class="loading-spinner"></div>' . esc_html( $buttonText ) . '</a>';
+				echo '</div>';
 			}
 		}
 	}
@@ -169,13 +177,19 @@ class Form {
 			return;
 		}
 
-		$buttonText = pqfw()->settings->get( 'button_text' );
+		$buttonText = apply_filters(
+			'quotify/frontend/single_product/button_text',
+			pqfw()->settings->get( 'button_text' )
+		);
 
 		if ( ! empty( $buttonText ) ) {
 			global $product;
-			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">'
+			echo '<div class="quotify-add-to-quote-btn quotify-quote-btn-wrap quotify-quote-btn-single">';
+			echo '<a class="button pqfw-button pqfw-add-to-quotation pqfw-add-to-quotation-single" href="javascript:void(0)" data-id="' . absint( $product->get_id() ) . '">';
+			echo '<div class="loading-spinner"></div>'
 			. esc_html( $buttonText ) .
 			'</a>';
+			echo '</div>';
 		}
 	}
 

@@ -30,7 +30,7 @@ class Assets extends \PQFW\Classes\Script_Base {
 	 * @since 2.0.3
 	 */
 	public function enqueueAdminScripts() {
-		wp_enqueue_style( 'pqfw-admin-style', PQFW_PLUGIN_ASSETS . 'build/backend.css', [ 'wp-components' ], filemtime( PQFW_PLUGIN_ASSETS . 'build/backend.css' ), 'all' );
+		wp_enqueue_style( 'pqfw-admin-style', PQFW_PLUGIN_ASSETS . 'build/backend.css', [ 'wp-components' ], PQFW_PLUGIN_ASSETS . 'build/backend.css', 'all' );
 
 		if ( ! did_action( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
