@@ -21,7 +21,7 @@ jQuery(function ( $ ) {
 				errors = null,
 				resposneStatus = $('.pqfw-form-response-status');
 
-			t.on( "click", "#rsrfqfwc_submit", function ( ev ) {
+			t.on( "click", "#quotify-form-submit", function ( ev ) {
 
 				ev.preventDefault();
 

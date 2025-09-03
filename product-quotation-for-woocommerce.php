@@ -16,7 +16,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Defining plugin constans
+ * Defining plugin constants.
  *
  * @since 1.2.0
  */
@@ -50,28 +50,6 @@ register_activation_hook(__FILE__, function () {
 
 require PQFW_PLUGIN_PATH . 'includes/PQFW.php';
 
-add_action( 'plugins_loaded', function() {
+add_action( 'plugins_loaded', function () {
 	pqfw();
 });
-
-/**
- * Initialize the plugin tracker
- *
- * @since 1.2.0
- * @return void
- */
-function appsero_init_tracker_product_quotation_for_woocommerce() {
-	if ( ! class_exists( 'Appsero\Client' ) ) {
-		require PQFW_PLUGIN_PATH . 'appsero/client/src/Client.php';
-	}
-
-	$client = new Appsero\Client(
-		'e806fe7d-f314-425d-8be4-9f62fdaf71cf',
-		'Product Quotation - Product Quotation For WooCommerce',
-		__FILE__
-	);
-
-	// Active insights.
-	$client->insights()->init();
-}
-// appsero_init_tracker_product_quotation_for_woocommerce();

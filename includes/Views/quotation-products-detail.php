@@ -1,10 +1,14 @@
 <?php
 /**
- * Displays quotaion products details.
+ * Woocommerce cart view template.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
 ?>
 <div class="pqfw-quotation-produts-detail">
 	<table class="pqfw-list-products widefat fixed striped table-view-list">

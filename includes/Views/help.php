@@ -5,13 +5,13 @@
 
 	<div class="pqfw-help-page">
 		<!-- <div class="help-block">
-			<img src="<?php //echo esc_url( PQFW_PLUGIN_URL . 'assets/images/docs.svg' ); ?>" alt="Looking for Something?"> 
+			<img src="<?php // echo esc_url( PQFW_PLUGIN_URL . 'assets/images/docs.svg' ); ?>" alt="Looking for Something?"> 
 			<h3>Looking for Something?</h3>
 			<p>We have detailed documentation on every aspects of weForms.</p>
 			<a target="_blank" href="#" class="button button-primary">Visit the Plugin Documentation</a>
 		</div> -->
 		<!-- <div class="help-block">
-			<img src="<?php //echo esc_url( PQFW_PLUGIN_URL . 'assets/images/support.svg' ); ?>" alt="Need Any Assistance?"> 
+			<img src="<?php // echo esc_url( PQFW_PLUGIN_URL . 'assets/images/support.svg' ); ?>" alt="Need Any Assistance?"> 
 			<h3>Need Any Assistance?</h3>
 			<p>Our EXPERT Support Team is always ready to Help you out.</p>
 			<a target="_blank" href="#" class="button button-primary">Contact Support</a>
@@ -23,7 +23,7 @@
 			<a target="_blank" href="https://github.com/mahafuz/product-quotation-for-woocommerce/issues/new" class="button button-primary">Report to GitHub</a>
 		</div>
 		<!-- <div class="help-block">
-			<img src="<?php //echo esc_url( PQFW_PLUGIN_URL . 'assets/images/customization.svg' ); ?>" alt="Require Customization?"> 
+			<img src="<?php // echo esc_url( PQFW_PLUGIN_URL . 'assets/images/customization.svg' ); ?>" alt="Require Customization?"> 
 			<h3>Require Customization?</h3>
 			<p>We would Love to hear your Integration and Customization Ideas.</p>
 			<a target="_blank" href="#" class="button button-primary">Contact Our Services</a>

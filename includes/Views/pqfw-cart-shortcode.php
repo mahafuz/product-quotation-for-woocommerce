@@ -1,3 +1,15 @@
+<?php
+/**
+ * Woocommerce cart view template.
+ *
+ * @since 1.0.0
+ * @package Quotify
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+?>
 <div class="woocommerce">
 	<form class="woocommerce-cart-form">
 		<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
@@ -6,14 +18,14 @@
 					<th class="product-remove">&nbsp;</th>
 					<th class="product-thumbnail">&nbsp;</th>
 					<th class="product-name">
-						<?php esc_html_e( 'Product', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Product', 'quotify' ); ?>
 					</th>
-					<th class="product-price"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
+					<th class="product-price"><?php esc_html_e( 'Price', 'quotify' ); ?></th>
 					<th class="product-quantity">
-						<?php esc_html_e( 'Quantity', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Quantity', 'quotify' ); ?>
 					</th>
 					<th class="product-subtotal">
-						<?php esc_html_e( 'Message', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Message', 'quotify' ); ?>
 					</th>
 				</tr>
 			</thead>

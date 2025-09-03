@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Mailer {
 
 	/**
-	 * Retrives the blog name.
+	 * Retrieves the blog name.
 	 *
 	 * @var     string
 	 * @access  private
@@ -72,6 +72,15 @@ class Mailer {
 	 * @since   1.0.0
 	 */
 	private $args;
+
+	/**
+	 * Products to attach with the email.
+	 *
+	 * @var     mixed
+	 * @access  private
+	 * @since   1.0.0
+	 */
+	private $products;
 
 	/**
 	 * Constructor of the class
@@ -137,7 +146,7 @@ class Mailer {
 			$message .= '<br>' . __( 'Price', 'pqfw' ) . ': ' . wc_price( $product['price'] ) . '</p>';
 			$message .= '<br>' . __( 'Note', 'pqfw' ) . ': ' . wp_kses_post( $product['message'] ) . '</p>';
 			$message .= '<p><a href="' . rawurlencode( esc_url( get_permalink( $product['id'] ) ) ) . '">
-			<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>';
+			<img src="' . $img . '" alt="' . esc_attr( get_the_title( $product['id'] ) ) . '" title="' . esc_attr( get_the_title( $product['id'] ) ) . '" style="display: block" height="100" width="100" /></a></p>';//phpcs:ignore
 		}
 
 		$message .= '</body></html>';

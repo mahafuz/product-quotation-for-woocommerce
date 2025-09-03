@@ -5,6 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+
+/**
+ * Autoloader class for the entire plugin.
+ *
+ * @since 2.0.4
+ */
 class Autoload {
 
 	/**
@@ -21,9 +27,9 @@ class Autoload {
 	 *
 	 * @var array
 	 */
-	private $autoload_directories = array(
-		'PQFW'    => PQFW_PLUGIN_ROOT_DIR_PATH . 'includes/',
-	);
+	private $autoload_directories = [
+		'PQFW' => PQFW_PLUGIN_ROOT_DIR_PATH . 'includes/',
+	];
 
 	/**
 	 * Initiator
@@ -41,29 +47,27 @@ class Autoload {
 	/**
 	 * Register autoload directories for namespaces.
 	 *
-	 * @param string $namespace Namespace to autoload.
+	 * @param string $ir_namespace Namespace to autoload.
 	 * @param string $directory Directory path for the namespace.
 	 */
-	public function add_namespace_directory( $namespace, $directory ) {
-		$this->autoload_directories[ $namespace ] = $directory;
+	public function add_namespace_directory( $ir_namespace, $directory ) {
+		$this->autoload_directories[ $ir_namespace ] = $directory;
 	}
 
 	/**
 	 * Autoload classes.
 	 *
-	 * @param string $class Class name.
+	 * @param string $ir_class Class name.
 	 */
-	public function autoload( $class ) {
-		// echo 'Directory List', print_r( $this->autoload_directories, 1 );
-
-		foreach ( $this->autoload_directories as $namespace => $directory ) {
-			if ( 0 === strpos( $class, $namespace ) ) {
-				$class_to_load = $class;
+	public function autoload( $ir_class ) {
+		foreach ( $this->autoload_directories as $ir_namespace => $directory ) {
+			if ( 0 === strpos( $ir_class, $ir_namespace ) ) {
+				$ir_class_to_load = $ir_class;
 				$filename = strtolower(
 					preg_replace(
-						[ '/^' . $namespace . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ],
+						[ '/^' . $ir_namespace . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ],
 						[ '', '$1-$2', '-', DIRECTORY_SEPARATOR ],
-						$class_to_load
+						$ir_class_to_load
 					)
 				);
 				$file = $directory . $filename . '.php';

@@ -31,8 +31,13 @@ class Migration {
 		$this->setGlobal();
 	}
 
+	/**
+	 * Perform global operations.
+	 *
+	 * @return void
+	 */
 	private function setGlobal() {
-		add_option( PQFW_ADDONS_SETTINGS_KEY, '{}');
+		add_option( PQFW_ADDONS_SETTINGS_KEY, '{}' );
 	}
 
 

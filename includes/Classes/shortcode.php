@@ -1,6 +1,6 @@
 <?php
 /**
- * Responsible for registering shortocde.
+ * Responsible for registering shortcode.
  *
  * @since 1.2.0
  * @package PQFW
@@ -42,7 +42,7 @@ class Shortcode {
 	}
 
 	/**
-	 * Render the shortocode.
+	 * Render the shortcode.
 	 *
 	 * @since 1.0.0
 	 * @return mixed      Rendered shortcode output.

@@ -104,8 +104,8 @@ class Product {
 				'pqfw_customer_subject'  => $this->getSubject(),
 				'pqfw_customer_phone'    => $this->getPhone(),
 				'pqfw_subject'           => $this->getSubject(),
-				'pqfw_customer_comments' => $this->getMessage()
-			]
+				'pqfw_customer_comments' => $this->getMessage(),
+			],
 		];
 
 		return $arg;
@@ -151,7 +151,7 @@ class Product {
 			'variation'        => $variation_id,
 			'variation_detail' => $variation_detail,
 			'quantity'         => $product['quantity'],
-			'message'          => strip_tags( $product['message'] )
+			'message'          => strip_tags( $product['message'] ),
 		];
 	}
 

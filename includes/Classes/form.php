@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 class Form {
 
 	/**
-	 * Contains form errros.
+	 * Contains form errors.
 	 *
 	 * @var array
 	 * @since 1.0.0
@@ -33,15 +33,14 @@ class Form {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+		$buttonPosition = pqfw()->settings->get( 'button_position' );
+		$singlePageButtonPosition = pqfw()->settings->get( 'button_position_single_product' );
 
-		$this->quotationButtonPosition = pqfw()->settings->get( 'button_position' );
-		$this->quotationButtonPositionInSingleProduct = pqfw()->settings->get( 'button_position_single_product' );
-
-		add_action( $this->quotationButtonPositionInSingleProduct, [ $this, 'addButtonOnSinglePage' ] );
-		add_action( $this->quotationButtonPosition, [ $this, 'addButton' ] );
+		add_action( $buttonPosition, [ $this, 'addButtonOnSinglePage' ] );
+		add_action( $singlePageButtonPosition, [ $this, 'addButton' ] );
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_stuffs' ] );
-		add_action( 'quotify/templates/cart/form', [$this, 'form'] );
+		add_action( 'quotify/templates/cart/form', [ $this, 'form' ] );
 	}
 
 	/**
@@ -196,7 +195,7 @@ class Form {
 			$classes[] = 'floating-form';
 		}
 		?>
-		<div id="pqfw-frontend-form-wrap" class="<?php echo implode( ' ', $classes ); ?>">
+		<div id="pqfw-frontend-form-wrap" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 			<div class="pqfw-form">
 				<form id="pqfw-frontend-form">
 
@@ -209,7 +208,10 @@ class Form {
 
 								<div class="pqfw-privacy-policy-checkbox">
 									<input type="checkbox" name="pqfw_privacy_policy_checkbox" id="pqfw_privacy_policy_checkbox" required="1">
-									<label for="pqfw_privacy_policy_checkbox"><?php echo wp_kses_post( pqfw()->helpers->generatePrivacyPolicy( pqfw()->settings->get( 'privacy_policy_label' ) ) ); ?></label>
+
+									<label for="pqfw_privacy_policy_checkbox">
+										<?php echo wp_kses_post( pqfw()->helpers->generatePrivacyPolicy( pqfw()->settings->get( 'privacy_policy_label' ) ) ); ?>
+									</label>
 								</div>
 							</div>
 						</li>
@@ -219,8 +221,8 @@ class Form {
 					<div class="pqfw-form-field pqfw-submit">
 						<input
 							type="submit"
-							id="rsrfqfwc_submit"
-							name="rsrfqfwc_submit"
+							id="quotify-form-submit"
+							name="quotify-form-submit"
 							value="<?php echo esc_html__( 'Submit Query', 'pqfw' ); ?>"
 							class="submit"
 						/>

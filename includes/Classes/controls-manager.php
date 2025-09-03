@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the methods releasted to managing controls.
+ * Contains the methods related to managing controls.
  *
  * @since   1.0.0
  * @package PQFW
@@ -72,21 +72,21 @@ class Controls_Manager {
 				'type'     => 'text',
 				'label'    => __( 'Full Name:', 'pqfw' ),
 				'html_id'  => 'pqfw_customer_name',
-				'required' => true
+				'required' => true,
 			],
 			[
 				'name'     => 'pqfw_customer_email',
 				'type'     => 'email',
 				'label'    => __( 'Email:', 'pqfw' ),
 				'html_id'  => 'pqfw_customer_email',
-				'required' => true
+				'required' => true,
 			],
 			[
 				'name'     => 'pqfw_customer_subject',
 				'type'     => 'text',
 				'label'    => __( 'Subject:', 'pqfw' ),
 				'html_id'  => 'pqfw_customer_subject',
-				'required' => true
+				'required' => true,
 			],
 			[
 				'name'    => 'pqfw_customer_phone',
@@ -116,10 +116,9 @@ class Controls_Manager {
 		if ( $this->fields ) {
 			foreach ( $this->fields as $field ) {
 				$type = sanitize_text_field( $field['type'] );
-				echo $this->{$type}( $field );
+				echo esc_attr( $this->{$type}( $field ) );
 			}
 		}
-
 	}
 
 	/**
@@ -139,7 +138,7 @@ class Controls_Manager {
 			'value'       => '',
 			'html_class'  => '',
 			'html_id'     => '',
-			'required'    => ''
+			'required'    => '',
 		];
 
 		$args = wp_parse_args( $args, $defaults );
@@ -175,7 +174,6 @@ class Controls_Manager {
 		$html .= '</li>';
 
 		return $html;
-
 	}
 
 	/**
@@ -195,7 +193,7 @@ class Controls_Manager {
 			'value'       => '',
 			'html_class'  => '',
 			'html_id'     => '',
-			'required'    => ''
+			'required'    => '',
 		];
 
 		$args = wp_parse_args( $args, $defaults );
@@ -250,7 +248,7 @@ class Controls_Manager {
 			'value'       => '',
 			'html_class'  => '',
 			'html_id'     => '',
-			'required'    => ''
+			'required'    => '',
 		];
 
 		$args = wp_parse_args( $args, $defaults );
@@ -286,7 +284,6 @@ class Controls_Manager {
 		$html .= '</li>';
 
 		return $html;
-
 	}
 
 	/**
@@ -306,7 +303,7 @@ class Controls_Manager {
 			'value'       => '',
 			'html_class'  => '',
 			'html_id'     => '',
-			'required'    => ''
+			'required'    => '',
 		];
 
 		$args = wp_parse_args( $args, $defaults );

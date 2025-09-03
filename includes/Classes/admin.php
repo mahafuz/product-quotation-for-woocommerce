@@ -27,12 +27,7 @@ class Admin {
 		add_action( 'admin_menu', [ $this, 'menus' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 
-		add_action( 'admin_title', [ $this, 'editPageTitle' ] );
-		add_filter( 'manage_edit-pqfw_quotations_columns', [ $this, 'manageColumns' ] );
-		add_action( 'manage_pqfw_quotations_posts_custom_column', [ $this, 'columnsContent' ], 10, 2 );
-		add_action( 'post_row_actions', [ $this, 'modifyQuickActions' ], 10, 2 );
-
-		add_action('admin_init', [ $this, 'hideNotices' ]);
+		add_action( 'admin_init', [ $this, 'hideNotices' ] );
 	}
 
 	/**
@@ -41,8 +36,6 @@ class Admin {
 	 * @since   1.0.0
 	 */
 	public function menus() {
-		global $submenu;
-
 		add_submenu_page(
 			'edit.php?post_type=pqfw_quotations',
 			__( 'Help', 'pqfw' ),
@@ -135,7 +128,7 @@ class Admin {
 				'labels'              => [
 					'name'          => __( 'Quotations', 'pqfw' ),
 					'singular_name' => __( 'Quotation', 'pqfw' ),
-					'add_new_item'  => __( 'Quotation', 'pqfw' )
+					'add_new_item'  => __( 'Quotation', 'pqfw' ),
 				],
 				'public'              => false,
 				'exclude_from_search' => true,
@@ -149,9 +142,9 @@ class Admin {
 				'menu_icon'           => PQFW_PLUGIN_URL . 'assets/images/pqfw-dashboard-icon.png',
 				'capability_type'     => 'post',
 				'capabilities'        => [
-					'create_posts' => 'do_not_allow'
+					'create_posts' => 'do_not_allow',
 				],
-				'map_meta_cap'        => true
+				'map_meta_cap'        => true,
 			]
 		);
 
@@ -181,44 +174,6 @@ class Admin {
 	}
 
 	/**
-	 * Change the title of the page.
-	 *
-	 * @since 1.2.0
-	 */
-	public function editPageTitle() {
-		global $post, $title, $action, $current_screen;
-
-		if ( isset( $current_screen->post_type ) && 'pqfw_quotations' === $current_screen->post_type && 'edit' === $action ) {
-			/* %d Quotation Post Id */
-			$title = sprintf( __( '#%d Quotation Detail', 'pqfw' ), $post->ID );
-		}
-
-		return $title;
-	}
-
-	/**
-	 * Displays quotation detail meta box.
-	 *
-	 * @since  1.2.0
-	 * @param  array $quotation The single quotation array.
-	 * @return void
-	 */
-	public function displayQuotationDetail( $quotation ) {
-		include_once PQFW_PLUGIN_VIEWS . 'quotation-detail.php';
-	}
-
-	/**
-	 * Displays quotation products detail meta box.
-	 *
-	 * @since  1.2.0
-	 * @param  array $quotation The single quotation array.
-	 * @return void
-	 */
-	public function displayQuotationProductsDetail( $quotation ) {
-		include_once PQFW_PLUGIN_VIEWS . 'quotation-products-detail.php';
-	}
-
-	/**
 	 * Builds the variation tree based on the details.
 	 *
 	 * @since  1.2.0
@@ -239,92 +194,19 @@ class Admin {
 	}
 
 	/**
-	 * Customize the post type column.
+	 * This hides the notices from external resources.
 	 *
-	 * @since  1.2.0
-	 * @param  array $columns The column header labels keyed by column ID.
-	 * @return array          Customized columns.
+	 * @return void
 	 */
-	public function manageColumns( $columns ) {
-		$columns = [
-			'cb'           => '<input type="checkbox" />',
-			'id'           => __( 'Serial', 'pqfw' ),
-			'title'        => __( 'Name', 'pqfw' ),
-			'pqfw_email'   => __( 'Email', 'pqfw' ),
-			'pqfw_phone'   => __( 'Phone', 'pqfw' ),
-			'pqfw_subject' => __( 'Subject', 'pqfw' ),
-			'pqfw_message' => __( 'Message', 'pqfw' ),
-			'date'         => __( 'Date', 'pqfw' )
-		];
-
-		return $columns;
-	}
-
-	/**
-	 * Modified the post type rows action links.
-	 *
-	 * @since  1.2.0
-	 *
-	 * @param  array  $actions An associative array of action links.
-	 * @param  object $post    The post object.
-	 */
-	public function modifyQuickActions( $actions, $post ) {
-		if ( self::POST_TYPE === $post->post_type ) {
-			unset( $actions['inline hide-if-no-js'] );
-			unset( $actions['edit'] );
-
-			$url  = admin_url( 'post.php?post=' . $post->ID );
-			$view = wp_nonce_url( add_query_arg( [ 'action' => 'edit' ], $url ) );
-
-			$actions = array_merge(
-				[
-					'details' => '<a href="' . esc_url( $view ) . '">' . __( 'Details', 'pqfw' ) . '</a>',
-				],
-				$actions
-			);
-		}
-
-		return $actions;
-	}
-
-	/**
-	 * Defines post type colums content.
-	 *
-	 * @since 1.2.0
-	 * @param array   $column An associative array of column headings.
-	 * @param integer $postID The current post id.
-	 */
-	public function columnsContent( $column, $postID ) {
-		switch ( $column ) {
-			case 'id':
-				echo '#' . absint( $postID );
-				break;
-
-			case 'pqfw_email':
-					echo esc_html( get_post_meta( $postID, 'pqfw_customer_email', true ) );
-				break;
-
-			case 'pqfw_phone':
-				echo esc_html( get_post_meta( $postID, 'pqfw_customer_phone', true ) );
-				break;
-
-			case 'pqfw_subject':
-				echo esc_html( get_post_meta( $postID, 'pqfw_customer_subject', true ) );
-				break;
-
-			case 'pqfw_message':
-				echo esc_html( get_post_meta( $postID, 'pqfw_customer_comments', true ) );
-				break;
-		}
-	}
-
 	public function hideNotices() {
+		$slugs = pqfw()->menu->getSlugs();
+
 		$slugs = [
 			'pqfw-product-quotations',
 			'pqfw-product-quotations-settings',
 			'pqfw-product-quotations-addons',
 			'pqfw-product-quotations-tools',
-			'pqfw-product-quotations-help'
+			'pqfw-product-quotations-help',
 		];
 
 		if ( ! empty( $_GET['page'] ) && in_array( $_GET['page'], $slugs, true ) ) {

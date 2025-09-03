@@ -44,25 +44,24 @@ class Form_Handler {
 		$phone    = pqfw()->helpers->sanitizePhoneNumber( $_POST['pqfw_customer_phone'] );
 		$subject  = sanitize_text_field( $_POST['pqfw_customer_subject'] );
 		$comments = sanitize_text_field( $_POST['pqfw_customer_comments'] );
-		$mapedDataToSave = [
+		$collection = [
 			'fullname' => $fullname,
 			'email'    => $email,
 			'subject'  => $subject,
 			'phone'    => $phone,
-			'comments' => $comments
+			'comments' => $comments,
 		];
 
-		$validate = pqfw()->helpers->validate( $mapedDataToSave );
+		$validate = pqfw()->helpers->validate( $collection );
 
 		if ( $validate->has_errors() ) {
 			wp_send_json_error( $validate->errors );
 		}
 
-		$insertID = pqfw()->product->save( $mapedDataToSave );
+		$insertID = pqfw()->product->save( $collection );
 
 		if ( $insertID ) {
-
-			pqfw()->mailer->prepare( $mapedDataToSave )->send();
+			pqfw()->mailer->prepare( $collection )->send();
 			pqfw()->quotations->purge();
 
 			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );

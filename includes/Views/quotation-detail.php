@@ -1,10 +1,14 @@
 <?php
 /**
- * Displays quotaion detail meta box.
+ * Woocommerce cart view template.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
 ?>
 <div class="pqfw-quotation-detail-wrap">
 	<ul class="pqfw-list-of-person-detail">

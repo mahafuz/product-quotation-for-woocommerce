@@ -1,4 +1,10 @@
 <?php
+/**
+ * Responsible for managing the plugin base scripts.
+ *
+ * @since   1.0.0
+ * @package PQFW
+ */
 
 namespace PQFW\Classes;
 
@@ -6,15 +12,20 @@ namespace PQFW\Classes;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin class
+ * Responsible for managing the plugin base scripts.
  *
  * @since   1.0.0
  * @package PQFW
  */
 class Script_Base {
-	public function get_scripts_data() {
 
-		return array(
+	/**
+	 * Get the localizable data.
+	 *
+	 * @return array
+	 */
+	public function get_scripts_data() {
+		return [
 			'nonce'                 => wp_create_nonce( 'wp_rest' ),
 			'pqfw_nonce'            => wp_create_nonce( 'pqfw_nonce' ),
 			'cart_nonce'            => wp_create_nonce( 'pqfw_cart_actions' ),
@@ -23,7 +34,7 @@ class Script_Base {
 			'ajaxurl'               => esc_url( admin_url( 'admin-ajax.php' ) ),
 			'site_url'              => site_url(),
 			'route_path'            => wp_parse_url( admin_url(), PHP_URL_PATH ),
-			'menu'                  => wp_json_encode( Menu::getList() ),
+			'menu'                  => wp_json_encode( pqfw()->menu->getList() ),
 			'woocommerce_is_active' => Helpers::isWoocommerceActive(),
 			'current_user_id'       => get_current_user_id(),
 			'is_rtl'                => is_rtl(),
@@ -34,11 +45,15 @@ class Script_Base {
 			'toplevel_menu_icon_url' => Menu::get_toplevel_menu_icon_url(),
 			'toplevel_menu_title'    => Menu::get_toplevel_menu_title(),
 			'logo_url'               => Menu::get_logo_url(),
-			'version'                => PQFW_PLUGIN_VERSION
-		);
+			'version'                => PQFW_PLUGIN_VERSION,
+		];
 	}
 
-
+	/**
+	 * Get isolated gutenberg settings.
+	 *
+	 * @return array
+	 */
 	public function get_isolated_gutenberg_settings() {
 		global $post;
 
@@ -51,30 +66,27 @@ class Script_Base {
 
 		$image_size_names = apply_filters(
 			'image_size_names_choose',
-			array(
+			[
 				'thumbnail' => __( 'Thumbnail', 'pqfw' ),
 				'medium'    => __( 'Medium', 'pqfw' ),
 				'large'     => __( 'Large', 'pqfw' ),
 				'full'      => __( 'Full Size', 'pqfw' ),
-			)
+			]
 		);
 
-		$available_image_sizes = array();
+		$available_image_sizes = [];
 		foreach ( $image_size_names as $image_size_slug => $image_size_name ) {
-			$available_image_sizes[] = array(
+			$available_image_sizes[] = [
 				'slug' => $image_size_slug,
 				'name' => $image_size_name,
-			);
+			];
 		}
 
-		/**
-		 * @psalm-suppress TooManyArguments
-		 */
 		$body_placeholder = apply_filters( 'write_your_story', __( 'Start writing or type / to choose a block', 'pqfw' ), $post );
 		$allowed_block_types = apply_filters( 'allowed_block_types', true, $post );
 
-		return array(
-			'editor'               => array(
+		return [
+			'editor'               => [
 				'alignWide'              => $align_wide,
 				'disableCustomColors'    => true,
 				'disableCustomFontSizes' => true,
@@ -86,7 +98,7 @@ class Script_Base {
 				'autosaveInterval'       => AUTOSAVE_INTERVAL,
 				'maxUploadFileSize'      => $max_upload_size,
 				'allowedMimeTypes'       => [],
-				'styles'                 => function_exists( 'get_block_editor_theme_styles' ) ? get_block_editor_theme_styles() : array(),
+				'styles'                 => function_exists( 'get_block_editor_theme_styles' ) ? get_block_editor_theme_styles() : [],
 				'imageSizes'             => $available_image_sizes,
 				'imageDefaultSize'      => 'large',
 				'imageEditing'          => true,
@@ -96,16 +108,16 @@ class Script_Base {
 				'__experimentalCanUserUseUnfilteredHTML' => false,
 				'__experimentalBlockPatterns' => [],
 				'__experimentalBlockPatternCategories' => [],
-				'availableTemplates'                   => array(),
+				'availableTemplates'                   => [],
 				'postLock'                             => false,
 				'supportsLayout'                       => false,
 				'enableCustomFields'                   => false,
 				'generateAnchors'                      => true,
 				'canLockBlocks'                        => true,
-			),
-			'iso'                  => array(
-				'blocks'      => array(
-					'allowBlocks' => array(
+			],
+			'iso'                  => [
+				'blocks'      => [
+					'allowBlocks' => [
 						'core/paragraph',
 						'core/image',
 						'core/heading',
@@ -122,21 +134,21 @@ class Script_Base {
 						'core/html',
 						'core/audio',
 						'core/freeform',
-					),
-				),
-				'moreMenu'    => array(
+					],
+				],
+				'moreMenu'    => [
 					'topToolbar' => true,
-				),
-				'sidebar'     => array(
+				],
+				'sidebar'     => [
 					'inserter'  => true,
 					'inspector' => false,
-				),
-				'toolbar'     => array(
+				],
+				'toolbar'     => [
 					'navigation' => true,
 					'inspector'  => false,
-				),
-				'allowEmbeds' => array(),
-			),
+				],
+				'allowEmbeds' => [],
+			],
 			'saveTextarea'         => '',
 			'container'            => '',
 			'editorType'           => 'core',
@@ -145,12 +157,17 @@ class Script_Base {
 			'replaceParagraphCode' => false,
 			'pluginsUrl'           => plugins_url( '', __DIR__ ),
 			'version'              => '1.0.0',
-		);
+		];
 	}
 
+	/**
+	 * Get frontend scripts data.
+	 *
+	 * @return array
+	 */
 	public function get_frontend_scripts_data() {
 		$site_url = site_url();
-		$args = array();
+		$args = [];
 
 		return apply_filters(
 			'pqfw/assets/frontend_scripts_data',
@@ -161,7 +178,7 @@ class Script_Base {
 					'pages'    => pqfw()->helpers->getPages(),
 					'cart'     => [
 						'id'  => pqfw()->helpers->getCart(),
-						'url' => trim( pqfw()->helpers->getCart( 'url' ), $site_url )
+						'url' => trim( pqfw()->helpers->getCart( 'url' ), $site_url ),
 					],
 					'route_path' => wp_parse_url( $site_url, PHP_URL_PATH ),
 					'current_permalink' => esc_url( get_permalink() ),
@@ -172,15 +189,21 @@ class Script_Base {
 		);
 	}
 
+	/**
+	 * Returns the localizable data.
+	 *
+	 * @return array
+	 */
 	public function get_backend_scripts_data() {
-		$args = array(
+		$args = [
 			'plugin_root_url'       => PQFW_PLUGIN_ROOT_URI,
 			'plugin_root_path'      => PQFW_PLUGIN_ROOT_DIR_PATH,
 			'admin_url'             => admin_url(),
 			'is_admin'              => is_admin(),
 			'addons'                => \PQFW\Addons::get_saved(),
 			'editor_settings'        => $this->get_isolated_gutenberg_settings(),
-		);
+		];
+
 		return apply_filters(
 			'pqfw/assets/backend_scripts_data',
 			array_merge(
@@ -189,14 +212,13 @@ class Script_Base {
 					'settings' => pqfw()->settings->getAll(),
 					'nonce'    => wp_create_nonce( 'pqfw-app-ui' ),
 					'actions'  => [
-						'save_settings' => 'pqrf_save_settings'
+						'save_settings' => 'pqrf_save_settings',
 					],
 					'pages'    => pqfw()->helpers->getPages(),
 					'cart'     => [
 						'id'  => pqfw()->helpers->getCart(),
-						'url' => pqfw()->helpers->getCart( 'url' )
+						'url' => pqfw()->helpers->getCart( 'url' ),
 					],
-					'strings'  => pqfw()->strings->get()
 				],
 				$this->get_scripts_data(),
 				$args
@@ -204,13 +226,18 @@ class Script_Base {
 		);
 	}
 
+	/**
+	 * Loads the block editor scripts.
+	 *
+	 * @return void
+	 */
 	public function load_block_editor_scripts() {
-		// Gutenberg scripts
+		// Gutenberg scripts.
 		wp_enqueue_script( 'wp-block-library' );
 		wp_enqueue_script( 'wp-format-library' );
 		wp_enqueue_script( 'wp-editor' );
 
-		// Gutenberg styles
+		// Gutenberg styles.
 		wp_enqueue_style( 'wp-edit-post' );
 		wp_enqueue_style( 'wp-format-library' );
 
@@ -218,6 +245,12 @@ class Script_Base {
 		wp_enqueue_editor();
 	}
 
+	/**
+	 * Builds the webfont url.
+	 *
+	 * @param string $font The font parameters for the url.
+	 * @return string
+	 */
 	public function web_fonts_url( $font ) {
 		$font_url = '';
 		if ( 'off' !== _x( 'on', 'Google font: on or off', 'pqfw' ) ) {

@@ -20,10 +20,7 @@ class Assets extends \PQFW\Classes\Script_Base {
 	 * @return void
 	 */
 	public function __construct() {
-		//enqueue backend scripts.
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAdminScripts' ] );
-	
-		// enqueue frontend scripts.
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueueFrontendScripts' ] );
 	}
 
@@ -33,7 +30,7 @@ class Assets extends \PQFW\Classes\Script_Base {
 	 * @since 2.0.3
 	 */
 	public function enqueueAdminScripts() {
-		wp_enqueue_style( 'pqfw-admin-style', PQFW_PLUGIN_ASSETS . 'build/backend.css', array( 'wp-components' ), filemtime( PQFW_PLUGIN_ASSETS . 'build/backend.css' ), 'all' );
+		wp_enqueue_style( 'pqfw-admin-style', PQFW_PLUGIN_ASSETS . 'build/backend.css', [ 'wp-components' ], filemtime( PQFW_PLUGIN_ASSETS . 'build/backend.css' ), 'all' );
 
 		if ( ! did_action( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
@@ -41,9 +38,17 @@ class Assets extends \PQFW\Classes\Script_Base {
 
 		$this->load_block_editor_scripts();
 
-		// js
 		$dependencies = include_once PQFW_PLUGIN_ASSETS_DIR . sprintf( 'build/backend.%s.asset.php', PQFW_PLUGIN_VERSION );
-		wp_enqueue_style( 'pqfw-web-font', $this->web_fonts_url( 'DM Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700|Inter:wght@300;400;500;600;700;800;900|Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ), array(), $dependencies['version'] );
+
+		wp_enqueue_style(
+			'pqfw-web-font',
+			$this->web_fonts_url(
+				'DM Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700|Inter:wght@300;400;500;600;700;800;900|Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'//phpcs:ignore
+			),
+			null,
+			$dependencies['version']
+		);
+
 		wp_enqueue_script(
 			'pqfw-admin-scripts',
 			PQFW_PLUGIN_ASSETS . sprintf( 'build/backend.%s.js', PQFW_PLUGIN_VERSION ),
@@ -71,7 +76,6 @@ class Assets extends \PQFW\Classes\Script_Base {
 			true
 		);
 
-
 		wp_enqueue_script(
 			'pqfw-quotation-cart',
 			PQFW_PLUGIN_ASSETS . sprintf( 'build/cart.%s.js', PQFW_PLUGIN_VERSION ),
@@ -88,7 +92,7 @@ class Assets extends \PQFW\Classes\Script_Base {
 	 *
 	 * @since 2.0.3
 	 */
-	public function elmentorEditorStyle() {
+	public static function elementorEditorStyle() {
 		?>
 		<style>
 			body #elementor-panel-elements-wrapper .icon .pqfw-quote-cart-icon {
@@ -100,5 +104,4 @@ class Assets extends \PQFW\Classes\Script_Base {
 		</style>
 		<?php
 	}
-
 }

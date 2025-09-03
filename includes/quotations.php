@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PQFW class
  *
@@ -8,7 +7,7 @@
  * @since       1.2.0
  */
 
-namespace PQFW; 
+namespace PQFW;
 
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
@@ -189,6 +188,7 @@ class Quotations {
 	 * @param  integer $quantity         Product quantity.
 	 * @param  integer $variation        Product variation.
 	 * @param  integer $variation_detail Product variation details.
+	 * @param  integer $price            Product price.
 	 * @return bool
 	 */
 	public function addProduct( $id, $quantity, $variation, $variation_detail, $price = 0 ) {
@@ -205,7 +205,7 @@ class Quotations {
 			'variation'        => (int) $variation,
 			'price'            => $price,
 			'variation_detail' => $variation_detail,
-			'message'          => wp_strip_all_tags( $message )
+			'message'          => wp_strip_all_tags( $message ),
 		];
 
 		$hash = $this->generateHash( $new_product['id'], $variation_detail );
@@ -256,7 +256,7 @@ class Quotations {
 		$products = [];
 
 		if ( isset( WC()->session ) ) {
-			$products = WC()->session->get('pqfw_products_quotations_list');
+			$products = WC()->session->get( 'pqfw_products_quotations_list' );
 		}
 
 		return $products;

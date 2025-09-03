@@ -74,6 +74,8 @@ class Frontend {
 	 * to the template of the product quotation page
 	 * instead of the default template
 	 *
+	 * @param mixed $content The page content.
+	 *
 	 * @since 2.0.1
 	 */
 	public function pageContent( $content ) {

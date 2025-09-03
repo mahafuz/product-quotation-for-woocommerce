@@ -46,16 +46,15 @@ class Helpers {
 	/**
 	 * Validate user data.
 	 *
-	 * @since 2.0.0
-	 * @param array $fields The input fields value to validate.
-	 * return mixed
+	 * @param array $fields The user submitted form data.
+	 * @return array
 	 */
 	public function validate( $fields ) {
 		$errors = new \WP_Error();
 
 		$requiredFields = [
 			'fullname',
-			'email'
+			'email',
 		];
 
 		foreach ( $requiredFields as $required ) {
@@ -83,11 +82,22 @@ class Helpers {
 		return $errors;
 	}
 
-
+	/**
+	 * Sanitize a checkbox field.
+	 *
+	 * @param  mixed $boolean The checkbox field.
+	 * @return bool
+	 */
 	public function sanitize_checkbox_field( $boolean ) {
 		return filter_var( sanitize_text_field( $boolean ), FILTER_VALIDATE_BOOLEAN );
 	}
 
+	/**
+	 * Get the addon status.
+	 *
+	 * @param  string $addon_name The addon name.
+	 * @return bool
+	 */
 	public function get_addon_active_status( $addon_name ) {
 		global $pqfw_addons;
 		if ( isset( $pqfw_addons->{$addon_name} ) ) {
@@ -105,14 +115,14 @@ class Helpers {
 		$result = [
 			[
 				'value' => 0,
-				'label' => __( 'Select page for Quotations cart', 'pqfw' )
-			]
+				'label' => __( 'Select page for Quotations cart', 'pqfw' ),
+			],
 		];
 
 		$pages = get_posts([
 			'numberposts' => -1,
 			'post_type'   => 'page',
-			'post_status' => 'publish'
+			'post_status' => 'publish',
 		]);
 
 		if ( ! is_array( $pages ) || empty( $pages ) ) {
@@ -122,7 +132,7 @@ class Helpers {
 		foreach ( $pages as $page ) {
 			$result[] = [
 				'value' => $page->ID,
-				'label' => $page->post_title
+				'label' => $page->post_title,
 			];
 		}
 
@@ -132,6 +142,8 @@ class Helpers {
 	/**
 	 * Get default cart page.
 	 *
+	 * @param string $field The field type id.
+	 *
 	 * @since 2.0.1
 	 */
 	public function getCart( $field = 'id' ) {
@@ -140,6 +152,11 @@ class Helpers {
 		return 'url' === $field ? esc_url( get_permalink( $id ) ) : $id;
 	}
 
+	/**
+	 * Is the woocommerce plugin active.
+	 *
+	 * @return bool
+	 */
 	public static function isWoocommerceActive() {
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		return is_plugin_active( 'woocommerce/woocommerce.php' );

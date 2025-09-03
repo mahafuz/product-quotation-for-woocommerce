@@ -1,6 +1,6 @@
 <?php
 /**
- * Responsible for registering shortocde.
+ * Responsible for registering shortcode.
  *
  * @since 1.2.0
  * @package PQFW
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 class Strings {
 
 	/**
-	 * Return all translateable strings for settings panel.
+	 * Return all translate-able strings for settings panel.
 	 *
 	 * @since 2.0.3
 	 */
@@ -45,7 +45,9 @@ class Strings {
 
 			// Button settings component.
 			'btn-settings-label'            => __( 'Button Settings', 'pqfw' ),
-			'btn-settings-desc'             => __( 'For better experience choose your own button settings and styles that will ensure the design compatibility with your active theme, as well as functionality', 'pqfw' ),
+			'btn-settings-desc'             => __(
+				'For better experience choose your own button settings and styles that will ensure the design compatibility with your active theme, as well as functionality', 'pqfw'
+			),
 			'show-btn-label'                => __( 'Show Button', 'pqfw' ),
 			'show-btn-desc'                 => __( 'Show Add To Quotation button on category/shop/loop page', 'pqfw' ),
 			'show-btn-desc-single-page'     => __( 'Show Add To Quotation button on product single page', 'pqfw' ),

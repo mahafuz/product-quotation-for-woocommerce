@@ -7,7 +7,7 @@
  * @since       1.2.0
  */
 
-namespace PQFW {
+namespace PQFW {//phpcs:ignore
 
 	// if direct access than exit the file.
 	defined( 'ABSPATH' ) || exit;
@@ -26,6 +26,76 @@ namespace PQFW {
 		 * @since 1.0.0
 		 */
 		private static $instance = null;
+
+		/**
+		 * Contains plugin migration.
+		 *
+		 * @var mixed
+		 */
+		private $migration;
+
+		/**
+		 * Container for the quotations
+		 *
+		 * @var mixed
+		 */
+		public $quotations;
+
+		/**
+		 * Contains helpers methods.
+		 *
+		 * @var mixed
+		 */
+		public $helpers;
+
+		/**
+		 * Container for the addons.
+		 *
+		 * @var mixed
+		 */
+		public $addons;
+
+		/**
+		 * Container for the menus.
+		 *
+		 * @var mixed
+		 */
+		public $menu;
+
+		/**
+		 * Container for the settings.
+		 *
+		 * @var mixed
+		 */
+		public $settings;
+
+		/**
+		 * Contains the cart.
+		 *
+		 * @var mixed
+		 */
+		public $cart;
+
+		/**
+		 * Contains the form controls.
+		 *
+		 * @var mixed
+		 */
+		public $controlsManager;
+
+		/**
+		 * Collect quotation products details.
+		 *
+		 * @var mixed
+		 */
+		public $product;
+
+		/**
+		 * Responsible for the plugin mail.
+		 *
+		 * @var mixed
+		 */
+		public $mailer;
 
 		/**
 		 * Returns single instance of the class
@@ -97,49 +167,50 @@ namespace PQFW {
 		 * @return void
 		 */
 		private function loader() {
-			$this->ajax            = new \PQFW\Ajax();
-			$this->helpers         = new \PQFW\Classes\Helpers();
-			$this->assets          = new \PQFW\Classes\Assets();
-			$this->menu            = new \PQFW\Classes\Menu();
-			$this->quotations      = new \PQFW\Quotations();
-
-
-
-			$this->settings        = new \PQFW\Classes\Settings();
-			$this->form            = new \PQFW\Classes\Form();
-			$this->admin           = new \PQFW\Classes\Admin();
-			$this->cart            = new \PQFW\Classes\Cart();
-			$this->form_handler    = new \PQFW\Classes\Form_Handler();
-			$this->shortcode       = new \PQFW\Classes\Shortcode();
-			$this->frontend        = new \PQFW\Classes\Frontend();
-			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
-			$this->product         = new \PQFW\Classes\Product();
-			$this->mailer          = new \PQFW\Classes\Mailer();
-			$this->strings         = new \PQFW\Classes\Strings();
-
-
-			$this->addons = new \PQFW\Addons;
-
 			if ( ! function_exists( 'WC' ) ) {
 				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );
 			}
 
+			$this->helpers         = new \PQFW\Classes\Helpers();
+			$this->menu            = new \PQFW\Classes\Menu();
+			$this->settings        = new \PQFW\Classes\Settings();
+
+			new \PQFW\Ajax();
+			new \PQFW\Classes\Assets();
+
+			new \PQFW\Classes\Form_Handler();
+			new \PQFW\Classes\Shortcode();
+
+			$this->quotations      = new \PQFW\Quotations();
+			$this->addons          = new \PQFW\Addons();
+
+			$this->cart            = new \PQFW\Classes\Cart();
+			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
+			$this->product         = new \PQFW\Classes\Product();
+			$this->mailer          = new \PQFW\Classes\Mailer();
+
+			new \PQFW\Classes\Form();
+			new \PQFW\Classes\Frontend();
+			new \PQFW\Classes\Admin();
+
 			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
 			add_action( 'admin_init', [ $this, 'redirect' ] );
-
-			add_action( 'quotify/templates/form', array( $this, 'display_form' ) );
-
-
+			add_action( 'quotify/templates/form', [ $this, 'display_form' ] );
 
 			// Initialize the integrations.
 			$this->integrations();
 		}
 
+		/**
+		 * Displays the contact form.
+		 *
+		 * @return void
+		 */
 		public function display_form() {
 			$source = 'contact-form-7';
 			$form_id = '1';
 
-			echo do_shortcode('[contact-form-7 id="9d86c9d" title="Contact form 1"]');
+			echo do_shortcode( '[contact-form-7 id="9d86c9d" title="Contact form 1"]' );
 		}
 
 		/**
@@ -209,13 +280,16 @@ namespace PQFW {
 				$button_text = __( 'Activate WooCommerce', 'pqfw' );
 			} else {
 				$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
-				$message        = __( '<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be installed and activated. Please install WooCommerce to continue.', 'pqfw' );
+				$message        = __(
+					'<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be installed and activated. Please install WooCommerce to continue.',
+					'pqfw'
+				);
 				$button_text    = __( 'Install WooCommerce', 'pqfw' );
 			}
 
 			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
 
-			printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
+			printf( '<div class="error"><p>%1$s</p>%2$s</div>', wp_kses_post( $message ), wp_kses_post( $button ) );
 		}
 
 		/**
@@ -224,7 +298,6 @@ namespace PQFW {
 		 * @since 2.0.3
 		 */
 		public function sessionStart() {
-			// d( isset( WC()->session ) );
 			if ( isset( WC()->session ) ) {
 				WC()->session->set_customer_session_cookie( true );
 			}
@@ -238,10 +311,10 @@ namespace PQFW {
 		private function integrations() {
 			// Elementor.
 			if ( defined( 'ELEMENTOR_PATH' ) ) {
-				add_action( 'elementor/editor/after_enqueue_styles', [ $this->assets, 'elmentorEditorStyle' ] );
+				add_action( 'elementor/editor/after_enqueue_styles', \PQFW\Classes\Assets::elementorEditorStyle() );
 
-				add_action( 'elementor/widgets/widgets_registered', function() {
-					$this->elementor = \Elementor\Plugin::instance()->widgets_manager->register( new \PQFW\Classes\Addons\Elementor() );
+				add_action( 'elementor/widgets/widgets_registered', function () {
+					\Elementor\Plugin::instance()->widgets_manager->register( new \PQFW\Classes\Addons\Elementor() );
 				});
 			}
 		}
@@ -249,7 +322,7 @@ namespace PQFW {
 
 }
 
-namespace {
+namespace {//phpcs:ignore
 	// if direct access than exit the file.
 	defined( 'ABSPATH' ) || exit;
 
@@ -258,7 +331,7 @@ namespace {
 	 *
 	 * @since 1.0.0
 	 */
-	function pqfw() {
+	function pqfw() {//phpcs:ignore
 		return \PQFW\PQFW::instance();
 	}
 }
