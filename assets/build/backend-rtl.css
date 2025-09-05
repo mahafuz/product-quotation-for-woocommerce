@@ -1,3 +1,264 @@
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/components/Navigation/index.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+.quotify-backend-dashboard-navigation {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.quotify-backend-dashboard-navigation .navigation-item {
+  text-decoration: none;
+  color: var(--quotify-text-color);
+  padding: 15px 20px;
+  width: 20%;
+}
+.quotify-backend-dashboard-navigation .navigation-item.current {
+  color: #000;
+}
+.quotify-backend-dashboard-navigation .navigation-item:hover {
+  color: #000;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/components/TopBar/index.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+.quotify-top-bar {
+  align-items: center;
+  background-color: #fff;
+  background-position: 0%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-bottom: 1px solid var(--quotify-border-color);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 32px;
+  z-index: 1000;
+  padding: 0 35px;
+}
+.quotify-top-bar .quotify-backend-top-bar-left {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  width: 30%;
+}
+.quotify-top-bar .quotify-backend-top-bar-left .quotify-backend-app-logo {
+  height: auto;
+  width: 40px;
+}
+.quotify-top-bar .quotify-backend-top-bar-right {
+  flex-wrap: wrap;
+  display: flex;
+  width: 60%;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/Quotations/index.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+.quotify-quotations-list {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--quotify-background-gray-color);
+  border-radius: 8px;
+  box-shadow: 0 0.5px 2px 0 rgba(16, 24, 40, 0.15);
+  padding: 24px;
+}
+.quotify-quotations-list > header {
+  justify-content: flex-start;
+  margin: 0 !important;
+  padding: 0;
+}
+.quotify-quotations-list > header .quotify-table-header-action__left {
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+.quotify-quotations-list > header .quotify-table-header-action__left .quotify-table-filters {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  margin-left: 2%;
+}
+.quotify-quotations-list > header .quotify-table-header-action__left .quotify-table-filters .quotify-table-filters__options {
+  padding: 10px;
+  width: 25%;
+  text-align: right;
+  cursor: pointer;
+  color: #0f0e16;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+.quotify-quotations-list > header .quotify-table-header-action__left .quotify-table-filters .quotify-table-filters__options.quotify-table-filters__options--active {
+  color: var(--quotify-primary-color);
+  border-bottom-color: var(--quotify-primary-color);
+}
+.quotify-quotations-list > header .quotify-table-header-action__right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 20%;
+}
+.quotify-quotations-list .quotify-list-table {
+  font-size: 16px;
+}
+.quotify-quotations-list .quotify-list-table .quotify-table-title > a {
+  color: var(--quotify-primary-color);
+  text-decoration: none;
+}
+
+.quotify-bulk-actions {
+  display: flex;
+  align-items: center;
+  width: 60%;
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/ViewQuotation/index.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+.quote-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  flex-direction: column;
+}
+
+.quote-card h2,
+.quote-card h3 {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.quote-card p {
+  margin: 6px 0;
+}
+
+.product-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.product-item img {
+  width: 80px;
+  height: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-left: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.product-info h4 {
+  margin: 0 0 5px;
+}
+
+.product-info p {
+  margin: 3px 0;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/Addons/index.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+.quotify-content-wrap.quotify-addons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.quotify-content-wrap.quotify-addons-wrapper .quotify-single-addon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 55px 0 0 0;
+}
+.quotify-content-wrap.quotify-addons-wrapper .quotify-single-addon.disable {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+}
+.quotify-content-wrap.quotify-addons-wrapper .quotify-single-addon.disable .up-coming {
+  background-color: var(--quotify-primary-color);
+  font-size: 12px;
+  padding: 5px;
+  color: var(--quotify-white-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.quotify-content-wrap.quotify-addons-wrapper .quotify-single-addon .quotify-card-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  border-top: 1px solid var(--quotify-border-color);
+  box-sizing: border-box;
+  height: 65px;
+}
+.quotify-content-wrap.quotify-addons-wrapper .quotify-single-addon .quotify-card-footer > * {
+  margin: 0;
+  padding: 0;
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/Help/index.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap {
+  display: block;
+  margin-bottom: 0;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card {
+  text-align: center;
+  padding: 40px 70px;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card .main-intro {
+  padding: 0 100px 30px;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card .main-intro h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0 0 15px;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card .main-intro p {
+  font-size: 18px;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .intro-video iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links .quotify-social {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links .quotify-social > img {
+  max-width: 40px;
+  width: 100%;
+}
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links .quotify-social:hover {
+  opacity: 0.6;
+}
+
+.quotify-help-page-wrapper.quotify-content-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.quotify-help-page-wrapper.quotify-content-wrap .help-block {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+}
 /*!****************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/react-toastify/dist/ReactToastify.css ***!
   \****************************************************************************************************************************************************************************************************************************************/
@@ -1113,4 +1374,66 @@
   to {
     transform: rotate(360deg);
   }
+}
+:root {
+  --quotify-primary-font: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --quotify-primary-color: #008dff;
+  --quotify-secondary-color: #ff5000;
+  --quotify-text-color: #101828;
+  --quotify-placeholder-color: #8e949a;
+  --quotify-border-color: #dedede;
+  --quotify-gray-color: #646c73;
+  --quotify-background-color: #fafafa;
+  --quotify-green-color: #00ad6b;
+  --quotify-warning-color: #fdb022;
+  --quotify-error-color: #ff4d4d;
+  --quotify-white-color: #fff;
+  --quotify-violet-color: #9a6eff;
+}
+
+#wpbody-content,
+#wpcontent {
+  background: #fafafa;
+  color: #101828;
+  font-size: 14px;
+  padding: 0 !important;
+}
+
+.quotify-backend-dashboard {
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  min-height: calc(100vh - 100px);
+  position: relative;
+  top: 0;
+  width: 100% !important;
+}
+
+.separator {
+  background-color: var(--quotify-primary-color);
+  height: 1rem;
+  width: 0.125rem;
+}
+
+.quotify-content-wrap {
+  display: flex;
+  box-sizing: border-box;
+  margin: 0 auto 100px;
+  max-width: 1250px;
+  overflow: hidden;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.quotify-card {
+  background: #fff;
+  border: 1px solid var(--quotify-border-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+.quotify-card .quotify-card-thumbnail {
+  max-width: 100px;
 }

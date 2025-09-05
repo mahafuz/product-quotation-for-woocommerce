@@ -5,8 +5,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import BackendDashboard from './components/BackendDashboard';
 import AdminMenu from './components/AdminMenu';
 
-import { ChakraProvider } from '@chakra-ui/react'
-
 import store from './redux/store';
 
 import './scss/backend.scss';
@@ -23,16 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			return createPortal(children, menuPage);
 		}
 
+		console.log('initial', store.getState());
+		store.subscribe(() => console.log( 'changed', store.getState()));
+
 		root.render(
 			<Provider store={store}>
-				<ChakraProvider>
-					<Router>
-						<MenuPortal>
-							<AdminMenu />
-						</MenuPortal>
-						<BackendDashboard />
-					</Router>
-				</ChakraProvider>
+				<Router>
+					<MenuPortal>
+						<AdminMenu />
+					</MenuPortal>
+					<BackendDashboard />
+				</Router>
 			</Provider>
 		);
 	}

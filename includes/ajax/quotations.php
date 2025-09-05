@@ -20,7 +20,6 @@ use WP_Query;
  */
 class Quotations {
 
-
 	/**
 	 * Initialize ajax actions.
 	 *
@@ -67,7 +66,7 @@ class Quotations {
 					'title'       => get_the_title(),
 					'date'        => get_the_date(),
 					'status'      => get_post_status(),
-					'author_name' => get_the_author_meta( 'display_name' ),
+					'author_name' => get_the_author(),
 				];
 			}
 			wp_reset_postdata();
@@ -92,13 +91,13 @@ class Quotations {
 			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
 		}
 
-		$post = get_post( $id, ARRAY_A, 'display' );
+		$post = get_post( $id, OBJECT, 'display' );
 
 		if ( is_wp_error( $post ) ) {
 			return $post;
 		}
 
-		$post = [
+		$quotation = [
 			'ID'            => $post->ID,
 			'title'         => get_the_title( $post ),
 			'content'       => apply_filters( 'the_content', $post->post_content ),
@@ -112,14 +111,9 @@ class Quotations {
 			'permalink'     => get_permalink( $post ),
 		];
 
-		$meta = get_post_meta( $id );
+		$meta = pqfw()->quotations->formatMeta( $id );
 
-		$meta = array_map(function ( $item ) {
-			$item = array_shift( $item );
-			return maybe_unserialize( $item );
-		}, $meta );
-
-		$quotation = array_merge( $post, $meta );
+		$quotation['meta'] = $meta;
 
 		wp_send_json_success([
 			'message'   => __( 'Quotation fetched successfully.', 'quotify' ),

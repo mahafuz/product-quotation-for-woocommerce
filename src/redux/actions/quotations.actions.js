@@ -50,8 +50,8 @@ export const fetchAllQuotations =
 				dispatch({
 					type: FETCH_ALL_QUOTATIONS,
 					payload: {
-						data: response?.data?.data,
-						totalItems: parseInt(response.headers['x-wp-total']),
+						data: response?.data?.data?.quotations,
+						totalItems: parseInt(response?.data?.data?.total),
 						status,
 					},
 				});
@@ -81,8 +81,8 @@ export const getQuote = (id) => async (dispatch) => {
 			dispatch({
 				type: FETCH_QUOTATION,
 				payload: {
-					quotation: response?.data?.data,
-				},
+					quotation: response?.data.data?.quotation
+				}
 			});
 
 			return response;

@@ -1,0 +1,60 @@
+.quotify-help-intro.quotify-help-page-header.quotify-content-wrap {
+	display: block;
+	margin-bottom: 0;
+
+	.quotify-card {
+		text-align: center;
+		padding: 40px 70px;
+
+		.main-intro {
+			padding: 0 100px 30px;
+			h2 {
+				font-size: 26px;
+				font-weight: bold;
+				margin: 0 0 15px;
+			}
+			p {
+				font-size: 18px;
+			}
+		}
+	}
+
+	.intro-video {
+		iframe {
+			width: 100%;
+			height: 100%;
+			min-height: 400px;
+		}
+	}
+
+	.quotify-links {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		justify-content: center;
+		.quotify-social {
+			transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+			& > img {
+				max-width: 40px;
+				width: 100%;
+				
+			}
+			&:hover {
+				opacity: 0.6;
+			}
+		}
+	}
+}
+.quotify-help-page-wrapper.quotify-content-wrap {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+
+	.help-block {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+
+	}
+}

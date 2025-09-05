@@ -4,10 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllQuotations } from '@Redux/actions/quotations.actions';
 import DataTable from 'react-data-table-component';
 import { __ } from '@wordpress/i18n';
-import { Flex, Button, Heading, Grid, GridItem } from '@chakra-ui/react';
+import { Button } from '@wordpress/components';
 
 import { RiDeleteBin6Line, RiEditLine } from 'react-icons/ri';
 import { MdOutlineRestore } from 'react-icons/md';
+
+import TopBar from '@Components/TopBar';
+
+import './index.scss';
 
 const statusArray = [
 	{
@@ -110,7 +114,7 @@ function index() {
 	useEffect(() => {
 		if (
 			!quotations.data ||
-			(quotations.data && quotations.data?.quotations?.length < 0) ||
+			(quotations.data && quotations.data?.length < 0) ||
 			status
 		) {
 			setFetching(true);
@@ -151,8 +155,8 @@ function index() {
 		};
 
 		return (
-			<Grid>
-				<GridItem className="quotify-table-header-action__left">
+			<>
+				<div className="quotify-table-header-action__left">
 					<div className="quotify-table-filters">
 						{statusArray.map((item, index) => (
 							<span
@@ -168,7 +172,7 @@ function index() {
 							</span>
 						))}
 					</div>
-					<BulkAction
+					{/* <BulkAction
 						data={bulkActionData}
 						applyActionHandler={bulkActionHandler}
 						confirmMessage={
@@ -183,14 +187,16 @@ function index() {
 									)
 						}
 						options={bulkOptions}
-					/>
-				</GridItem>
-				<GridItem className="quotify-table-header-action__right">
-					<span>{quotations.data?.length} Items</span>
-				</GridItem>
-			</Grid>
+					/> */}
+				</div>
+				<div className="quotify-table-header-action__right">
+					<span>
+						Showing result {quotations?.data?.length} out of {quotations?.totalItems}
+					</span>
+				</div>
+			</>
 		);
-	}, [bulkActionData, status]);
+	}, [bulkActionData, status, quotations]);
 
 	const columns = [
 		{
@@ -255,10 +261,10 @@ function index() {
 								onClick={() => {
 									if (is_admin) {
 										navigate(
-											`${route_path}admin.php?page=pqfw-product-quotations&id=${row.id}&action=edit`
+											`${route_path}admin.php?page=pqfw-product-quotations&id=${row.id}&action=view`
 										);
 									} else {
-										navigate(`edit-/${row.id}`);
+										navigate(`view-/${row.id}`);
 									}
 								}}
 								iconPosition="left"
@@ -294,22 +300,35 @@ function index() {
 
 	return (
 		<>
-			<Heading>{__('Quotations', 'pqfw')}</Heading>
-			<DataTable
-				selectableRows
-				persistTableHead
-				onSelectedRowsChange={(e) => setBulkActionData(e)}
-				progressPending={fetchStatus}
-				progressComponent={<h1>Loading quotations...</h1>}
-				paginationResetDefaultPage={false} // optionally, a hook to reset pagination to page 1
-				subHeader
-				subHeaderAlign={`left`}
-				paginationTotalRows={quotations?.totalItems} //pagination
-				paginationDefaultPage={quotations.currentPage}
-				subHeaderComponent={subHeaderComponentMemo}
-				columns={columns}
-				data={quotations.data?.quotations}
+			<TopBar
+				render={() => (
+					<div className="quotify-top-bar-left">
+						<h4 className="quotify-top-bar-heading">
+							{__('Dashboard', 'quotify')}
+						</h4>
+					</div>
+				)}
 			/>
+
+			<div className="quotify-dashboard-wrapper quotify-content-wrap">
+				<div className="quotify-quotations-list">
+					<DataTable
+						selectableRows
+						persistTableHead
+						onSelectedRowsChange={(e) => setBulkActionData(e)}
+						progressPending={fetchStatus}
+						progressComponent={<h1>Loading quotations...</h1>}
+						paginationResetDefaultPage={false}
+						subHeader
+						paginationTotalRows={quotations?.totalItems} //pagination
+						paginationDefaultPage={quotations.currentPage}
+						subHeaderComponent={subHeaderComponentMemo}
+						columns={columns}
+						data={quotations.data}
+						className="quotify-list-table"
+					/>
+				</div>
+			</div>
 		</>
 	);
 }

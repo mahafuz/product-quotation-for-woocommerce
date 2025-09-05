@@ -1,0 +1,20 @@
+.quotify-backend-dashboard-navigation {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .navigation-item {
+        text-decoration: none;
+        color: var(--quotify-text-color);
+        padding: 15px 20px;
+        width: 20%;
+        &.current {
+            color: #000;
+            // background: var(--quotify-gray-color);
+        }
+        &:hover {
+            color: #000;
+            // background: var(--quotify-gray-color);
+        }
+    }
+}

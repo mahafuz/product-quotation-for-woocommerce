@@ -1,0 +1,62 @@
+.quotify-quotations-list {
+	width: 100%;
+	background: #fff;
+	border: 1px solid var(--quotify-background-gray-color);
+	border-radius: 8px;
+	box-shadow: 0 0.5px 2px 0 rgba(16, 24, 40, 0.15);
+	padding: 24px;
+
+	& > header {
+		justify-content: flex-start;
+		margin: 0 !important;
+		padding: 0;
+
+		.quotify-table-header-action__left {
+			display: flex;
+			align-items: center;
+			width: 80%;
+
+			.quotify-table-filters {
+				width: 50%;
+				display: flex;
+				align-items: center;
+				margin-right: 2%;
+
+				.quotify-table-filters__options {
+					padding: 10px;
+					width: 25%;
+					text-align: left;
+					cursor: pointer;
+					color: #0f0e16;
+					position: relative;
+					border-bottom: 1px solid #eee;
+
+					&.quotify-table-filters__options--active {
+						color: var(--quotify-primary-color);
+						border-bottom-color: var(--quotify-primary-color);
+					}
+				}
+			}
+		}
+
+		.quotify-table-header-action__right {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			width: 20%;
+		}
+	}
+	.quotify-list-table {
+        font-size: 16px;
+		.quotify-table-title > a {
+			color: var(--quotify-primary-color);
+			text-decoration: none;
+		}
+	}
+}
+
+.quotify-bulk-actions {
+	display: flex;
+	align-items: center;
+	width: 60%;
+}

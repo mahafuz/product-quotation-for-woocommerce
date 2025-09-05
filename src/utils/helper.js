@@ -123,6 +123,7 @@ export const makeRequest = async (payload = {}, isRaw = false) => {
 			form_data.append(key, value);
 		}
 	});
+
 	return await axios.post(ajaxurl, form_data).then(
 		(response) => {
 			return response;
@@ -266,3 +267,6 @@ export const sliceString = (text, length = 20, more = '...') => {
 	}
 	return text.slice(0, length).replace(/(^[\s]+|[\s]+$)/g, '') + more;
 };
+
+export const getPageTitle = (page) => {
+}

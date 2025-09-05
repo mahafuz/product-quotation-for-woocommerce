@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import {
 	Box,
@@ -5,14 +6,12 @@ import {
 	Stack,
 	Collapse,
 	Icon,
-	useColorModeValue,
-	useDisclosure,
-} from '@chakra-ui/react'
+} from '@wordpress/components'
 
 import { route_path } from '@Utils/helper';
 
 const MobileNavItem = ({ label, children, href }) => {
-	const { isOpen, onToggle } = useDisclosure()
+	const [ isOpen, onToggle ] = useState()
 
 	return (
 		<Stack spacing={4} onClick={children && onToggle}>
@@ -24,7 +23,7 @@ const MobileNavItem = ({ label, children, href }) => {
 				_hover={{
 					textDecoration: 'none',
 				}}>
-				<Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+				<Text fontWeight={600}>
 					<Link to={`${route_path}admin.php?page=${href}`}>{label}</Link>
 				</Text>
 				{children && (
@@ -44,7 +43,6 @@ const MobileNavItem = ({ label, children, href }) => {
 					pl={4}
 					borderLeft={1}
 					borderStyle={'solid'}
-					borderColor={useColorModeValue('gray.200', 'gray.700')}
 					align={'start'}>
 					{children &&
 						children.map((child) => (

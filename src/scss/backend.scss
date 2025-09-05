@@ -1,3 +1,67 @@
 @use "sass:meta";
 
 @include meta.load-css('common/loader');
+
+:root {
+	--quotify-primary-font: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	--quotify-primary-color: #008dff;
+	--quotify-secondary-color: #ff5000;
+	--quotify-text-color: #101828;
+	--quotify-placeholder-color: #8e949a;
+	--quotify-border-color: #dedede;
+	--quotify-gray-color: #646c73;
+	--quotify-background-color: #fafafa;
+	--quotify-green-color: #00ad6b;
+	--quotify-warning-color: #fdb022;
+	--quotify-error-color: #ff4d4d;
+	--quotify-white-color: #fff;
+	--quotify-violet-color: #9a6eff;
+}
+
+#wpbody-content,
+#wpcontent {
+	background: #fafafa;
+	color: #101828;
+	font-size: 14px;
+	padding: 0 !important;
+}
+
+.quotify-backend-dashboard {
+	display: flex;
+	flex-direction: column;
+	left: 0;
+	min-height: calc(100vh - 100px);
+	position: relative;
+	top: 0;
+	width: 100% !important;
+}
+
+.separator {
+    background-color: var(--quotify-primary-color);
+    height: 1rem;
+    width: .125rem;
+}
+
+.quotify-content-wrap {
+	display: flex;
+    box-sizing: border-box;
+    margin: 0 auto 100px;
+    max-width: 1250px;
+    overflow: hidden;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.quotify-card {
+    background: #fff;
+    border: 1px solid var(--quotify-border-color);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin-bottom: 30px;
+
+	.quotify-card-thumbnail {
+		max-width: 100px;
+	}
+}

@@ -60,11 +60,14 @@ class Menu {
 			'capability' => 'manage_options',
 		];
 
-		$this->container[ PQFW_PLUGIN_SLUG . '-tools' ]    = [
-			'parent_slug' => PQFW_PLUGIN_SLUG,
-			'title'      => __( 'Tools', 'pqfw' ),
-			'capability' => 'manage_options',
-		];
+		// TODO: coming on the later version.
+		//phpcs:disable
+		// $this->container[ PQFW_PLUGIN_SLUG . '-tools' ]    = [
+		// 	'parent_slug' => PQFW_PLUGIN_SLUG,
+		// 	'title'      => __( 'Tools', 'pqfw' ),
+		// 	'capability' => 'manage_options',
+		// ];
+		//phpcs:enable
 
 		$this->container[ PQFW_PLUGIN_SLUG . '-help' ]    = [
 			'parent_slug' => PQFW_PLUGIN_SLUG,
@@ -107,7 +110,7 @@ class Menu {
 	 */
 	public function load_main_template() {
 		$preloader_html = apply_filters( 'pqfw/preloader', pqfwGetPreLoader() );
-		echo '<div id="pqfw-backend-dashboard" class="pqfw-backend-dashboard">' . wp_kses_post( $preloader_html ) . '</div>';
+		echo '<div id="pqfw-backend-dashboard" class="quotify-backend-dashboard">' . wp_kses_post( $preloader_html ) . '</div>';
 	}
 
 	/**

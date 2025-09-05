@@ -1,0 +1,44 @@
+.quotify-content-wrap.quotify-addons-wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+
+	.quotify-single-addon {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 55px 0 0 0;
+
+		&.disable {
+			opacity: 0.6;
+			pointer-events: none;
+			position: relative;
+
+			.up-coming {
+				background-color: var(--quotify-primary-color);
+				font-size: 12px;
+				padding: 5px;
+				color: var(--quotify-white-color);
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+		}
+
+		.quotify-card-footer {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			padding: 10px 20px;
+			border-top: 1px solid var(--quotify-border-color);
+			box-sizing: border-box;
+			height: 65px;
+			& > * {
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+}

@@ -4,8 +4,7 @@ import {
 	Text,
 	Stack,
 	Icon,
-	useColorModeValue,
-} from '@chakra-ui/react'
+} from '@wordpress/components'
 
 import {
 	MdKeyboardArrowRight,
@@ -20,7 +19,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 			display={'block'}
 			p={2}
 			rounded={'md'}
-			_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+			>
 			<Stack direction={'row'} align={'center'}>
 				<Box>
 					<Text

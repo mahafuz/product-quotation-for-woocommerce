@@ -272,4 +272,29 @@ class Quotations {
 			WC()->session->set( 'pqfw_products_quotations_list', [] );
 		}
 	}
+
+	/**
+	 * Formats quotation metadata to display.
+	 *
+	 * @param  int $id The quotation id.
+	 * @return array
+	 */
+	public function formatMeta( $id ) {
+		$metadata = get_post_meta( $id );
+
+		if ( empty( $metadata ) ) {
+			wp_send_json_error( [
+				'message' => __( 'Quote is not valid', 'quotify' ),
+			] );
+		}
+
+		foreach ( $metadata as $key => $value ) {
+			$data = array_shift( $value );
+			$data = maybe_unserialize( $data );
+
+			$metadata[ $key ] = $data;
+		}
+
+		return $metadata;
+	}
 }

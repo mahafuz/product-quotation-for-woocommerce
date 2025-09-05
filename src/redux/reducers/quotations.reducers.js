@@ -4,6 +4,7 @@ import {
 	FETCH_ALL_QUOTATIONS,
 	MOVE_TO_TRASH,
 	DELETE_QUOTATION,
+	RESTORE_QUOTATION,
 } from '@Redux/types/quotations.types';
 
 const initialState = {};
@@ -14,23 +15,25 @@ function quotationsReducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_ALL_QUOTATIONS:
 			return {
+				...state.quotations,
 				...payload,
-			};
-		case FETCH_QUOTATION:
-			return {
-				...state,
-				quotation: {
-					...payload.quotation.quotation
-				}
 			};
 		case MOVE_TO_TRASH:
 			if (state.data) {
-				const updatedData = state.data.map((item) => {
-					if (parseInt(item.id) === parseInt(payload.id)) {
-						return { ...item, ...payload };
-					}
-					return item;
-				});
+				const itemId = parseInt(
+					payload?.data?.quotation?.ID || payload?.data?.quotation?.id
+				);
+				const itemToTrash = state.data.find(
+					(item) => parseInt(item.id) === itemId
+				);
+
+				if (!itemToTrash) {
+					return state;
+				}
+
+				const updatedData = state.data.filter(
+					(item) => parseInt(item.id) !== itemId
+				);
 
 				return {
 					...state,
@@ -40,6 +43,36 @@ function quotationsReducer(state = initialState, action) {
 			return {
 				...state,
 				data: [payload],
+			};
+		case RESTORE_QUOTATION:
+			if (state.data) {
+				const itemId = parseInt(
+					payload?.data?.quotation?.ID || payload?.data?.quotation?.id
+				);
+
+				console.log('itemId', itemId);
+
+				const itemToRestore = state.data.find(
+					(item) => parseInt(item.id) === itemId
+				);
+
+				if (!itemToRestore) {
+					return state;
+				}
+
+				const updatedData = state.data.filter(
+					(item) => parseInt(item.id) !== itemId
+				);
+
+				return {
+					...state,
+					data: updatedData
+				}
+			}
+
+			return {
+				...state,
+				data: [payload]
 			};
 		case DELETE_QUOTATION:
 			if (state.data) {
