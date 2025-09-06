@@ -188,7 +188,6 @@ namespace PQFW {//phpcs:ignore
 			$this->cart            = new \PQFW\Classes\Cart();
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
-			$this->mailer          = new \PQFW\Classes\Mailer();
 			$this->mail            = new \PQFW\Classes\Mail();
 
 			new \PQFW\Classes\Form();

@@ -23,6 +23,7 @@ class Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'registerPostType' ] );
+
 		add_action( 'add_meta_boxes', [ $this, 'QuotationAuthorDetail' ] );
 		add_action( 'admin_menu', [ $this, 'menus' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
