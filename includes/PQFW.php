@@ -198,9 +198,6 @@ namespace PQFW {//phpcs:ignore
 			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
 			add_action( 'admin_init', [ $this, 'redirect' ] );
 			add_action( 'quotify/templates/form', [ $this, 'display_form' ] );
-
-			// Initialize the integrations.
-			$this->integrations();
 		}
 
 		/**
@@ -209,10 +206,6 @@ namespace PQFW {//phpcs:ignore
 		 * @return void
 		 */
 		public function display_form() {
-			$source = 'contact-form-7';
-			$form_id = '1';
-
-			echo do_shortcode( '[contact-form-7 id="9d86c9d" title="Contact form 1"]' );
 		}
 
 		/**

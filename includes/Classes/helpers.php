@@ -247,7 +247,20 @@ class Helpers {
 		return wp_kses( $html, $allowed_tags );
 	}
 
-
+	/**
+	 * Retrieves all post meta data for a given post ID as a key-value array.
+	 *
+	 * @since 2.0.4
+	 * @access public
+	 *
+	 * @param int $id The post ID for which to retrieve metadata.
+	 *
+	 * @return array|WP_Error Associative array of meta key-value pairs on success.
+	 *                        Returns WP_Error if the provided ID is invalid.
+	 *                        Returns empty array if no meta data exists for the post.
+	 *
+	 * @throws WP_Error If the provided ID is not a valid numeric post ID.
+	 */
 	public function get_post_meta_by_id( $id ) {
 		global $wpdb;
 
@@ -260,10 +273,22 @@ class Helpers {
 			OBJECT_K
 		);
 
+		$excluded = [
+			'_edit_lock',
+			'_edit_last',
+			'_wp_old_slug',
+			'_wp_attached_file',
+			'_wp_attachment_metadata',
+		];
+
 		$updated = [];
 
 		if ( ! empty( $meta ) ) {
 			foreach ( $meta as $item ) {
+				if ( isset( $excluded[ $item->key ] ) ) {
+					continue;
+				}
+
 				$updated[ $item->meta_key ] = maybe_unserialize( $item->meta_value );
 			}
 		}

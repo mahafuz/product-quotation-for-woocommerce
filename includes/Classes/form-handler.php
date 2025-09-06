@@ -44,7 +44,7 @@ class Form_Handler {
 		$email    = sanitize_email( $_POST['pqfw_customer_email'] );
 		$phone    = pqfw()->helpers->sanitizePhoneNumber( $_POST['pqfw_customer_phone'] );
 		$subject  = sanitize_text_field( $_POST['pqfw_customer_subject'] );
-		$comments = sanitize_text_field( $_POST['pqfw_customer_comments'] );
+		$comments = sanitize_textarea_field( $_POST['pqfw_customer_comments'] );
 
 		$collection = [
 			'fullname' => $fullname,
@@ -60,7 +60,7 @@ class Form_Handler {
 			wp_send_json_error( $validate->errors );
 		}
 
-		do_action( 'quotify/quotations/before_insert' );
+		do_action( 'quotify/quotations/before_insert', $collection );
 
 		$insertID = pqfw()->product->save( $collection );
 
