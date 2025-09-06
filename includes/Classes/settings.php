@@ -51,7 +51,7 @@ class Settings {
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'menu' ] );
-		add_action( 'wp_ajax_pqrf_save_settings', [ $this, 'save' ] );
+		add_action( 'wp_ajax_quotify/settings/save', [ $this, 'save' ] );
 		add_action( 'wp_ajax_pqfw_cart_get_permalink', [ $this, 'getCartPermalink' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 	}
@@ -167,7 +167,7 @@ class Settings {
 	 * @return  void
 	 */
 	public function save() {
-		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw-app-ui' ) ) {
+		if ( ! isset( $_REQUEST['security'] ) || ! wp_verify_nonce( $_REQUEST['security'], 'pqfw_nonce' ) ) {
 			wp_send_json_error([
 				'message' => esc_html__( 'Unauthorized Action', 'pqfw' ),
 			], 400 );

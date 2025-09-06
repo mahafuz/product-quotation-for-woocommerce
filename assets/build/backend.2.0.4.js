@@ -75378,17 +75378,17 @@ const ButtonSettings = ({
     className: "pqfw-settings-tab-content pqfw-settings-tab-content-active",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
       className: "pqfw-tab-title",
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-settings-label')
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button Settings')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "inside",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
         className: "help",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-settings-desc')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('For better experience choose your own button settings and styles that will ensure the design compatibility with your active theme, as well as functionality')
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
         className: "form-table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('show-btn-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Button')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FormToggle, {
               checked: settings?.pqfw_shop_page_button,
@@ -75398,12 +75398,12 @@ const ButtonSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('show-btn-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Add To Quotation button on category/shop/loop page', 'quotify')
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('show-btn-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Button')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FormToggle, {
               checked: settings?.pqfw_product_page_button,
@@ -75413,12 +75413,12 @@ const ButtonSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('show-btn-desc-single-page')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Add To Quotation button on product single page')
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-text-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button Text')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
               type: "text",
@@ -75430,28 +75430,28 @@ const ButtonSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-text-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Change Add To Quote button text')
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button position in Loop')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
-              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-label'),
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button position in Loop'),
               value: settings?.button_position,
               hideLabelFromVision: true,
               options: [{
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-options-1'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('At product end'),
                 value: 'woocommerce_after_shop_loop_item'
               }, {
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-options-2'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('At product start'),
                 value: 'woocommerce_before_shop_loop_item'
               }, {
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-options-3'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Before product title'),
                 value: 'woocommerce_before_shop_loop_item_title'
               }, {
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-options-4'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('After product title'),
                 value: 'woocommerce_after_shop_loop_item_title'
               }],
               onChange: position => setSettings({
@@ -75460,25 +75460,25 @@ const ButtonSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Add To Quote button position in the loop.')
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-single-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button position in Single Product')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
-              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-single-label'),
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button position in Single Product'),
               value: settings?.button_position_single_product,
               hideLabelFromVision: true,
               options: [{
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-single-options-1'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Before add to cart button'),
                 value: 'woocommerce_after_add_to_cart_quantity'
               }, {
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-single-options-2'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('After add to cart button'),
                 value: 'woocommerce_after_add_to_cart_button'
               }, {
-                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-single-options-3'),
+                label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('End of product'),
                 value: 'woocommerce_share'
               }],
               onChange: position => setSettings({
@@ -75487,12 +75487,12 @@ const ButtonSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-position-single-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Add To Quote button position in the single product page.')
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('btn-style-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Button Style')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
               className: "button-style-tab-panel",
@@ -75500,11 +75500,11 @@ const ButtonSettings = ({
               initialTabName: "normal",
               tabs: [{
                 name: 'normal',
-                title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('normal'),
+                title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Normal'),
                 className: 'normal-color'
               }, {
                 name: 'hover',
-                title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('hover'),
+                title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hover'),
                 className: 'hover-color'
               }],
               children: tab => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -75512,7 +75512,7 @@ const ButtonSettings = ({
                 children: [tab.name === 'hover' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "color-picker-label",
-                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('text-color')
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text Color')
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
                     colorValue: settings?.button_hover_color,
                     onClick: () => sethoverVisibleColor(!hoverColorVisible)
@@ -75530,7 +75530,7 @@ const ButtonSettings = ({
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "color-picker-label",
-                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('background')
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background')
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
                     colorValue: settings?.button_hover_bg_color,
                     onClick: () => sethoverVisibleBg(!hoverVisibleBg)
@@ -75548,7 +75548,7 @@ const ButtonSettings = ({
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
                     onClick: () => {
-                      if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('reset-message'))) {
+                      if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset the custom style and back to theme default style?'))) {
                         setSettings({
                           ...settings,
                           button_hover_color: '',
@@ -75559,12 +75559,12 @@ const ButtonSettings = ({
                     className: "pqfw-reset-btn",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
                       src: _images_reset_png__WEBPACK_IMPORTED_MODULE_3__
-                    }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('reset')]
+                    }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset')]
                   })]
                 }), tab.name === 'normal' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "color-picker-label",
-                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('text-color')
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text Color')
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
                     colorValue: settings?.button_normal_color,
                     onClick: () => setNormalColorVisible(!normalColorVisible)
@@ -75582,7 +75582,7 @@ const ButtonSettings = ({
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "color-picker-label",
-                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('background')
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background')
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorIndicator, {
                     colorValue: settings?.button_normal_bg_color,
                     onClick: () => setNormalBgVisible(!normalBgVisible)
@@ -75600,7 +75600,7 @@ const ButtonSettings = ({
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "color-picker-label",
-                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('font-size')
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Font Size')
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
                     value: settings?.button_font_size,
                     onChange: value => setSettings({
@@ -75610,7 +75610,7 @@ const ButtonSettings = ({
                     max: 50
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                     className: "color-picker-label",
-                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('width')
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Width')
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
                     value: settings?.button_width,
                     onChange: value => setSettings({
@@ -75620,7 +75620,7 @@ const ButtonSettings = ({
                     max: 300
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
                     onClick: () => {
-                      if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('reset-message'))) {
+                      if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset the custom style and back to theme default style?'))) {
                         setSettings({
                           ...settings,
                           button_normal_color: '',
@@ -75633,7 +75633,7 @@ const ButtonSettings = ({
                     className: "pqfw-reset-btn",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
                       src: _images_reset_png__WEBPACK_IMPORTED_MODULE_3__
-                    }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('reset')]
+                    }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset')]
                   })]
                 })]
               })
@@ -75646,7 +75646,7 @@ const ButtonSettings = ({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         className: "button button-primary",
         onClick: saveSettings,
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('save-changes')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save Changes')
       })
     })]
   });
@@ -75685,17 +75685,17 @@ const EmailSettings = ({
     className: "pqfw-settings-tab-content pqfw-settings-tab-content-active",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
       className: "pqfw-tab-title",
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('email-settings-label')
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Email Settings')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "inside",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
         className: "help",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('email-settings-desc')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Customize email settings for better experience that will ensure the ease of use as you like.')
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
         className: "form-table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('receive-email-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Receive Email')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FormToggle, {
               checked: settings?.pqfw_form_send_mail,
@@ -75705,12 +75705,12 @@ const EmailSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('receive-email-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Receive email for each user submitted quotation from the Quotations Cart page.')
             })]
           })]
         }), settings?.pqfw_form_send_mail && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('recipient-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Recipient')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "text",
@@ -75722,12 +75722,12 @@ const EmailSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('recipient-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add recipient email ID that will receive each quotation on the email.')
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('send-email-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Send Email')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FormToggle, {
               checked: settings?.pqfw_send_mail_to_customer,
@@ -75737,7 +75737,7 @@ const EmailSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('send-email-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Send a copy of the email to the customer as well for each submitted quotation from the Quotations Cart page.')
             })]
           })]
         })]
@@ -75747,7 +75747,7 @@ const EmailSettings = ({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
         className: "button button-primary",
         onClick: saveSettings,
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('save-changes')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Save Changes')
       })
     })]
   });
@@ -75786,17 +75786,17 @@ const FormSettings = ({
     className: "pqfw-settings-tab-content pqfw-settings-tab-content-active",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
       className: "pqfw-tab-title",
-      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('form-settings-label')
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Form Settings')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "inside",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
         className: "help",
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('form-settings-desc')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.')
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
         className: "form-table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('default-form-style-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Default Form Style')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FormToggle, {
               checked: settings?.pqfw_form_default_design,
@@ -75806,12 +75806,12 @@ const FormSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('default-form-style-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.')
             })]
           })]
         }), settings?.pqfw_form_default_design ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('floated-form-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Default Form Style')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FormToggle, {
               checked: settings?.pqfw_floating_form,
@@ -75821,12 +75821,12 @@ const FormSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('floated-form-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class.')
             })]
           })]
         }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('add-pvp-label')
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add Privacy Policy')
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FormToggle, {
               checked: settings?.privacy_policy,
@@ -75836,13 +75836,13 @@ const FormSettings = ({
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
               className: "description",
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('add-pvp-desc')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Ask user to accept terms and condition before submitting the quotation form.')
             })]
           })]
         }), settings?.privacy_policy ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('pvp-label-label')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Privacy Policy Label')
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
                 type: "text",
@@ -75854,12 +75854,12 @@ const FormSettings = ({
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
                 className: "description",
-                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('pvp-label-desc')
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)')
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('pvp-content-label')
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Privacy Policy')
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("textarea", {
                 cols: "30",
@@ -75872,7 +75872,7 @@ const FormSettings = ({
                 children: settings?.privacy_policy_content
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
                 className: "description",
-                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('pvp-label-desc')
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)')
               })]
             })]
           })]
@@ -75883,7 +75883,7 @@ const FormSettings = ({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
         className: "button button-primary",
         onClick: saveSettings,
-        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('save-changes')
+        children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Save Changes')
       })
     })]
   });
@@ -76037,7 +76037,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_toastify_dist_ReactToastify_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify/dist/ReactToastify.css */ "./node_modules/react-toastify/dist/ReactToastify.css");
-/* harmony import */ var _Utils_helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Utils/helper */ "./src/utils/helper.js");
+/* harmony import */ var _Utils_helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/helper */ "./src/utils/helper.js");
 /* harmony import */ var _Components_TopBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Components/TopBar */ "./src/components/TopBar/index.js");
 /* harmony import */ var _GeneralSettings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./GeneralSettings */ "./src/components/Settings/GeneralSettings/index.js");
 /* harmony import */ var _ButtonSettings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ButtonSettings */ "./src/components/Settings/ButtonSettings/index.js");
@@ -76066,6 +76066,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const App = () => {
   const savedTab = localStorage.getItem('pqfw_settings_active_tab') || 'general';
   const [activeTab, setActiveTab] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(savedTab);
@@ -76076,20 +76077,21 @@ const App = () => {
   const saveSettings = e => {
     let button = e.target;
     button.classList.add('updating-message');
-    wp.ajax.send('pqrf_save_settings', {
-      data: {
-        _wpnonce: (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_4__.getNonce)(),
-        settings: JSON.stringify(settings)
-      },
-      success: function (response) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.success(response.message);
-      },
-      error: function (error) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_1__.toast.error(error.message);
-      },
-      complete: function () {
-        button.classList.remove('updating-message');
+    (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_4__.makeRequest)({
+      action: 'quotify/settings/save',
+      settings: JSON.stringify(settings)
+    }).then(response => {
+      if (response.data?.success) {
+        // dispatch({
+        // 	type: FETCH_ADDONS,
+        // 	payload: response.data?.data,
+        // });
+        (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_4__.fireNotify)(response?.data?.data?.message, 'success');
+      } else {
+        (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_4__.fireNotify)(response?.data?.data?.message, 'error');
       }
+    }).then(() => {
+      button.classList.remove('updating-message');
     });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.Fragment, {

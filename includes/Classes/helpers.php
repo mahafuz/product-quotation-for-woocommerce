@@ -8,6 +8,8 @@
 
 namespace PQFW\Classes;
 
+use WP_Error;
+
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
@@ -243,5 +245,29 @@ class Helpers {
 		];
 
 		return wp_kses( $html, $allowed_tags );
+	}
+
+
+	public function get_post_meta_by_id( $id ) {
+		global $wpdb;
+
+		if ( ! is_numeric( $id ) || ! absint( $id ) ) {
+			new WP_Error( 'invalid', __( 'Illegal operation', 'quotify' ) );
+		}
+
+		$meta = $wpdb->get_results(
+			$wpdb->prepare( "SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id = %d", absint( $id ) ),
+			OBJECT_K
+		);
+
+		$updated = [];
+
+		if ( ! empty( $meta ) ) {
+			foreach ( $meta as $item ) {
+				$updated[ $item->meta_key ] = maybe_unserialize( $item->meta_value );
+			}
+		}
+
+		return $updated;
 	}
 }

@@ -96,6 +96,7 @@ namespace PQFW {//phpcs:ignore
 		 * @var mixed
 		 */
 		public $mailer;
+		public $mail; //phpcs:ignore
 
 		/**
 		 * Returns single instance of the class
@@ -188,10 +189,12 @@ namespace PQFW {//phpcs:ignore
 			$this->controlsManager = new \PQFW\Classes\Controls_Manager();
 			$this->product         = new \PQFW\Classes\Product();
 			$this->mailer          = new \PQFW\Classes\Mailer();
+			$this->mail            = new \PQFW\Classes\Mail();
 
 			new \PQFW\Classes\Form();
 			new \PQFW\Classes\Frontend();
 			new \PQFW\Classes\Admin();
+			\PQFW\Classes\Hooks::init();
 
 			add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
 			add_action( 'admin_init', [ $this, 'redirect' ] );

@@ -4,13 +4,13 @@ import { FormToggle } from '@wordpress/components';
 const FormSettings = ({ settings, setSettings, saveSettings }) => {
   return (
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
-		<h3 className='pqfw-tab-title'>{__( 'form-settings-label' )}</h3>
+		<h3 className='pqfw-tab-title'>{__( 'Form Settings' )}</h3>
 		<div className="inside">
-			<p className="help">{__( 'form-settings-desc' )}</p>
+			<p className="help">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
 
 			<table className="form-table">
 				<tr>
-					<th>{__( 'default-form-style-label' )}</th>
+					<th>{__( 'Default Form Style' )}</th>
 					<td>
 						<FormToggle
 							checked={ settings?.pqfw_form_default_design }
@@ -19,12 +19,12 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 								pqfw_form_default_design: e.target.checked
 							})}
 						/>
-						<p className="description">{__( 'default-form-style-desc' )}</p>
+						<p className="description">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
 					</td>
 				</tr>
 				{ settings?.pqfw_form_default_design ? (
 					<tr>
-						<th>{__( 'floated-form-label' )}</th>
+						<th>{__( 'Default Form Style' )}</th>
 						<td>
 							<FormToggle
 								checked={ settings?.pqfw_floating_form }
@@ -33,12 +33,12 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 									pqfw_floating_form: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'floated-form-desc' )}</p>
+							<p className="description">{__( 'Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class.' )}</p>
 						</td>
 					</tr>
 				) : ''}
 				<tr>
-					<th>{__( 'add-pvp-label' )}</th>
+					<th>{__( 'Add Privacy Policy' )}</th>
 					<td>
 						<FormToggle
 							checked={ settings?.privacy_policy }
@@ -47,13 +47,13 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 								privacy_policy: e.target.checked
 							})}
 						/>
-						<p className="description">{__( 'add-pvp-desc' )}</p>
+						<p className="description">{__( 'Ask user to accept terms and condition before submitting the quotation form.' )}</p>
 					</td>
 				</tr>
 				{ settings?.privacy_policy ? (
 					<>
 						<tr>
-							<th>{__( 'pvp-label-label' )}</th>
+							<th>{__( 'Privacy Policy Label' )}</th>
 							<td>
 								<input
 									type="text"
@@ -64,11 +64,11 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 										privacy_policy_label: e.target.value
 									})}
 								/>
-								<p className="description">{__( 'pvp-label-desc' )}</p>
+								<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
 							</td>
 						</tr>
 						<tr>
-							<th>{__( 'pvp-content-label' )}</th>
+							<th>{__( 'Privacy Policy' )}</th>
 							<td>
 								<textarea
 									cols="30"
@@ -78,7 +78,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 										privacy_policy_content: e.target.value
 									})}
 								>{ settings?.privacy_policy_content }</textarea>
-								<p className="description">{__( 'pvp-label-desc' )}</p>
+								<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
 							</td>
 						</tr>
 					</>
@@ -86,7 +86,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 			</table>
 		</div>
 		<div className="submit-wrapper">
-			<button className="button button-primary" onClick={saveSettings}>{__( 'save-changes' )}</button>
+			<button className="button button-primary" onClick={saveSettings}>{__( 'Save Changes' )}</button>
 		</div>
 	</div>
   )

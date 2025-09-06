@@ -60,12 +60,13 @@ class Form_Handler {
 			wp_send_json_error( $validate->errors );
 		}
 
+		do_action( 'quotify/quotations/before_insert' );
+
 		$insertID = pqfw()->product->save( $collection );
 
 		if ( $insertID ) {
-			pqfw()->mailer->prepare( $collection )->send();
+			do_action( 'quotify/quotations/after_insert', $insertID );
 			pqfw()->quotations->purge();
-
 			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );
 		} else {
 			wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );

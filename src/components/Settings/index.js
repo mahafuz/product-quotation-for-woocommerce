@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { __ } from '@wordpress/i18n';
 import 'react-toastify/dist/ReactToastify.css';
-import { getSavedSettings, getNonce } from '@Utils/helper';
+import { getSavedSettings, getNonce, makeRequest } from '@Utils/helper';
 
 import TopBar from '@Components/TopBar';
 import GeneralSettings from './GeneralSettings';
@@ -16,6 +16,7 @@ import EmailIcon from './../../images/email.png';
 import GeneralSettingsIcon from './../../images/cog.svg';
 
 import '@src/scss/settings.scss';
+import { fireNotify } from '../../utils/helper';
 
 const App = () => {
 	const savedTab =
@@ -31,21 +32,24 @@ const App = () => {
 		let button = e.target;
 		button.classList.add('updating-message');
 
-		wp.ajax.send('pqrf_save_settings', {
-			data: {
-				_wpnonce: getNonce(),
-				settings: JSON.stringify(settings),
-			},
-			success: function (response) {
-				toast.success(response.message);
-			},
-			error: function (error) {
-				toast.error(error.message);
-			},
-			complete: function () {
+		makeRequest({
+			action: 'quotify/settings/save',
+			settings: JSON.stringify(settings),
+		})
+			.then((response) => {
+				if (response.data?.success) {
+					// dispatch({
+					// 	type: FETCH_ADDONS,
+					// 	payload: response.data?.data,
+					// });
+					fireNotify(response?.data?.data?.message, 'success');
+				} else {
+					fireNotify(response?.data?.data?.message, 'error');
+				}
+			})
+			.then(() => {
 				button.classList.remove('updating-message');
-			},
-		});
+			});
 	};
 
 	return (

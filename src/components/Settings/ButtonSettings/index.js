@@ -49,13 +49,13 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 
   return (
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
-		<h3 className='pqfw-tab-title'>{__( 'btn-settings-label' )}</h3>
+		<h3 className='pqfw-tab-title'>{__( 'Button Settings' )}</h3>
 		<div className="inside">
-			<p className="help">{__( 'btn-settings-desc' )}</p>
+			<p className="help">{__( 'For better experience choose your own button settings and styles that will ensure the design compatibility with your active theme, as well as functionality' )}</p>
 
 			<table className="form-table">
 				<tr>
-					<th>{__('show-btn-label')}</th>
+					<th>{__('Show Button')}</th>
 					<td>
 						<FormToggle
 							checked={ settings?.pqfw_shop_page_button }
@@ -64,11 +64,11 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 								pqfw_shop_page_button: e.target.checked
 							})}
 						/>
-						<p className="description">{__('show-btn-desc')}</p>
+						<p className="description">{__('Show Add To Quotation button on category/shop/loop page', 'quotify')}</p>
 					</td>
 				</tr>
 				<tr>
-					<th>{__('show-btn-label')}</th>
+					<th>{__('Show Button')}</th>
 					<td>
 						<FormToggle
 							checked={ settings?.pqfw_product_page_button }
@@ -77,11 +77,11 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 								pqfw_product_page_button: e.target.checked
 							})}
 						/>
-						<p className="description">{__( 'show-btn-desc-single-page' )}</p>
+						<p className="description">{__( 'Show Add To Quotation button on product single page' )}</p>
 					</td>
 				</tr>
 				<tr>
-					<th>{__('btn-text-label')}</th>
+					<th>{__('Button Text')}</th>
 					<td>
 						<input
 							type="text"
@@ -92,31 +92,31 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 								button_text: e.target.value
 							})}
 						/>
-						<p className="description">{__('btn-text-desc')}</p>
+						<p className="description">{__('Change Add To Quote button text')}</p>
 					</td>
 				</tr>
 				<tr>
-					<th>{__( 'btn-position-label' )}</th>
+					<th>{__( 'Button position in Loop' )}</th>
 					<td>
 						<SelectControl
-							label={__('btn-position-label')}
+							label={__('Button position in Loop')}
 							value={ settings?.button_position }
 							hideLabelFromVision={ true }
 							options={[
 								{
-									label : __( 'btn-options-1' ),
+									label : __( 'At product end' ),
 									value : 'woocommerce_after_shop_loop_item'
 								},
 								{
-									label : __( 'btn-options-2' ),
+									label : __( 'At product start' ),
 									value : 'woocommerce_before_shop_loop_item'
 								},
 								{
-									label : __( 'btn-options-3' ),
+									label : __( 'Before product title' ),
 									value : 'woocommerce_before_shop_loop_item_title'
 								},
 								{
-									label: __( 'btn-options-4' ),
+									label: __( 'After product title' ),
 									value: 'woocommerce_after_shop_loop_item_title'
 								},
 							]}
@@ -125,27 +125,27 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 								button_position: position
 							})}
 						/>
-						<p className="description">{__( 'btn-position-desc' )}</p>
+						<p className="description">{__( 'Select Add To Quote button position in the loop.' )}</p>
 					</td>
 				</tr>
 				<tr>
-					<th>{__( 'btn-position-single-label' )}</th>
+					<th>{__( 'Button position in Single Product' )}</th>
 					<td>
 						<SelectControl
-							label={__( 'btn-position-single-label' )}
+							label={__( 'Button position in Single Product' )}
 							value={ settings?.button_position_single_product }
 							hideLabelFromVision={ true }
 							options={[
 								{
-									label: __('btn-position-single-options-1'),
+									label: __('Before add to cart button'),
 									value: 'woocommerce_after_add_to_cart_quantity'
 								},
 								{
-									label: __('btn-position-single-options-2'),
+									label: __('After add to cart button'),
 									value: 'woocommerce_after_add_to_cart_button'
 								},
 								{
-									label: __( 'btn-position-single-options-3' ),
+									label: __( 'End of product' ),
 									value: 'woocommerce_share'
 								},
 							]}
@@ -154,11 +154,11 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 								button_position_single_product: position
 							})}
 						/>
-						<p className="description">{__( 'btn-position-single-desc' )}</p>
+						<p className="description">{__( 'Select Add To Quote button position in the single product page.' )}</p>
 					</td>
 				</tr>
 				<tr>
-					<th>{__( 'btn-style-label' )}</th>
+					<th>{__( 'Button Style' )}</th>
 					<td>
 						<TabPanel
 							className="button-style-tab-panel"
@@ -167,12 +167,12 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 							tabs={ [
 								{
 									name: 'normal',
-									title: __( 'normal' ),
+									title: __( 'Normal' ),
 									className: 'normal-color',
 								},
 								{
 									name: 'hover',
-									title: __( 'hover' ),
+									title: __( 'Hover' ),
 									className: 'hover-color',
 								},
 							] }
@@ -181,7 +181,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 								<div className='pqfw-color-picker-container'>
 									{ tab.name === 'hover' && (
 										<>
-											<p className="color-picker-label">{__( 'text-color' )}</p>
+											<p className="color-picker-label">{__( 'Text Color' )}</p>
 											<ColorIndicator
 												colorValue={settings?.button_hover_color}
 												onClick={() => sethoverVisibleColor(! hoverColorVisible)}
@@ -197,7 +197,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 												</div>
 											)}
 
-											<p className="color-picker-label">{__( 'background' )}</p>
+											<p className="color-picker-label">{__( 'Background' )}</p>
 											<ColorIndicator
 												colorValue={settings?.button_hover_bg_color}
 												onClick={() => sethoverVisibleBg(! hoverVisibleBg)}
@@ -217,20 +217,20 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 											)}
 
 											<button onClick={() => {
-												if ( confirm( __( 'reset-message' ) ) ) {
+												if ( confirm( __( 'Reset the custom style and back to theme default style?' ) ) ) {
 													setSettings({
 														...settings,
 														button_hover_color: '',
 														button_hover_bg_color: ''
 													})
 												}
-											}} className="pqfw-reset-btn"><img src={resetIcon} />{__( 'reset' )}</button>
+											}} className="pqfw-reset-btn"><img src={resetIcon} />{__( 'Reset' )}</button>
 										</>
 									)}
 									{
 										tab.name === 'normal' && (
 											<>
-												<p className="color-picker-label">{__( 'text-color' )}</p>
+												<p className="color-picker-label">{__( 'Text Color' )}</p>
 												<ColorIndicator
 													colorValue={settings?.button_normal_color}
 													onClick={() => setNormalColorVisible(! normalColorVisible)}
@@ -248,7 +248,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 													/>
 												</div>)}
 
-												<p className="color-picker-label">{__( 'background' )}</p>
+												<p className="color-picker-label">{__( 'Background' )}</p>
 												<ColorIndicator
 													colorValue={settings?.button_normal_bg_color}
 													onClick={() => setNormalBgVisible(! normalBgVisible)}
@@ -266,7 +266,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 													/>
 												</div>)}
 
-												<p className="color-picker-label">{__( 'font-size' )}</p>
+												<p className="color-picker-label">{__( 'Font Size' )}</p>
 												<RangeControl
 													value={ settings?.button_font_size }
 													onChange={( value ) => setSettings({
@@ -276,7 +276,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 													max={ 50 }
 												/>
 
-												<p className="color-picker-label">{__( 'width' )}</p>
+												<p className="color-picker-label">{__( 'Width' )}</p>
 												<RangeControl
 													value={ settings?.button_width }
 													onChange={( value ) => setSettings({
@@ -286,7 +286,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 													max={ 300 }
 												/>
 												<button onClick={() => {
-													if ( confirm( __( 'reset-message' ) ) ) {
+													if ( confirm( __( 'Reset the custom style and back to theme default style?' ) ) ) {
 														setSettings({
 															...settings,
 															button_normal_color: '',
@@ -295,7 +295,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 															button_width: 0
 														})
 													}
-												}} className="pqfw-reset-btn"><img src={resetIcon} />{__( 'reset' )}</button>
+												}} className="pqfw-reset-btn"><img src={resetIcon} />{__( 'Reset' )}</button>
 											</>
 										)
 									}
@@ -307,7 +307,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 			</table>
 		</div>
 		<div className="submit-wrapper">
-			<button className="button button-primary" onClick={saveSettings}>{__( 'save-changes' )}</button>
+			<button className="button button-primary" onClick={saveSettings}>{__( 'Save Changes' )}</button>
 		</div>
 	</div>
   )
