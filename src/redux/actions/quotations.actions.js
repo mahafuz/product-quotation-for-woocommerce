@@ -18,7 +18,7 @@ import {
 } from '@Redux/types/quotations.types';
 
 import { __ } from '@wordpress/i18n';
-import { ajaxurl } from '@Utils/helper';
+import { ajaxurl, pqfw_nonce } from '@Utils/helper';
 
 export const fetchAllQuotations =
 	(status = 'publish', page = 1, per_page = 10, search = '') =>
@@ -26,6 +26,7 @@ export const fetchAllQuotations =
 		let params = {
 			action: 'quotify/ajax/load',
 			status: status === 'all' ? 'any' : status,
+			nonce: pqfw_nonce,
 			page,
 			per_page,
 			context: 'edit',
@@ -75,6 +76,7 @@ export const getQuote = (id) => async (dispatch) => {
 		params: {
 			action: 'quotify/quotation/get',
 			id,
+			nonce: pqfw_nonce,
 		},
 	}).then(
 		(response) => {
@@ -97,6 +99,7 @@ export const moveQuoteToTrash = (id) => async (dispatch) => {
 	makeRequest({
 		action: 'quotify/quotations/delete',
 		id,
+		nonce: pqfw_nonce,
 		force: false,
 	}).then((response) => {
 		if (response.data?.success) {
@@ -116,6 +119,7 @@ export const deleteQuote = (id) => async (dispatch) => {
 	makeRequest({
 		action: 'quotify/quotations/delete',
 		id,
+		nonce: pqfw_nonce,
 		force: true,
 	}).then((response) => {
 		console.log('response', response);
@@ -136,6 +140,7 @@ export const restoreQuote = (params) => async (dispatch) => {
 	makeRequest({
 		action: 'quotify/quotations/restore',
 		id: params.id,
+		nonce: pqfw_nonce
 	}).then((response) => {
 		if (response.data?.success) {
 			dispatch({

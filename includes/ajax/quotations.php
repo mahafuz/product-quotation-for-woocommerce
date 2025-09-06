@@ -19,7 +19,6 @@ use WP_Query;
  * @since       1.2.0
  */
 class Quotations {
-
 	/**
 	 * Initialize ajax actions.
 	 *
@@ -38,15 +37,17 @@ class Quotations {
 	 * @since 1.2.0
 	 */
 	public function load() {
+		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_send_json_error( __( 'You do not have permission to view quotations.', 'product-quotation-for-woocommerce' ) );
+			wp_send_json_error( __( 'You do not have permission to view quotations.', 'quotify' ) );
 			wp_die();
 		}
 
-		$status = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'publish';
-		$page   = isset( $_GET['page'] ) ? absint( wp_unslash( $_GET['page'] ) ) : 1;
+		$status   = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'publish';
+		$page     = isset( $_GET['page'] ) ? absint( wp_unslash( $_GET['page'] ) ) : 1;
 		$per_page = isset( $_GET['per_page'] ) ? absint( wp_unslash( $_GET['per_page'] ) ) : 10;
-		$search = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
+		$search   = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
 
 		$args = [
 			'post_type'      => 'pqfw_quotations',
@@ -62,11 +63,11 @@ class Quotations {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$quotations[] = [
-					'id'          => get_the_ID(),
-					'title'       => get_the_title(),
-					'date'        => get_the_date(),
-					'status'      => get_post_status(),
-					'author_name' => get_the_author(),
+					'id'          => absint( get_the_ID() ),
+					'title'       => esc_html( get_the_title() ),
+					'date'        => esc_html( get_the_date() ),
+					'status'      => sanitize_key( get_post_status() ),
+					'author_name' => esc_html( get_the_author() ),
 				];
 			}
 			wp_reset_postdata();
@@ -76,25 +77,31 @@ class Quotations {
 			'total'      => $query->found_posts,
 			'pages'      => $query->max_num_pages,
 		] );
-		wp_die();
 	}
 
+	/**
+	 * Get single quotation.
+	 *
+	 * @return void
+	 */
 	public function get_item() {
+		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_send_json_error( __( 'You do not have permission to view quotations.', 'product-quotation-for-woocommerce' ) );
+			wp_send_json_error( __( 'You do not have permission to view quotations.', 'quotify' ) );
 			wp_die();
 		}
 
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 
 		if ( ! $id ) {
-			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
 		}
 
 		$post = get_post( $id, OBJECT, 'display' );
 
 		if ( is_wp_error( $post ) ) {
-			return $post;
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
 		}
 
 		$quotation = [
@@ -121,19 +128,25 @@ class Quotations {
 		]);
 	}
 
-
+	/**
+	 * Delete operation for a quotation.
+	 *
+	 * @return void
+	 */
 	public function delete_item() {
+		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_send_json_error( __( 'You do not have permission to delete quotation.', 'product-quotation-for-woocommerce' ) );
+			wp_send_json_error( __( 'You do not have permission to delete quotation.', 'quotify' ) );
 			wp_die();
 		}
 
 		$force = isset( $_POST['force'] ) ? wp_validate_boolean( $_POST['force'] ) : false;
-		$id = json_decode( wp_unslash( $_POST['id'] ), true );
+		$id    = json_decode( wp_unslash( $_POST['id'] ), true );
 		$id    = ! empty( $id['ID'] ) ? absint( $id['ID'] ) : 0;
 
 		if ( ! $id ) {
-			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
 		}
 
 		if ( $force ) {
@@ -153,16 +166,22 @@ class Quotations {
 		}
 	}
 
+	/**
+	 * Restore operation for a trashed post.
+	 *
+	 * @return void
+	 */
 	public function restore_item() {
+		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_send_json_error( __( 'You do not have permission to delete quotation.', 'product-quotation-for-woocommerce' ) );
-			wp_die();
+			wp_send_json_error( __( 'You do not have permission to delete quotation.', 'quotify' ) );
 		}
 
 		$id = ! empty( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 
 		if ( ! $id ) {
-			wp_send_json_error( __( 'Quotation not found.', 'product-quotation-for-woocommerce' ) );
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
 		}
 
 		$post = wp_untrash_post( $id );

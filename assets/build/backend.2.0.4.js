@@ -77431,6 +77431,7 @@ const fetchAllQuotations = (status = 'publish', page = 1, per_page = 10, search 
   let params = {
     action: 'quotify/ajax/load',
     status: status === 'all' ? 'any' : status,
+    nonce: _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.pqfw_nonce,
     page,
     per_page,
     context: 'edit'
@@ -77473,7 +77474,8 @@ const getQuote = id => async dispatch => {
   return await _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.API.get(_Utils_helper__WEBPACK_IMPORTED_MODULE_0__.ajaxurl, {
     params: {
       action: 'quotify/quotation/get',
-      id
+      id,
+      nonce: _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.pqfw_nonce
     }
   }).then(response => {
     dispatch({
@@ -77491,6 +77493,7 @@ const moveQuoteToTrash = id => async dispatch => {
   (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_0__.makeRequest)({
     action: 'quotify/quotations/delete',
     id,
+    nonce: _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.pqfw_nonce,
     force: false
   }).then(response => {
     if (response.data?.success) {
@@ -77508,6 +77511,7 @@ const deleteQuote = id => async dispatch => {
   (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_0__.makeRequest)({
     action: 'quotify/quotations/delete',
     id,
+    nonce: _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.pqfw_nonce,
     force: true
   }).then(response => {
     console.log('response', response);
@@ -77525,7 +77529,8 @@ const deleteQuote = id => async dispatch => {
 const restoreQuote = params => async dispatch => {
   (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_0__.makeRequest)({
     action: 'quotify/quotations/restore',
-    id: params.id
+    id: params.id,
+    nonce: _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.pqfw_nonce
   }).then(response => {
     if (response.data?.success) {
       dispatch({
