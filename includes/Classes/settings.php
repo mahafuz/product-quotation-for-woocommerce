@@ -50,37 +50,8 @@ class Settings {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', [ $this, 'menu' ] );
 		add_action( 'wp_ajax_quotify/settings/save', [ $this, 'save' ] );
 		add_action( 'wp_ajax_pqfw_cart_get_permalink', [ $this, 'getCartPermalink' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
-	}
-
-	/**
-	 * Adding a submenu page under the product quotation toplevel menu.
-	 *
-	 * @return  void
-	 * @since   1.0.0
-	 */
-	public function menu() {
-		add_submenu_page(
-			'edit.php?post_type=pqfw_quotations',
-			__( 'Settings', 'pqfw' ),
-			__( 'Settings', 'pqfw' ),
-			'manage_options',
-			'pqfw-settings',
-			[ $this, 'display' ],
-			null
-		);
-	}
-
-	/**
-	 * Loading settings page template.
-	 *
-	 * @since 1.0.0
-	 */
-	public function display() {
-		echo '<div id="pqfw-app" class="wrap-pqfw-app"></div>';
 	}
 
 	/**
@@ -131,7 +102,6 @@ class Settings {
 	 * @return  void
 	 */
 	public function assets() {
-
 		$screen = get_current_screen();
 
 		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id ) {

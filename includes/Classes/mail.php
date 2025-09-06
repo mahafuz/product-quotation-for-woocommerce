@@ -41,17 +41,62 @@ class Mail {
 		return $is_send;
 	}
 
-	public function get_from_name( $name ) {
-		return sanitize_text_field( get_the_author_meta( 'display_name', get_current_user_id() ) );
+	/**
+	 * Filters the email address sent from WordPress emails.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param string $from_email Default email address.
+	 * @return string Filtered email address.
+	 */
+	public function get_from_address( $from_email ) {
+		// First priority: Saved recipient setting from plugin options.
+		$recipient_setting = pqfw()->settings->get( 'recipient' );
+		if ( ! empty( $recipient_setting ) && is_email( $recipient_setting ) ) {
+			return sanitize_email( $recipient_setting );
+		}
+
+		// Second priority: Current logged-in user's email (for background processing).
+		$user_id = get_current_user_id();
+		if ( $user_id ) {
+			$user_email = get_the_author_meta( 'user_email', $user_id );
+			if ( ! empty( $user_email ) && is_email( $user_email ) ) {
+				return sanitize_email( $user_email );
+			}
+		}
+
+		// Fallback: Keep the original WordPress default.
+		return $from_email;
 	}
 
-	public function get_from_address( $email ) {
-		$email = pqfw()->settings->get( 'recipient' );
-		if ( ! empty( $recipient ) && is_email( $recipient ) ) {
-			return sanitize_text_field( $email );
-		} else {
-			return sanitize_email( get_the_author_meta( 'email', get_current_user_id() ) );
+	/**
+	 * Filters the name associated with the from email address.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param string $from_name Default from name.
+	 * @return string Filtered from name.
+	 */
+	public function get_from_name( $from_name ) {
+		// First priority: Try to get current user's display name.
+		$user_id = get_current_user_id();
+
+		if ( $user_id ) {
+			$display_name = get_the_author_meta( 'display_name', $user_id );
+			if ( ! empty( $display_name ) ) {
+				return sanitize_text_field( $display_name );
+			}
 		}
-		return $email;
+
+		// Second priority: Site name.
+		$site_name = get_bloginfo( 'name' );
+		if ( ! empty( $site_name ) ) {
+			return sanitize_text_field( $site_name );
+		}
+
+		// Fallback: Keep the original WordPress default.
+		return $from_name;
 	}
 }

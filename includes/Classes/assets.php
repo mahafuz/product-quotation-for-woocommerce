@@ -27,38 +27,41 @@ class Assets extends \PQFW\Classes\Script_Base {
 	/**
 	 * Enqueue admin scripts.
 	 *
+	 * @param string $hook The current page slug.
 	 * @since 2.0.3
 	 */
-	public function enqueueAdminScripts() {
-		wp_enqueue_style( 'pqfw-admin-style', PQFW_PLUGIN_ASSETS . 'build/backend.css', [ 'wp-components' ], PQFW_PLUGIN_ASSETS . 'build/backend.css', 'all' );
+	public function enqueueAdminScripts( $hook ) {
+		if ( pqfw()->helpers->pageLookUp( $hook ) ) {
+			wp_enqueue_style( 'pqfw-admin-style', PQFW_PLUGIN_ASSETS . 'build/backend.css', [ 'wp-components' ], PQFW_PLUGIN_ASSETS . 'build/backend.css', 'all' );
 
-		if ( ! did_action( 'wp_enqueue_media' ) ) {
-			wp_enqueue_media();
-		}
+			if ( ! did_action( 'wp_enqueue_media' ) ) {
+				wp_enqueue_media();
+			}
 
-		$this->load_block_editor_scripts();
+			$this->load_block_editor_scripts();
 
-		$dependencies = include_once PQFW_PLUGIN_ASSETS_DIR . sprintf( 'build/backend.%s.asset.php', PQFW_PLUGIN_VERSION );
+			$dependencies = include_once PQFW_PLUGIN_ASSETS_DIR . sprintf( 'build/backend.%s.asset.php', PQFW_PLUGIN_VERSION );
 
-		wp_enqueue_style(
-			'pqfw-web-font',
-			$this->web_fonts_url(
+			wp_enqueue_style(
+				'pqfw-web-font',
+				$this->web_fonts_url(
 				'DM Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700|Inter:wght@300;400;500;600;700;800;900|Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'//phpcs:ignore
-			),
-			null,
-			$dependencies['version']
-		);
+				),
+				null,
+				$dependencies['version']
+			);
 
-		wp_enqueue_script(
-			'pqfw-admin-scripts',
-			PQFW_PLUGIN_ASSETS . sprintf( 'build/backend.%s.js', PQFW_PLUGIN_VERSION ),
-			$dependencies['dependencies'],
-			$dependencies['version'],
-			true
-		);
+			wp_enqueue_script(
+				'pqfw-admin-scripts',
+				PQFW_PLUGIN_ASSETS . sprintf( 'build/backend.%s.js', PQFW_PLUGIN_VERSION ),
+				$dependencies['dependencies'],
+				$dependencies['version'],
+				true
+			);
 
-		wp_localize_script( 'pqfw-admin-scripts', 'PqfwGlobal', $this->get_backend_scripts_data() );
-		wp_set_script_translations( 'pqfw-admin-scripts', 'pqfw', PQFW_PLUGIN_ROOT_DIR_PATH . 'languages' );
+			wp_localize_script( 'pqfw-admin-scripts', 'PqfwGlobal', $this->get_backend_scripts_data() );
+			wp_set_script_translations( 'pqfw-admin-scripts', 'pqfw', PQFW_PLUGIN_ROOT_DIR_PATH . 'languages' );
+		}
 	}
 
 
@@ -85,23 +88,5 @@ class Assets extends \PQFW\Classes\Script_Base {
 		);
 
 		wp_localize_script( 'pqfw-quotation-cart', 'PqfwGlobal', $this->get_frontend_scripts_data() );
-	}
-
-	/**
-	 * Print styles for the elementor editor.
-	 *
-	 * @since 2.0.3
-	 */
-	public static function elementorEditorStyle() {
-		?>
-		<style>
-			body #elementor-panel-elements-wrapper .icon .pqfw-quote-cart-icon {
-				background: url('https://ps.w.org/product-quotation-for-woocommerce/assets/icon-128x128.png?rev=2445332') no-repeat center center;
-				background-size: contain;
-				height: 29px;
-				display: block;
-			}
-		</style>
-		<?php
 	}
 }

@@ -297,22 +297,6 @@ namespace PQFW {//phpcs:ignore
 				WC()->session->set_customer_session_cookie( true );
 			}
 		}
-
-		/**
-		 * Contains & runs the integration.
-		 *
-		 * @since 2.0.3
-		 */
-		private function integrations() {
-			// Elementor.
-			if ( defined( 'ELEMENTOR_PATH' ) ) {
-				add_action( 'elementor/editor/after_enqueue_styles', \PQFW\Classes\Assets::elementorEditorStyle() );
-
-				add_action( 'elementor/widgets/widgets_registered', function () {
-					\Elementor\Plugin::instance()->widgets_manager->register( new \PQFW\Classes\Addons\Elementor() );
-				});
-			}
-		}
 	}
 
 }

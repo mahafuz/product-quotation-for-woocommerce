@@ -40,6 +40,12 @@ class Contactform implements Addon {
 		define( 'PQFW_CF7_INCLUDES_DIR_PATH', PQFW_PLUGIN_ROOT_DIR_PATH . 'includes/addons/contact-form-7/includes/' );
 	}
 
+	public function database() {
+	}
+
+	public function ajax() {
+	}
+
 	public function init_addon() {
 		// fire addon activation hook
 		add_action( "pqfw/addons/activated_{$this->addon_name}", [ $this, 'addon_activation_hook' ] );

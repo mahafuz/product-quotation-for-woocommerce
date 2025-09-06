@@ -211,9 +211,6 @@ class Script_Base {
 					'ajaxurl'  => admin_url( 'admin-ajax.php' ),
 					'settings' => pqfw()->settings->getAll(),
 					'nonce'    => wp_create_nonce( 'pqfw-app-ui' ),
-					'actions'  => [
-						'save_settings' => 'pqrf_save_settings',
-					],
 					'pages'    => pqfw()->helpers->getPages(),
 					'cart'     => [
 						'id'  => pqfw()->helpers->getCart(),

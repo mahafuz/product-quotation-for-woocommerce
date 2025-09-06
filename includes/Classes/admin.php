@@ -15,6 +15,18 @@ class Admin {
 
 	const POST_TYPE = 'pqfw_quotations';
 
+	const REGISTERED_SLUGS = [
+		'toplevel_page_pqfw-product-quotations',
+		'toplevel_page_pqfw-product-quotations',
+		'toplevel_page_pqfw-product-quotations',
+		'pqfw-product-quotations',
+		'quotations_page_pqfw-product-quotations',
+		'quotations_page_pqfw-product-quotations-settings',
+		'quotations_page_pqfw-product-quotations-addons',
+		'quotations_page_pqfw-product-quotations-tools',
+		'quotations_page_pqfw-product-quotations-help',
+	];
+
 	/**
 	 * Constructor of the class
 	 *
@@ -75,7 +87,7 @@ class Admin {
 		);
 
 		printf(
-			// Translators: 1 - The plugin name ("PageSpeed Optimizer for Elementor"), - 2 - This placeholder will be replaced with star icons.
+			// Translators: 1 - The plugin name ("Product Quotation For WooCommerce"), - 2 - This placeholder will be replaced with star icons.
 			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'pqfw' ),
 			sprintf( '<strong>%1$s</strong>', esc_html( PQFW_PLUGIN_NAME ) ),
 			wp_kses_post( $link1 ),
@@ -108,7 +120,7 @@ class Admin {
 			);
 		}
 
-		if ( 'pqfw_quotations_page_pqfw-settings' === $screen->id || 'pqfw_quotations_page_pqfw-entries-page' === $screen->id || 'pqfw_quotations_page_pqfw-help' === $screen->id || 'pqfw_quotations' === $screen->id ) {
+		if ( pqfw()->helpers->pageLookUp( $screen ) ) {
 			wp_enqueue_style(
 				'pqfw-admin',
 				PQFW_PLUGIN_URL . 'assets/css/pqfw-admin.css',
@@ -200,17 +212,9 @@ class Admin {
 	 * @return void
 	 */
 	public function hideNotices() {
-		$slugs = pqfw()->menu->getSlugs();
+		$screen = get_current_screen();
 
-		$slugs = [
-			'pqfw-product-quotations',
-			'pqfw-product-quotations-settings',
-			'pqfw-product-quotations-addons',
-			'pqfw-product-quotations-tools',
-			'pqfw-product-quotations-help',
-		];
-
-		if ( ! empty( $_GET['page'] ) && in_array( $_GET['page'], $slugs, true ) ) {
+		if ( pqfw()->helpers->pageLookUp( $screen ) ) {
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 			remove_all_actions( 'network_admin_notices' );

@@ -60,7 +60,7 @@ class Menu {
 			'capability' => 'manage_options',
 		];
 
-		// TODO: coming on the later version.
+		// TODO: coming..
 		//phpcs:disable
 		// $this->container[ PQFW_PLUGIN_SLUG . '-tools' ]    = [
 		// 	'parent_slug' => PQFW_PLUGIN_SLUG,

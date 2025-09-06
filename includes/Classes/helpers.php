@@ -295,4 +295,44 @@ class Helpers {
 
 		return $updated;
 	}
+
+	/**
+	 * Determines whether current page is a registered plugin page  based on the current screen.
+	 *
+	 * Checks if the current admin page matches any of the registered plugin pages
+	 * before enqueuing scripts and styles.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param \WP_Screen|string|null $screen Optional. The current screen object or screen ID.
+	 *                                       Defaults to current screen.
+	 * @return bool True if assets should be loaded, false otherwise.
+	 */
+	public function pageLookUp( $screen = null ) {
+		$page = false;
+
+		if ( $screen instanceof \WP_Screen ) {
+			$page = ! empty( $screen->id ) ? sanitize_key( $screen->id ) : false;
+		} elseif ( is_string( $screen ) && ! empty( $screen ) ) {
+			$page = sanitize_key( $screen );
+		} elseif ( empty( $screen ) || is_null( $screen ) ) {
+			$current_screen = get_current_screen();
+			if ( $current_screen instanceof \WP_Screen && ! empty( $current_screen->id ) ) {
+				$page = sanitize_key( $current_screen->id );
+			}
+		}
+
+		if ( ! $page ) {
+			$page = ! empty( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : false;
+		}
+
+		if ( ! $page ) {
+			return false;
+		}
+
+		$slugs = \PQFW\Classes\ADMIN::REGISTERED_SLUGS;
+
+		return in_array( $page, $slugs, true );
+	}
 }

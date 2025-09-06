@@ -20,6 +20,20 @@ defined( 'ABSPATH' ) || exit;
 class Product {
 
 	/**
+	 * Current product data.
+	 *
+	 * @var mixed
+	 */
+	private $dataToSave;
+
+	/**
+	 * Current products collection.
+	 *
+	 * @var mixed
+	 */
+	private $products;
+
+	/**
 	 * Get product title.
 	 */
 	private function getTitle() {
@@ -67,14 +81,14 @@ class Product {
 	 * @since 1.2.0
 	 */
 	public function prepare() {
-		$mappedProducts       = $this->mapProducts();
-		$unserializedProducts = maybe_unserialize( $mappedProducts );
+		$mappedProducts = $this->mapProducts();
+		$un_serialized  = maybe_unserialize( $mappedProducts );
 
-		if ( empty( $unserializedProducts ) ) {
+		if ( empty( $un_serialized ) ) {
 			return false;
 		}
 
-		$arg        = $this->getAruguments();
+		$arg        = $this->getArguments();
 		$postID     = wp_insert_post( $arg );
 		$productsId = $this->getProductsID();
 
@@ -82,18 +96,18 @@ class Product {
 			return false;
 		}
 
-		update_post_meta( $postID, 'pqfw_products_info', $unserializedProducts );
+		update_post_meta( $postID, 'pqfw_products_info', $un_serialized );
 		update_post_meta( $postID, 'pqfw_products_ids', $productsId );
 
 		return $postID;
 	}
 
 	/**
-	 * Prepare post arugments.
+	 * Prepare post arguments.
 	 *
 	 * @since 1.2.0
 	 */
-	private function getAruguments() {
+	private function getArguments() {
 		$arg = [
 			'post_title'  => $this->getTitle(),
 			'post_type'   => Admin::POST_TYPE,
@@ -131,7 +145,7 @@ class Product {
 	 *
 	 * @since 1.2.0
 	 * @param array $product Product array.
-	 * @retrun               Returns product array with additional values.
+	 * @return Returns product array with additional values.
 	 */
 	private function filterFields( $product ) {
 		$obj       = wc_get_product( $product['id'] );
