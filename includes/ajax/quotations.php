@@ -73,9 +73,10 @@ class Quotations {
 			wp_reset_postdata();
 		}
 		wp_send_json_success( [
-			'quotations' => $quotations,
-			'total'      => $query->found_posts,
-			'pages'      => $query->max_num_pages,
+			'quotations'  => $quotations,
+			'total'       => $query->found_posts,
+			'pages'       => $query->max_num_pages,
+			'currentPage' => $page,
 		] );
 	}
 

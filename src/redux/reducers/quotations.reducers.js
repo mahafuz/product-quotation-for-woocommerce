@@ -5,9 +5,14 @@ import {
 	MOVE_TO_TRASH,
 	DELETE_QUOTATION,
 	RESTORE_QUOTATION,
+	UPDATE_CURRENT_PAGE
 } from '@Redux/types/quotations.types';
 
-const initialState = {};
+const initialState = {
+	data: false,
+	totalItems: 0,
+	currentPage: 1
+};
 
 function quotationsReducer(state = initialState, action) {
 	const payload = action.payload;
@@ -50,8 +55,6 @@ function quotationsReducer(state = initialState, action) {
 					payload?.data?.quotation?.ID || payload?.data?.quotation?.id
 				);
 
-				console.log('itemId', itemId);
-
 				const itemToRestore = state.data.find(
 					(item) => parseInt(item.id) === itemId
 				);
@@ -89,6 +92,14 @@ function quotationsReducer(state = initialState, action) {
 				...state,
 				data: [payload],
 			};
+		case UPDATE_CURRENT_PAGE:
+			return {
+				...state,
+				data: {
+					...state.data,
+					currentPage: payload
+				}				
+			}
 		default:
 			return state;
 	}

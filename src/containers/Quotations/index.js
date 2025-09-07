@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllQuotations } from '@Redux/actions/quotations.actions';
+import { fetchAllQuotations, updateCurrentPage } from '@Redux/actions/quotations.actions';
 import DataTable from 'react-data-table-component';
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
@@ -111,6 +111,24 @@ function index() {
 		}
 	};
 
+	const handleTableDataFetch = (page = 1, perPage = 10) => {
+		setFetching(true);
+		dispatch(fetchAllQuotations(status, page, perPage)).then(() => {
+			setFetching(false);
+		});
+	};
+
+
+	const handlePageChange = (page) => {
+		dispatch(updateCurrentPage(page));
+		handleTableDataFetch(page);
+	};
+
+	const handleItemsPage = (itemsPerPage, page) => {
+		dispatch(updateCurrentPage(page));
+		handleTableDataFetch(page, itemsPerPage);
+	};
+
 	useEffect(() => {
 		if (
 			!quotations.data ||
@@ -191,7 +209,8 @@ function index() {
 				</div>
 				<div className="quotify-table-header-action__right">
 					<span>
-						Showing result {quotations?.data?.length} out of {quotations?.totalItems}
+						Showing result {quotations?.data?.length} out of{' '}
+						{quotations?.totalItems}
 					</span>
 				</div>
 			</>
@@ -298,6 +317,9 @@ function index() {
 		},
 	];
 
+	console.log('quo', quotations)
+	console.log('quo', quotations?.currentPage)
+
 	return (
 		<>
 			<TopBar
@@ -313,19 +335,24 @@ function index() {
 			<div className="quotify-dashboard-wrapper quotify-content-wrap">
 				<div className="quotify-quotations-list">
 					<DataTable
+						title={`Quotations`}
+						columns={columns}
+						data={quotations.data}
+						pagination
+						paginationServer
+						paginationTotalRows={quotations?.totalItems} //pagination
+						paginationDefaultPage={quotations.currentPage}
 						selectableRows
 						persistTableHead
-						onSelectedRowsChange={(e) => setBulkActionData(e)}
+						// onSelectedRowsChange={(e) => setBulkActionData(e)}
 						progressPending={fetchStatus}
 						progressComponent={<h1>Loading quotations...</h1>}
 						paginationResetDefaultPage={false}
 						subHeader
-						paginationTotalRows={quotations?.totalItems} //pagination
-						paginationDefaultPage={quotations.currentPage}
 						subHeaderComponent={subHeaderComponentMemo}
-						columns={columns}
-						data={quotations.data}
 						className="quotify-list-table"
+						onChangePage={handlePageChange} //pagination
+						onChangeRowsPerPage={handleItemsPage} //pagination
 					/>
 				</div>
 			</div>

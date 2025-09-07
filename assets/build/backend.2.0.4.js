@@ -76754,6 +76754,20 @@ function index() {
       // });
     }
   };
+  const handleTableDataFetch = (page = 1, perPage = 10) => {
+    setFetching(true);
+    dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_3__.fetchAllQuotations)(status, page, perPage)).then(() => {
+      setFetching(false);
+    });
+  };
+  const handlePageChange = page => {
+    dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_3__.updateCurrentPage)(page));
+    handleTableDataFetch(page);
+  };
+  const handleItemsPage = (itemsPerPage, page) => {
+    dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_3__.updateCurrentPage)(page));
+    handleTableDataFetch(page, itemsPerPage);
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (!quotations.data || quotations.data && quotations.data?.length < 0 || status) {
       setFetching(true);
@@ -76798,7 +76812,7 @@ function index() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "quotify-table-header-action__right",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
-          children: ["Showing result ", quotations?.data?.length, " out of ", quotations?.totalItems]
+          children: ["Showing result ", quotations?.data?.length, " out of", ' ', quotations?.totalItems]
         })
       })]
     });
@@ -76883,6 +76897,8 @@ function index() {
       });
     }
   }];
+  console.log('quo', quotations);
+  console.log('quo', quotations?.currentPage);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_9__["default"], {
       render: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -76897,22 +76913,29 @@ function index() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "quotify-quotations-list",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_data_table_component__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          title: `Quotations`,
+          columns: columns,
+          data: quotations.data,
+          pagination: true,
+          paginationServer: true,
+          paginationTotalRows: quotations?.totalItems //pagination
+          ,
+          paginationDefaultPage: quotations.currentPage,
           selectableRows: true,
-          persistTableHead: true,
-          onSelectedRowsChange: e => setBulkActionData(e),
+          persistTableHead: true
+          // onSelectedRowsChange={(e) => setBulkActionData(e)}
+          ,
           progressPending: fetchStatus,
           progressComponent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h1", {
             children: "Loading quotations..."
           }),
           paginationResetDefaultPage: false,
           subHeader: true,
-          paginationTotalRows: quotations?.totalItems //pagination
-          ,
-          paginationDefaultPage: quotations.currentPage,
           subHeaderComponent: subHeaderComponentMemo,
-          columns: columns,
-          data: quotations.data,
-          className: "quotify-list-table"
+          className: "quotify-list-table",
+          onChangePage: handlePageChange //pagination
+          ,
+          onChangeRowsPerPage: handleItemsPage //pagination
         })
       })
     })]
@@ -77456,7 +77479,8 @@ const fetchAllQuotations = (status = 'publish', page = 1, per_page = 10, search 
       payload: {
         data: response?.data?.data?.quotations,
         totalItems: parseInt(response?.data?.data?.total),
-        status
+        status,
+        currentPage: parseInt(response?.data?.data?.currentPage)
       }
     });
     return response;
@@ -77666,7 +77690,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Redux_types_quotations_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @Redux/types/quotations.types */ "./src/redux/types/quotations.types.js");
 
 
-const initialState = {};
+const initialState = {
+  data: false,
+  totalItems: 0,
+  currentPage: 1
+};
 function quotationsReducer(state = initialState, action) {
   const payload = action.payload;
   switch (action.type) {
@@ -77695,7 +77723,6 @@ function quotationsReducer(state = initialState, action) {
     case _Redux_types_quotations_types__WEBPACK_IMPORTED_MODULE_0__.RESTORE_QUOTATION:
       if (state.data) {
         const itemId = parseInt(payload?.data?.quotation?.ID || payload?.data?.quotation?.id);
-        console.log('itemId', itemId);
         const itemToRestore = state.data.find(item => parseInt(item.id) === itemId);
         if (!itemToRestore) {
           return state;
@@ -77720,6 +77747,14 @@ function quotationsReducer(state = initialState, action) {
       return {
         ...state,
         data: [payload]
+      };
+    case _Redux_types_quotations_types__WEBPACK_IMPORTED_MODULE_0__.UPDATE_CURRENT_PAGE:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          currentPage: payload
+        }
       };
     default:
       return state;

@@ -54,6 +54,7 @@ export const fetchAllQuotations =
 						data: response?.data?.data?.quotations,
 						totalItems: parseInt(response?.data?.data?.total),
 						status,
+						currentPage:  parseInt(response?.data?.data?.currentPage)
 					},
 				});
 				return response;
