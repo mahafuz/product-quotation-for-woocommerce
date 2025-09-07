@@ -35,33 +35,8 @@ class Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'registerPostType' ] );
-
-		add_action( 'add_meta_boxes', [ $this, 'QuotationAuthorDetail' ] );
-		add_action( 'admin_menu', [ $this, 'menus' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
-
 		add_action( 'admin_init', [ $this, 'hideNotices' ] );
-	}
-
-	/**
-	 * Adding page on the database.
-	 *
-	 * @since   1.0.0
-	 */
-	public function menus() {
-		add_submenu_page(
-			'edit.php?post_type=pqfw_quotations',
-			__( 'Help', 'pqfw' ),
-			'<span style="color:#f18500">Help</span>',
-			'manage_options',
-			'pqfw-help',
-			[ $this, 'displayHelp' ]
-		);
-
-		if ( isset( $_GET['post_type'] ) && 'pqfw_quotations' === $_GET['post_type'] ) {
-			// We don't want any plugin adding notices to our screens. Let's clear them out here.
-			add_action( 'admin_footer_text', [ $this, 'addFooterText' ] );
-		}
 	}
 
 	/**
@@ -146,13 +121,12 @@ class Admin {
 				'public'              => false,
 				'exclude_from_search' => true,
 				'publicaly_queryable' => false,
-				'show_ui'             => true,
+				'show_ui'             => false,
 				'rewrite'             => false,
 				'show_in_nav_menus'   => false,
 				'query_var'           => false,
 				'has_archive'         => false,
 				'supports'            => [ 'title' ],
-				'menu_icon'           => PQFW_PLUGIN_URL . 'assets/images/pqfw-dashboard-icon.png',
 				'capability_type'     => 'post',
 				'capabilities'        => [
 					'create_posts' => 'do_not_allow',
@@ -163,27 +137,6 @@ class Admin {
 
 		remove_post_type_support( self::POST_TYPE, 'title' );
 		remove_post_type_support( self::POST_TYPE, 'slugdiv' );
-	}
-
-	/**
-	 * Add meta boxes to the post type.
-	 *
-	 * @since 1.2.0
-	 */
-	public function QuotationAuthorDetail() {
-		add_meta_box(
-			'pqfw_quotation_detail',
-			__( 'Customer Information', 'pqfw' ),
-			[ $this, 'displayQuotationDetail' ],
-			self::POST_TYPE
-		);
-
-		add_meta_box(
-			'pqfw_quotation_products_detail',
-			__( 'Quote Details', 'pqfw' ),
-			[ $this, 'displayQuotationProductsDetail' ],
-			self::POST_TYPE
-		);
 	}
 
 	/**
