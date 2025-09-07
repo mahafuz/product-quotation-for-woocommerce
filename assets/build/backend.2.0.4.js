@@ -78110,14 +78110,14 @@ const fireNotify = (message, type = '', position = 'top-right') => {
   switch (type) {
     case 'error':
       return react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "academy-toasts",
+        className: "quotify-toasts",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "academy-toasts__icon",
+          className: "quotify-toasts__icon",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "academy-icon academy-icon--information academy-icon--information-error"
+            className: "quotify-icon quotify-icon--information quotify-icon--information-error"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "academy-toasts-message",
+          className: "quotify-toasts-message",
           children: message
         })]
       }), {
@@ -78126,14 +78126,14 @@ const fireNotify = (message, type = '', position = 'top-right') => {
       });
     case 'info':
       return react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.info(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "academy-toasts",
+        className: "quotify-toasts",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "academy-toasts__icon",
+          className: "quotify-toasts__icon",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "academy-icon academy-icon--information"
+            className: "quotify-icon quotify-icon--information"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "academy-toasts-message",
+          className: "quotify-toasts-message",
           children: message
         })]
       }), {
@@ -78142,14 +78142,14 @@ const fireNotify = (message, type = '', position = 'top-right') => {
       });
     case 'warning':
       return react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.warning(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "academy-toasts",
+        className: "quotify-toasts",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "academy-toasts__icon",
+          className: "quotify-toasts__icon",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "academy-icon academy-icon--notification"
+            className: "quotify-icon quotify-icon--notification"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "academy-toasts-message",
+          className: "quotify-toasts-message",
           children: message
         })]
       }), {
@@ -78158,14 +78158,14 @@ const fireNotify = (message, type = '', position = 'top-right') => {
       });
     default:
       return react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.success(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "academy-toasts",
+        className: "quotify-toasts",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "academy-toasts__icon",
+          className: "quotify-toasts__icon",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "academy-icon academy-icon--check"
+            className: "quotify-icon quotify-icon--check"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-          className: "academy-toasts-message",
+          className: "quotify-toasts-message",
           children: message
         })]
       }), {

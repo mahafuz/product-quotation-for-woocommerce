@@ -1375,6 +1375,154 @@
     transform: rotate(360deg);
   }
 }
+.Toastify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Toastify__toast {
+  z-index: 99999 !important;
+  border: 1px solid var(--quotify-border-color);
+  box-shadow: 0px 30px 60px rgba(69, 69, 69, 0.15);
+  border-radius: 8px;
+  margin: 10px 0;
+  padding-left: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+}
+
+.Toastify__zoom-enter {
+  display: none !important;
+}
+
+.Toastify__close-button {
+  color: #9da3ae;
+  border: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+
+.Toastify__close-button:hover, .Toastify__close-button:focus {
+  background: none !important;
+  outline: none !important;
+}
+
+.Toastify__close-button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.Toastify__close-button:hover {
+  background: none;
+}
+
+.Toastify__close-button:hover svg {
+  fill: var(--quotify-gray-color);
+}
+
+.Toastify .quotify-toasts {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
+.Toastify .quotify-toasts .quotify-toasts-message {
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 18px;
+  color: #0a083a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.Toastify .quotify-toasts .dashicons-info-outline {
+  rotate: 180deg;
+}
+
+.Toastify .quotify-toasts .quotify-icon {
+  font-family: dashicons;
+}
+
+.Toastify .quotify-toasts .quotify-icon--check {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Toastify .quotify-toasts .quotify-icon--check::before {
+  color: #4caf50;
+  content: "\f147";
+}
+
+.Toastify .quotify-toasts .quotify-icon--notification {
+  font-size: 25px;
+}
+
+.Toastify .quotify-toasts .quotify-icon--notification::before {
+  color: #ff9800;
+  content: "\f147";
+}
+
+.Toastify .quotify-toasts .quotify-icon--information {
+  font-size: 22px;
+}
+
+.Toastify .quotify-toasts .quotify-icon--information::before {
+  color: #2196f3;
+  content: "\f147";
+}
+
+.Toastify .quotify-toasts .quotify-icon--information-error {
+  font-size: 22px;
+}
+
+.Toastify .quotify-toasts .quotify-icon--information-error::before {
+  color: #f44336;
+  content: "\f147";
+}
+
+.Toastify__toast-container {
+  z-index: 99999 !important;
+}
+
+.Toastify__toast-container--top-right {
+  top: 3rem;
+}
+
+.Toastify__close-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  left: 10px;
+}
+
+.Toastify__toast--info {
+  background: #fff !important;
+}
+
+.Toastify__toast--error {
+  background: #fff !important;
+}
+
+.Toastify__toast--success {
+  background: #fff !important;
+}
+
+.Toastify__toast--warning {
+  background: #fff !important;
+}
+
 :root {
   --quotify-primary-font: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --quotify-primary-color: #008dff;

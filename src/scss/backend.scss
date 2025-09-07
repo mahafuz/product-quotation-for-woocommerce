@@ -1,6 +1,7 @@
 @use "sass:meta";
 
 @include meta.load-css('common/loader');
+@include meta.load-css('common/notification');
 
 :root {
 	--quotify-primary-font: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;

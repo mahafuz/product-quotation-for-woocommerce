@@ -139,11 +139,11 @@ export const fireNotify = (message, type = '', position = 'top-right') => {
 	switch (type) {
 		case 'error':
 			return toast.error(
-				<div className="academy-toasts">
-					<div className="academy-toasts__icon">
-						<span className="academy-icon academy-icon--information academy-icon--information-error"></span>
+				<div className="quotify-toasts">
+					<div className="quotify-toasts__icon">
+						<span className="quotify-icon quotify-icon--information quotify-icon--information-error"></span>
 					</div>
-					<p className="academy-toasts-message">{message}</p>
+					<p className="quotify-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -152,11 +152,11 @@ export const fireNotify = (message, type = '', position = 'top-right') => {
 			);
 		case 'info':
 			return toast.info(
-				<div className="academy-toasts">
-					<div className="academy-toasts__icon">
-						<span className="academy-icon academy-icon--information"></span>
+				<div className="quotify-toasts">
+					<div className="quotify-toasts__icon">
+						<span className="quotify-icon quotify-icon--information"></span>
 					</div>
-					<p className="academy-toasts-message">{message}</p>
+					<p className="quotify-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -165,11 +165,11 @@ export const fireNotify = (message, type = '', position = 'top-right') => {
 			);
 		case 'warning':
 			return toast.warning(
-				<div className="academy-toasts">
-					<div className="academy-toasts__icon">
-						<span className="academy-icon academy-icon--notification"></span>
+				<div className="quotify-toasts">
+					<div className="quotify-toasts__icon">
+						<span className="quotify-icon quotify-icon--notification"></span>
 					</div>
-					<p className="academy-toasts-message">{message}</p>
+					<p className="quotify-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
@@ -178,11 +178,11 @@ export const fireNotify = (message, type = '', position = 'top-right') => {
 			);
 		default:
 			return toast.success(
-				<div className="academy-toasts">
-					<div className="academy-toasts__icon">
-						<span className="academy-icon academy-icon--check"></span>
+				<div className="quotify-toasts">
+					<div className="quotify-toasts__icon">
+						<span className="quotify-icon quotify-icon--check"></span>
 					</div>
-					<p className="academy-toasts-message">{message}</p>
+					<p className="quotify-toasts-message">{message}</p>
 				</div>,
 				{
 					position,
