@@ -76846,13 +76846,8 @@ function index() {
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Date', 'pqfw'),
     sortable: true,
-    cell: row => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-        children: moment(row.date).format('MMMM DD, YYYY')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-        className: "quotify-table-time",
-        children: moment(row.date).format('h:mm A')
-      })]
+    cell: row => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: row.date
     })
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Status', 'pqfw'),
@@ -76897,8 +76892,6 @@ function index() {
       });
     }
   }];
-  console.log('quo', quotations);
-  console.log('quo', quotations?.currentPage);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_9__["default"], {
       render: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -78437,8 +78430,6 @@ document.addEventListener('DOMContentLoaded', () => {
       menuPage.innerHTML = '';
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createPortal)(children, menuPage);
     }
-    console.log('initial', _redux_store__WEBPACK_IMPORTED_MODULE_6__["default"].getState());
-    _redux_store__WEBPACK_IMPORTED_MODULE_6__["default"].subscribe(() => console.log('changed', _redux_store__WEBPACK_IMPORTED_MODULE_6__["default"].getState()));
     root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_1__.Provider, {
       store: _redux_store__WEBPACK_IMPORTED_MODULE_6__["default"],
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.BrowserRouter, {

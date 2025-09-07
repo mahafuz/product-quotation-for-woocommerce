@@ -1,4 +1,10 @@
 <?php
+/**
+ * Admin class
+ *
+ * @since   2.0.3
+ * @package PQFW
+ */
 
 namespace PQFW\Classes;
 

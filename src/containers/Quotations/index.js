@@ -254,11 +254,7 @@ function index() {
 			sortable: true,
 			cell: (row) => (
 				<div>
-					<span>{moment(row.date).format('MMMM DD, YYYY')}</span>
-					<br />
-					<span className="quotify-table-time">
-						{moment(row.date).format('h:mm A')}
-					</span>
+					{row.date}	
 				</div>
 			),
 		},
@@ -316,9 +312,6 @@ function index() {
 			},
 		},
 	];
-
-	console.log('quo', quotations)
-	console.log('quo', quotations?.currentPage)
 
 	return (
 		<>

@@ -13,6 +13,7 @@
 	<exclude-pattern>*/languages/*.php</exclude-pattern>
 	<exclude-pattern>dist/*</exclude-pattern>
 	<exclude-pattern>*/PhpInsight/*</exclude-pattern>
+	<exclude-pattern>assets/build/*</exclude-pattern>
 
     
 

@@ -1,16 +1,24 @@
 <?php
+/**
+ * Elementor oEmbed Widget.
+ *
+ * Elementor widget that inserts an embed-able content into the page, from any given URL.
+ *
+ * @since 2.0.3
+ * @package Quotify
+ */
 
 namespace PQFW\Classes\Addons;
 
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
-use \Elementor\Widget_Base;
+use Elementor\Widget_Base;
 
 /**
  * Elementor oEmbed Widget.
  *
- * Elementor widget that inserts an embbedable content into the page, from any given URL.
+ * Elementor widget that inserts an embed-able content into the page, from any given URL.
  *
  * @since 2.0.3
  */
@@ -85,7 +93,7 @@ class Elementor extends Widget_Base {
 			'products',
 			'woo',
 			'rfq',
-			'quotation'
+			'quotation',
 		];
 	}
 
@@ -136,5 +144,4 @@ class Elementor extends Widget_Base {
 			</script>
 		<?php
 	}
-
 }

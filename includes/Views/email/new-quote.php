@@ -1,3 +1,15 @@
+<?php
+/**
+ * Quotify new quotation e-mail template.
+ *
+ * @since 2.4.0
+ * @package Quotify
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

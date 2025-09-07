@@ -26,7 +26,7 @@ class Addons {
 	 * @return void
 	 */
 	public function __construct() {
-		$cf7 = \PQFW\Addons\Contactform\Contactform::init();
+		// $cf7 = \PQFW\Addons\ContactForm\ContactForm::init();
 
 		add_action( 'wp_ajax_quotify/addons/get_all', [ $this, 'get_all' ] );
 		add_action( 'wp_ajax_quotify/addons/save', [ $this, 'save' ] );
@@ -76,18 +76,21 @@ class Addons {
 		if ( empty( $addon ) ) {
 			wp_send_json_error( __( 'Addon Name missing', 'pqfw' ) );
 		}
+		wp_die();
 
-		$saved_addons = (array) json_decode( get_option( PQFW_ADDONS_SETTINGS_KEY ), true );
-		$saved_addons[ $addon ] = $status;
+		//phpcs:disable
+		// $saved_addons = (array) json_decode( get_option( PQFW_ADDONS_SETTINGS_KEY ), true );
+		// $saved_addons[ $addon ] = $status;
 
-		update_option( PQFW_ADDONS_SETTINGS_KEY, wp_json_encode( $saved_addons ) );
+		// update_option( PQFW_ADDONS_SETTINGS_KEY, wp_json_encode( $saved_addons ) );
 
-		if ( $status ) {
-			do_action( "pqfw/addons/activated_{$addon}", $status );
-		} else {
-			do_action( "pqfw/addons/deactivated_{$addon}", $status );
-		}
+		// if ( $status ) {
+		// 	do_action( "pqfw/addons/activated_{$addon}", $status );
+		// } else {
+		// 	do_action( "pqfw/addons/deactivated_{$addon}", $status );
+		// }
 
-		wp_send_json_success( $saved_addons );
+		// wp_send_json_success( $saved_addons );
+		//phpcs:enable
 	}
 }

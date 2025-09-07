@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			return createPortal(children, menuPage);
 		}
 
-		console.log('initial', store.getState());
-		store.subscribe(() => console.log( 'changed', store.getState()));
-
 		root.render(
 			<Provider store={store}>
 				<Router>

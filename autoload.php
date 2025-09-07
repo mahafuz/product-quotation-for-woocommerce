@@ -1,4 +1,11 @@
 <?php
+/**
+ * Autoloader class for the entire plugin.
+ *
+ * @since 2.0.4
+ * @package Quotify
+ */
+
 namespace PQFW;
 
 if ( ! defined( 'ABSPATH' ) ) {
