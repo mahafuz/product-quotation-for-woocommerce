@@ -38,9 +38,10 @@
 }
 
 .separator {
-    background-color: var(--quotify-primary-color);
-    height: 1rem;
+    background-color: var(--quotify-placeholder-color);
+    height: 13px;
     width: .125rem;
+	opacity: 0.5;
 }
 
 .quotify-content-wrap {

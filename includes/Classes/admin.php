@@ -31,6 +31,7 @@ class Admin {
 		'quotations_page_pqfw-product-quotations-addons',
 		'quotations_page_pqfw-product-quotations-tools',
 		'quotations_page_pqfw-product-quotations-help',
+		'pqfw-product-quotations-help',
 	];
 
 	/**

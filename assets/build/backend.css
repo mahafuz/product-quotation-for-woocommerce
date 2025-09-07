@@ -1,6 +1,6 @@
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/components/Navigation/index.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/components/Navigation/index.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .quotify-backend-dashboard-navigation {
   display: flex;
   align-items: center;
@@ -18,9 +18,9 @@
 .quotify-backend-dashboard-navigation .navigation-item:hover {
   color: #000;
 }
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/components/TopBar/index.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/components/TopBar/index.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .quotify-top-bar {
   align-items: center;
   background-color: #fff;
@@ -42,10 +42,11 @@
   display: flex;
   gap: 5px;
   width: 30%;
+  font-size: 16px;
 }
 .quotify-top-bar .quotify-backend-top-bar-left .quotify-backend-app-logo {
   height: auto;
-  width: 40px;
+  width: 45px;
 }
 .quotify-top-bar .quotify-backend-top-bar-right {
   flex-wrap: wrap;
@@ -55,9 +56,9 @@
   justify-content: flex-end;
   height: 100%;
 }
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/Quotations/index.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/Quotations/index.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .quotify-quotations-list {
   width: 100%;
   background: #fff;
@@ -114,9 +115,9 @@
   align-items: center;
   width: 60%;
 }
-/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/ViewQuotation/index.scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/ViewQuotation/index.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .quote-container {
   max-width: 800px;
   margin: 40px auto;
@@ -161,9 +162,9 @@
 .product-info p {
   margin: 3px 0;
 }
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/Addons/index.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/Addons/index.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .quotify-content-wrap.quotify-addons-wrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -204,60 +205,194 @@
   margin: 0;
   padding: 0;
 }
-/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/containers/Help/index.scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************/
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap {
-  display: block;
-  margin-bottom: 0;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card {
-  text-align: center;
-  padding: 40px 70px;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card .main-intro {
-  padding: 0 100px 30px;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card .main-intro h2 {
-  font-size: 26px;
-  font-weight: bold;
-  margin: 0 0 15px;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-card .main-intro p {
-  font-size: 18px;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .intro-video iframe {
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  justify-content: center;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links .quotify-social {
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links .quotify-social > img {
-  max-width: 40px;
-  width: 100%;
-}
-.quotify-help-intro.quotify-help-page-header.quotify-content-wrap .quotify-links .quotify-social:hover {
-  opacity: 0.6;
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/Help/index.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************/
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
 }
 
-.quotify-help-page-wrapper.quotify-content-wrap {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.quotify-help-intro.quotify-help-page-header {
+  margin-bottom: 40px;
+}
+
+.quotify-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  transition: all 0.3s ease;
+}
+
+.quotify-help-intro .quotify-card {
+  display: flex;
+  flex-direction: column;
   gap: 30px;
 }
-.quotify-help-page-wrapper.quotify-content-wrap .help-block {
-  display: flex;
-  align-items: center;
-  text-align: center;
+@media (min-width: 992px) {
+  .quotify-help-intro .quotify-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.quotify-help-intro .main-intro {
+  flex: 1;
+}
+
+.quotify-help-intro .intro-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #101828;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.quotify-help-intro .intro-description {
   font-size: 16px;
+  color: #646c73;
+  margin-bottom: 20px;
+}
+
+.quotify-help-intro .text.message {
+  font-size: 16px;
+  color: #646c73;
+  margin-bottom: 24px;
+}
+
+.quotify-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.quotify-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+.quotify-social:hover {
+  background: #008dff;
+  transform: translateY(-2px);
+}
+.quotify-social:hover img {
+  filter: brightness(0) invert(1);
+}
+.quotify-social img {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+.intro-video {
+  flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.intro-video iframe {
+  width: 100%;
+  height: 315px;
+  border: none;
+  border-radius: 8px;
+}
+
+.quotify-content-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.quotify-content-wrap.quotify-help-page-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+@media (min-width: 768px) {
+  .quotify-content-wrap.quotify-help-page-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  .quotify-content-wrap.quotify-help-page-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.quotify-help-block.quotify-card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px 24px;
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+}
+.quotify-help-block.quotify-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #008dff;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.button.button-primary {
+  background: #008dff;
+  color: #fff;
+  border-color: #0070c6;
+}
+.button.button-primary:hover {
+  background: #0070c6;
+  transform: translateY(-2px);
+}
+
+.quotify-help-block:nth-child(3) .button.button-primary {
+  background: #00ad6b;
+  border-color: #009a5d;
+}
+.quotify-help-block:nth-child(3) .button.button-primary:hover {
+  background: #009a5d;
+}
+
+.quotify-help-block:nth-child(5) .button.button-primary {
+  background: #ff5000;
+  border-color: #e04500;
+}
+.quotify-help-block:nth-child(5) .button.button-primary:hover {
+  background: #e04500;
+}
+
+.quotify-help-block:nth-child(6) .button.button-primary {
+  background: #9a6eff;
+  border-color: #845aff;
+}
+.quotify-help-block:nth-child(6) .button.button-primary:hover {
+  background: #845aff;
 }
 /*!****************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/react-toastify/dist/ReactToastify.css ***!
@@ -1063,9 +1198,9 @@
   }
 }
 
-/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scss/settings.scss ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/scss/settings.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
 .pqfw-settings-tabs-warp {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -1225,9 +1360,9 @@
 .components-select-control .components-input-control__container {
   width: 52%;
 }
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/components/PopupNotification/styles.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/components/PopupNotification/styles.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .Toastify {
   display: flex;
   align-items: center;
@@ -1350,9 +1485,9 @@
 .Toastify__toast--warning {
   background: #fff !important;
 }
-/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scss/backend.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/scss/backend.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
 .pqfw-initial-preloader {
   font-size: 30px;
   text-align: center;
@@ -1558,9 +1693,10 @@
 }
 
 .separator {
-  background-color: var(--quotify-primary-color);
-  height: 1rem;
+  background-color: var(--quotify-placeholder-color);
+  height: 13px;
   width: 0.125rem;
+  opacity: 0.5;
 }
 
 .quotify-content-wrap {
