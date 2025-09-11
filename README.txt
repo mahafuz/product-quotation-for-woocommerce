@@ -4,8 +4,8 @@ Tags: request a quote, email quote, quotations, request for quote, rfq, raq, pro
 Requires at least: 4.0
 WC requires at least: 5.0
 WC tested up to: 9.8.5
-Tested up to: 5.9
-Stable tag: 2.0.4
+Tested up to: 6.5
+Stable tag: 2.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
