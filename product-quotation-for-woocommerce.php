@@ -36,7 +36,7 @@ define( 'PQFW_PLUGIN_ASSETS_DIR', trailingslashit( PQFW_PLUGIN_PATH . 'assets' )
 define( 'PQFW_ADDONS_DIR_PATH', trailingslashit( PQFW_PLUGIN_PATH . 'addons' ) );
 define( 'PQFW_ADDONS_SETTINGS_KEY', 'pqfw_addons' );
 define( 'PQFW_PLUGIN_LANGUAGES_PATH', plugin_dir_path( __FILE__ ) . 'languages/' );
-define( 'PQFW_PLUGIN_VIEWS', trailingslashit( plugin_dir_path( __FILE__ ) . 'includes/Views' ) );
+define( 'PQFW_PLUGIN_VIEWS', trailingslashit( plugin_dir_path( __FILE__ ) . 'includes/views' ) );
 define( 'PQFW_PLUGIN_VERSION', '2.0.4' );
 
 /**
