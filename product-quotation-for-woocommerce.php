@@ -4,6 +4,7 @@
  * Plugin URI: https://github.com/mahafuz/product-quotation-for-woocommerce
  * Description: Removes the 'Add to cart' button from WooCommerce and adds a simple 'Request for quotation' form on all product pages instead of it.
  * Version: 2.0.4
+ * Requires Plugins: woocommerce
  * Author: Mahafuz <m.mahfuz.me@gmail.com>
  * Author URI: https://github.com/mahafuz/
  * Text Domain: pqfw
@@ -21,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.2.0
  */
 define( 'PQFW_PLUGIN_FILE', __FILE__ );
-define( 'PQFW_PLUGIN_NAME', __( 'Products Quotation For WooCommerce', 'pqfw' ) );
+define( 'PQFW_PLUGIN_NAME', __( 'Products Quotation For WooCommerce', 'quotify' ) );
 define( 'PQFW_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'PQFW_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'PQFW_PLUGIN_SLUG', 'pqfw-product-quotations' );

@@ -22,6 +22,7 @@ export const {
 	dashboard,
 	logout_url,
 	woocommerce_is_active,
+	woocommerce_notice,
 	current_user_id,
 	is_admin,
 	is_rtl,
@@ -79,24 +80,24 @@ export const getAddonActiveStatus = (name, isPro = false) => {
 function getAddonInfo(name) {
 	return [
 		{
-			label: __('Contact Form 7', 'pqfw'),
+			label: __('Contact Form 7', 'quotify'),
 			name: 'contact-form-7',
 			is_pro: false,
 			required_plugin: true,
 			details: __(
 				'Use contact form 7 as quotation submission form.',
-				'pqfw'
+				'quotify'
 			),
 			icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
 			url: `${admin_url}admin.php?page=forms`,
 			docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
 		},
 		{
-			label: __('WPForms', 'pqfw'),
+			label: __('WPForms', 'quotify'),
 			name: 'wpforms',
 			is_pro: false,
 			required_plugin: false,
-			details: __('Use WPForms as quotation submission form.', 'pqfw'),
+			details: __('Use WPForms as quotation submission form.', 'quotify'),
 			icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
 			url: `${admin_url}admin.php?page=forms`,
 			docsUrl: `https://wpindiedev.xyz/docs/wpforms/`,

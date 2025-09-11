@@ -49,7 +49,7 @@ class Elementor extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Product Quotation Cart', 'pqfw' );
+		return __( 'Product Quotation Cart', 'quotify' );
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Elementor extends Widget_Base {
 	 */
 	public function get_keywords() {
 		return [
-			'pqfw',
+			'quotify',
 			'quote',
 			'enquire',
 			'products',

@@ -67,9 +67,9 @@ class Form_Handler {
 		if ( $insertID ) {
 			do_action( 'quotify/quotations/after_insert', $insertID );
 			pqfw()->quotations->purge();
-			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'pqfw' ) );
+			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'quotify' ) );
 		} else {
-			wp_send_json_error( __( 'Something went wrong', 'pqfw' ) );
+			wp_send_json_error( __( 'Something went wrong', 'quotify' ) );
 		}
 
 		die();

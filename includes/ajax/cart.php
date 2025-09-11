@@ -43,7 +43,7 @@ class Cart {
 	public function InitializeCart() {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
 			wp_send_json_error([
-				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' ),
+				'message' => __( 'Invalid operation, could not verify nonce.', 'quotify' ),
 			], 403);
 		}
 
@@ -69,7 +69,7 @@ class Cart {
 	public function removeProduct() {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
 			wp_send_json_error([
-				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' ),
+				'message' => __( 'Invalid operation, could not verify nonce.', 'quotify' ),
 			], 403);
 		}
 
@@ -96,7 +96,7 @@ class Cart {
 	public function update() {
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'pqfw_cart_actions' ) ) {
 			wp_send_json_error([
-				'message' => __( 'Invalid operation, could not verify nonce.', 'pqfw' ),
+				'message' => __( 'Invalid operation, could not verify nonce.', 'quotify' ),
 			], 403);
 		}
 

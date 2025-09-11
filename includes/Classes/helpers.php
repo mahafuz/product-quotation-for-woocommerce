@@ -61,7 +61,7 @@ class Helpers {
 
 		foreach ( $requiredFields as $required ) {
 			if ( empty( $fields[ $required ] ) ) {
-				$errors->add( 'field', sprintf( '%s %s', $required, __( 'is required.', 'pqfw' ) ) );
+				$errors->add( 'field', sprintf( '%s %s', $required, __( 'is required.', 'quotify' ) ) );
 			}
 		}
 
@@ -70,15 +70,15 @@ class Helpers {
 		}
 
 		if ( strlen( $fields['fullname'] ) < 4 ) {
-			$errors->add( 'username_length', __( 'Username too short. At least 4 characters is required', 'pqfw' ) );
+			$errors->add( 'username_length', __( 'Username too short. At least 4 characters is required', 'quotify' ) );
 		}
 
 		if ( ! validate_username( $fields['fullname'] ) ) {
-			$errors->add( 'username_invalid', __( 'Sorry, the username you entered is not valid', 'pqfw' ) );
+			$errors->add( 'username_invalid', __( 'Sorry, the username you entered is not valid', 'quotify' ) );
 		}
 
 		if ( ! is_email( $fields['email'] ) ) {
-			$errors->add( 'email_invalid', __( 'Email is not valid', 'pqfw' ) );
+			$errors->add( 'email_invalid', __( 'Email is not valid', 'quotify' ) );
 		}
 
 		return $errors;
@@ -117,7 +117,7 @@ class Helpers {
 		$result = [
 			[
 				'value' => 0,
-				'label' => __( 'Select page for Quotations cart', 'pqfw' ),
+				'label' => __( 'Select page for Quotations cart', 'quotify' ),
 			],
 		];
 
@@ -334,5 +334,62 @@ class Helpers {
 		$slugs = \PQFW\Classes\ADMIN::REGISTERED_SLUGS;
 
 		return in_array( $page, $slugs, true );
+	}
+
+	/**
+	 * Check if a plugin is installed
+	 *
+	 * @since 1.0.0
+	 * @param string $basename The plugin basename.
+	 */
+	public static function is_plugin_installed( $basename ) {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			include_once ABSPATH . '/wp-admin/includes/plugin.php';
+		}
+
+		$installed_plugins = get_plugins();
+
+		return isset( $installed_plugins[ $basename ] );
+	}
+
+	/**
+	 * Check if woocommerce plugin is activated
+	 *
+	 * @since v1.0.0
+	 */
+	public static function woocommerce_notice() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		$woocommerce = 'woocommerce/woocommerce.php';
+		$notice = '';
+
+		if ( self::is_plugin_installed( $woocommerce ) ) {
+			if ( ! self::isWoocommerceActive() ) {
+				$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $woocommerce . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $woocommerce );
+
+				$button = '';
+				$message     = __(
+					'<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be active. Please activate WooCommerce to continue.', 'quotify'
+				);
+				$button_text = __( 'Activate WooCommerce', 'quotify' );
+
+				// $button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
+				$notice = sprintf( '<div class="error"><p>%1$s</p>%2$s</div>', wp_kses_post( $message ), wp_kses_post( $button ) );
+			}
+		} else {
+			$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
+			$message        = __(
+				'<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be installed and activated. Please install WooCommerce to continue.',
+				'quotify'
+			);
+			$button_text    = __( 'Install WooCommerce', 'quotify' );
+			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
+			$button = '';
+			$notice = sprintf( '<div class="error"><p>%1$s</p>%2$s</div>', wp_kses_post( $message ), wp_kses_post( $button ) );
+		}
+
+		return $notice;
 	}
 }

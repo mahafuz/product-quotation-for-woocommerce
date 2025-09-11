@@ -123,7 +123,6 @@ export const deleteQuote = (id) => async (dispatch) => {
 		nonce: pqfw_nonce,
 		force: true,
 	}).then((response) => {
-		console.log('response', response);
 		if (response.data?.success) {
 			dispatch({
 				type: DELETE_QUOTATION,

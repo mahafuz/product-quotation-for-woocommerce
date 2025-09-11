@@ -74,7 +74,7 @@ class Addons {
 		$status = ( isset( $_POST['status'] ) ? pqfw()->helpers->sanitize_checkbox_field( $_POST['status'] ) : false );
 
 		if ( empty( $addon ) ) {
-			wp_send_json_error( __( 'Addon Name missing', 'pqfw' ) );
+			wp_send_json_error( __( 'Addon Name missing', 'quotify' ) );
 		}
 		wp_die();
 

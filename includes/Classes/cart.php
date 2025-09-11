@@ -31,7 +31,7 @@ class Cart {
 		if ( ! is_array( $products ) || count( $products ) < 1 ) {
 			echo '<tr>';
 				echo '<td colspan="6" align="center">';
-					echo esc_html__( 'There are no product added in the Quotations Cart', 'pqfw' );
+					echo esc_html__( 'There are no product added in the Quotations Cart', 'quotify' );
 				echo '</td>';
 			echo '</tr>';
 		}

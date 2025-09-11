@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllQuotations, updateCurrentPage } from '@Redux/actions/quotations.actions';
+import {
+	fetchAllQuotations,
+	updateCurrentPage,
+} from '@Redux/actions/quotations.actions';
 import DataTable from 'react-data-table-component';
 import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
+import { Button, Spinner } from '@wordpress/components';
 
 import { RiDeleteBin6Line, RiEditLine } from 'react-icons/ri';
 import { MdOutlineRestore } from 'react-icons/md';
@@ -15,19 +18,19 @@ import './index.scss';
 
 const statusArray = [
 	{
-		label: __('All', 'pqfw'),
+		label: __('All', 'quotify'),
 		value: 'all',
 	},
 	// {
-	// 	label: __('Publish', 'pqfw'),
+	// 	label: __('Publish', 'quotify'),
 	// 	value: 'publish',
 	// },
 	// {
-	// 	label: __('Pending', 'pqfw'),
+	// 	label: __('Pending', 'quotify'),
 	// 	value: 'pending',
 	// },
 	{
-		label: __('Trash', 'pqfw'),
+		label: __('Trash', 'quotify'),
 		value: 'trash',
 	},
 ];
@@ -53,7 +56,6 @@ function index() {
 	const navigate = useNavigate();
 	const quotations = useSelector((state) => state.quotations);
 
-	const [fetchStatus, setFetchingStatus] = useState(false);
 	const [bulkActionData, setBulkActionData] = useState({});
 	const [fetching, setFetching] = useState(false);
 	const [status, setStatus] = useState(
@@ -75,7 +77,7 @@ function index() {
 			confirm(
 				__(
 					'Are you sure you want to permanently delete selected courses?',
-					'pqfw'
+					'quotify'
 				)
 			)
 		) {
@@ -117,7 +119,6 @@ function index() {
 			setFetching(false);
 		});
 	};
-
 
 	const handlePageChange = (page) => {
 		dispatch(updateCurrentPage(page));
@@ -166,9 +167,9 @@ function index() {
 
 	const subHeaderComponentMemo = React.useMemo(() => {
 		const searchHandler = (value) => {
-			setFetchingStatus(true);
+			setFetching(true);
 			dispatch(fetchAllQuotations(status, 1, 10, value)).then(() => {
-				setFetchingStatus(false);
+				setFetching(false);
 			});
 		};
 
@@ -219,7 +220,7 @@ function index() {
 
 	const columns = [
 		{
-			name: __('Title', 'pqfw'),
+			name: __('Title', 'quotify'),
 			sortable: true,
 			cell: (row) => {
 				return (
@@ -245,24 +246,20 @@ function index() {
 			},
 		},
 		{
-			name: __('Author', 'pqfw'),
+			name: __('Author', 'quotify'),
 			sortable: true,
 			cell: (row) => <span>{row.author_name}</span>,
 		},
 		{
-			name: __('Date', 'pqfw'),
+			name: __('Date', 'quotify'),
 			sortable: true,
-			cell: (row) => (
-				<div>
-					{row.date}	
-				</div>
-			),
+			cell: (row) => <div>{row.date}</div>,
 		},
-		{
-			name: __('Status', 'pqfw'),
-			sortable: true,
-			cell: (row) => <span>{row.status}</span>,
-		},
+		// {
+		// 	name: __('Status', 'quotify'),
+		// 	sortable: true,
+		// 	cell: (row) => <span>{row.status}</span>,
+		// },
 		{
 			name: __('Action', 'quotify'),
 			sortable: true,
@@ -315,40 +312,48 @@ function index() {
 
 	return (
 		<>
-			<TopBar
-				render={() => (
-					<div className="quotify-top-bar-left">
-						<h4 className="quotify-top-bar-heading">
-							{__('Dashboard', 'quotify')}
-						</h4>
-					</div>
-				)}
-			/>
-
-			<div className="quotify-dashboard-wrapper quotify-content-wrap">
-				<div className="quotify-quotations-list">
-					<DataTable
-						title={`Quotations`}
-						columns={columns}
-						data={quotations.data}
-						pagination
-						paginationServer
-						paginationTotalRows={quotations?.totalItems} //pagination
-						paginationDefaultPage={quotations.currentPage}
-						selectableRows
-						persistTableHead
-						// onSelectedRowsChange={(e) => setBulkActionData(e)}
-						progressPending={fetchStatus}
-						progressComponent={<h1>Loading quotations...</h1>}
-						paginationResetDefaultPage={false}
-						subHeader
-						subHeaderComponent={subHeaderComponentMemo}
-						className="quotify-list-table"
-						onChangePage={handlePageChange} //pagination
-						onChangeRowsPerPage={handleItemsPage} //pagination
+			{fetching ? (
+				<Spinner />
+			) : (
+				<>
+					<TopBar
+						render={() => (
+							<div className="quotify-top-bar-left">
+								<h4 className="quotify-top-bar-heading">
+									{__('Dashboard', 'quotify')}
+								</h4>
+							</div>
+						)}
 					/>
-				</div>
-			</div>
+
+					<div className="quotify-dashboard-wrapper quotify-content-wrap">
+						<div className="quotify-quotations-list">
+							<DataTable
+								title={``}
+								columns={columns}
+								data={quotations.data}
+								pagination
+								paginationServer
+								paginationTotalRows={quotations?.totalItems} //pagination
+								paginationDefaultPage={quotations.currentPage}
+								// selectableRows
+								persistTableHead
+								// onSelectedRowsChange={(e) => setBulkActionData(e)}
+								progressPending={fetching}
+								progressComponent={
+									<h1>Loading quotations...</h1>
+								}
+								paginationResetDefaultPage={false}
+								subHeader
+								subHeaderComponent={subHeaderComponentMemo}
+								className="quotify-list-table"
+								onChangePage={handlePageChange} //pagination
+								onChangeRowsPerPage={handleItemsPage} //pagination
+							/>
+						</div>
+					</div>
+				</>
+			)}
 		</>
 	);
 }

@@ -36,6 +36,7 @@ class Script_Base {
 			'route_path'            => wp_parse_url( admin_url(), PHP_URL_PATH ),
 			'menu'                  => wp_json_encode( pqfw()->menu->getList() ),
 			'woocommerce_is_active' => Helpers::isWoocommerceActive(),
+			'woocommerce_notice'    => Helpers::woocommerce_notice(),
 			'current_user_id'       => get_current_user_id(),
 			'is_rtl'                => is_rtl(),
 			'current_user_can'      => [
@@ -67,10 +68,10 @@ class Script_Base {
 		$image_size_names = apply_filters(
 			'image_size_names_choose',
 			[
-				'thumbnail' => __( 'Thumbnail', 'pqfw' ),
-				'medium'    => __( 'Medium', 'pqfw' ),
-				'large'     => __( 'Large', 'pqfw' ),
-				'full'      => __( 'Full Size', 'pqfw' ),
+				'thumbnail' => __( 'Thumbnail', 'quotify' ),
+				'medium'    => __( 'Medium', 'quotify' ),
+				'large'     => __( 'Large', 'quotify' ),
+				'full'      => __( 'Full Size', 'quotify' ),
 			]
 		);
 
@@ -82,7 +83,7 @@ class Script_Base {
 			];
 		}
 
-		$body_placeholder = apply_filters( 'write_your_story', __( 'Start writing or type / to choose a block', 'pqfw' ), $post );
+		$body_placeholder = apply_filters( 'write_your_story', __( 'Start writing or type / to choose a block', 'quotify' ), $post );
 		$allowed_block_types = apply_filters( 'allowed_block_types', true, $post );
 
 		return [
@@ -92,7 +93,7 @@ class Script_Base {
 				'disableCustomFontSizes' => true,
 				'disablePostFormats'     => ! current_theme_supports( 'post-formats' ),
 				/** This filter is documented in wp-admin/edit-form-advanced.php */
-				'titlePlaceholder'       => __( 'Add title', 'pqfw' ),
+				'titlePlaceholder'       => __( 'Add title', 'quotify' ),
 				'bodyPlaceholder'        => $body_placeholder,
 				'isRTL'                  => is_rtl(),
 				'autosaveInterval'       => AUTOSAVE_INTERVAL,
@@ -250,7 +251,7 @@ class Script_Base {
 	 */
 	public function web_fonts_url( $font ) {
 		$font_url = '';
-		if ( 'off' !== _x( 'on', 'Google font: on or off', 'pqfw' ) ) {
+		if ( 'off' !== _x( 'on', 'Google font: on or off', 'quotify' ) ) {
 			$font_url = add_query_arg( 'family', rawurlencode( $font ), '//fonts.googleapis.com/css' );
 		}
 		return $font_url;

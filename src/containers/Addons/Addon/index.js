@@ -36,7 +36,7 @@ function index({ addon }) {
 				fireNotify(
 					sprintf(
 						// translators: %s: AddonName
-						__('%s Addon Failed to saved.', 'pqfw'),
+						__('%s Addon Failed to saved.', 'quotify'),
 						addon.label
 					),
 					'error'

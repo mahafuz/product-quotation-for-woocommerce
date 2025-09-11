@@ -1,4 +1,3 @@
-import { createSlice } from '@reduxjs/toolkit';
 import {
 	FETCH_QUOTATION,
 	FETCH_ALL_QUOTATIONS,
@@ -79,13 +78,24 @@ function quotationsReducer(state = initialState, action) {
 			};
 		case DELETE_QUOTATION:
 			if (state.data) {
+				const itemId = parseInt(
+					payload?.data?.quotation?.ID || payload?.data?.quotation?.id
+				);
+				const itemToWipe = state.data.find(
+					(item) => parseInt(item.id) === itemId
+				);
+
+				if (!itemToWipe) {
+					return state;
+				}
+
+				const updatedData = state.data.filter(
+					(item) => parseInt(item.id) !== itemId
+				);
+
 				return {
 					...state,
-					data: [
-						...state.data.filter(
-							(item) => parseInt(item.id) !== parseInt(payload.id)
-						),
-					],
+					data: updatedData,
 				};
 			}
 			return {

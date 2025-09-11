@@ -48,11 +48,11 @@ class Product {
 
 			wp_send_json_success([
 				/* Translators: %d product id */
-				'message' => sprintf( __( '%d Product Successfully added.', 'pqfw' ), $id ),
+				'message' => sprintf( __( '%d Product Successfully added.', 'quotify' ), $id ),
 			]);
 		} else {
 			wp_send_json_success([
-				'message' => __( 'Invalid product data to add to quote.', 'pqfw' ),
+				'message' => __( 'Invalid product data to add to quote.', 'quotify' ),
 			]);
 		}
 	}

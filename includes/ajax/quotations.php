@@ -96,13 +96,19 @@ class Quotations {
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 
 		if ( ! $id ) {
-			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
+			wp_send_json_error([
+				'message' => __( 'Quotation not found.', 'quotify' ),
+				'not_found' => true,
+			]);
 		}
 
 		$post = get_post( $id, OBJECT, 'display' );
 
-		if ( is_wp_error( $post ) ) {
-			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
+		if ( empty( $post ) || is_wp_error( $post ) ) {
+			wp_send_json_error([
+				'message' => __( 'Quotation not found.', 'quotify' ),
+				'not_found' => true,
+			]);
 		}
 
 		$quotation = [
@@ -151,11 +157,11 @@ class Quotations {
 		}
 
 		if ( $force ) {
-			$post = wp_delete_post( $id, true );
+			$deleted_post = wp_delete_post( $id, true );
 
 			wp_send_json_success([
 				'message' => __( 'Quotation permanently deleted!', 'quotify' ),
-				'post'    => $post,
+				'quotation' => $deleted_post,
 			]);
 		} else {
 			$trashed_post = wp_trash_post( $id );

@@ -6,7 +6,11 @@ import Help from '@Containers/Help';
 import Settings from '@Components/Settings';
 import PopupNotification from '@Components/PopupNotification';
 
-import { useQuery } from '@Utils/helper';
+import {
+	useQuery,
+	woocommerce_is_active,
+	woocommerce_notice,
+} from '@Utils/helper';
 
 const renderSwitch = (page, id, action, path) => {
 	switch (page) {
@@ -32,15 +36,19 @@ export default function BackendDashboard() {
 
 	return (
 		<>
+			<div
+				dangerouslySetInnerHTML={{
+					__html: woocommerce_notice,
+				}}
+				className='quotify-notice'
+			></div>
 			<PopupNotification icon={false} hideProgressBar={true} />
-			{/* <Container fluid maxW={`95%`}> */}
 			{renderSwitch(
 				query.get('page'),
 				parseInt(query.get('id')),
 				query.get('action'),
 				query.get('path')
 			)}
-			{/* </Container> */}
 		</>
 	);
 }

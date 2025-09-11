@@ -68,7 +68,7 @@ class Form {
 			'PQFW_OBJECT',
 			[
 				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
-				'ViewCartLabel' => __( 'View Quotation Cart', 'pqfw' ),
+				'ViewCartLabel' => __( 'View Quotation Cart', 'quotify' ),
 				'cartPageUrl'   => get_permalink( $cartPageId ),
 				'loader'        => PQFW_PLUGIN_URL . 'assets/images/loader.gif',
 				'nonce'         => wp_create_nonce( 'pqfw_cart_actions' ),
@@ -237,7 +237,7 @@ class Form {
 							type="submit"
 							id="quotify-form-submit"
 							name="quotify-form-submit"
-							value="<?php echo esc_html__( 'Submit Query', 'pqfw' ); ?>"
+							value="<?php echo esc_html__( 'Submit Query', 'quotify' ); ?>"
 							class="submit"
 						/>
 						<div class="loading-spinner"></div>

@@ -2,10 +2,18 @@
 Contributors: mahfuz01
 Tags: request a quote, email quote, quotations, request for quote, rfq, raq, proposal
 Requires at least: 4.0
+WC requires at least: 5.0
+WC tested up to: 9.8.5
 Tested up to: 5.9
 Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+Plugins required:
+
+<ol>
+	<li>WooCommerce 5.0 or higher</li>
+</ol>
 
 Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.
 

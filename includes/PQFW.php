@@ -32,7 +32,7 @@ namespace PQFW {//phpcs:ignore
 		 *
 		 * @var mixed
 		 */
-		private $migration;
+		public $migration;
 
 		/**
 		 * Container for the quotations
@@ -141,7 +141,7 @@ namespace PQFW {//phpcs:ignore
 			foreach ( $dependencies as $path ) {
 				if ( ! file_exists( PQFW_PLUGIN_PATH . $path ) ) {
 					status_header( 500 );
-					wp_die( esc_html__( 'Plugin is missing required dependencies. Please contact support for more information.', 'pqfw' ) );
+					wp_die( esc_html__( 'Plugin is missing required dependencies. Please contact support for more information.', 'quotify' ) );
 				}
 
 				require PQFW_PLUGIN_PATH . $path;
@@ -168,10 +168,6 @@ namespace PQFW {//phpcs:ignore
 		 * @return void
 		 */
 		private function loader() {
-			if ( ! function_exists( 'WC' ) ) {
-				add_action( 'admin_notices', [ $this, 'woocommerce_not_loaded' ] );
-			}
-
 			$this->helpers         = new \PQFW\Classes\Helpers();
 			$this->menu            = new \PQFW\Classes\Menu();
 			$this->settings        = new \PQFW\Classes\Settings();
@@ -217,8 +213,11 @@ namespace PQFW {//phpcs:ignore
 		 */
 		public function addPluginActionLinks( $links ) {
 			// return if pro is active.
-			$settings = '<a href="' . admin_url( 'admin.php?page=pqfw-settings' ) . '">' . esc_html__( 'Settings', 'pqfw' ) . '</a>';
-			$help = sprintf( '<a href="%s"><span style="color:#f18500; font-weight: bold;">%s</span></a>', admin_url( 'admin.php?page=pqfw-help' ), esc_html__( 'Help', 'pqfw' ) );
+			$settings = '<a href="' . admin_url( 'admin.php?page=pqfw-product-quotations-settings' ) . '">' . esc_html__( 'Settings', 'quotify' ) . '</a>';
+			$help = sprintf(
+				'<a href="%s"><span style="color:#f18500; font-weight: bold;">%s</span></a>', admin_url( 'admin.php?page=pqfw-product-quotations-help' ),
+				esc_html__( 'Help', 'quotify' )
+			);
 			array_unshift( $links, $settings );
 			array_push( $links, $help );
 
@@ -235,56 +234,9 @@ namespace PQFW {//phpcs:ignore
 				delete_option( '_pqfw_activation_redirect' );
 
 				if ( ! isset( $_GET['activate-multi'] ) && ( ! empty( $_GET['activate'] ) ) && ( 'true' === $_GET['activate'] ) ) {
-					wp_safe_redirect( admin_url( 'admin.php?page=pqfw-settings' ) );
+					wp_safe_redirect( admin_url( 'admin.php?page=pqfw-product-quotations' ) );
 				}
 			}
-		}
-
-		/**
-		 * Check if a plugin is installed
-		 *
-		 * @since 1.0.0
-		 * @param string $basename The plugin basename.
-		 */
-		public function is_plugin_installed( $basename ) {
-			if ( ! function_exists( 'get_plugins' ) ) {
-				include_once ABSPATH . '/wp-admin/includes/plugin.php';
-			}
-
-			$installed_plugins = get_plugins();
-
-			return isset( $installed_plugins[ $basename ] );
-		}
-
-		/**
-		 * Check if woocommerce plugin is activated
-		 *
-		 * @since v1.0.0
-		 */
-		public function woocommerce_not_loaded() {
-			if ( ! current_user_can( 'activate_plugins' ) ) {
-				return;
-			}
-
-			$woocommerce = 'woocommerce/woocommerce.php';
-
-			if ( $this->is_plugin_installed( $woocommerce ) ) {
-				$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $woocommerce . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $woocommerce );
-
-				$message     = __( '<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be active. Please activate WooCommerce to continue.', 'pqfw' );
-				$button_text = __( 'Activate WooCommerce', 'pqfw' );
-			} else {
-				$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
-				$message        = __(
-					'<strong>Product Quotation For WooCommerce</strong> requires <strong>WooCommerce</strong> plugin to be installed and activated. Please install WooCommerce to continue.',
-					'pqfw'
-				);
-				$button_text    = __( 'Install WooCommerce', 'pqfw' );
-			}
-
-			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
-
-			printf( '<div class="error"><p>%1$s</p>%2$s</div>', wp_kses_post( $message ), wp_kses_post( $button ) );
 		}
 
 		/**

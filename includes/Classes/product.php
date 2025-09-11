@@ -37,7 +37,7 @@ class Product {
 	 * Get product title.
 	 */
 	private function getTitle() {
-		return isset( $this->dataToSave['fullname'] ) ? sanitize_text_field( $this->dataToSave['fullname'] ) : __( 'Quotation', 'pqfw' );
+		return isset( $this->dataToSave['fullname'] ) ? sanitize_text_field( $this->dataToSave['fullname'] ) : __( 'Quotation', 'quotify' );
 	}
 
 	/**

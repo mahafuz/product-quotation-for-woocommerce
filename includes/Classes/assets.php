@@ -66,7 +66,7 @@ class Assets extends \PQFW\Classes\Script_Base {
 			);
 
 			wp_localize_script( 'pqfw-admin-scripts', 'PqfwGlobal', $this->get_backend_scripts_data() );
-			wp_set_script_translations( 'pqfw-admin-scripts', 'pqfw', PQFW_PLUGIN_ROOT_DIR_PATH . 'languages' );
+			wp_set_script_translations( 'pqfw-admin-scripts', 'quotify', PQFW_PLUGIN_ROOT_DIR_PATH . 'languages' );
 		}
 	}
 

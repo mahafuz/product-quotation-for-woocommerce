@@ -44,34 +44,34 @@ class Menu {
 	public function getList() {
 		$this->container[ PQFW_PLUGIN_SLUG ] = [
 			'parent_slug' => PQFW_PLUGIN_SLUG,
-			'title'      => __( 'Dashboard', 'pqfw' ),
+			'title'      => __( 'Dashboard', 'quotify' ),
 			'capability' => 'manage_options',
 		];
 
 		$this->container[ PQFW_PLUGIN_SLUG . '-settings' ]    = [
 			'parent_slug' => PQFW_PLUGIN_SLUG,
-			'title'      => __( 'Settings', 'pqfw' ),
+			'title'      => __( 'Settings', 'quotify' ),
 			'capability' => 'manage_options',
 		];
 
 		$this->container[ PQFW_PLUGIN_SLUG . '-addons' ]    = [
 			'parent_slug' => PQFW_PLUGIN_SLUG,
-			'title'      => __( 'Add-ons', 'pqfw' ),
+			'title'      => __( 'Add-ons', 'quotify' ),
 			'capability' => 'manage_options',
 		];
 
-		// TODO: coming..
+		// TODO:..
 		//phpcs:disable
 		// $this->container[ PQFW_PLUGIN_SLUG . '-tools' ]    = [
 		// 	'parent_slug' => PQFW_PLUGIN_SLUG,
-		// 	'title'      => __( 'Tools', 'pqfw' ),
+		// 	'title'      => __( 'Tools', 'quotify' ),
 		// 	'capability' => 'manage_options',
 		// ];
 		//phpcs:enable
 
 		$this->container[ PQFW_PLUGIN_SLUG . '-help' ]    = [
 			'parent_slug' => PQFW_PLUGIN_SLUG,
-			'title'      => __( 'Help', 'pqfw' ),
+			'title'      => __( 'Help', 'quotify' ),
 			'capability' => 'manage_options',
 		];
 
@@ -119,7 +119,7 @@ class Menu {
 	 * @return string
 	 */
 	public static function get_toplevel_menu_title() {
-		return apply_filters( 'pqfw/admin/toplevel_menu_title', __( 'Quotations', 'pqfw' ) );
+		return apply_filters( 'pqfw/admin/toplevel_menu_title', __( 'Quotations', 'quotify' ) );
 	}
 
 	/**

@@ -75,16 +75,16 @@ class Settings {
 			'button_normal_bg_color'         => '',
 			'button_font_size'               => '',
 			'button_width'                   => '',
-			'button_text'                    => __( 'Add to Quote', 'pqfw' ),
+			'button_text'                    => __( 'Add to Quote', 'quotify' ),
 			'hide_add_to_cart_button'        => false,
 			'hide_product_prices'            => false,
 			'button_position'                => 'woocommerce_after_shop_loop_item',
 			'button_position_single_product' => 'woocommerce_after_add_to_cart_quantity',
 			'privacy_policy'                 => false,
-			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'pqfw' ),
+			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'quotify' ),
 			'privacy_policy_content'         => __(
 				'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].',
-				'pqfw'
+				'quotify'
 			),
 			'quotation_cart_page'            => pqfw()->helpers->getCart(),
 		];
@@ -126,7 +126,7 @@ class Settings {
 			);
 
 			wp_enqueue_script( 'pqfw-app' );
-			load_plugin_textdomain( 'pqfw', false, PQFW_PLUGIN_LANGUAGES_PATH );
+			load_plugin_textdomain( 'quotify', false, PQFW_PLUGIN_LANGUAGES_PATH );
 		}
 	}
 
@@ -139,7 +139,7 @@ class Settings {
 	public function save() {
 		if ( ! isset( $_REQUEST['security'] ) || ! wp_verify_nonce( $_REQUEST['security'], 'pqfw_nonce' ) ) {
 			wp_send_json_error([
-				'message' => esc_html__( 'Unauthorized Action', 'pqfw' ),
+				'message' => esc_html__( 'Unauthorized Action', 'quotify' ),
 			], 400 );
 		}
 
@@ -147,7 +147,7 @@ class Settings {
 
 		if ( ! is_array( $settings ) ) {
 			wp_send_json_error([
-				'message' => esc_html__( 'Invalid Settings.', 'pqfw' ),
+				'message' => esc_html__( 'Invalid Settings.', 'quotify' ),
 			], 400 );
 		}
 
@@ -163,7 +163,7 @@ class Settings {
 		update_option( 'pqfw_settings', $sanitized );
 
 		wp_send_json_success([
-			'message' => esc_html__( 'Settings has been updated.', 'pqfw' ),
+			'message' => esc_html__( 'Settings has been updated.', 'quotify' ),
 		], 200 );
 	}
 
@@ -175,7 +175,7 @@ class Settings {
 	public function getCartPermalink() {
 		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw-app-ui' ) ) {
 			wp_send_json_error([
-				'message' => esc_html__( 'Unauthorized Action', 'pqfw' ),
+				'message' => esc_html__( 'Unauthorized Action', 'quotify' ),
 			], 400 );
 		}
 
@@ -183,7 +183,7 @@ class Settings {
 
 		if ( ! $pageID ) {
 			wp_send_json_error([
-				'message' => esc_html__( 'Invalid Page ID.', 'pqfw' ),
+				'message' => esc_html__( 'Invalid Page ID.', 'quotify' ),
 			], 400 );
 		}
 

@@ -51,7 +51,7 @@ class Migration {
 
 		if ( 0 === $page_saved || '' === $page_saved ) {
 			$page = [
-				'post_title'     => __( 'Quotations Cart', 'pqfw' ),
+				'post_title'     => __( 'Quotations Cart', 'quotify' ),
 				'post_type'      => 'page',
 				'post_content'   => '[pqfw_quotations_cart]',
 				'post_status'    => 'publish',

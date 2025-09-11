@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table class="pqfw-list-products widefat fixed striped table-view-list">
 		<thead>
 			<tr>
-				<th class="pqfw-product-thumbnail pqfw-list-products-head"><?php esc_html_e( 'Image', 'pqfw' ); ?></th>
-				<th class="pqfw-list-products-head"><?php esc_html_e( 'Product', 'pqfw' ); ?></th>
-				<th class="pqfw-list-products-head"><?php esc_html_e( 'Price', 'pqfw' ); ?></th>
-				<th class="pqfw-list-products-head"><?php esc_html_e( 'Quantity', 'pqfw' ); ?></th>
-				<th class="pqfw-list-products-head"><?php esc_html_e( 'Message', 'pqfw' ); ?></th>
+				<th class="pqfw-product-thumbnail pqfw-list-products-head"><?php esc_html_e( 'Image', 'quotify' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Product', 'quotify' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Price', 'quotify' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Quantity', 'quotify' ); ?></th>
+				<th class="pqfw-list-products-head"><?php esc_html_e( 'Message', 'quotify' ); ?></th>
 			</tr>
 		</thead>
 		<tbody class="pqfw-list-products-body">

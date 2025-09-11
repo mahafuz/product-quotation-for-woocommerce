@@ -72378,7 +72378,12 @@ const renderSwitch = (page, id, action, path) => {
 };
 function BackendDashboard() {
   const query = (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_7__.useQuery)();
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_PopupNotification__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    dangerouslySetInnerHTML: {
+      __html: _Utils_helper__WEBPACK_IMPORTED_MODULE_7__.woocommerce_notice
+    },
+    className: "quotify-notice"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_PopupNotification__WEBPACK_IMPORTED_MODULE_6__["default"], {
     icon: false,
     hideProgressBar: true
   }), renderSwitch(query.get('page'), parseInt(query.get('id')), query.get('action'), query.get('path')));
@@ -73349,7 +73354,7 @@ function index({
       } else {
         (0,_Utils_helper__WEBPACK_IMPORTED_MODULE_7__.fireNotify)(sprintf(
         // translators: %s: AddonName
-        (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%s Addon Failed to saved.', 'pqfw'), addon.label), 'error');
+        (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%s Addon Failed to saved.', 'quotify'), addon.label), 'error');
       }
     });
   };
@@ -73409,12 +73414,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const addonsInfo = [{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Contact Form 7', 'pqfw'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Contact Form 7', 'quotify'),
   name: 'contact-form-7',
   is_pro: false,
   required_plugin: false,
   upcoming: true,
-  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use contact form 7 as quotation submission form.', 'pqfw'),
+  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use contact form 7 as quotation submission form.', 'quotify'),
   icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
   url: `${_Utils_helper__WEBPACK_IMPORTED_MODULE_5__.admin_url}admin.php?page=forms`,
   docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`
@@ -73664,19 +73669,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const statusArray = [{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('All', 'pqfw'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('All', 'quotify'),
   value: 'all'
 },
 // {
-// 	label: __('Publish', 'pqfw'),
+// 	label: __('Publish', 'quotify'),
 // 	value: 'publish',
 // },
 // {
-// 	label: __('Pending', 'pqfw'),
+// 	label: __('Pending', 'quotify'),
 // 	value: 'pending',
 // },
 {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Trash', 'pqfw'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Trash', 'quotify'),
   value: 'trash'
 }];
 
@@ -73686,7 +73691,6 @@ function index() {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
   const quotations = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(state => state.quotations);
-  const [fetchStatus, setFetchingStatus] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [bulkActionData, setBulkActionData] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({});
   const [fetching, setFetching] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(quotations.status ? quotations.status : 'all');
@@ -73698,7 +73702,7 @@ function index() {
       dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_4__.moveQuoteToTrash)({
         ID: item.id ? item.id : item.ID
       }));
-    } else if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Are you sure you want to permanently delete selected courses?', 'pqfw'))) {
+    } else if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Are you sure you want to permanently delete selected courses?', 'quotify'))) {
       dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_4__.deleteQuote)({
         ID: item.id ? item.id : item.ID
       }));
@@ -73765,9 +73769,9 @@ function index() {
   const bulkOptions = [...publishAction, ...trashAction];
   const subHeaderComponentMemo = React.useMemo(() => {
     const searchHandler = value => {
-      setFetchingStatus(true);
+      setFetching(true);
       dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_4__.fetchAllQuotations)(status, 1, 10, value)).then(() => {
-        setFetchingStatus(false);
+        setFetching(false);
       });
     };
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -73784,7 +73788,7 @@ function index() {
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "Showing result ", quotations?.data?.length, " out of", ' ', quotations?.totalItems)));
   }, [bulkActionData, status, quotations]);
   const columns = [{
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Title', 'pqfw'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Title', 'quotify'),
     sortable: true,
     cell: row => {
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -73801,18 +73805,20 @@ function index() {
       }))));
     }
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Author', 'pqfw'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Author', 'quotify'),
     sortable: true,
     cell: row => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, row.author_name)
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Date', 'pqfw'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Date', 'quotify'),
     sortable: true,
     cell: row => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, row.date)
-  }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Status', 'pqfw'),
-    sortable: true,
-    cell: row => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, row.status)
-  }, {
+  },
+  // {
+  // 	name: __('Status', 'quotify'),
+  // 	sortable: true,
+  // 	cell: (row) => <span>{row.status}</span>,
+  // },
+  {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Action', 'quotify'),
     sortable: true,
     cell: row => {
@@ -73845,7 +73851,7 @@ function index() {
       }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_icons_ri__WEBPACK_IMPORTED_MODULE_8__.RiDeleteBin6Line, null)));
     }
   }];
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, fetching ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.Spinner, null) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_10__["default"], {
     render: () => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "quotify-top-bar-left"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
@@ -73856,19 +73862,20 @@ function index() {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "quotify-quotations-list"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_data_table_component__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    title: `Quotations`,
+    title: ``,
     columns: columns,
     data: quotations.data,
     pagination: true,
     paginationServer: true,
     paginationTotalRows: quotations?.totalItems //pagination
     ,
-    paginationDefaultPage: quotations.currentPage,
-    selectableRows: true,
+    paginationDefaultPage: quotations.currentPage
+    // selectableRows
+    ,
     persistTableHead: true
     // onSelectedRowsChange={(e) => setBulkActionData(e)}
     ,
-    progressPending: fetchStatus,
+    progressPending: fetching,
     progressComponent: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "Loading quotations..."),
     paginationResetDefaultPage: false,
     subHeader: true,
@@ -73877,7 +73884,7 @@ function index() {
     onChangePage: handlePageChange //pagination
     ,
     onChangeRowsPerPage: handleItemsPage //pagination
-  }))));
+  })))));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
 
@@ -73916,7 +73923,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Redux/actions/quotations.actions */ "./src/redux/actions/quotations.actions.js");
 /* harmony import */ var _Components_TopBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Components/TopBar */ "./src/components/TopBar/index.js");
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index.scss */ "./src/containers/ViewQuotation/index.scss");
+/* harmony import */ var _Utils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @Utils/helper */ "./src/utils/helper.js");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./index.scss */ "./src/containers/ViewQuotation/index.scss");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-PVWAREVJ.mjs");
+
 
 
 
@@ -73929,12 +73939,18 @@ function Index({
   id
 }) {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
   const quotation = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(state => state.quotation);
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     if (!quotation?.data && id) {
       setLoading(true);
-      dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_4__.getQuote)(id)).then(() => setLoading(false));
+      dispatch((0,_Redux_actions_quotations_actions__WEBPACK_IMPORTED_MODULE_4__.getQuote)(id)).then(response => {
+        if (response?.data?.data?.not_found) {
+          navigate(`${_Utils_helper__WEBPACK_IMPORTED_MODULE_6__.route_path}admin.php?page=pqfw-product-quotations`);
+        }
+        setLoading(false);
+      });
     } else {
       setLoading(false);
     }
@@ -73956,7 +73972,7 @@ function Index({
     className: "quotify-card"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
     className: `quotify-card-title`
-  }, "Customer Details"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Name:"), " ", meta.pqfw_customer_name), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Email:"), " ", meta.pqfw_customer_email), meta.pqfw_customer_phone && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Phone:"), " ", meta.pqfw_customer_phone), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Subject:"), " ", meta.pqfw_customer_subject), meta.pqfw_customer_comments && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Comments:"), " ", meta.pqfw_customer_comments)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, "Customer Details"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Name:"), " ", meta.pqfw_customer_name), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Email:"), " ", meta.pqfw_customer_email), meta.pqfw_customer_phone && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Phone:"), " ", meta.pqfw_customer_phone), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Subject:"), " ", meta.pqfw_customer_subject), meta.pqfw_customer_comments && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Comments:"), ' ', meta.pqfw_customer_comments)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "quotify-card"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
     className: `quotify-card-title`
@@ -73979,11 +73995,11 @@ function Index({
     href: link,
     target: "_blank",
     rel: "noreferrer"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, name)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Price:"), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, name)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Price:"), ' ', (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     dangerouslySetInnerHTML: {
       __html: price
     }
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quantity:"), " ", quantity), message && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Message:"), " ", message)))))));
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Quantity:"), ' ', quantity), message && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Message:"), ' ', message)))))));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Index);
 
@@ -74460,7 +74476,6 @@ const deleteQuote = id => async dispatch => {
     nonce: _Utils_helper__WEBPACK_IMPORTED_MODULE_0__.pqfw_nonce,
     force: true
   }).then(response => {
-    console.log('response', response);
     if (response.data?.success) {
       dispatch({
         type: _Redux_types_quotations_types__WEBPACK_IMPORTED_MODULE_1__.DELETE_QUOTATION,
@@ -74611,7 +74626,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Redux_types_quotations_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @Redux/types/quotations.types */ "./src/redux/types/quotations.types.js");
 
-
 const initialState = {
   data: false,
   totalItems: 0,
@@ -74661,9 +74675,15 @@ function quotationsReducer(state = initialState, action) {
       };
     case _Redux_types_quotations_types__WEBPACK_IMPORTED_MODULE_0__.DELETE_QUOTATION:
       if (state.data) {
+        const itemId = parseInt(payload?.data?.quotation?.ID || payload?.data?.quotation?.id);
+        const itemToWipe = state.data.find(item => parseInt(item.id) === itemId);
+        if (!itemToWipe) {
+          return state;
+        }
+        const updatedData = state.data.filter(item => parseInt(item.id) !== itemId);
         return {
           ...state,
-          data: [...state.data.filter(item => parseInt(item.id) !== parseInt(payload.id))]
+          data: updatedData
         };
       }
       return {
@@ -74906,7 +74926,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   version: () => (/* binding */ version),
 /* harmony export */   viewQuotationCart: () => (/* binding */ viewQuotationCart),
 /* harmony export */   woo_store: () => (/* binding */ woo_store),
-/* harmony export */   woocommerce_is_active: () => (/* binding */ woocommerce_is_active)
+/* harmony export */   woocommerce_is_active: () => (/* binding */ woocommerce_is_active),
+/* harmony export */   woocommerce_notice: () => (/* binding */ woocommerce_notice)
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -74939,6 +74960,7 @@ const {
   dashboard,
   logout_url,
   woocommerce_is_active,
+  woocommerce_notice,
   current_user_id,
   is_admin,
   is_rtl,
@@ -74985,20 +75007,20 @@ const getAddonActiveStatus = (name, isPro = false) => {
 };
 function getAddonInfo(name) {
   return [{
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Contact Form 7', 'pqfw'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Contact Form 7', 'quotify'),
     name: 'contact-form-7',
     is_pro: false,
     required_plugin: true,
-    details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use contact form 7 as quotation submission form.', 'pqfw'),
+    details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use contact form 7 as quotation submission form.', 'quotify'),
     icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
     url: `${admin_url}admin.php?page=forms`,
     docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`
   }, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WPForms', 'pqfw'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WPForms', 'quotify'),
     name: 'wpforms',
     is_pro: false,
     required_plugin: false,
-    details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use WPForms as quotation submission form.', 'pqfw'),
+    details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use WPForms as quotation submission form.', 'quotify'),
     icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
     url: `${admin_url}admin.php?page=forms`,
     docsUrl: `https://wpindiedev.xyz/docs/wpforms/`

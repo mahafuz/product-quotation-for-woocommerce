@@ -23,9 +23,8 @@ class Admin {
 
 	const REGISTERED_SLUGS = [
 		'toplevel_page_pqfw-product-quotations',
-		'toplevel_page_pqfw-product-quotations',
-		'toplevel_page_pqfw-product-quotations',
 		'pqfw-product-quotations',
+		'pqfw-product-quotations-settings',
 		'quotations_page_pqfw-product-quotations',
 		'quotations_page_pqfw-product-quotations-settings',
 		'quotations_page_pqfw-product-quotations-addons',
@@ -53,7 +52,7 @@ class Admin {
 	 * @return void
 	 */
 	public function addFooterText() {
-		$linkText = esc_html__( 'Give us a 5-star rating!', 'pqfw' );
+		$linkText = esc_html__( 'Give us a 5-star rating!', 'quotify' );
 		$href     = 'https://wordpress.org/support/plugin/product-quotation-for-woocommerce/reviews/#new-post';
 
 		$link1 = sprintf(
@@ -70,7 +69,7 @@ class Admin {
 
 		printf(
 			// Translators: 1 - The plugin name ("Product Quotation For WooCommerce"), - 2 - This placeholder will be replaced with star icons.
-			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'pqfw' ),
+			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'quotify' ),
 			sprintf( '<strong>%1$s</strong>', esc_html( PQFW_PLUGIN_NAME ) ),
 			wp_kses_post( $link1 ),
 			wp_kses_post( $link2 )
@@ -121,9 +120,9 @@ class Admin {
 			self::POST_TYPE,
 			[
 				'labels'              => [
-					'name'          => __( 'Quotations', 'pqfw' ),
-					'singular_name' => __( 'Quotation', 'pqfw' ),
-					'add_new_item'  => __( 'Quotation', 'pqfw' ),
+					'name'          => __( 'Quotations', 'quotify' ),
+					'singular_name' => __( 'Quotation', 'quotify' ),
+					'add_new_item'  => __( 'Quotation', 'quotify' ),
 				],
 				'public'              => false,
 				'exclude_from_search' => true,

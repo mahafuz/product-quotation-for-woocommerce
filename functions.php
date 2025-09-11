@@ -21,7 +21,9 @@ if ( ! function_exists( 'pqfwGetPreLoader' ) ) {
 	function pqfwGetPreLoader() {
 		ob_start();
 		?>
-			<div class="pqfw-initial-preloader"><?php esc_html_e( 'Loading...', 'pqfw' ); ?></div>
+			<div class="pqfw-initial-preloader">
+				<img src="<?php echo esc_url( PQFW_PLUGIN_ASSETS . '/images/preloader.apng' ); ?>" alt="product-quotation-for-woocommerce">
+			</div>
 		<?php
 		return ob_get_clean();
 	}
