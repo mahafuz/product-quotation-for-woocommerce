@@ -61,23 +61,23 @@ function HelpPage() {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://www.linkedin.com/in/mahafuz"
+                                href="https://www.linkedin.com/in/mahafuzur-rahaman-123852109/"
                                 className="quotify-social"
                             >
                                 <img src={LinkedinIcon} alt="LinkedIn" />
                             </a>
-                            <a
+                            {/* <a
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href="https://www.fiverr.com"
                                 className="quotify-social"
                             >
                                 <img src={FiverrIcon} alt="Fiverr" />
-                            </a>
+                            </a> */}
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://mahafuz.com"
+                                href="https://profiles.wordpress.org/mahfuz01/#content-plugins"
                                 className="quotify-social"
                             >
                                 <img src={WordPressIcon} alt="WordPress" />

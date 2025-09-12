@@ -2,7 +2,7 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
-const PRODUCT_QUOTATION_VERSION = '2.0.4';
+const PRODUCT_QUOTATION_VERSION = '2.5.0';
 
 const config = {
 	...defaultConfig,

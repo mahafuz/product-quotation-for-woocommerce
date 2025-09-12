@@ -1,9 +1,11 @@
 === Product Quotation - Request a Quote for WooCommerce ===
 Contributors: mahfuz01
-Tags: request a quote, email quote, quotations, request for quote, rfq, raq, proposal
+Tags: request a quote, email quote, quotations, request for quote, hide-price, send-email, proposal
 Requires at least: 4.0
-Tested up to: 5.9
-Stable tag: 2.0.4
+WC requires at least: 6.0
+WC tested up to: 10.1.2
+Tested up to: 6.8
+Stable tag: 2.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,25 +41,12 @@ Get product quotations from the customers in one place in a simple and elegant w
 * Flexibility to use any page for the quotation list and form on any page of your site. No need to copy/paste the shortcode.
 * Automatically list each quotation submission on Dashboard.
 * No complicated settings. All is set up to go. Simply install it and it works.
-* Quotation Cart **Elementor** integration.
-* Translations Support for any languages ( Already translations included for: **German, Spanish, French**).
-
-[See the Live Demo](http://wpdiscountx.com/shop/)
 
 ## 💙 LOVED Product Quotation For WooCommerce? ##
 - If you love Product Quotation For WooCommerce, rate us on [WordPress](https://wordpress.org/plugins/product-quotation-for-woocommerce/#reviews)
 
 
 Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/product-quotation-for-woocommerce) to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks]https://github.com/mahafuz/product-quotation-for-woocommerce).
-
-## Privacy Policy 
-Product Quotation &#8211; Product Quotation For WooCommerce uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
-
-Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users. 
-
-Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
-
-Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
 
 == Installation ==
 
@@ -71,6 +60,11 @@ Learn more about how [Appsero collects and uses this data](https://appsero.com/p
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 2.5.0 - 12-09-2025 =
+* ADDED: New dashboard for better quotation management.
+* IMPROVEMENTS: Compatibility with latest wordpress versions.
+* FIXED: Minor bugs
 
 = 2.0.4 - 24-05-2022 =
 * ADDED: Translations supports
