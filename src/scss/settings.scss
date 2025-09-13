@@ -86,6 +86,6 @@
 	}
 }
 
-@include meta.load-css('tab');
-@include meta.load-css('color-picker');
-@include meta.load-css('select');
+@include meta.load-css('common/tab');
+@include meta.load-css('common/color-picker');
+@include meta.load-css('common/input_select');

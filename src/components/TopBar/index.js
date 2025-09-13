@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
+import Navigation from '@Components/Navigation';
 
-import Navigation from "@Components/Navigation";
+import AngleRightIcon from '@src/images/angle-right.svg';
 
-import { toplevel_menu_icon_url } from '@Utils/helper';
+import { plugin_logo } from '@Utils/helper';
 import './index.scss';
 
 function index({ render }) {
@@ -12,11 +12,12 @@ function index({ render }) {
 			<div className="quotify-backend-top-bar-left">
 				<img
 					className="quotify-backend-app-logo"
-					src={toplevel_menu_icon_url}
+					src={plugin_logo}
 					alt={__('logo', 'quotify')}
 				/>
-				<h4>{__('Quotify', 'quotify')}</h4>
-				<div className="separator"></div>
+				<div className="separator">
+					<img src={AngleRightIcon} alt="" />
+				</div>
 				{render()}
 			</div>
 			<div className="quotify-backend-top-bar-right">

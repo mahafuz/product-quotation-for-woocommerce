@@ -79,6 +79,15 @@ class Menu {
 	}
 
 	/**
+	 * The plugin logo.
+	 *
+	 * @return string
+	 */
+	public static function get_plugin_logo() {
+		return PQFW_PLUGIN_ROOT_URI . 'src/images/logo.png';
+	}
+
+	/**
 	 * Get the menu slugs only.
 	 *
 	 * @return array The menu slugs.
@@ -129,10 +138,10 @@ class Menu {
 	 */
 	public static function get_toplevel_menu_icon_url() {
 		if ( isset( $_GET['page'] ) && 'pqfw' === $_GET['page'] ) {
-			$icon_url = 'data:image/svg+xml;base64, ' . base64_encode( file_get_contents( PQFW_PLUGIN_ASSETS_DIR . 'images/docs.svg' ) );
+			$icon_url = 'data:image/svg+xml;base64, ' . base64_encode( file_get_contents( PQFW_PLUGIN_ASSETS_DIR . 'images/logo-small.svg' ) );
 			return apply_filters( 'pqfw/admin/toplevel_active_menu_icon', $icon_url );
 		}
-		$icon_url = 'data:image/svg+xml;base64, ' . base64_encode( file_get_contents( PQFW_PLUGIN_ASSETS_DIR . 'images/docs.svg' ) );
+		$icon_url = 'data:image/svg+xml;base64, ' . base64_encode( file_get_contents( PQFW_PLUGIN_ASSETS_DIR . 'images/logo-small.svg' ) );
 		return apply_filters( 'pqfw/admin/toplevel_inactive_menu_icon', $icon_url );
 	}
 

@@ -21,14 +21,10 @@ const statusArray = [
 		label: __('All', 'quotify'),
 		value: 'all',
 	},
-	// {
-	// 	label: __('Publish', 'quotify'),
-	// 	value: 'publish',
-	// },
-	// {
-	// 	label: __('Pending', 'quotify'),
-	// 	value: 'pending',
-	// },
+	{
+		label: __('Pending', 'quotify'),
+		value: 'pending',
+	},
 	{
 		label: __('Trash', 'quotify'),
 		value: 'trash',
@@ -45,6 +41,7 @@ import {
 	sliceString,
 	moveCourseToTrash,
 } from '@Utils/helper';
+
 import {
 	moveQuoteToTrash,
 	deleteQuote,
@@ -76,7 +73,7 @@ function index() {
 		} else if (
 			confirm(
 				__(
-					'Are you sure you want to permanently delete selected courses?',
+					'Are you sure you want to permanently delete selected quotes?',
 					'quotify'
 				)
 			)
@@ -90,26 +87,27 @@ function index() {
 	};
 
 	const bulkActionHandler = (selectedRows, bulkAction) => {
+		console.log({ selectedRows, bulkAction });
 		if (status !== 'trash') {
-			// selectedRows.forEach((item) => {
-			// 	dispatch(
-			// 		moveCourseToTrash({
-			// 			ID: item.id ? item.id : item.ID,
-			// 		})
-			// 	);
-			// });
+			selectedRows.forEach((item) => {
+				dispatch(
+					moveQuoteToTrash({
+						ID: item.id ? item.id : item.ID,
+					})
+				);
+			});
 		} else if (bulkAction.value === 'restore') {
-			// selectedRows.forEach((item) => {
-			// 	dispatch(restoreCourse(item));
-			// });
+			selectedRows.forEach((item) => {
+				dispatch(restoreQuote(item));
+			});
 		} else {
-			// selectedRows.forEach((item) => {
-			// 	dispatch(
-			// 		deleteCourse({
-			// 			ID: item.id ? item.id : item.ID,
-			// 		})
-			// 	);
-			// });
+			selectedRows.forEach((item) => {
+				dispatch(
+					deleteQuote({
+						ID: item.id ? item.id : item.ID,
+					})
+				);
+			});
 		}
 	};
 
@@ -191,7 +189,9 @@ function index() {
 							</span>
 						))}
 					</div>
-					{/* <BulkAction
+				</div>
+				<div className="quotify-table-header-action__right">
+					<BulkAction
 						data={bulkActionData}
 						applyActionHandler={bulkActionHandler}
 						confirmMessage={
@@ -206,13 +206,7 @@ function index() {
 									)
 						}
 						options={bulkOptions}
-					/> */}
-				</div>
-				<div className="quotify-table-header-action__right">
-					<span>
-						Showing result {quotations?.data?.length} out of{' '}
-						{quotations?.totalItems}
-					</span>
+					/>
 				</div>
 			</>
 		);
@@ -255,11 +249,11 @@ function index() {
 			sortable: true,
 			cell: (row) => <div>{row.date}</div>,
 		},
-		// {
-		// 	name: __('Status', 'quotify'),
-		// 	sortable: true,
-		// 	cell: (row) => <span>{row.status}</span>,
-		// },
+		{
+			name: __('Status', 'quotify'),
+			sortable: true,
+			cell: (row) => <span>{row.status}</span>,
+		},
 		{
 			name: __('Action', 'quotify'),
 			sortable: true,
@@ -312,48 +306,50 @@ function index() {
 
 	return (
 		<>
-			{fetching ? (
-				<Spinner />
-			) : (
-				<>
-					<TopBar
-						render={() => (
-							<div className="quotify-top-bar-left">
-								<h4 className="quotify-top-bar-heading">
-									{__('Dashboard', 'quotify')}
-								</h4>
-							</div>
-						)}
-					/>
-
-					<div className="quotify-dashboard-wrapper quotify-content-wrap">
-						<div className="quotify-quotations-list">
-							<DataTable
-								title={``}
-								columns={columns}
-								data={quotations.data}
-								pagination
-								paginationServer
-								paginationTotalRows={quotations?.totalItems} //pagination
-								paginationDefaultPage={quotations.currentPage}
-								// selectableRows
-								persistTableHead
-								// onSelectedRowsChange={(e) => setBulkActionData(e)}
-								progressPending={fetching}
-								progressComponent={
-									<h1>Loading quotations...</h1>
-								}
-								paginationResetDefaultPage={false}
-								subHeader
-								subHeaderComponent={subHeaderComponentMemo}
-								className="quotify-list-table"
-								onChangePage={handlePageChange} //pagination
-								onChangeRowsPerPage={handleItemsPage} //pagination
-							/>
-						</div>
+			<TopBar
+				render={() => (
+					<div className="quotify-top-bar-left">
+						<h4 className="quotify-top-bar-heading">
+							{__('Dashboard', 'quotify')}
+						</h4>
 					</div>
-				</>
-			)}
+				)}
+			/>
+
+			<div className="quotify-dashboard-wrapper quotify-content-wrap">
+				<div className="quotify-quotations-list">
+					<DataTable
+						title={``}
+						className="quotify-list-table"
+
+						// Column.
+						columns={columns}
+
+						// Rows.
+						selectableRows
+						onSelectedRowsChange={(e) => setBulkActionData(e)}
+
+						// Data.
+						data={quotations.data}
+						progressPending={fetching}
+						progressComponent={<h1>Loading quotations...</h1>}
+
+						// Subheader.
+						subHeader
+						persistTableHead
+						subHeaderComponent={subHeaderComponentMemo}
+
+						// Pagination.
+						pagination
+						paginationServer
+						onChangePage={handlePageChange} 
+						paginationTotalRows={quotations?.totalItems}
+						onChangeRowsPerPage={handleItemsPage}
+						paginationResetDefaultPage={true}
+						paginationDefaultPage={quotations.currentPage}
+					/>
+				</div>
+			</div>
 		</>
 	);
 }

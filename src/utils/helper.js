@@ -35,6 +35,7 @@ export const {
 	current_permalink,
 	toplevel_menu_icon_url,
 	toplevel_menu_title,
+	plugin_logo,
 	logo_url,
 	version,
 } = config;

@@ -9,7 +9,7 @@ const Navigation = ({ currentPath }) => {
 
 	return (
 		<div className="quotify-backend-dashboard-navigation">
-			{Object.entries(JSON.parse(adminmenu)).map(
+			{/* {Object.entries(JSON.parse(adminmenu)).map(
 				([ key, navItem], index) => (
 					<Link
 						key={navItem.label}
@@ -23,7 +23,7 @@ const Navigation = ({ currentPath }) => {
 						{navItem.title}
 					</Link>
 				)
-			)}
+			)} */}
 		</div>
 	);
 };

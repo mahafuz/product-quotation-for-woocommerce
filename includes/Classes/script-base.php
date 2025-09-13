@@ -43,6 +43,7 @@ class Script_Base {
 				'manage_options'            => current_user_can( 'manage_options' ),
 				'manage_categories'         => current_user_can( 'manage_categories' ),
 			],
+			'plugin_logo'            => Menu::get_plugin_logo(),
 			'toplevel_menu_icon_url' => Menu::get_toplevel_menu_icon_url(),
 			'toplevel_menu_title'    => Menu::get_toplevel_menu_title(),
 			'logo_url'               => Menu::get_logo_url(),

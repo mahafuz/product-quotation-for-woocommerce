@@ -160,7 +160,7 @@ class Quotations {
 			$deleted_post = wp_delete_post( $id, true );
 
 			wp_send_json_success([
-				'message' => __( 'Quotation permanently deleted!', 'quotify' ),
+				'message'   => __( 'Quotation permanently deleted!', 'quotify' ),
 				'quotation' => $deleted_post,
 			]);
 		} else {

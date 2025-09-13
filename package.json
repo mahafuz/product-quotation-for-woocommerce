@@ -53,6 +53,7 @@
 	},
 	"dependencies": {
 		"@emotion/react": "^11.14.0",
+		"@fortawesome/react-fontawesome": "^3.0.2",
 		"@reduxjs/toolkit": "^2.8.2",
 		"@wordpress/components": "^28.9.0",
 		"@wordpress/i18n": "^5.9.0",

@@ -4,27 +4,25 @@
 	border: 1px solid var(--quotify-background-gray-color);
 	border-radius: 8px;
 	box-shadow: 0 0.5px 2px 0 rgba(16, 24, 40, 0.15);
-	padding: 24px;
+	padding: 15px 30px 30px;
 
 	& > header {
 		justify-content: flex-start;
-		margin: 0 !important;
+		margin: 0 0 25px 0 !important;
 		padding: 0;
 
 		.quotify-table-header-action__left {
 			display: flex;
 			align-items: center;
-			width: 80%;
+			width: 60%;
 
 			.quotify-table-filters {
-				width: 50%;
+				width: 100%;
 				display: flex;
 				align-items: center;
-				margin-right: 2%;
 
 				.quotify-table-filters__options {
-					padding: 10px;
-					width: 25%;
+					padding: 15px 30px;
 					text-align: left;
 					cursor: pointer;
 					color: #0f0e16;
@@ -43,11 +41,11 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: flex-end;
-			width: 20%;
+			width: 40%;
 		}
 	}
 	.quotify-list-table {
-        font-size: 16px;
+		font-size: 16px;
 		.quotify-table-title > a {
 			color: var(--quotify-primary-color);
 			text-decoration: none;
@@ -58,5 +56,6 @@
 .quotify-bulk-actions {
 	display: flex;
 	align-items: center;
-	width: 60%;
+	width: 100%;
+	justify-content: flex-end;
 }
