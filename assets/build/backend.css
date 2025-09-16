@@ -123,6 +123,19 @@
   width: 100%;
   justify-content: flex-end;
 }
+.quotify-bulk-actions .quotify-button {
+  height: 44px;
+  margin-left: 15px;
+  border-color: var(--quotify-border-color);
+  color: var(--quotify-text-color);
+  padding: 0 25px;
+  outline: 0;
+}
+.quotify-bulk-actions .quotify-button:hover {
+  background: var(--quotify-primary-color);
+  color: var(--quotify-white-color);
+  border-color: var(--quotify-primary-color);
+}
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/ViewQuotation/index.scss ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -1743,6 +1756,23 @@
 
 .separator img {
   max-width: 100%;
+}
+
+.quotify-button {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  box-shadow: none;
+  transition-property: all;
+  transition-duration: 0.05s;
+  transition-timing-function: ease-in;
 }
 
 /*# sourceMappingURL=backend.css.map*/

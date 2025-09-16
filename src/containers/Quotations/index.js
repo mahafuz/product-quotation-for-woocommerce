@@ -332,7 +332,7 @@ function index() {
 						// Data.
 						data={quotations.data}
 						progressPending={fetching}
-						progressComponent={<h1>Loading quotations...</h1>}
+						progressComponent={<Spinner />}
 
 						// Subheader.
 						subHeader

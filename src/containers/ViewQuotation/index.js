@@ -17,20 +17,16 @@ function Index({ id }) {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (!quotation?.data && id) {
-			setLoading(true);
-			dispatch(getQuote(id)).then((response) => {
-				if (response?.data?.data?.not_found) {
-					navigate(
-						`${route_path}admin.php?page=pqfw-product-quotations`
-					);
-				}
+		setLoading(true);
+		dispatch(getQuote(id)).then((response) => {
+			if (response?.data?.data?.not_found) {
+				navigate(
+					`${route_path}admin.php?page=pqfw-product-quotations`
+				);
+			}
 
-				setLoading(false);
-			});
-		} else {
 			setLoading(false);
-		}
+		});
 	}, [id, quotation?.data]);
 
 	const meta = quotation?.meta || {};

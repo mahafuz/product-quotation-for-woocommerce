@@ -58,4 +58,18 @@
 	align-items: center;
 	width: 100%;
 	justify-content: flex-end;
+
+	.quotify-button {
+		height: 44px;
+		margin-left: 15px;
+		border-color: var(--quotify-border-color);
+		color: var(--quotify-text-color);
+		padding: 0 25px;
+		outline: 0;
+		&:hover {
+			background: var(--quotify-primary-color);
+			color: var(--quotify-white-color);
+			border-color: var(--quotify-primary-color);
+		}
+	}
 }

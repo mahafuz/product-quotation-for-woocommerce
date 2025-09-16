@@ -33,6 +33,7 @@ export default function BulkAction({
 					onChange={(e) => setBulkAction(e)}
 				/>
 				<Button
+					className='quotify-button'
 					type="button"
 					preset="light-purple"
 					onClick={() => {

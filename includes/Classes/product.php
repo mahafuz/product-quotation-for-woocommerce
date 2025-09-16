@@ -111,7 +111,7 @@ class Product {
 		$arg = [
 			'post_title'  => $this->getTitle(),
 			'post_type'   => Admin::POST_TYPE,
-			'post_status' => 'publish',
+			'post_status' => 'pending',
 			'meta_input'  => [
 				'pqfw_customer_name'     => $this->getName(),
 				'pqfw_customer_email'    => $this->getEmail(),

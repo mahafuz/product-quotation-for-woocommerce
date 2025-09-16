@@ -43,6 +43,8 @@ class Admin {
 		add_action( 'init', [ $this, 'registerPostType' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 		add_action( 'admin_init', [ $this, 'hideNotices' ] );
+
+		add_action( 'wp_untrash_post_status', [ $this, 'quotations_post_status' ], 10, 2 );
 	}
 
 	/**
@@ -116,6 +118,8 @@ class Admin {
 	 * @since 1.2.0
 	 */
 	public function registerPostType() {
+		global $post;
+
 		register_post_type(
 			self::POST_TYPE,
 			[
@@ -143,6 +147,14 @@ class Admin {
 
 		remove_post_type_support( self::POST_TYPE, 'title' );
 		remove_post_type_support( self::POST_TYPE, 'slugdiv' );
+
+		register_post_status(
+			'approved',
+			[
+				'label'   => __( 'Approved', 'quotify' ),
+				'private' => true,
+			]
+		);
 	}
 
 	/**
@@ -179,5 +191,20 @@ class Admin {
 			remove_all_actions( 'network_admin_notices' );
 			remove_all_actions( 'user_admin_notices' );
 		}
+	}
+
+	/**
+	 * Settings for quotations post type status.
+	 *
+	 * @param  string $new_status Post new status.
+	 * @param  int    $post_id    Post ID.
+	 * @return string
+	 */
+	public function quotations_post_status( $new_status, $post_id ) {
+		if ( 'pqfw_quotations' === get_post_type( $post_id ) ) {
+			$new_status = 'approved';
+		}
+
+		return $new_status;
 	}
 }

@@ -10,13 +10,13 @@ import ButtonSettings from './ButtonSettings';
 import FormSettings from './FormSettings';
 import EmailSettings from './EmailSettings';
 
-import ButtonIcon from './../../images/button.png';
-import FormIcon from './../../images/form.png';
-import EmailIcon from './../../images/email.png';
-import GeneralSettingsIcon from './../../images/cog.svg';
+import ButtonIcon from '@src/images/button.png';
+import FormIcon from '@src/images/form.png';
+import EmailIcon from '@src/images/email.png';
+import GeneralSettingsIcon from '@src/images/cog.svg';
 
 import '@src/scss/settings.scss';
-import { fireNotify } from '../../utils/helper';
+import { fireNotify } from '@Utils/helper';
 
 const App = () => {
 	const savedTab =

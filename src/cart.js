@@ -11,12 +11,6 @@
         init: function() {
             this.initialize();
 
-            // $(document)
-			// 	.on('click', '.pqfw-add-to-quotation-single', function (ev) {
-			// 	ev.preventDefault();
-			// 	pqfwCart.sendData(this);
-			// });
-
             $(document).on('click', '.pqfw-remove-product', function () {
                 var $hash = $(this).data( 'id' );
                 pqfwCart.removeProduct( $hash );
