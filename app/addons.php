@@ -26,10 +26,40 @@ class Addons {
 	 * @return void
 	 */
 	public function __construct() {
-		// $cf7 = \PQFW\Addons\ContactForm\ContactForm::init();
+		$this->addons_loader();
 
 		add_action( 'wp_ajax_quotify/addons/get_all', [ $this, 'get_all' ] );
 		add_action( 'wp_ajax_quotify/addons/save', [ $this, 'save' ] );
+	}
+
+	/**
+	 * Loads all addons for the plugin.
+	 *
+	 * @since 2.5.0
+	 */
+	private function addons_loader() {
+		$Autoload = Autoload::get_instance();
+
+		$addons = apply_filters(
+			'quotify/addons/loader_args', //phpcs:ignore
+			[
+				'contact-form-7' => 'Contact_Form_7',
+			]
+		);
+
+		foreach ( $addons as $addon_name => $addon_class_name ) {
+			$addon_root_path = PQFW_PLUGIN_ROOT_DIR_PATH . 'addons' . DIRECTORY_SEPARATOR . $addon_name . '/';
+
+			// Register the addon's root namespace and path.
+			$addon_namespace = 'Quotify' . $addon_class_name;
+
+			$Autoload->add_namespace_directory( $addon_namespace, $addon_root_path );
+
+			// Initialize the addon's main class.
+			$class = $addon_namespace . '\\' . $addon_class_name;
+
+			$class::init();
+		}
 	}
 
 	/**
@@ -76,21 +106,18 @@ class Addons {
 		if ( empty( $addon ) ) {
 			wp_send_json_error( __( 'Addon Name missing', 'quotify' ) );
 		}
-		wp_die();
 
-		//phpcs:disable
-		// $saved_addons = (array) json_decode( get_option( PQFW_ADDONS_SETTINGS_KEY ), true );
-		// $saved_addons[ $addon ] = $status;
+		$saved_addons = (array) json_decode( get_option( PQFW_ADDONS_SETTINGS_KEY ), true );
+		$saved_addons[ $addon ] = $status;
 
-		// update_option( PQFW_ADDONS_SETTINGS_KEY, wp_json_encode( $saved_addons ) );
+		update_option( PQFW_ADDONS_SETTINGS_KEY, wp_json_encode( $saved_addons ) );
 
-		// if ( $status ) {
-		// 	do_action( "pqfw/addons/activated_{$addon}", $status );
-		// } else {
-		// 	do_action( "pqfw/addons/deactivated_{$addon}", $status );
-		// }
+		if ( $status ) {
+			do_action( "quotify/addons/activated_{$addon}", $status );//phpcs:ignore
+		} else {
+			do_action( "pqfw/addons/deactivated_{$addon}", $status );//phpcs:ignore
+		}
 
-		// wp_send_json_success( $saved_addons );
-		//phpcs:enable
+		wp_send_json_success( $saved_addons );
 	}
 }

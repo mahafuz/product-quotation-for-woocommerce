@@ -79,15 +79,6 @@ class Admin {
 	}
 
 	/**
-	 * Displaying the 'Help' page.
-	 *
-	 * @since 1.2.6
-	 */
-	public function displayHelp() {
-		require_once PQFW_PLUGIN_PATH . 'includes/Views/help.php';
-	}
-
-	/**
 	 * Loading admin css.
 	 *
 	 * @since 1.0.0

@@ -1,15 +1,24 @@
-import { FETCH_ADDONS } from '../types/addons.types';
-import { addons as allAddons } from '@Utils/helper';
+import {
+	FETCH_ADDONS,
+	SAVE_ADDONS
+} from '@Redux/types/addons.types';
 
-function addons(state = allAddons, action) {
+const initialState = {};
+
+function addonsReducer(state = initialState, action) {
 	const payload = action.payload;
+
 	switch (action.type) {
 		case FETCH_ADDONS:
 			return {
-				...payload,
-			};
+				...state,
+				...payload
+			}
+		case SAVE_ADDONS:
+			return state;	
 		default:
 			return state;
 	}
 }
-export default addons;
+
+export default addonsReducer;

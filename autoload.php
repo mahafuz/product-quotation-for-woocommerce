@@ -34,8 +34,8 @@ class Autoload {
 	 *
 	 * @var array
 	 */
-	private $autoload_directories = [
-		'PQFW' => PQFW_PLUGIN_ROOT_DIR_PATH . 'includes/',
+	public $autoload_directories = [
+		'PQFW' => PQFW_PLUGIN_ROOT_DIR_PATH . 'app/',
 	];
 
 	/**
