@@ -1,4 +1,4 @@
-import { FETCH_SETTINGS, SAVE_SETTINGS } from '@Redux/types/addons.types';
+import { FETCH_SETTINGS, SAVE_SETTINGS } from '@Redux/types/settings.types';
 
 const initialState = {};
 

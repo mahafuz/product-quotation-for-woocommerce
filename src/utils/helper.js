@@ -78,7 +78,7 @@ export const getAddonActiveStatus = (name, isPro = false) => {
 	return allAddons?.[name] ?? false;
 };
 
-function getAddonInfo(name) {
+export const getAddonInfo = (name) => {
 	return [
 		{
 			label: __('Contact Form 7', 'quotify'),
@@ -272,3 +272,20 @@ export const sliceString = (text, length = 20, more = '...') => {
 
 export const getPageTitle = (page) => {
 }
+
+export const modalFullWidthStyles = {
+	overlay: {
+		background: 'rgba(35, 40, 45, 0.62)',
+		zIndex: 9999,
+	},
+	content: {
+		top: '50%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		width: '50%',
+		marginRight: '-50%',
+		padding: 0,
+		transform: 'translate(-50%, -50%)',
+	},
+};

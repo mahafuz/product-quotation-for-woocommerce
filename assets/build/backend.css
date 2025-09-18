@@ -183,6 +183,60 @@
 .product-info p {
   margin: 3px 0;
 }
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/components/Modal/index.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.quotify-wp-modal--cf7-settings {
+  border-radius: 4px;
+}
+.quotify-wp-modal--cf7-settings .components-modal__header {
+  border-bottom: 1px solid var(--quotify-border-color);
+  padding: 20px;
+}
+.quotify-wp-modal--cf7-settings .components-modal__content {
+  margin-bottom: 72px;
+}
+.quotify-wp-modal--cf7-settings .components-modal__content .quotify-wp-modal__footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 20px;
+  max-height: 72px;
+  border-top: 1px solid var(--quotify-border-color);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.quotify-wp-modal--cf7-settings .components-modal__content .quotify-wp-modal__footer .components-button {
+  padding: 0 0 0 5px;
+  outline: none;
+  margin: 0;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  color: var(--quotify-primary-color);
+  text-decoration: underline;
+}
+.quotify-wp-modal--cf7-settings .components-modal__content .quotify-wp-modal__footer .components-button.quotify-button {
+  padding: 10px 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.quotify-wp-modal--cf7-settings .components-modal__content .quotify-wp-modal__footer .components-button.quotify-button svg {
+  margin: 0 10px 0 0;
+}
+.quotify-wp-modal--cf7-settings .components-modal__content .quotify-wp-modal__footer .components-button.quotify-button:hover {
+  color: #ffffff;
+  background-color: var(--quotify-primary-color);
+}
+
+.components-modal__frame.quotify-wp-modal.quotify-wp-modal--fill {
+  width: 65%;
+}
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/Addons/index.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -225,6 +279,10 @@
 .quotify-content-wrap.quotify-addons-wrapper .quotify-single-addon .quotify-card-footer > * {
   margin: 0;
   padding: 0;
+}
+
+.quotify-addon-settings-table {
+  width: 100%;
 }
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/containers/Help/index.scss ***!

@@ -1,0 +1,57 @@
+.quotify-wp-modal--cf7-settings {
+	border-radius: 4px;
+	.components-modal {
+		&__header {
+			border-bottom: 1px solid var(--quotify-border-color);
+			padding: 20px;
+		}
+
+		&__content {
+			margin-bottom: 72px;
+
+			.quotify-wp-modal__footer {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				padding: 10px 20px;
+				max-height: 72px;
+				border-top: 1px solid var(--quotify-border-color);
+				height: 52px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				.components-button {
+					padding: 0 0 0 5px;
+					outline: none;
+					margin: 0;
+					height: auto;
+					background: none;
+					box-shadow: none;
+					color: var(--quotify-primary-color);
+					text-decoration: underline;
+
+					&.quotify-button {
+						padding: 10px 20px;
+						text-decoration: none;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						svg {
+							margin: 0 10px 0 0;
+						}
+						&:hover {
+							color: #ffffff;
+							background-color: var(--quotify-primary-color);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.components-modal__frame.quotify-wp-modal.quotify-wp-modal--fill {
+	width: 65%;
+}

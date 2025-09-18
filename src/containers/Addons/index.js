@@ -4,41 +4,36 @@ import { __ } from '@wordpress/i18n';
 
 import { FETCH_ADDONS } from '@Redux/types/addons.types';
 
-import Addon from './Addon';
+import ContactForm7 from './ContactForm7';
 import TopBar from '@Components/TopBar';
 
 import './index.scss';
 
 import {
 	makeRequest,
-	getAllAddons,
-	addons as allAddons,
 	admin_url,
-	getAddonInfo,
 	route_path,
 	fireNotify,
 } from '@Utils/helper';
 
-const addonsInfo = [
-	{
-		label: __('Contact Form 7', 'quotify'),
-		name: 'cf7',
-		is_pro: false,
-		required_plugin: false,
-		details: __('Use contact form 7 as quotation submission form.', 'quotify'),
-		icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
-		url: `${admin_url}admin.php?page=forms`,
-		docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
-		settings: `${route_path}?page=pqfw-product-quotations-settings`
-	},
-];
+const cf7Addon = {
+	label: __('Contact Form 7', 'quotify'),
+	name: 'cf7',
+	is_pro: false,
+	required_plugin: false,
+	details: __('Use contact form 7 as quotation submission form.', 'quotify'),
+	icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
+	url: `${admin_url}admin.php?page=forms`,
+	docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
+	settings: `${route_path}?page=pqfw-product-quotations-settings`,
+};
 
 export default function index() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		makeRequest({
-			action: 'quotify/addons/get_all'
+			action: 'quotify/addons/get_all',
 		}).then((response) => {
 			if (response.data?.success) {
 				dispatch({
@@ -46,10 +41,7 @@ export default function index() {
 					payload: response.data?.data,
 				});
 			} else {
-				fireNotify(
-					__('Addon Failed to saved.', 'quotify'),
-					'error'
-				);
+				fireNotify(__('Addon Failed to saved.', 'quotify'), 'error');
 			}
 		});
 	}, []);
@@ -67,10 +59,7 @@ export default function index() {
 			/>
 
 			<div className="quotify-content-wrap quote-container quotify-addons-wrapper">
-				{addonsInfo &&
-					addonsInfo?.map((addon, index) => (
-						<Addon addon={addon} key={index} />
-					))}
+				<ContactForm7 addon={cf7Addon} />
 			</div>
 		</>
 	);
