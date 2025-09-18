@@ -1,0 +1,7 @@
+table.form-table > tr > td {
+    border-bottom: 1px solid var(--quotify-border-color);
+}
+
+table.form-table > tr:last-child > td {
+    border: none;
+}

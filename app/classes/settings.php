@@ -45,16 +45,6 @@ class Settings {
 	private $all;
 
 	/**
-	 * Constructor of the class
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-		add_action( 'wp_ajax_quotify/settings/save', [ $this, 'save' ] );
-		add_action( 'wp_ajax_pqfw_cart_get_permalink', [ $this, 'getCartPermalink' ] );
-	}
-
-	/**
 	 * Process and return the saved(wp_options) settings.
 	 *
 	 * @access  protected
@@ -164,31 +154,6 @@ class Settings {
 
 		wp_send_json_success([
 			'message' => esc_html__( 'Settings has been updated.', 'quotify' ),
-		], 200 );
-	}
-
-	/**
-	 * Get cart permalink
-	 *
-	 * @since 2.0.1
-	 */
-	public function getCartPermalink() {
-		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pqfw-app-ui' ) ) {
-			wp_send_json_error([
-				'message' => esc_html__( 'Unauthorized Action', 'quotify' ),
-			], 400 );
-		}
-
-		$pageID = isset( $_POST['pageID'] ) ? absint( $_POST['pageID'] ) : false;
-
-		if ( ! $pageID ) {
-			wp_send_json_error([
-				'message' => esc_html__( 'Invalid Page ID.', 'quotify' ),
-			], 400 );
-		}
-
-		wp_send_json_success([
-			'url' => get_permalink( $pageID ),
 		], 200 );
 	}
 

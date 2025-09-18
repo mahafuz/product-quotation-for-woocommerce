@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { __ } from '@wordpress/i18n';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSavedSettings, getNonce, makeRequest } from '@Utils/helper';
+
+import { FETCH_SETTINGS } from '@Redux/types/settings.types';
+
+import { useDispatch } from 'react-redux';
 
 import TopBar from '@Components/TopBar';
 import GeneralSettings from './GeneralSettings';
@@ -16,9 +20,11 @@ import EmailIcon from '@src/images/email.png';
 import GeneralSettingsIcon from '@src/images/cog.svg';
 
 import '@src/scss/settings.scss';
+import './index.scss';
 import { fireNotify } from '@Utils/helper';
 
 const App = () => {
+	const dispatch = useDispatch();
 	const savedTab =
 		localStorage.getItem('pqfw_settings_active_tab') || 'general';
 	const [activeTab, setActiveTab] = useState(savedTab);
@@ -27,6 +33,21 @@ const App = () => {
 	const saveActiveTab = (name) => {
 		localStorage.setItem('pqfw_settings_active_tab', name);
 	};
+
+	useEffect(() => {
+		makeRequest({
+			action: 'quotify/settings/get_all',
+		}).then((response) => {
+			if (response.data?.success) {
+				dispatch({
+					type: FETCH_SETTINGS,
+					payload: response.data?.data,
+				});
+			} else {
+				fireNotify(response?.data?.data?.message, 'error');
+			}
+		});
+	}, []);
 
 	const saveSettings = (e) => {
 		let button = e.target;
@@ -38,11 +59,10 @@ const App = () => {
 		})
 			.then((response) => {
 				if (response.data?.success) {
-					// dispatch({
-					// 	type: FETCH_ADDONS,
-					// 	payload: response.data?.data,
-					// });
-					fireNotify(response?.data?.data?.message, 'success');
+					dispatch({
+						type: FETCH_SETTINGS,
+						payload: response.data?.data,
+					});
 				} else {
 					fireNotify(response?.data?.data?.message, 'error');
 				}

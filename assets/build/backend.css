@@ -1385,6 +1385,16 @@
 .quotify-react-select__menu-list > div {
   text-align: left;
 }
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/components/Settings/index.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+table.form-table > tr > td {
+  border-bottom: 1px solid var(--quotify-border-color);
+}
+
+table.form-table > tr:last-child > td {
+  border: none;
+}
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/components/PopupNotification/styles.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -1519,7 +1529,8 @@
   --quotify-secondary-color: #ff5000;
   --quotify-text-color: #101828;
   --quotify-placeholder-color: #8e949a;
-  --quotify-border-color: #dedede;
+  --quotify-legacy-border-color: #dedede;
+  --quotify-border-color: #eff4f6;
   --quotify-gray-color: #646c73;
   --quotify-background-color: #fafafa;
   --quotify-green-color: #00ad6b;

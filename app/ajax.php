@@ -42,6 +42,13 @@ class Ajax {
 	public $quotations;
 
 	/**
+	 * Contains ajax requests for settings.
+	 *
+	 * @var mixed
+	 */
+	public $settings;
+
+	/**
 	 * Initialize ajax actions.
 	 *
 	 * @since 1.2.0
@@ -50,5 +57,6 @@ class Ajax {
 		$this->product = new \PQFW\Ajax\Product();
 		$this->cart = new \PQFW\Ajax\Cart();
 		$this->quotations = new \PQFW\Ajax\Quotations();
+		$this->settings = new \PQFW\Ajax\Settings();
 	}
 }

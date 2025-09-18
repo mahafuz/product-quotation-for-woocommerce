@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 
 import { FormToggle, SelectControl } from '@wordpress/components';
-import { getPages, getCart, getNonce } from '@Utils/helper';
+import { getPages, getCart, makeRequest } from '@Utils/helper';
 
 import { __ } from '@wordpress/i18n';
 
@@ -10,14 +10,11 @@ const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 	const [cart, setCart] = useState(getCart( 'url' ) );
 
 	useEffect(()=>{
-		wp.ajax.send( 'pqfw_cart_get_permalink', {
-			data: {
-				_wpnonce: getNonce(),
-				pageID: settings?.quotation_cart_page
-			},
-			success: ({ url }) => {
-				setCart(url);
-			}
+		makeRequest({
+			action: 'quotify/cart/get_permalink',
+			pageID: settings?.quotation_cart_page
+		}).then(({ data }) => {
+			setCart(data?.data?.url);
 		});
 	}, [settings.quotation_cart_page]);
 
