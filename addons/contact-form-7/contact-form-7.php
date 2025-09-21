@@ -29,7 +29,7 @@ class Contact_Form_7 {
 	 */
 	public static function init() {
 		$self = new self();
-		$self->database = new \QuotifyContact_Form_7\Hook(); 
+		$self->database = new \QuotifyContact_Form_7\Hook();
 		$self->hooks    = new \QuotifyContact_Form_7\Hook();
 		$self->ajax     = new \QuotifyContact_Form_7\Ajax();
 	}

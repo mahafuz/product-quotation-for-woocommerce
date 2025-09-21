@@ -64,7 +64,7 @@ class Frontend {
 	 * @param object $product Product.
 	 * @return string
 	 */
-	public function hideProductPrices( $price, $product ) {
+	public function hideProductPrices( $price, $product ) {//phpcs:ignore
 		return '';
 	}
 

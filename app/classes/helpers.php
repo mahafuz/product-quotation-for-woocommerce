@@ -157,11 +157,18 @@ class Helpers {
 	/**
 	 * Is the woocommerce plugin active.
 	 *
+	 * @param string $plugin The plugin file path to check whether it's active.
+	 * @since 2.5.0
+	 *
 	 * @return bool
 	 */
-	public static function isWoocommerceActive() {
+	public static function is_plugin_active( $plugin ) {
+		if ( empty( $plugin ) ) {
+			$plugin = 'woocommerce/woocommerce.php';
+		}
+
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		return is_plugin_active( 'woocommerce/woocommerce.php' );
+		return is_plugin_active( $plugin );
 	}
 
 	/**
@@ -366,7 +373,7 @@ class Helpers {
 		$notice = '';
 
 		if ( self::is_plugin_installed( $woocommerce ) ) {
-			if ( ! self::isWoocommerceActive() ) {
+			if ( ! self::is_plugin_active( $woocommerce ) ) {
 				$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $woocommerce . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $woocommerce );
 
 				$button = '';

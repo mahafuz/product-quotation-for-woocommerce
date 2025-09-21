@@ -44,6 +44,22 @@ class Form {
 	}
 
 	/**
+	 * Get form type based on the addon and others configuration.
+	 *
+	 * @since 2.5.0
+	 * @return string
+	 */
+	private function get_form_type() {
+		$form_type = json_decode( pqfw()->addons->get_saved(), true );
+
+		if ( ! empty( $form_type['cf7'] ) && wp_validate_boolean( $form_type['cf7'] ) ) {
+			return 'cf7';
+		}
+
+		return 'default';
+	}
+
+	/**
 	 * Enqueue styles, scripts and other stuffs needed in the <footer>.
 	 *
 	 * @return void
@@ -194,13 +210,40 @@ class Form {
 	}
 
 	/**
+	 * Get form HTML based on integration type.
+	 *
+	 * @since 2.5.0
+	 */
+	private function get_form_html() {
+		$form_type = $this->get_form_type();
+		$form_id   = 0;
+
+		switch ( $form_type ) {
+			case 'cf7':
+				if ( class_exists( '\QuotifyContact_Form_7\Database' ) ) {
+					$form_id = absint( \QuotifyContact_Form_7\Database::get_setting( 'form_id' ) );
+				}
+
+				$shortcode = sprintf( '[contact-form-7 id="%d"]', $form_id );
+				echo do_shortcode( $shortcode );
+				break;
+
+			default:
+				ob_start();
+					require_once PQFW_PLUGIN_VIEWS . 'form/default.php';
+				$form_html = ob_get_clean();
+				echo pqfw()->helpers->escape_html_form( $form_html );//phpcs:ignore
+		}
+	}
+
+	/**
 	 * Form html
 	 *
 	 * @since   1.0.0
 	 */
 	public function form() {
-		$settings   = pqfw()->settings->get();
-		$classes    = [];
+		$settings = pqfw()->settings->get();
+		$classes  = [];
 
 		if ( $settings['pqfw_form_default_design'] ) {
 			$classes[] = 'use-pqfw-form-default-design';
@@ -208,44 +251,12 @@ class Form {
 		if ( $settings['pqfw_floating_form'] ) {
 			$classes[] = 'floating-form';
 		}
+
+		$classes = apply_filters( 'quotify/form/wrapper_class', $classes );
 		?>
 		<div id="pqfw-frontend-form-wrap" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 			<div class="pqfw-form">
-				<form id="pqfw-frontend-form">
-
-					<ul class="pqfw-frontend-form">
-						<?php pqfw()->controlsManager->generate_fields(); ?>
-						<?php if ( pqfw()->settings->get( 'privacy_policy' ) ) : ?>
-						<li class="pqfw-privacy-policy">
-							<div class="pqfw-privacy-policy-inner">
-								<p><?php echo wp_kses_post( pqfw()->helpers->generatePrivacyPolicy( pqfw()->settings->get( 'privacy_policy_content' ) ) ); ?></p>
-
-								<div class="pqfw-privacy-policy-checkbox">
-									<input type="checkbox" name="pqfw_privacy_policy_checkbox" id="pqfw_privacy_policy_checkbox" required="1">
-
-									<label for="pqfw_privacy_policy_checkbox">
-										<?php echo wp_kses_post( pqfw()->helpers->generatePrivacyPolicy( pqfw()->settings->get( 'privacy_policy_label' ) ) ); ?>
-									</label>
-								</div>
-							</div>
-						</li>
-						<?php endif; ?>
-					</ul>
-
-					<div class="pqfw-form-field pqfw-submit">
-						<input
-							type="submit"
-							id="quotify-form-submit"
-							name="quotify-form-submit"
-							value="<?php echo esc_html__( 'Submit Query', 'quotify' ); ?>"
-							class="submit"
-						/>
-						<div class="loading-spinner"></div>
-						<?php wp_nonce_field( 'pqfw_form_nonce_action', 'pqfw_form_nonce_field' ); ?>
-					</div>
-
-					<div class="pqfw-form-response-status"></div>
-				</form>
+				<?php $this->get_form_html(); //phpcs:ignore ?>
 			</div>
 		</div>
 		<?php

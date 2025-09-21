@@ -37,6 +37,7 @@
 
 		<!-- Exclude other conflicting rules. -->
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 		<exclude name="WordPress.NamingConventions.ValidVariableName" />
 		<exclude name="WordPress.Arrays.CommaAfterArrayItem.NoComma" />

@@ -71,7 +71,7 @@ class Ajax {
 
 		$settings = ! empty( $_POST['settings'] ) ? sanitize_text_field( $_POST['settings'] ) : '{}';
 		\QuotifyContact_Form_7\Database::save_settings( $settings );
-		$settings = json_decode( wp_unslash( \QuotifyContact_Form_7\Database::get_setting() ), true );
+		$settings = json_decode( wp_unslash( \QuotifyContact_Form_7\Database::get_setting( 'all', [], true ) ), true );
 
 		wp_send_json_success([
 			'message'  => __( 'Settings updated.', 'quotify' ),
@@ -93,7 +93,7 @@ class Ajax {
 			]);
 		}
 
-		$settings = json_decode( wp_unslash( \QuotifyContact_Form_7\Database::get_setting( 'all' ) ), true );
+		$settings = json_decode( wp_unslash( \QuotifyContact_Form_7\Database::get_setting( 'all', [], true ) ), true );
 
 		wp_send_json_success([
 			'message'  => __( 'Settings fetched.', 'quotify' ),

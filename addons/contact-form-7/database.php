@@ -39,13 +39,24 @@ class Database {
 	}
 
 	/**
-	 * Get settings for the cf7 addon.
+	 * Get settings for the CF7 addon.
 	 *
-	 * @param  string $key The settings to save.
-	 * @param  mixed  $default The default value to save.
-	 * @return bool
+	 * @param  string $key           The setting key to retrieve, or 'all' to return all settings.
+	 * @param  mixed  $default_value The default value if the setting does not exist.
+	 * @param  bool   $raw           The return value type.
+	 * @return mixed                 The requested setting value, all settings, or default.
 	 */
-	public static function get_setting( $key = 'all', $default = false ) {
-		return get_option( self::SETTINGS_KEY, $default );
+	public static function get_setting( $key = 'all', $default_value = false, $raw = false ) {
+		if ( $raw ) {
+			$settings = get_option( self::SETTINGS_KEY, [] );
+		} else {
+			$settings = json_decode( wp_unslash( get_option( self::SETTINGS_KEY, [] ) ), true );
+		}
+
+		if ( 'all' === $key ) {
+			return ! empty( $settings ) ? $settings : $default_value;
+		}
+
+		return isset( $settings[ $key ] ) ? $settings[ $key ] : $default_value;
 	}
 }

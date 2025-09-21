@@ -19,6 +19,14 @@ defined( 'ABSPATH' ) || exit;
  * @since   1.0.0
  */
 class Quotations {
+
+	/**
+	 * Quotify cart session key.
+	 *
+	 * @since 2.5.0
+	 */
+	const CART_KEY = 'pqfw_products_quotations_list';
+
 	/**
 	 * Returns boolean if product present in cart
 	 *
@@ -147,7 +155,7 @@ class Quotations {
 		$products = $this->sanitizeProducts( $products );
 
 		if ( isset( WC()->session ) ) {
-			WC()->session->set( 'pqfw_products_quotations_list', $products );
+			WC()->session->set( self::CART_KEY, $products );
 		}
 
 		return $this->getProducts();
@@ -256,7 +264,7 @@ class Quotations {
 		$products = [];
 
 		if ( isset( WC()->session ) ) {
-			$products = WC()->session->get( 'pqfw_products_quotations_list' );
+			$products = WC()->session->get( self::CART_KEY );
 		}
 
 		return $products;
@@ -269,7 +277,7 @@ class Quotations {
 	 */
 	public function purge() {
 		if ( isset( WC()->session ) ) {
-			WC()->session->set( 'pqfw_products_quotations_list', [] );
+			WC()->session->set( self::CART_KEY, [] );
 		}
 	}
 

@@ -8,6 +8,8 @@
 
 namespace PQFW\Classes;
 
+use WP_Error;
+
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
@@ -81,25 +83,66 @@ class Product {
 	 * @since 1.2.0
 	 */
 	public function prepare() {
-		$mappedProducts = $this->mapProducts();
-		$un_serialized  = maybe_unserialize( $mappedProducts );
-
-		if ( empty( $un_serialized ) ) {
-			return false;
-		}
-
-		$arg        = $this->getArguments();
-		$postID     = wp_insert_post( $arg );
-		$productsId = $this->getProductsID();
+		$arg    = $this->getArguments();
+		$postID = $this->insert( $arg );
 
 		if ( 0 === $postID || is_wp_error( $postID ) ) {
 			return false;
 		}
 
-		update_post_meta( $postID, 'pqfw_products_info', $un_serialized );
-		update_post_meta( $postID, 'pqfw_products_ids', $productsId );
+		$this->set_attributes( $postID );
 
 		return $postID;
+	}
+
+	/**
+	 * Insert quotation as post.
+	 *
+	 * @param  array $args The quotation data.
+	 * @return bool|int
+	 */
+	public function insert( $args ) {
+		if ( empty( $args ) ) {
+			return false;
+		}
+
+		$post_id = wp_insert_post( $args );
+
+		return $post_id;
+	}
+
+	/**
+	 * Set quotation attributes.
+	 *
+	 * @param int        $post_id    The quotation id.
+	 * @param null|array $attributes The quotation attributes.
+	 */
+	public function set_attributes( $post_id, $attributes = null ) {
+		if ( ! $attributes ) {
+			$mappedProducts = $this->mapProducts();
+
+			if ( empty( $mappedProducts ) ) {
+				return false;
+			}
+
+			$productsId = $this->getProductsID();
+
+			update_post_meta( $post_id, 'pqfw_products_info', $mappedProducts );
+			update_post_meta( $post_id, 'pqfw_products_ids', $productsId );
+
+			return [
+				'pqfw_products_info' => $mappedProducts,
+				'pqfw_products_ids'  => $productsId,
+			];
+		} else {
+			if ( is_array( $attributes ) ) {
+				foreach ( $attributes as $key => $value ) {
+					update_post_meta( $post_id, $key, $value );
+				}
+			}
+
+			return $attributes;
+		}
 	}
 
 	/**
@@ -165,7 +208,7 @@ class Product {
 			'variation'        => $variation_id,
 			'variation_detail' => $variation_detail,
 			'quantity'         => $product['quantity'],
-			'message'          => strip_tags( $product['message'] ),
+			'message'          => wp_strip_all_tags( $product['message'] ),
 		];
 	}
 
@@ -215,6 +258,8 @@ class Product {
 		$this->dataToSave = $dataToSave;
 		$this->products   = pqfw()->quotations->getProducts();
 
-		return $this->prepare();
+		$status = $this->prepare();
+
+		return $status;
 	}
 }

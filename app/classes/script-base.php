@@ -26,22 +26,22 @@ class Script_Base {
 	 */
 	public function get_scripts_data() {
 		return [
-			'nonce'                 => wp_create_nonce( 'wp_rest' ),
-			'pqfw_nonce'            => wp_create_nonce( 'pqfw_nonce' ),
-			'cart_nonce'            => wp_create_nonce( 'pqfw_cart_actions' ),
-			'rest_url'              => esc_url_raw( rest_url() ),
-			'namespace'             => PQFW_PLUGIN_ROOT_URI . '/v1/',
-			'ajaxurl'               => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'site_url'              => site_url(),
-			'route_path'            => wp_parse_url( admin_url(), PHP_URL_PATH ),
-			'menu'                  => wp_json_encode( pqfw()->menu->getList() ),
-			'woocommerce_is_active' => Helpers::isWoocommerceActive(),
-			'woocommerce_notice'    => Helpers::woocommerce_notice(),
-			'current_user_id'       => get_current_user_id(),
-			'is_rtl'                => is_rtl(),
-			'current_user_can'      => [
-				'manage_options'            => current_user_can( 'manage_options' ),
-				'manage_categories'         => current_user_can( 'manage_categories' ),
+			'nonce'                  => wp_create_nonce( 'wp_rest' ),
+			'pqfw_nonce'             => wp_create_nonce( 'pqfw_nonce' ),
+			'cart_nonce'             => wp_create_nonce( 'pqfw_cart_actions' ),
+			'rest_url'               => esc_url_raw( rest_url() ),
+			'namespace'              => PQFW_PLUGIN_ROOT_URI . '/v1/',
+			'ajaxurl'                => esc_url( admin_url( 'admin-ajax.php' ) ),
+			'site_url'               => site_url(),
+			'route_path'             => wp_parse_url( admin_url(), PHP_URL_PATH ),
+			'menu'                   => wp_json_encode( pqfw()->menu->getList() ),
+			'woocommerce_is_active'  => Helpers::is_plugin_active( 'woocommerce/woocommerce.php' ),
+			'woocommerce_notice'     => Helpers::woocommerce_notice(),
+			'current_user_id'        => get_current_user_id(),
+			'is_rtl'                 => is_rtl(),
+			'current_user_can'       => [
+				'manage_options'    => current_user_can( 'manage_options' ),
+				'manage_categories' => current_user_can( 'manage_categories' ),
 			],
 			'plugin_logo'            => Menu::get_plugin_logo(),
 			'toplevel_menu_icon_url' => Menu::get_toplevel_menu_icon_url(),
@@ -59,7 +59,7 @@ class Script_Base {
 	public function get_isolated_gutenberg_settings() {
 		global $post;
 
-		$align_wide    = get_theme_support( 'align-wide' );
+		$align_wide = get_theme_support( 'align-wide' );
 
 		$max_upload_size = wp_max_upload_size();
 		if ( ! $max_upload_size ) {
@@ -89,10 +89,10 @@ class Script_Base {
 
 		return [
 			'editor'               => [
-				'alignWide'              => $align_wide,
-				'disableCustomColors'    => true,
-				'disableCustomFontSizes' => true,
-				'disablePostFormats'     => ! current_theme_supports( 'post-formats' ),
+				'alignWide'                              => $align_wide,
+				'disableCustomColors'                    => true,
+				'disableCustomFontSizes'                 => true,
+				'disablePostFormats'                     => ! current_theme_supports( 'post-formats' ),
 				/** This filter is documented in wp-admin/edit-form-advanced.php */
 				'titlePlaceholder'       => __( 'Add title', 'quotify' ),
 				'bodyPlaceholder'        => $body_placeholder,
@@ -180,7 +180,7 @@ class Script_Base {
 					'pages'    => pqfw()->helpers->getPages(),
 					'cart'     => [
 						'id'  => pqfw()->helpers->getCart(),
-						'url' => trim( pqfw()->helpers->getCart( 'url' ), $site_url ),
+						'url' => pqfw()->helpers->getCart( 'url' ),
 					],
 					'route_path' => wp_parse_url( $site_url, PHP_URL_PATH ),
 					'current_permalink' => esc_url( get_permalink() ),
