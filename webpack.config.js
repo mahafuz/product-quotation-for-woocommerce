@@ -7,9 +7,10 @@ const PRODUCT_QUOTATION_VERSION = '2.5.0';
 const config = {
 	...defaultConfig,
 	entry: {
-		backend: path.resolve(__dirname, 'src/backend.js'),
-		button: path.resolve(__dirname, 'src/button.js'),
-		cart: path.resolve(__dirname, 'src/cart.js'),
+		backend : path.resolve(__dirname, 'src/backend.js'),
+		button  : path.resolve(__dirname, 'src/button.js'),
+		cart    : path.resolve(__dirname, 'src/cart.js'),
+		form    : path.resolve(__dirname, 'src/form.js'),
 	},
 	output: {
 		filename: `[name].${PRODUCT_QUOTATION_VERSION}.js`,

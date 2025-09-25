@@ -14,18 +14,18 @@ import {
 
 const renderSwitch = (page, id, action, path) => {
 	switch (page) {
-		case 'pqfw-product-quotations':
+		case 'quotify':
 			if (id && 'view' === action) {
 				return <ViewQuotation id={id} />;
 			}
 			return <Quotations />;
-		case 'pqfw-product-quotations-addons':
+		case 'quotify-addons':
 			return <Addons />;
-		case 'pqfw-product-quotations-tools':
+		case 'quotify-tools':
 			return <h1>Tools</h1>;
-		case 'pqfw-product-quotations-settings':
+		case 'quotify-settings':
 			return <Settings />;
-		case 'pqfw-product-quotations-help':
+		case 'quotify-help':
 			return <Help />;
 		default:
 	}

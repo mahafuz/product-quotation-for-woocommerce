@@ -21,7 +21,7 @@ function Index({ id }) {
 		dispatch(getQuote(id)).then((response) => {
 			if (response?.data?.data?.not_found) {
 				navigate(
-					`${route_path}admin.php?page=pqfw-product-quotations`
+					`${route_path}admin.php?page=quotify`
 				);
 			}
 

@@ -28,8 +28,8 @@ const AdminMenu = () => {
 	return (
 		<React.Fragment>
 			<Link
-				to={`${route_path}admin.php?page=pqfw-product-quotations`}
-				className="wp-has-submenu wp-has-current-submenu wp-menu-open menu-top toplevel_page_pqfw-product-quotations menu-top-last"
+				to={`${route_path}admin.php?page=quotify`}
+				className="wp-has-submenu wp-has-current-submenu wp-menu-open menu-top toplevel_page_quotify menu-top-last"
 				aria-haspopup="false"
 			>
 				<div className="wp-menu-arrow">

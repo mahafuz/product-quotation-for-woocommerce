@@ -24,7 +24,7 @@ export const fetchAllQuotations =
 	(status = 'publish', page = 1, per_page = 10, search = '') =>
 	async (dispatch) => {
 		let params = {
-			action: 'quotify/ajax/load',
+			action: 'quotify/ajax/quotations/load',
 			status: status === 'all' ? 'any' : status,
 			nonce: pqfw_nonce,
 			page,
@@ -75,7 +75,7 @@ export const updateCurrentPage = (page) => (dispatch) => {
 export const getQuote = (id) => async (dispatch) => {
 	return await API.get(ajaxurl, {
 		params: {
-			action: 'quotify/quotation/get',
+			action: 'quotify/ajax/quotations/get',
 			id,
 			nonce: pqfw_nonce,
 		},
@@ -98,7 +98,7 @@ export const getQuote = (id) => async (dispatch) => {
 
 export const moveQuoteToTrash = (id) => async (dispatch) => {
 	makeRequest({
-		action: 'quotify/quotations/delete',
+		action: 'quotify/ajax/quotations/delete',
 		id,
 		nonce: pqfw_nonce,
 		force: false,
@@ -118,7 +118,7 @@ export const moveQuoteToTrash = (id) => async (dispatch) => {
 
 export const deleteQuote = (id) => async (dispatch) => {
 	makeRequest({
-		action: 'quotify/quotations/delete',
+		action: 'quotify/ajax/quotations/delete',
 		id,
 		nonce: pqfw_nonce,
 		force: true,
@@ -138,7 +138,7 @@ export const deleteQuote = (id) => async (dispatch) => {
 
 export const restoreQuote = (params) => async (dispatch) => {
 	makeRequest({
-		action: 'quotify/quotations/restore',
+		action: 'quotify/ajax/quotations/restore',
 		id: params.id,
 		nonce: pqfw_nonce
 	}).then((response) => {

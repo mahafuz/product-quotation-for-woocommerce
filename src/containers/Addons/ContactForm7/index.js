@@ -24,19 +24,22 @@ import {
 function index({ addon }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const saved = useSelector((state) => state?.addons?.cf7);
 	const [openModal, setOpenModal] = useState(false);
 	const [saving, setSaving] = useState(false);
-	const savedAddons = useSelector((state) => state.addons);
-	const [status, setStatus] = useState(savedAddons?.[addon?.name]);
+	const [status, setStatus] = useState(saved); // Initialize with Redux value
 	const [settings, setSettings] = useState({});
 	const [forms, setForms] = useState([]);
 
-	console.log('settings', settings)
+	// Sync local status with Redux store changes
+	useEffect(() => {
+		setStatus(saved);
+	}, [saved]); // Add saved as dependency
 
 	useEffect(() => {
 		if (openModal && !forms?.length) {
 			makeRequest({
-				action: 'quotify/addons/contact_form_7/get_all_forms',
+				action: 'quotify/ajax/addons/contact_form_7/get_all_forms',
 			}).then((response) => {
 				setForms([...response?.data]);
 			});
@@ -44,9 +47,9 @@ function index({ addon }) {
 
 		if (openModal) {
 			makeRequest({
-				action: 'quotify/addons/contact_form_7/get_settings',
-			}).then(({ data }) => {
-				setSettings(data?.data?.settings)
+				action: 'quotify/ajax/addons/contact_form_7/get_settings',
+			}).then((response) => {
+				setSettings(response?.data?.data?.settings)
 			});
 		}
 	}, [openModal]);
@@ -55,19 +58,22 @@ function index({ addon }) {
 		setSaving(true);
 
 		makeRequest({
-			action: 'quotify/addons/contact_form_7/save_settings',
+			action: 'quotify/ajax/addons/contact_form_7/save_settings',
 			settings
-		}).then(({data}) => {
-			const fetchedSettings = data?.data?.settings;
+		}).then(( response ) => {
+			const fetchedSettings = response?.data?.data?.settings;
+
 			setSettings({
 				...settings,
 				...fetchedSettings
 			});
+
+			setSaving(false);
+
 			fireNotify(
-				data?.data?.message,
+				response?.data?.data?.message,
 				'success'
 			);
-			setSaving(false);
 		});
 	};
 
@@ -79,10 +85,11 @@ function index({ addon }) {
 	const handleChange = (e, addon) => {
 		const value = e.target.checked;
 
+		// Optimistically update UI immediately
 		setStatus(value);
 
 		makeRequest({
-			action: 'quotify/addons/save',
+			action: 'quotify/ajax/addons/save',
 			addon: addon.name,
 			status: value,
 		}).then((response) => {
@@ -91,7 +98,19 @@ function index({ addon }) {
 					type: FETCH_ADDONS,
 					payload: response.data?.data,
 				});
+
+				// No need to setStatus here as useEffect will sync from Redux
+				fireNotify(
+					sprintf(
+						// translators: %s: AddonName
+						__('%s Addon saved successfully.', 'quotify'),
+						addon.label
+					),
+					'success'
+				);
 			} else {
+				// Revert on error
+				setStatus(!value);
 				fireNotify(
 					sprintf(
 						// translators: %s: AddonName
@@ -101,6 +120,13 @@ function index({ addon }) {
 					'error'
 				);
 			}
+		}).catch((error) => {
+			// Revert on network error
+			setStatus(!value);
+			fireNotify(
+				__('Network error occurred. Please try again.', 'quotify'),
+				'error'
+			);
 		});
 	};
 

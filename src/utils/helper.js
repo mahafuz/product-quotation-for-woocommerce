@@ -49,7 +49,7 @@ export function getAjaxUrl() {
 }
 
 export function getNonce() {
-	return config.nonce;
+	return config.pqfw_nonce;
 }
 
 export function getSavedSettings() {
@@ -117,7 +117,7 @@ export const API = axios.create({
 
 export const makeRequest = async (payload = {}, isRaw = false) => {
 	let form_data = new FormData(); // eslint-disable-line
-	form_data.append('security', PqfwGlobal.pqfw_nonce);
+	form_data.append('security', getNonce());
 	Object.entries(payload).forEach(([key, value]) => {
 		if (!isRaw && typeof value === 'object' && value !== null) {
 			form_data.append(key, JSON.stringify(value));

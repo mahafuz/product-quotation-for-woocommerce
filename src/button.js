@@ -4,7 +4,9 @@ import {
 	getVariationID,
 	variationAlert,
 	viewQuotationCart,
-} from './utils/helper';
+	makeRequest,
+	fireNotify
+} from '@Utils/helper';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const $ = jQuery;
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const $product_id = button.data('id');
 				const loader = button.children('.loading-spinner');
 
-				wp.ajax.send('quotify/product/add', {
+				wp.ajax.send('quotify/ajax/cart/add_product', {
 					data: {
 						productId: parseInt($product_id),
 						variationID: parseInt(getVariationID()),

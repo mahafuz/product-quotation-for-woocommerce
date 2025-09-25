@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 
 import { FETCH_ADDONS } from '@Redux/types/addons.types';
@@ -25,7 +25,7 @@ const cf7Addon = {
 	icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
 	url: `${admin_url}admin.php?page=forms`,
 	docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
-	settings: `${route_path}?page=pqfw-product-quotations-settings`,
+	settings: `${route_path}?page=quotify-settings`,
 };
 
 export default function index() {
@@ -33,7 +33,7 @@ export default function index() {
 
 	useEffect(() => {
 		makeRequest({
-			action: 'quotify/addons/get_all',
+			action: 'quotify/ajax/addons/get_all',
 		}).then((response) => {
 			if (response.data?.success) {
 				dispatch({

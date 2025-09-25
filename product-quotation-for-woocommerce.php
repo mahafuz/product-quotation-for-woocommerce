@@ -21,36 +21,38 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.2.0
  */
-define( 'PQFW_PLUGIN_FILE', __FILE__ );
-define( 'PQFW_PLUGIN_NAME', __( 'Products Quotation For WooCommerce', 'quotify' ) );
-define( 'PQFW_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'PQFW_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'PQFW_PLUGIN_SLUG', 'pqfw-product-quotations' );
+if ( ! defined( 'QUOTIFY_PLUGIN_FILE' ) ) {
+	define( 'QUOTIFY_PLUGIN_FILE', __FILE__ );
+}
 
-define( 'PQFW_PLUGIN_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
-define( 'PQFW_PLUGIN_ROOT_URI', plugins_url( '/', __FILE__ ) );
-define( 'PQFW_PLUGIN_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'QUOTIFY_PLUGIN_ROOT_PATH' ) ) {
+	define( 'QUOTIFY_PLUGIN_ROOT_PATH', plugin_dir_path( __FILE__ ) );
+}
 
-define( 'PQFW_PLUGIN_ASSETS', trailingslashit( PQFW_PLUGIN_URL . 'assets' ) );
-define( 'PQFW_PLUGIN_ASSETS_DIR', trailingslashit( PQFW_PLUGIN_PATH . 'assets' ) );
-define( 'PQFW_ADDONS_DIR_PATH', trailingslashit( PQFW_PLUGIN_PATH . 'addons' ) );
-define( 'PQFW_ADDONS_SETTINGS_KEY', 'pqfw_addons' );
-define( 'PQFW_PLUGIN_LANGUAGES_PATH', plugin_dir_path( __FILE__ ) . 'languages/' );
-define( 'PQFW_PLUGIN_VIEWS', trailingslashit( plugin_dir_path( __FILE__ ) . 'app/views' ) );
-define( 'PQFW_PLUGIN_VERSION', '2.5.0' );
+// Load autoloader.
+require __DIR__ . '/app/autoload.php';
 
-/**
- * Initializing the plugin migration.
- *
- * @since 1.0.0
- */
-register_activation_hook(__FILE__, function () {
-	pqfw()->migration->run();
-	add_option( '_pqfw_activation_redirect', true );
-});
+if ( ! \Quotify\Autoload::init() ) {
+	return;
+}
 
-require PQFW_PLUGIN_PATH . 'app/PQFW.php';
+// Include the main plugin class.
+if ( ! class_exists( 'Quotify', false ) ) {
+	include_once dirname( QUOTIFY_PLUGIN_FILE ) . '/app/quotify.php';
+}
 
-add_action( 'plugins_loaded', function () {
-	pqfw();
-});
+
+require __DIR__ . '/app/install.php';
+
+if ( ! function_exists( 'quotify' ) ) {
+	/**
+	 * Returns the plugin main class.
+	 *
+	 * @return \Quotify
+	 */
+	function quotify() {
+		return \Quotify::instance();
+	}
+
+	quotify();
+}

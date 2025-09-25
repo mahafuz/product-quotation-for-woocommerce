@@ -7,7 +7,7 @@
  * @since       1.2.0
  */
 
-namespace PQFW;
+namespace Quotify;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,28 +25,64 @@ class Ajax {
 	 *
 	 * @var mixed
 	 */
-	public $product;
+	private $product;
 
 	/**
 	 * Contains ajax requests for cart.
 	 *
 	 * @var mixed
 	 */
-	public $cart;
+	private $cart;
 
 	/**
 	 * Contains ajax requests for quotations.
 	 *
 	 * @var mixed
 	 */
-	public $quotations;
+	private $quotations;
 
 	/**
 	 * Contains ajax requests for settings.
 	 *
 	 * @var mixed
 	 */
-	public $settings;
+	private $settings;
+
+	/**
+	 * Contains ajax requests for the quotation form.
+	 *
+	 * @var mixed
+	 */
+	private $form;
+
+	/**
+	 * Contains ajax requests for the addons.
+	 *
+	 * @var Quotify\Ajax\Addons
+	 */
+	private $addons;
+
+	/**
+	 * Class instance.
+	 *
+	 * @var Quotify\Ajax
+	 */
+	private static $instance;
+
+	/**
+	 * Runs before load the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Quotify\Ajax
+	 */
+	public static function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	/**
 	 * Initialize ajax actions.
@@ -54,9 +90,10 @@ class Ajax {
 	 * @since 1.2.0
 	 */
 	public function __construct() {
-		$this->product = new \PQFW\Ajax\Product();
-		$this->cart = new \PQFW\Ajax\Cart();
-		$this->quotations = new \PQFW\Ajax\Quotations();
-		$this->settings = new \PQFW\Ajax\Settings();
+		$this->quotations = new \Quotify\Ajax\Quotations();
+		$this->settings   = new \Quotify\Ajax\Settings();
+		$this->addons     = new \Quotify\Ajax\Addons();
+		$this->cart       = new \Quotify\Ajax\Cart();
+		$this->form       = new \Quotify\Ajax\Form();
 	}
 }

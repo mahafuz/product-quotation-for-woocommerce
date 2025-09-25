@@ -7,7 +7,7 @@
  * @since       1.2.0
  */
 
-namespace PQFW\Ajax;
+namespace Quotify\Ajax;
 
 use WP_Query;
 
@@ -25,10 +25,10 @@ class Quotations {
 	 * @since 1.2.0
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_quotify/ajax/load', [ $this, 'load' ] );
-		add_action( 'wp_ajax_quotify/quotation/get', [ $this, 'get_item' ] );
-		add_action( 'wp_ajax_quotify/quotations/delete', [ $this, 'delete_item' ] );
-		add_action( 'wp_ajax_quotify/quotations/restore', [ $this, 'restore_item' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/load', [ $this, 'load' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/get', [ $this, 'get_item' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/delete', [ $this, 'delete_item' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/restore', [ $this, 'restore_item' ] );
 	}
 
 	/**
@@ -39,45 +39,26 @@ class Quotations {
 	public function load() {
 		check_ajax_referer( 'pqfw_nonce', 'nonce' );
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You do not have permission to view quotations.', 'quotify' ) );
 			wp_die();
 		}
 
 		$status   = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'publish';
+		$search   = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
 		$page     = isset( $_GET['page'] ) ? absint( wp_unslash( $_GET['page'] ) ) : 1;
 		$per_page = isset( $_GET['per_page'] ) ? absint( wp_unslash( $_GET['per_page'] ) ) : 10;
-		$search   = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
 
 		$args = [
-			'post_type'      => 'pqfw_quotations',
 			'post_status'    => $status,
 			'posts_per_page' => $per_page,
 			'paged'          => $page,
 			's'              => $search,
 		];
 
-		$query = new \WP_Query( $args );
-		$quotations = [];
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$quotations[] = [
-					'id'          => absint( get_the_ID() ),
-					'title'       => esc_html( get_the_title() ),
-					'date'        => esc_html( get_the_date() ),
-					'status'      => sanitize_key( get_post_status() ),
-					'author_name' => esc_html( get_the_author() ),
-				];
-			}
-			wp_reset_postdata();
-		}
-		wp_send_json_success( [
-			'quotations'  => $quotations,
-			'total'       => $query->found_posts,
-			'pages'       => $query->max_num_pages,
-			'currentPage' => $page,
-		] );
+		$response = quotify()->quotations()->query( $args )->get();
+
+		wp_send_json_success( $response );
 	}
 
 	/**
@@ -121,13 +102,13 @@ class Quotations {
 			'slug'          => $post->post_name,
 			'status'        => $post->post_status,
 			'type'          => $post->post_type,
-			'author'        => get_the_author_meta( 'display_name', $post->post_author ),
 			'permalink'     => get_permalink( $post ),
 		];
 
-		$meta = pqfw()->quotations->formatMeta( $id );
+		$meta = quotify()->quotations()->format_meta( $id );
 
-		$quotation['meta'] = $meta;
+		$quotation['author_name'] = quotify()->quotations()->get_author( $post, $meta );
+		$quotation['meta']   = $meta;
 
 		wp_send_json_success([
 			'message'   => __( 'Quotation fetched successfully.', 'quotify' ),

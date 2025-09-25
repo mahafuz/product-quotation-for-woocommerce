@@ -36,7 +36,7 @@ const App = () => {
 
 	useEffect(() => {
 		makeRequest({
-			action: 'quotify/settings/get_all',
+			action: 'quotify/ajax/settings/get_all',
 		}).then((response) => {
 			if (response.data?.success) {
 				dispatch({
@@ -54,22 +54,24 @@ const App = () => {
 		button.classList.add('updating-message');
 
 		makeRequest({
-			action: 'quotify/settings/save',
+			action: 'quotify/ajax/settings/save',
 			settings: JSON.stringify(settings),
 		})
-			.then((response) => {
-				if (response.data?.success) {
-					dispatch({
-						type: FETCH_SETTINGS,
-						payload: response.data?.data,
-					});
-				} else {
-					fireNotify(response?.data?.data?.message, 'error');
-				}
-			})
-			.then(() => {
-				button.classList.remove('updating-message');
-			});
+		.then((response) => {
+			if (response.data?.success) {
+				dispatch({
+					type: FETCH_SETTINGS,
+					payload: response.data?.data,
+				});
+
+				fireNotify(response?.data?.data?.message, 'success');
+			} else {
+				fireNotify(response?.data?.data?.message, 'error');
+			}
+		})
+		.then(() => {
+			button.classList.remove('updating-message');
+		});
 	};
 
 	return (

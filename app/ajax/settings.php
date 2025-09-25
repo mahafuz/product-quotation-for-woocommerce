@@ -6,7 +6,7 @@
  * @package PQFW
  */
 
-namespace PQFW\Ajax;
+namespace Quotify\Ajax;
 
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
@@ -25,9 +25,9 @@ class Settings {
 	 * @since 2.5.0
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_quotify/settings/save', [ $this, 'save' ] );
-		add_action( 'wp_ajax_quotify/settings/get_all', [ $this, 'get_all' ] );
-		add_action( 'wp_ajax_quotify/cart/get_permalink', [ $this, 'getCartPermalink' ] );
+		add_action( 'wp_ajax_quotify/ajax/settings/save', [ $this, 'save' ] );
+		add_action( 'wp_ajax_quotify/ajax/settings/get_all', [ $this, 'get_all' ] );
+		add_action( 'wp_ajax_quotify/cart/get_permalink', [ $this, 'get_permalink' ] );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Settings {
 	 *
 	 * @since 2.0.1
 	 */
-	public function getCartPermalink() {
+	public function get_permalink() {
 		check_ajax_referer( 'pqfw_nonce', 'security' );
 
 		$pageID = isset( $_POST['pageID'] ) ? absint( $_POST['pageID'] ) : false;
@@ -59,7 +59,10 @@ class Settings {
 	public function get_all() {
 		check_ajax_referer( 'pqfw_nonce', 'security' );
 
-		return wp_send_json_success( pqfw()->settings->getAll() );
+		return wp_send_json_success([
+			'message'  => __( 'Fetched settings successfully', 'quotify' ),
+			'settings' => quotify()->settings()->get(),
+		]);
 	}
 
 	/**
@@ -68,6 +71,13 @@ class Settings {
 	 * @since 2.5.0
 	 */
 	public function save() {
-		pqfw()->settings->save();
+		check_ajax_referer( 'pqfw_nonce', 'security' );
+
+		quotify()->settings()->save();
+
+		wp_send_json_success([
+			'message'  => __( 'Addon settings updated.', 'quotify' ),
+			'settings' => quotify()->settings()->get(),
+		]);
 	}
 }

@@ -223,7 +223,7 @@ function index() {
 							<Link
 								to={`${
 									is_admin
-										? `${route_path}admin.php?page=pqfw-product-quotations&id=${row.id}&action=view`
+										? `${route_path}admin.php?page=quotify&id=${row.id}&action=view`
 										: `view-quote/${row.id}`
 								}`}
 							>
@@ -267,7 +267,7 @@ function index() {
 								onClick={() => {
 									if (is_admin) {
 										navigate(
-											`${route_path}admin.php?page=pqfw-product-quotations&id=${row.id}&action=view`
+											`${route_path}admin.php?page=quotify&id=${row.id}&action=view`
 										);
 									} else {
 										navigate(`view-/${row.id}`);

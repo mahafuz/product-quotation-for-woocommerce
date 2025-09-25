@@ -10,11 +10,11 @@ import store from './redux/store';
 import './scss/backend.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
-	const container = document.getElementById('pqfw-backend-dashboard');
+	const container = document.getElementById('quotify-backend-dashboard');
 
 	if (container) {
 		const root = createRoot(container);
-		const menuPage = document.getElementById('toplevel_page_pqfw-product-quotations');
+		const menuPage = document.getElementById('toplevel_page_quotify');
 
 		function MenuPortal({ children }) {
 			menuPage.innerHTML = '';

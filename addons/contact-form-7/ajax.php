@@ -24,9 +24,9 @@ class Ajax {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_quotify/addons/contact_form_7/get_all_forms', [ $this, 'get_all_forms' ] );
-		add_action( 'wp_ajax_quotify/addons/contact_form_7/save_settings', [ $this, 'save_settings' ] );
-		add_action( 'wp_ajax_quotify/addons/contact_form_7/get_settings', [ $this, 'get_settings' ] );
+		add_action( 'wp_ajax_quotify/ajax/addons/contact_form_7/get_all_forms', [ $this, 'get_all_forms' ] );
+		add_action( 'wp_ajax_quotify/ajax/addons/contact_form_7/save_settings', [ $this, 'save_settings' ] );
+		add_action( 'wp_ajax_quotify/ajax/addons/contact_form_7/get_settings', [ $this, 'get_settings' ] );
 	}
 
 	/**
