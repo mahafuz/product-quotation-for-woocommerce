@@ -4,9 +4,7 @@ import {
 	getVariationID,
 	variationAlert,
 	viewQuotationCart,
-	makeRequest,
-	fireNotify
-} from '@Utils/helper';
+} from '@Utils/cart';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const $ = jQuery;

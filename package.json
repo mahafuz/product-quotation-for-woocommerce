@@ -1,10 +1,33 @@
 {
-	"name": "product-quotation-for-woocommerce",
+	"name": "quotify-product-quotation-for-woocommerce",
 	"version": "1.0.0",
 	"description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
 	"main": "index.js",
 	"scripts": {
+		"start:spa": "wp-scripts start --config webpack/webpack.spa.config.js",
+		"start:fresh:spa": "rm -rf assets/build/backend.*.* && npm run start:spa",
+
+		"start:frontend": "wp-scripts start --config webpack/webpack.frontend.config.js",
+		"start:fresh:frontend": "rm -rf assets/build/{button,cart,form}.*.* && npm run start:frontend",
+
+		"start:admin": "wp-scripts start --config webpack/webpack.admin.config.js",
+		"start:fresh:admin": "rm -rf assets/build/admin.*.* && npm run start:admin",
+
+		"build:spa": "wp-scripts build --config webpack/webpack.spa.config.js",
+		"build:fresh:spa": "rm -rf assets/build/backend.*.* && npm run build:spa",
+
+		"build:frontend": "wp-scripts build --config webpack/webpack.frontend.config.js",
+		"build:fresh:frontend": "rm -rf assets/build/{button,cart,form}.*.* && npm run build:frontend",
+
+		"build:admin": "wp-scripts build --config webpack/webpack.admin.config.js",
+		"build:fresh:admin": "rm -rf assets/build/admin.*.* && npm run build:admin",
+
+		"start": "wp-scripts start",
 		"build": "wp-scripts build",
+
+		"start:fresh": "rm -rf assets/build && npm run start",
+		"build:fresh": "rm -rf assets/build && npm run build && ls -la assets/build",
+
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
 		"format": "wp-scripts format",
@@ -14,7 +37,6 @@
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start",
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js"
 	},
@@ -22,9 +44,13 @@
 		"type": "git",
 		"url": "git+https://github.com/mahafuz/product-quotation-for-woocommerce.git"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": [
+		"quotation",
+		"product quotation",
+		"add to quote"
+	],
+	"author": "mahafuz<m.mahfuz.me@gmail.com>",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
 	},
@@ -57,6 +83,7 @@
 		"@reduxjs/toolkit": "^2.8.2",
 		"@wordpress/components": "^28.9.0",
 		"@wordpress/i18n": "^5.9.0",
+		"axios": "^1.13.4",
 		"react-data-table-component": "^7.7.0",
 		"react-icons": "^5.5.0",
 		"react-redux": "^9.2.0",

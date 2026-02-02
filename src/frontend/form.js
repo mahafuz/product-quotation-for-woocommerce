@@ -5,7 +5,7 @@
  * @package PQFW
  * @version 1.0.0
  */
-import { makeRequest } from '@Utils/helper';
+import { makeRequest } from '@Utils/http';
 
 jQuery(function ( $ ) {
 	$( document )

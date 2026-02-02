@@ -1,4 +1,4 @@
-import { makeRequest } from '@Utils/helper';
+import {makeRequest} from '@Utils/http';
 
 (function ($) {
 	'use strict';
@@ -13,15 +13,15 @@ import { makeRequest } from '@Utils/helper';
 			this.initialize();
 
 			$(document).on('click', '.pqfw-remove-product', function () {
-				var $hash = $(this).data('id');
+				const $hash = $(this).data('id');
 				pqfwCart.removeProduct($hash);
 			});
 
 			$(document).on('change', '.pqfw-quantity', function () {
 				const $new_quantity = $(this).val();
 
-				var hash   = $(this).data('hash');
-				var single = $(this).data('single');
+				const hash   = $(this).data('hash');
+				const single = $(this).data('single');
 
 				window.pqfwProducts[hash]['quantity'] = $new_quantity;
 
@@ -30,16 +30,16 @@ import { makeRequest } from '@Utils/helper';
 				);
 
 
-				var products = window.pqfwProducts;
+				const products = window.pqfwProducts;
 				pqfwCart.updateProduct(products);
 			});
 
 			$(document).on('change', '.pqfw-message > textarea', function () {
-				var new_message = $(this).val();
+				const new_message = $(this).val();
+				const hash = $(this).data('hash');
 
-				var hash = $(this).data('hash');
 				window.pqfwProducts[hash]['message'] = new_message;
-				var products = window.pqfwProducts;
+				const products = window.pqfwProducts;
 				pqfwCart.updateProduct(products);
 			});
 		},
@@ -64,7 +64,7 @@ import { makeRequest } from '@Utils/helper';
 					if (response.data?.success) {
 						pqfwCart.addToQuotationCart(button);
 					} else {
-						fireNotify(response?.data?.data?.message, 'error');
+						alert(response?.data?.data?.message, 'error');
 					}
 				});
 			}
@@ -139,7 +139,7 @@ import { makeRequest } from '@Utils/helper';
 			this.visibleForm( $cart_products );
 		},
 		removeProduct: function ($hash) {
-			pqfwCart.showLoader();
+			// pqfwCart.showLoader();
 
 			makeRequest({
 				action: 'pqfw_remove_product',
@@ -148,7 +148,7 @@ import { makeRequest } from '@Utils/helper';
 				if (response.data?.success) {
 					pqfwCart.dataLoaded(response);
 				} else {
-					fireNotify(response?.data?.data?.message, 'error');
+					// alert(response?.data?.data?.message, 'error');
 				}
 			});
 		},
@@ -167,7 +167,7 @@ import { makeRequest } from '@Utils/helper';
 				if (response.data?.success) {
 					pqfwCart.dataLoaded(response);
 				} else {
-					fireNotify(response?.data?.data?.message, 'error');
+					// alert(response?.data?.data?.message, 'error');
 				}
 			});
 		},
