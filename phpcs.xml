@@ -224,4 +224,8 @@
     <rule ref="Generic.Commenting.Todo"/>
 
     <config name="minimum_supported_wp_version" value="4.9"/>
+
+    <!-- PHP Compatibility - Check for PHP 7.4+ compatibility -->
+    <config name="testVersion" value="7.4-"/>
+    <rule ref="PHPCompatibilityWP"/>
 </ruleset>

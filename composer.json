@@ -1,0 +1,61 @@
+{
+	"name": "mahafuz/quotify-product-quotation-for-woocommerce",
+	"description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
+	"type": "wordpress-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mahafuz",
+			"email": "m.mahfuz.me@gmail.com"
+		}
+	],
+	"keywords": [
+		"quotation",
+		"product quotation",
+		"add to quote",
+		"woocommerce",
+		"wordpress"
+	],
+	"homepage": "https://github.com/mahafuz/product-quotation-for-woocommerce",
+	"support": {
+		"issues": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues",
+		"source": "https://github.com/mahafuz/product-quotation-for-woocommerce"
+	},
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"wp-phpunit/wp-phpunit": "^6.5",
+		"yoast/phpunit-polyfills": "^1.1",
+		"squizlabs/php_codesniffer": "^3.10",
+		"wp-coding-standards/wpcs": "^3.1",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"platform": {
+			"php": "7.4"
+		},
+		"bin-dir": "bin"
+	},
+	"scripts": {
+		"install-codestandards": [
+			"Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer::Install"
+		],
+		"lint": [
+			"@phpcs"
+		],
+		"lint:staged": [
+			"@phpcs --cache"
+		],
+		"phpcs": "phpcs --standard=phpcs.xml",
+		"phpcs:fix": "phpcbf --standard=phpcs.xml",
+		"phpcbf": "phpcbf --standard=phpcs.xml"
+	},
+	"extra": {
+		"wordpress-install-dir": "wordpress"
+	}
+}

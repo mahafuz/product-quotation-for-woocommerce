@@ -1,5 +1,12 @@
 node_modules
+vendor
 assets/build/
 .DS_Store
 .list-packages.json
 package-lock.json
+composer.lock
+
+# Keep bin directory for PhpStorm PHPCS integration
+!bin/
+bin/*.*
+!bin/.gitkeep
