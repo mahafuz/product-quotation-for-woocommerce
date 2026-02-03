@@ -78,7 +78,7 @@ class Hook {
 
 		return $skip_mail;
 	}
-	
+
 	/**
 	 * Change result based on the quotation submission.
 	 *

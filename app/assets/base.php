@@ -29,9 +29,11 @@ class Base {
 	 */
 	public function get_scripts_data() {
 		return [
-			'nonce'                  => wp_create_nonce( 'wp_rest' ),
-			'pqfw_nonce'             => wp_create_nonce( 'pqfw_nonce' ),
-			'cart_nonce'             => wp_create_nonce( 'pqfw_cart_actions' ),
+			'nonce'                  => [
+				'rest' => wp_create_nonce( 'wp_rest' ),
+				'ajax' => wp_create_nonce( 'quotify_ajax' ),
+				'cart' => wp_create_nonce( 'quotify_cart' ),
+			],
 			'rest_url'               => esc_url_raw( rest_url() ),
 			'namespace'              => QUOTIFY_PLUGIN_ROOT_URI . '/v1/',
 			'ajaxurl'                => esc_url( admin_url( 'admin-ajax.php' ) ),
@@ -174,21 +176,29 @@ class Base {
 		$site_url = site_url();
 		$args = [];
 
+		$base_data = [
+			'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+			'pages'             => Helper::getPages(),
+			'cart'              => [
+				'id'  => Helper::getCart(),
+				'url' => Helper::getCart( 'url' ),
+			],
+			'route_path'        => wp_parse_url( $site_url, PHP_URL_PATH ),
+			'current_permalink' => esc_url( get_permalink() ),
+		];
+
+		$scripts_data = $this->get_scripts_data();
+
+		// Merge nonce arrays to preserve nested structure
+		if ( isset( $scripts_data['nonce'] ) && is_array( $scripts_data['nonce'] ) ) {
+			$scripts_data['nonce']['frontend'] = wp_create_nonce( 'pqfw-frontend' );
+		}
+
 		return apply_filters(
 			'pqfw/assets/frontend_scripts_data',
 			array_merge(
-				[
-					'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-					'nonce'             => wp_create_nonce( 'pqfw-frontend' ),
-					'pages'             => Helper::getPages(),
-					'cart'              => [
-						'id'  => Helper::getCart(),
-						'url' => Helper::getCart( 'url' ),
-					],
-					'route_path'        => wp_parse_url( $site_url, PHP_URL_PATH ),
-					'current_permalink' => esc_url( get_permalink() ),
-				],
-				$this->get_scripts_data(),
+				$base_data,
+				$scripts_data,
 				$args
 			)
 		);

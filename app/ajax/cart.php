@@ -44,7 +44,9 @@ class Cart {
 	 * @since 1.0.0
 	 */
 	public function load() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		$products = quotify()->cart()->get_products();
 		$cart     = '';
@@ -66,7 +68,9 @@ class Cart {
 	 * @return void
 	 */
 	public function add_product() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		if ( isset( $_POST['productId'] ) && isset( $_POST['variationID'] ) ) {
 			$id        = absint( $_POST['productId'] );
@@ -95,7 +99,9 @@ class Cart {
 	 * @since 1.0.0
 	 */
 	public function remove_product() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		$hash     = sanitize_text_field( $_POST['hash'] );
 		$cart     = '';
@@ -118,7 +124,9 @@ class Cart {
 	 * @since 1.0.0
 	 */
 	public function update_product() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		$cart = '';
 		if ( is_string( $_POST['products'] ) ) {

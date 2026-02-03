@@ -3,7 +3,7 @@ import { route_path, useQuery } from '@Utils/helper';
 import './index.scss';
 
 const Navigation = ({ currentPath }) => {
-	const adminmenu = window.PqfwGlobal.menu;
+	const adminmenu = window.QUOTIFY_CONFIG.menu;
 	const query = useQuery();
 	const page = query.get('page');
 

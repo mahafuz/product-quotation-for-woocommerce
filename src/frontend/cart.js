@@ -1,4 +1,4 @@
-import {makeRequest} from '@Utils/http';
+import {makeRequest} from '@Utils/global';
 
 (function ($) {
 	'use strict';

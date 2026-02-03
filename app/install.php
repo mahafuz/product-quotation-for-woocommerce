@@ -97,7 +97,7 @@ class Install {
 	 * @return void
 	 */
 	private function define_tables() {
-		$this->migration()->run();	
+		$this->migration()->run();
 	}
 
 	/**

@@ -5,7 +5,7 @@
  * @package PQFW
  * @version 1.0.0
  */
-import { makeRequest } from '@Utils/http';
+import { makeRequest } from '@Utils/global';
 
 jQuery(function ( $ ) {
 	$( document )
@@ -99,7 +99,6 @@ jQuery(function ( $ ) {
 							action: 'quotify/ajax/quotation/submit',
 							data,
 						}).then(function(response) {
-							console.log('response', response);
 
 							if( response?.data?.success ) {
 								responseStatus.removeClass('error');

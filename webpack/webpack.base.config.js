@@ -2,6 +2,7 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
 
 const PRODUCT_QUOTATION_VERSION = '2.5.0';
+
 // Go up one level since this file is in webpack/ directory
 const rootPath = path.resolve(__dirname, '..');
 

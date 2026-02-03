@@ -1,3 +1,3 @@
 export default {
-    ...window?.PqfwGlobal
+    ...window?.QUOTIFY_CONFIG
 };

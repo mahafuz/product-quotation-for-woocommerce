@@ -1,11 +1,24 @@
+import axios from 'axios';
 import config from '@Utils/config';
 
-export function getNonce() {
-    return config.pqfw_nonce;
+export function getNonce(action_type) {
+    if ( 'ajax' === action_type ) {
+        return config?.nonce?.ajax;
+    }
+
+    if ( 'cart' === action_type ) {
+        return config?.nonce?.cart;
+    }
+
+    if ( 'rest' === action_type ) {
+        return config?.nonce?.rest;
+    }
+
+    return config?.nonce?.action_type;
 }
 
 export function getAjaxUrl() {
-    return config.ajaxurl;
+    return config?.ajaxurl;
 }
 
 export function getRestUrl() {
@@ -22,3 +35,34 @@ export const sliceString = (text, length = 20, more = '...') => {
     }
     return text.slice(0, length).replace(/(^[\s]+|[\s]+$)/g, '') + more;
 };
+
+export const makeRequest = async (payload = {}, isRaw = false) => {
+    let form_data = new FormData(); // eslint-disable-line
+    form_data.append('security', getNonce('ajax'));
+
+    Object.entries(payload).forEach(([key, value]) => {
+        if (!isRaw && typeof value === 'object' && value !== null) {
+            form_data.append(key, JSON.stringify(value));
+        } else {
+            form_data.append(key, value);
+        }
+    });
+
+    return await axios.post(config?.ajaxurl, form_data).then(
+        (response) => {
+            return response;
+        },
+        (error) => {
+            console.log(error); // eslint-disable-line
+        }
+    );
+};
+
+export const API = axios.create({
+    baseURL: getRestUrl(),
+    headers: {
+        'content-type': 'application/json',
+        'X-WP-Nonce': getNonce(),
+        'Cache-Control': 'no-cache', // Prevent caching
+    },
+});

@@ -79,7 +79,7 @@ class Addons {
 
 		wp_send_json_success([
 			'message'  => __( 'Addons has been updated.', 'quotify' ),
-			'settings' => quotify()->addons()->get()
+			'settings' => quotify()->addons()->get(),
 		]);
 	}
 }

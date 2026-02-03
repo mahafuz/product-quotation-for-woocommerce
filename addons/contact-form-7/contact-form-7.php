@@ -33,5 +33,4 @@ class Contact_Form_7 {
 		$self->hooks    = new \QuotifyContact_Form_7\Hook();
 		$self->ajax     = new \QuotifyContact_Form_7\Ajax();
 	}
-
 }

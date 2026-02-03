@@ -12,4 +12,7 @@ module.exports = {
 		cart: path.resolve(rootPath, 'src/frontend/cart.js'),
 		form: path.resolve(rootPath, 'src/frontend/form.js'),
 	},
+	externals: {
+		'@wordpress/i18n': 'wp.i18n',
+	},
 };

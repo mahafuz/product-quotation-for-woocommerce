@@ -2,66 +2,51 @@ const $ = jQuery || window?.jQuery;
 import config from '@Utils/config';
 
 export function getCartUrl() {
-    return config.cart.url;
+	return config?.cart?.url;
 }
 
 export function variationAlert() {
-    if (
-        (jQuery('.variation_id').length > 0 &&
-            jQuery('.variation_id').val() == '') ||
-        jQuery('.variation_id').val() === 0
-    ) {
-        alert('Variation not selected');
-        return false;
-    }
-    return true;
-};
+	const $variation = $('.variation_id');
+
+	if ($variation.length && (!$variation.val() || $variation.val() === '0')) {
+		alert('Variation not selected');
+		return false;
+	}
+	return true;
+}
 
 export const viewQuotationCart = (button) => {
-    const url = getCartUrl();
-    const btnLabel = 'View Quotation Cart';
+	const url = getCartUrl();
 
-    if (url != false) {
-        $('.pqfw-view-quotation-cart').remove();
-        $(button).after(
-            '<a class="pqfw-view-quotation-cart"  href="' +
-            url +
-            '">' +
-            btnLabel +
-            '</a>'
-        );
-    }
+	if (url) {
+		$('.pqfw-view-quotation-cart').remove();
+		const link = document.createElement('a');
+		link.className = 'pqfw-view-quotation-cart';
+		link.href = url;
+		link.textContent = 'View Quotation Cart';
+		$(button).after(link);
+	}
 };
 
 export function getVariationDetails() {
-    const variation = $(
-            "form.variations_form input[name='variation_id']"
-        ).val(),
-        details = {};
+	const variation = $("form.variations_form input[name='variation_id']").val();
+	const details = {};
 
-    if (typeof variation != 'undefined' && variation != 0) {
-        jQuery('select[name^=attribute_]').each(function (ind, obj) {
-            details[jQuery(this).attr('name')] = jQuery(this).val();
-        });
-    }
+	if (variation) {
+		$('select[name^=attribute_]').each(function () {
+			details[this.name] = this.value;
+		});
+	}
 
-    if (jQuery.isEmptyObject(details)) {
-        return 0;
-    }
-
-    return details;
-};
+	return Object.keys(details).length ? details : 0;
+}
 
 export function getVariationID() {
-    const variation = jQuery(
-        "form.variations_form input[name='variation_id']"
-    ).val();
-    return typeof variation != 'undefined' && variation != 0
-        ? parseInt(variation)
-        : 0;
-};
+	const variation = $("form.variations_form input[name='variation_id']").val();
+	return variation ? parseInt(variation, 10) : 0;
+}
 
 export function getQuantity() {
-    const quantity = jQuery('form.cart input[name="quantity"]').val();
-    return typeof quantity != 'undefined' ? quantity : 1;
-};
+	const quantity = $('form.cart input[name="quantity"]').val();
+	return parseInt(quantity, 10) || 1;
+}
