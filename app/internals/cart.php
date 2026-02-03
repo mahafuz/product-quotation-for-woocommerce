@@ -3,7 +3,7 @@
  * Contains related class of cart functionalities.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Internals;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Responsible for handling the plugin cart.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Cart {
 	/**

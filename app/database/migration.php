@@ -3,7 +3,7 @@
  * Responsible for running the plugin migration.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Database;
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Plugin database migration.
  *
- * @package PQFW
+ * @package Quotify
  * @since   1.0.0
  */
 class Migration {

@@ -3,7 +3,7 @@
  * Contains the methods related to managing controls.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Forms;
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Control Manager of form fields
  *
- * @package PQFW
+ * @package Quotify
  * @since   1.0.0
  */
 class Controls {

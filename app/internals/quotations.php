@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Product model for quotation system.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Quotations {
 	/**

@@ -3,20 +3,19 @@
  * Responsible for managing the plugin base scripts.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Library;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Responsible for managing the plugin base scripts.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Session {
 	/**

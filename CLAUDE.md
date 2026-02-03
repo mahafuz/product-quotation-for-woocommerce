@@ -22,26 +22,63 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+### Build Commands
 ```bash
 # From wordpress/wp-content/plugins/quotify/
 
-# Build assets for production
+# Build all assets for production
 npm run build
 
-# Development build with file watching
-npm run start
+# Development builds with file watching
+npm run start                    # Main build (SPA + Frontend + Admin)
+npm run start:spa               # Admin dashboard only
+npm run start:frontend          # Frontend components only
+npm run start:admin             # Admin utilities only
 
+# Fresh builds (clean build directory first)
+npm run start:fresh             # Clean all builds
+npm run start:fresh:spa        # Clean SPA build only
+npm run start:fresh:frontend    # Clean frontend builds only
+npm run start:fresh:admin      # Clean admin builds only
+
+# Production builds
+npm run build                   # Main production build
+npm run build:spa              # SPA production build
+npm run build:frontend         # Frontend production builds
+npm run build:admin            # Admin production build
+npm run build:fresh           # Clean all production builds
+```
+
+### Code Quality
+```bash
 # Linting
 npm run lint:js       # JavaScript linting
 npm run lint:css      # CSS/SCSS linting
-npm run format        # Format code with Prettier
+npm run lint:md:docs  # Markdown documentation linting
+npm run lint:pkg-json # Package.json linting
 
-# Testing
+# PHP Code Quality (requires Composer dependencies)
+composer lint              # Run PHP CodeSniffer
+composer lint:staged       # Run CodeSniffer with cache for staged files
+composer phpcs             # Run CodeSniffer directly
+composer phpcbf            # Fix CodeSniffer auto-fixable issues
+
+# Formatting
+npm run format              # Format code with Prettier
+```
+
+### Testing
+```bash
 npm run test:unit     # Run unit tests
 npm run test:e2e      # Run end-to-end tests
+```
 
-# Create plugin distribution ZIP
-npm run plugin-zip
+### Other Commands
+```bash
+npm run plugin-zip   # Create plugin distribution ZIP
+npm run check-engines  # Check Node.js engines compatibility
+npm run check-licenses # Check license compliance
+npm run packages-update # Update WordPress packages
 ```
 
 **Docker Environment:**
@@ -173,11 +210,21 @@ The main `Quotify` class initializes all modules in `loader()` method. Each modu
 - Types in `src/redux/types/*.js`
 
 **6. Webpack Build Configuration**
-Entry points defined in `webpack.config.js`:
-- `dashboard.js` → `backend.{version}.js` (Admin dashboard)
-- `button.js` → `button.{version}.js` (Add to Quote button)
-- `cart.js` → `cart.{version}.js` (Frontend cart)
-- `form.js` → `form.{version}.js` (Quotation form)
+The project uses multiple webpack configurations for different parts of the application:
+
+**Main Configuration** (`webpack.config.js`):
+- `backend` → `backend.{version}.js` (Admin dashboard SPA)
+- `button` → `button.{version}.js` (Add to Quote button)
+- `cart` → `cart.{version}.js` (Frontend cart)
+- `form` → `form.{version}.js` (Quotation form)
+- `admin` → `admin.{version}.js` (Admin utilities)
+
+Note: The file `src/common/quotify-admin-common.js` is referenced in webpack config but appears to be deleted. The actual admin utilities are likely included in the React components.
+
+**Separate Configurations**:
+- `webpack/webpack.spa.config.js` - Admin dashboard only
+- `webpack/webpack.frontend.config.js` - Frontend components only
+- `webpack/webpack.admin.config.js` - Admin utilities only
 
 Path aliases configured:
 - `@src` → `src/`
@@ -187,6 +234,8 @@ Path aliases configured:
 - `@Utils` → `src/utils/`
 - `@Assets` → `src/assets/`
 - `@Redux` → `src/redux/`
+- `@Images` → `src/images/`
+- `@Scss` → `src/scss/`
 
 ## Important Files
 
@@ -198,12 +247,23 @@ Path aliases configured:
 - `src/dashboard.js` - React admin dashboard entry point
 - `src/redux/store.js` - Redux store configuration
 
-## Custom Post Types
+## Data Storage
 
+### Custom Post Types
 The plugin uses WordPress custom post types:
 - `quotify_quotation` - Stores quotation requests
 - Accessed via `Quotify\Internals\Quotations` class
 - Custom meta fields for quotation data
+
+### Session Management
+- Quote cart stored in WordPress session (`pqfw_products_quotations_list`)
+- Uses WordPress options table for persistence
+- Session-based with database fallback for logged-in users
+
+### Database Migration System
+- Migration system in `app/database/migration.php`
+- Handles database schema updates
+- Version-controlled migrations
 
 ## Adding New Features
 
@@ -232,6 +292,43 @@ The plugin uses WordPress custom post types:
 - **ABSPATH Check**: All PHP files must have `defined('ABSPATH') || exit;`
 - **File Naming**: Use lowercase with hyphens for PHP files
 - **Component Organization**: Separate presentational components (components/) from connected containers (containers/)
+
+## PHP Development
+
+The project uses PHP CodeSniffer with WordPress coding standards:
+
+**Setup**:
+```bash
+composer install          # Install dependencies including code quality tools
+composer install-codestandards  # Install PHPCS standards
+```
+
+**Quality Checks**:
+```bash
+composer lint              # Run PHP CodeSniffer
+composer lint:staged       # Run on staged files (optimized for Git)
+composer phpcs             # Direct CodeSniffer execution
+composer phpcbf            # Auto-fix issues
+```
+
+**Standards Configuration**:
+- Uses WordPress-Extra standard with custom rules in `phpcs.xml`
+- PHP 7.4+ compatibility enforced
+- Custom escaping rules for WordPress functions
+- 200-character line limit enforced
+- Excludes build directories and vendor files
+
+## Testing
+
+**JavaScript Testing**:
+- Unit tests: `npm run test:unit`
+- End-to-end tests: `npm run test:e2e`
+- Uses @wordpress/scripts test runner
+
+**PHP Testing**:
+- PHPUnit configured via composer.json
+- WordPress testing libraries included in dependencies
+- Tests would run from the WordPress test environment
 
 ## Testing Email
 

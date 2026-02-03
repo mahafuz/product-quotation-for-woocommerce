@@ -8,9 +8,8 @@
 
 namespace Quotify\Internals;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 use Quotify\Autoload;
 

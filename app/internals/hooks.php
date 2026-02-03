@@ -10,9 +10,8 @@
 
 namespace Quotify\Internals;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 use Quotify\Library\Helper;
 

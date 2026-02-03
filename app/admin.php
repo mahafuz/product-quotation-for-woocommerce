@@ -3,7 +3,7 @@
  * Admin class
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Admin class
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Admin {
 

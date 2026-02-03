@@ -3,7 +3,7 @@
  * Implements features of FREE version of the Product Quotation for WooCommerce plugin.
  *
  * @since   1.2.6
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Internals;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Implements features of FREE version
  *
  * @since   1.2.6
- * @package PQFW
+ * @package Quotify
  */
 class Frontend {
 	/**

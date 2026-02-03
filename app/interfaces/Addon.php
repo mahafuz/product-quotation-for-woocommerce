@@ -7,7 +7,7 @@
  * enforces a modular architecture with clear separation of concerns.
  *
  * @since 1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace PQFW\Utils\Interfaces;

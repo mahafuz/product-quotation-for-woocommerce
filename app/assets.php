@@ -3,7 +3,7 @@
  * Admin class
  *
  * @since   2.0.3
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify;
@@ -17,7 +17,7 @@ use Quotify\Assets\Base;
  * Admin class
  *
  * @since   2.0.3
- * @package PQFW
+ * @package Quotify
  */
 class Assets extends Base {
 	/**

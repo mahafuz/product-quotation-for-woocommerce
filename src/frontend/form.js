@@ -2,7 +2,7 @@
  * PQFW frontend JS.
  *
  * @author Mahafuz
- * @package PQFW
+ * @package Quotify
  * @version 1.0.0
  */
 import { makeRequest } from '@Utils/global';

@@ -3,7 +3,7 @@
  * Contains the plugin helper methods.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Library;
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * Contains the plugin helper methods.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Helper {
 

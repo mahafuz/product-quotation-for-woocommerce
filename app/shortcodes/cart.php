@@ -3,7 +3,7 @@
  * Responsible for registering shortcode.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Shortcodes;

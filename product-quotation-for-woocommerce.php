@@ -7,10 +7,10 @@
  * Requires Plugins: woocommerce
  * Author: Mahafuz <m.mahfuz.me@gmail.com>
  * Author URI: https://github.com/mahafuz/
- * Text Domain: pqfw
+ * Text Domain: quotify
  * Domain Path: /languages
  *
- * @package PQFW
+ * @package Quotify
  */
 
 // if direct access than exit the file.

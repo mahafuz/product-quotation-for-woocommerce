@@ -8,9 +8,8 @@
 
 namespace Quotify;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Responsible for plugin installation.

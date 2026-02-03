@@ -8,9 +8,8 @@
 
 namespace Quotify;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 
 /**

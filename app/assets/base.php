@@ -3,7 +3,7 @@
  * Responsible for managing the plugin base scripts.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Assets;
@@ -18,7 +18,7 @@ use Quotify\Library\Menu;
  * Responsible for managing the plugin base scripts.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Base {
 

@@ -3,7 +3,7 @@
  * Product model for quotation system with contact form integration capabilities.
  *
  * @since      1.2.0
- * @package    PQFW
+ * @package    Quotify
  * @subpackage Models
  */
 
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  * Product model for quotation system.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Product {
 	/**

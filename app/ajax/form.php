@@ -3,7 +3,7 @@
  * Responsible for handling submission of the frontend form.
  *
  * @since 1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Ajax;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Form Handler class.
  *
  * @since   1.0.0
- * @package PQFW
+ * @package Quotify
  */
 class Form {
 

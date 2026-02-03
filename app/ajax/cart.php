@@ -3,7 +3,7 @@
  * Responsible for handling Ajax requests.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Ajax;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Registers Ajax requests.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
 class Cart {
 

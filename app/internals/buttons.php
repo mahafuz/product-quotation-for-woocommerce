@@ -3,7 +3,7 @@
  * This class responsible for handling the frontend form.
  *
  * @since 1.0.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Internals;
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Manages the quotation form frontend.
  *
- * @package PQFW
+ * @package Quotify
  * @since   1.0.0
  */
 class Buttons {

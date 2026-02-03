@@ -6,9 +6,8 @@
  * @package Quotify
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 ?>
 <form id="pqfw-frontend-form">
 	<ul class="pqfw-frontend-form">

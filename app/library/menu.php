@@ -3,14 +3,13 @@
  * Responsible for handling the plugin menus.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Library;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Responsible for managing plugin menu.

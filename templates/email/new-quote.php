@@ -6,9 +6,8 @@
  * @package Quotify
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 ?>
 <!DOCTYPE html>
 <html lang="en">

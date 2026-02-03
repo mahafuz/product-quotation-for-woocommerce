@@ -3,7 +3,7 @@
  * Responsible for handling the plugin settings.
  *
  * @since 1.2.0
- * @package PQFW
+ * @package Quotify
  */
 
 namespace Quotify\Library;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Manages the options form dashboard.
  *
  * @author      Mahafuz
- * @package     PQFW
+ * @package     Quotify
  * @since       1.0.0
  */
 class Settings {
