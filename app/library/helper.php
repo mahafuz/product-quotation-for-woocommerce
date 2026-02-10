@@ -410,7 +410,7 @@ class Helper {
 		ob_start();
 		?>
 			<div class="pqfw-initial-preloader">
-				<img src="<?php echo esc_url( QUOTIFY_PLUGIN_ASSETS_URI . 'images/preloader.apng' ); ?>" alt="product-quotation-for-woocommerce">
+				<img src="<?php echo esc_url( QUOTIFY_PLUGIN_ASSETS_URI . 'images/spinner.gif' ); ?>" alt="product-quotation-for-woocommerce">
 			</div>
 		<?php
 		return ob_get_clean();
