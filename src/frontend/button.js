@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const button = $(this);
 				const productId = button.data('id');
 				const loader = button.children('.loading-spinner');
+				loader.addClass('loading');
 
 				makeRequest({
 					action: 'quotify/ajax/cart/add_product',
@@ -46,11 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
 						quantity: getQuantity(),
 					},
 				}).then((response) => {
-					loader.removeClass('loading');
-
 					if (response.data?.success) {
 						const btnLabel = __('View Quotation Cart', 'quotify');
 						viewQuotationCart(button, btnLabel);
+						loader.removeClass('loading');
 					} else {
 						alert(response?.data?.message, 'error');
 					}

@@ -25,6 +25,10 @@ if ( ! defined( 'QUOTIFY_PLUGIN_FILE' ) ) {
 	define( 'QUOTIFY_PLUGIN_FILE', __FILE__ );
 }
 
+if ( ! defined( 'QUOTIFY_PLUGIN_BASENAME' ) ) {
+	define( 'QUOTIFY_PLUGIN_BASENAME', plugin_basename( QUOTIFY_PLUGIN_FILE ) );
+}
+
 if ( ! defined( 'QUOTIFY_PLUGIN_ROOT_PATH' ) ) {
 	define( 'QUOTIFY_PLUGIN_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 }

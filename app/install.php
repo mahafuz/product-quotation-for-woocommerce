@@ -26,13 +26,6 @@ class Install {
 	private static $instance;
 
 	/**
-	 * Class instance.
-	 *
-	 * @var Quotify\Migration
-	 */
-	private $migration;
-
-	/**
 	 * Runs before load the plugin.
 	 *
 	 * @since 1.0.0
@@ -53,7 +46,7 @@ class Install {
 	 * @return void
 	 */
 	private function __construct() {
-		add_action( 'plugin_action_links_' . PQFW_PLUGIN_BASENAME, [ $this, 'addPluginActionLinks' ] );
+		add_action( 'plugin_action_links_' . QUOTIFY_PLUGIN_BASENAME, [ $this, 'add_plugin_links' ] );
 		add_action( 'admin_init', [ $this, 'redirect' ] );
 		add_option( '_pqfw_activation_redirect', true );
 
@@ -66,8 +59,8 @@ class Install {
 	 *
 	 * @return \Quotify\Database
 	 */
-	public function migration() {
-		return \Quotify\Database::init();
+	private function migration() {
+		return new \Quotify\Database\Migration();
 	}
 
 	/**
@@ -77,7 +70,7 @@ class Install {
 	 * @return void
 	 */
 	public function activate() {
-		$this->define_tables();
+		$this->migration();
 	}
 
 	/**
@@ -87,16 +80,6 @@ class Install {
 	 * @return void
 	 */
 	public function deactivate() {
-		$this->define_tables();
-	}
-
-	/**
-	 * define_tables
-	 *
-	 * @return void
-	 */
-	private function define_tables() {
-		$this->migration()->run();
 	}
 
 	/**
@@ -106,7 +89,7 @@ class Install {
 	 * @param  array $links The links array.
 	 * @return array The actions link.
 	 */
-	public function addPluginActionLinks( $links ) {
+	public function add_plugin_links( $links ) {
 		$settings = '<a href="' . admin_url( 'admin.php?page=quotify-settings' ) . '">' . esc_html__( 'Settings', 'quotify' ) . '</a>';
 
 		$help = sprintf(
@@ -137,3 +120,5 @@ class Install {
 		}
 	}
 }
+
+Install::init();

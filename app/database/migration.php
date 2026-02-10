@@ -3,32 +3,27 @@
  * Responsible for running the plugin migration.
  *
  * @since   1.0.0
- * @package Quotify
  */
-
 namespace Quotify\Database;
 
 // if direct access than exit the file.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Plugin database migration.
- *
- * @package Quotify
- * @since   1.0.0
- */
-class Migration {
+final class Migration {
+
+	public function __clone() {
+		throw new \Exception( 'Cannot clone class Quotify\Database\Migration' );
+	}
 
 	/**
 	 * Responsible for running the migration process.
 	 *
-	 * @access  protected
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function run() {
-		$this->createCartPage();
-		$this->setGlobal();
+	public function __construct() {
+		$this->create_pages();
+		$this->set_globals();
 	}
 
 	/**
@@ -36,8 +31,7 @@ class Migration {
 	 *
 	 * @return void
 	 */
-	private function setGlobal() {
-		add_option( PQFW_ADDONS_SETTINGS_KEY, '{}' );
+	private function set_globals() {
 	}
 
 
@@ -46,7 +40,7 @@ class Migration {
 	 *
 	 * @since 1.0.0
 	 */
-	private function createCartPage() {
+	private function create_pages() {
 		$page_saved = get_option( 'pqfw_quotations_cart', 0 );
 
 		if ( 0 === $page_saved || '' === $page_saved ) {

@@ -115,32 +115,39 @@ final class Quotify {
 	 * @since 1.2.0
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', [ $this, 'on_plugin_loaded' ] );
-		add_action( 'quotify_plugins_loaded', [ $this, 'init_plugin' ] );
+		add_action( 'load_text_domain', [ $this, 'load_textdomain' ] );
+		add_action( 'wp_loaded', [ $this, 'loader' ] );
 	}
 
+	/**
+	 * Load Plugin Textdomain.
+	 *
+	 * @since 1.2.0
+	 * @return void
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'quotify', false, QUOTIFY_PLUGIN_ROOT_PATH . '/languages' );
+	}
+
+	/**
+	 * Runs on the plugin loads.
+	 *
+	 * @return void
+	 */
 	public function on_plugin_loaded() {
 		do_action( 'quotify_plugins_loaded' );
-	}
-
-	public function init_plugin() {
-		$this->define_constants();
-		$this->loader();
 	}
 
 	/**
 	 * Including the new files with PHP 5.3 style.
 	 *
 	 * @since 1.2.0
-	 *
 	 * @return void
 	 */
 	private function define_constants() {
 		define( 'QUOTIFY_ABSPATH', dirname( QUOTIFY_PLUGIN_FILE ) . '/' );
-		define( 'QUOTIFY_PLUGIN_BASENAME', plugin_basename( QUOTIFY_PLUGIN_FILE ) );
 		define( 'QUOTIFY_PLUGIN_VERSION', $this->version );
 
-		define( 'QUOTIFY_PLUGIN_NAME', __( 'Products Quotation For WooCommerce', 'quotify' ) );
 		define( 'QUOTIFY_PLUGIN_SLUG', 'quotify' );
 
 		define( 'QUOTIFY_PLUGIN_ROOT_URI', plugins_url( '/', QUOTIFY_PLUGIN_FILE ) );
@@ -161,7 +168,8 @@ final class Quotify {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	private function loader() {
+	public function loader() {
+		$this->define_constants();
 		$this->sessions();
 		$this->admin();
 		$this->menu();
