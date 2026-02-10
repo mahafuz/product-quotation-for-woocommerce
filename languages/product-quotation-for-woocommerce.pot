@@ -1,0 +1,864 @@
+# Copyright (C) 2026 Products Quotation For WooCommerce
+# This file is distributed under the MIT license.
+msgid ""
+msgstr ""
+"Project-Id-Version: Products Quotation For WooCommerce 2.5.0\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugins/product-quotation-for-woocommerce\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"POT-Creation-Date: 2026-02-10T06:03:58.914Z\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mahafuz <m.mahfuz.me@gmail.com> <m.mahfuz.me@gmail.com>\n"
+"Language-Team: Mahafuz <m.mahfuz.me@gmail.com> <m.mahfuz.me@gmail.com>\n"
+"X-Generator: @wp-blocks/make-pot 1.6.3\n"
+"Language: en\n"
+"X-Domain: quotify\n"
+
+#: product-quotation-for-woocommerce.php
+#: app/quotify.php:164
+#. Name of the plugin
+msgid "Products Quotation For WooCommerce"
+msgstr ""
+
+#: product-quotation-for-woocommerce.php
+#. Url of the plugin
+msgid "https://github.com/mahafuz/product-quotation-for-woocommerce"
+msgstr ""
+
+#: product-quotation-for-woocommerce.php
+#. Description of the plugin
+msgid ""
+"Removes the 'Add to cart' button from WooCommerce and adds a simple "
+"'Request for quotation' form on all product pages instead of it."
+msgstr ""
+
+#: product-quotation-for-woocommerce.php
+#. Author of the plugin
+msgid "Mahafuz <m.mahfuz.me@gmail.com>"
+msgstr ""
+
+#: product-quotation-for-woocommerce.php
+#. Author URI of the plugin
+msgid "https://github.com/mahafuz/"
+msgstr ""
+
+#: templates/quotation-products-detail.php:16
+msgid "Image"
+msgstr ""
+
+#: templates/quotation-products-detail.php:17
+#: templates/pqfw-cart-shortcode.php:20
+#: app/internals/cart.php:362
+msgid "Product"
+msgstr ""
+
+#: templates/quotation-products-detail.php:18
+#: templates/pqfw-cart-shortcode.php:22
+#: app/internals/cart.php:368
+msgid "Price"
+msgstr ""
+
+#: templates/quotation-products-detail.php:19
+#: templates/pqfw-cart-shortcode.php:24
+#: app/internals/cart.php:371
+msgid "Quantity"
+msgstr ""
+
+#: templates/quotation-products-detail.php:20
+#: templates/quotation-detail.php:21
+#: templates/pqfw-cart-shortcode.php:27
+#: app/internals/cart.php:389
+msgid "Message"
+msgstr ""
+
+#: templates/quotation-detail.php:15
+msgid "Name"
+msgstr ""
+
+#: templates/quotation-detail.php:16
+#: src/components/Settings/index.js:144
+msgid "Email"
+msgstr ""
+
+#: templates/quotation-detail.php:19
+msgid "Phone"
+msgstr ""
+
+#: templates/quotation-detail.php:20
+msgid "Subject"
+msgstr ""
+
+#: app/install.php:110
+#: app/library/menu.php:74
+#: src/components/Settings/index.js:83
+msgid "Settings"
+msgstr ""
+
+#: app/install.php:115
+#: app/library/menu.php:94
+#: src/containers/Help/index.js:21
+msgid "Help"
+msgstr ""
+
+#: app/admin.php:79
+msgid "Give us a 5-star rating!"
+msgstr ""
+
+#: app/admin.php:96
+msgid "Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!"
+msgstr ""
+
+#: app/admin.php:115
+#: app/library/menu.php:160
+msgid "Quotations"
+msgstr ""
+
+#: app/admin.php:116
+#: app/admin.php:117
+msgid "Quotation"
+msgstr ""
+
+#: app/admin.php:142
+msgid "Approved"
+msgstr ""
+
+#: templates/form/default.php:38
+msgid "Submit Query"
+msgstr ""
+
+#: src/frontend/button.js:52
+msgid "View Quotation Cart"
+msgstr ""
+
+#: app/library/settings.php:98
+msgid "Add to Quote"
+msgstr ""
+
+#: app/library/settings.php:104
+msgid "I have read and agree to the website terms and conditions."
+msgstr ""
+
+#: app/library/settings.php:105
+msgid ""
+"Your personal data will be used to process your request, support your "
+"experience throughout this website, and for other purposes described in our "
+" [privacy_policy]."
+msgstr ""
+
+#: app/library/settings.php:127
+msgid "Unauthorized Action"
+msgstr ""
+
+#: app/library/settings.php:135
+msgid "Invalid Settings."
+msgstr ""
+
+#: app/library/settings.php:151
+msgid "Settings has been updated."
+msgstr ""
+
+#: app/library/menu.php:68
+#: src/containers/Quotations/index.js:313
+msgid "Dashboard"
+msgstr ""
+
+#: app/library/menu.php:80
+msgid "Add-ons"
+msgstr ""
+
+#: app/library/helper.php:64
+msgid "is required."
+msgstr ""
+
+#: app/library/helper.php:73
+msgid "Username too short. At least 4 characters is required"
+msgstr ""
+
+#: app/library/helper.php:77
+msgid "Sorry, the username you entered is not valid"
+msgstr ""
+
+#: app/library/helper.php:81
+msgid "Email is not valid"
+msgstr ""
+
+#: app/library/helper.php:120
+msgid "Select page for Quotations cart"
+msgstr ""
+
+#: app/library/helper.php:275
+msgid "Illegal operation"
+msgstr ""
+
+#: app/library/helper.php:380
+msgid ""
+"<strong>Product Quotation For WooCommerce</strong> requires "
+"<strong>WooCommerce</strong> plugin to be active. Please activate "
+"WooCommerce to continue."
+msgstr ""
+
+#: app/library/helper.php:383
+msgid "Activate WooCommerce"
+msgstr ""
+
+#: app/library/helper.php:390
+msgid ""
+"<strong>Product Quotation For WooCommerce</strong> requires "
+"<strong>WooCommerce</strong> plugin to be installed and activated. Please "
+"install WooCommerce to continue."
+msgstr ""
+
+#: app/library/helper.php:394
+msgid "Install WooCommerce"
+msgstr ""
+
+#: app/internals/quotations.php:200
+msgid "Untitled"
+msgstr ""
+
+#: app/internals/cart.php:342
+msgid "There are no product added in the Quotations Cart"
+msgstr ""
+
+#: app/forms/controls.php:93
+msgid "Full Name:"
+msgstr ""
+
+#: app/forms/controls.php:100
+msgid "Email:"
+msgstr ""
+
+#: app/forms/controls.php:107
+msgid "Subject:"
+msgstr ""
+
+#: app/forms/controls.php:114
+msgid "Phone:"
+msgstr ""
+
+#: app/forms/controls.php:120
+msgid "Comments:"
+msgstr ""
+
+#: app/database/migration.php:54
+msgid "Quotations Cart"
+msgstr ""
+
+#: app/assets/base.php:77
+msgid "Thumbnail"
+msgstr ""
+
+#: app/assets/base.php:78
+msgid "Medium"
+msgstr ""
+
+#: app/assets/base.php:79
+msgid "Large"
+msgstr ""
+
+#: app/assets/base.php:80
+msgid "Full Size"
+msgstr ""
+
+#: app/assets/base.php:92
+msgid "Start writing or type / to choose a block"
+msgstr ""
+
+#: app/assets/base.php:102
+msgid "Add title"
+msgstr ""
+
+#: app/ajax/settings.php:45
+msgid "Invalid Page ID."
+msgstr ""
+
+#: app/ajax/settings.php:63
+msgid "Fetched settings successfully"
+msgstr ""
+
+#: app/ajax/settings.php:79
+msgid "Addon settings updated."
+msgstr ""
+
+#: app/ajax/quotations.php:43
+#: app/ajax/quotations.php:73
+msgid "You do not have permission to view quotations."
+msgstr ""
+
+#: app/ajax/quotations.php:81
+#: app/ajax/quotations.php:90
+#: app/ajax/quotations.php:137
+#: app/ajax/quotations.php:172
+msgid "Quotation not found."
+msgstr ""
+
+#: app/ajax/quotations.php:114
+msgid "Quotation fetched successfully."
+msgstr ""
+
+#: app/ajax/quotations.php:128
+#: app/ajax/quotations.php:166
+msgid "You do not have permission to delete quotation."
+msgstr ""
+
+#: app/ajax/quotations.php:144
+msgid "Quotation permanently deleted!"
+msgstr ""
+
+#: app/ajax/quotations.php:151
+#: app/ajax/quotations.php:178
+msgid "Quotation Moved to Trash!"
+msgstr ""
+
+#: app/ajax/form.php:44
+msgid "Something wen\\'t wrong"
+msgstr ""
+
+#: app/ajax/form.php:82
+msgid "Your quotation is successfully submitted."
+msgstr ""
+
+#: app/ajax/form.php:84
+msgid "Something went wrong"
+msgstr ""
+
+#: app/ajax/cart.php:48
+#: app/ajax/cart.php:72
+#: app/ajax/cart.php:103
+#: app/ajax/cart.php:128
+msgid "Security check failed!"
+msgstr ""
+
+# %d product id
+#: app/ajax/cart.php:87
+msgid "%d Product Successfully added."
+msgstr ""
+
+#: app/ajax/cart.php:91
+msgid "Invalid product data to add to quote."
+msgstr ""
+
+#: app/ajax/addons.php:68
+msgid "Addon Name missing"
+msgstr ""
+
+#: app/ajax/addons.php:80
+msgid "Addons has been updated."
+msgstr ""
+
+#: addons/contact-form-7/hook.php:91
+#: addons/contact-form-7/hook.php:145
+#: addons/contact-form-7/hook.php:211
+msgid "Quotation submitted successfully."
+msgstr ""
+
+#: addons/contact-form-7/hook.php:132
+#: addons/contact-form-7/hook.php:205
+msgid "Something went wrong while sending your quotation."
+msgstr ""
+
+#: addons/contact-form-7/hook.php:195
+msgid "Invalid data to save as quotation."
+msgstr ""
+
+#: addons/contact-form-7/ajax.php:46
+msgid "--Select--"
+msgstr ""
+
+#: addons/contact-form-7/ajax.php:68
+#: addons/contact-form-7/ajax.php:92
+msgid "Invalid operation"
+msgstr ""
+
+#: addons/contact-form-7/ajax.php:77
+msgid "Settings updated."
+msgstr ""
+
+#: addons/contact-form-7/ajax.php:99
+msgid "Settings fetched."
+msgstr ""
+
+#: src/containers/ViewQuotation/index.js:40
+msgid "Quote Details"
+msgstr ""
+
+#: src/containers/Quotations/index.js:21
+msgid "All"
+msgstr ""
+
+#: src/containers/Quotations/index.js:25
+msgid "Pending"
+msgstr ""
+
+#: src/containers/Quotations/index.js:29
+msgid "Trash"
+msgstr ""
+
+#: src/containers/Quotations/index.js:75
+msgid "Are you sure you want to permanently delete selected quotes?"
+msgstr ""
+
+#: src/containers/Quotations/index.js:150
+msgid "Move to Trash"
+msgstr ""
+
+#: src/containers/Quotations/index.js:156
+msgid "Restore"
+msgstr ""
+
+#: src/containers/Quotations/index.js:159
+msgid "Delete Permanently"
+msgstr ""
+
+#: src/containers/Quotations/index.js:199
+msgid "Are you sure you want to permanently delete selected courses?"
+msgstr ""
+
+#: src/containers/Quotations/index.js:203
+msgid "Are you sure you want to move to trash?"
+msgstr ""
+
+#: src/containers/Quotations/index.js:217
+msgid "Title"
+msgstr ""
+
+#: src/containers/Quotations/index.js:243
+msgid "Author"
+msgstr ""
+
+#: src/containers/Quotations/index.js:248
+msgid "Date"
+msgstr ""
+
+#: src/containers/Quotations/index.js:253
+msgid "Status"
+msgstr ""
+
+#: src/containers/Quotations/index.js:258
+msgid "Action"
+msgstr ""
+
+#: src/containers/Help/index.js:35
+msgid "Need help with Product Quotation for WooCommerce?"
+msgstr ""
+
+#: src/containers/Help/index.js:41
+msgid ""
+"Welcome to the help center for Product Quotation for WooCommerce. Here you "
+"can find everything you need to get started, troubleshoot issues, and make "
+"the most out of this plugin. Whether you are looking for documentation, "
+"need direct support, want to report a bug, or simply share your feedback ? "
+"this page is your one-stop hub."
+msgstr ""
+
+#: src/containers/Help/index.js:47
+msgid ""
+"Product Quotation for WooCommerce is built and maintained by Mahafuz. I\\'m "
+"passionate about creating tools that make WooCommerce stores more powerful "
+"and user-friendly. You can connect with me and follow my work here:"
+msgstr ""
+
+#: src/containers/Help/index.js:130
+msgid "Support"
+msgstr ""
+
+#: src/containers/Help/index.js:133
+msgid "Need Assistance?"
+msgstr ""
+
+#: src/containers/Help/index.js:136
+msgid "Our expert support team is ready to help you with any issue or question."
+msgstr ""
+
+#: src/containers/Help/index.js:144
+msgid "Get Support"
+msgstr ""
+
+#: src/containers/Help/index.js:153
+msgid "Bug Reporting"
+msgstr ""
+
+#: src/containers/Help/index.js:156
+msgid "Found a Bug?"
+msgstr ""
+
+#: src/containers/Help/index.js:159
+msgid ""
+"Help us improve the plugin by reporting issues directly on GitHub. We\\'ll "
+"address them as quickly as possible."
+msgstr ""
+
+#: src/containers/Help/index.js:167
+msgid "Report on GitHub"
+msgstr ""
+
+#: src/containers/Help/index.js:176
+msgid "Customization"
+msgstr ""
+
+#: src/containers/Help/index.js:179
+msgid "Want Custom Features?"
+msgstr ""
+
+#: src/containers/Help/index.js:182
+msgid ""
+"We\\'d love to hear your ideas for new integrations or custom solutions "
+"tailored to your store."
+msgstr ""
+
+#: src/containers/Help/index.js:190
+msgid "Request Customization"
+msgstr ""
+
+#: src/containers/Help/index.js:199
+msgid "Review Plugin"
+msgstr ""
+
+#: src/containers/Help/index.js:202
+msgid "Enjoying the Plugin?"
+msgstr ""
+
+#: src/containers/Help/index.js:205
+msgid ""
+"Your feedback means a lot to us and helps the plugin grow. Share your "
+"experience on WordPress.org."
+msgstr ""
+
+#: src/containers/Help/index.js:213
+msgid "Leave a Review"
+msgstr ""
+
+#: src/containers/Addons/index.js:20
+msgid "Contact Form 7"
+msgstr ""
+
+#: src/containers/Addons/index.js:24
+msgid "Use contact form 7 as quotation submission form."
+msgstr ""
+
+#: src/containers/Addons/index.js:44
+msgid "Addon Failed to saved."
+msgstr ""
+
+#: src/containers/Addons/index.js:55
+msgid "Addons"
+msgstr ""
+
+#: src/components/TopBar/index.js:16
+msgid "logo"
+msgstr ""
+
+#: src/components/Settings/index.js:114
+#: src/components/Settings/GeneralSettings/index.js:23
+msgid "General Settings"
+msgstr ""
+
+#: src/components/Settings/index.js:124
+msgid "Button"
+msgstr ""
+
+#: src/components/Settings/index.js:134
+#: src/containers/Addons/ContactForm7/index.js:177
+msgid "Form"
+msgstr ""
+
+#: src/components/BulkAction/index.js:11
+msgid "Delete"
+msgstr ""
+
+#: src/components/BulkAction/index.js:27
+msgid "Bulk Actions"
+msgstr ""
+
+#: src/components/BulkAction/index.js:50
+msgid "Apply"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:106
+msgid "%s Addon saved successfully."
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:117
+msgid "%s Addon Failed to saved."
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:127
+msgid "Network error occurred. Please try again."
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:137
+msgid "Go to the detailed:"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:139
+msgid "settings"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:148
+msgid "Save"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:162
+msgid "Contact Form 7 Settings"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:168
+msgid "Contact Form 7 - Settings"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:174
+msgid "Select Quotation Form"
+msgstr ""
+
+#: src/containers/Addons/ContactForm7/index.js:190
+msgid "Select a contact form 7 form as a quotation form"
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:25
+msgid ""
+"Customize general settings for better experience that will ensure the ease "
+"of use as you like."
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:28
+msgid "Hide \"Add to cart\" Button"
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:37
+msgid "Hide the \"Add to cart\" buttons on all products."
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:42
+msgid "Hide product prices"
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:56
+msgid "\"Quotation cart\" page"
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:59
+#: src/components/Settings/GeneralSettings/index.js:68
+msgid "Quotation Cart Page"
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:68
+msgid ""
+"Choose the quote cart page from the list where users will see the list of "
+"added products to the quote. Visit current"
+msgstr ""
+
+#: src/components/Settings/GeneralSettings/index.js:74
+#: src/components/Settings/FormSettings/index.js:89
+#: src/components/Settings/EmailSettings/index.js:57
+#: src/components/Settings/ButtonSettings/index.js:310
+msgid "Save Changes"
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:7
+msgid "Form Settings"
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:9
+#: src/components/Settings/FormSettings/index.js:22
+msgid ""
+"For better experience choose your own form settings & styles that will "
+"ensure the design compatibility with your active theme."
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:13
+#: src/components/Settings/FormSettings/index.js:27
+msgid "Default Form Style"
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:36
+msgid ""
+"Use default form style that comes with this plugin or you can clean design "
+"your own form styles rather not overriding each css class."
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:41
+msgid "Add Privacy Policy"
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:50
+msgid "Ask user to accept terms and condition before submitting the quotation form."
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:56
+msgid "Privacy Policy Label"
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:67
+#: src/components/Settings/FormSettings/index.js:81
+msgid ""
+"You can use the shortcode [terms] and [privacy_policy] (from WooCommerce "
+"3.4.0)"
+msgstr ""
+
+#: src/components/Settings/FormSettings/index.js:71
+msgid "Privacy Policy"
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:7
+msgid "Email Settings"
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:9
+msgid ""
+"Customize email settings for better experience that will ensure the ease of "
+"use as you like."
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:12
+msgid "Receive Email"
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:21
+msgid ""
+"Receive email for each user submitted quotation from the Quotations Cart "
+"page."
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:26
+msgid "Recipient"
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:37
+msgid "Add recipient email ID that will receive each quotation on the email."
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:42
+msgid "Send Email"
+msgstr ""
+
+#: src/components/Settings/EmailSettings/index.js:51
+msgid ""
+"Send a copy of the email to the customer as well for each submitted "
+"quotation from the Quotations Cart page."
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:52
+msgid "Button Settings"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:54
+msgid ""
+"For better experience choose your own button settings and styles that will "
+"ensure the design compatibility with your active theme, as well as "
+"functionality"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:58
+#: src/components/Settings/ButtonSettings/index.js:71
+msgid "Show Button"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:67
+msgid "Show Add To Quotation button on category/shop/loop page"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:80
+msgid "Show Add To Quotation button on product single page"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:84
+msgid "Button Text"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:95
+msgid "Change Add To Quote button text"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:99
+#: src/components/Settings/ButtonSettings/index.js:102
+msgid "Button position in Loop"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:107
+msgid "At product end"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:111
+msgid "At product start"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:115
+msgid "Before product title"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:119
+msgid "After product title"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:128
+msgid "Select Add To Quote button position in the loop."
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:132
+#: src/components/Settings/ButtonSettings/index.js:135
+msgid "Button position in Single Product"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:140
+msgid "Before add to cart button"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:144
+msgid "After add to cart button"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:148
+msgid "End of product"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:157
+msgid "Select Add To Quote button position in the single product page."
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:161
+msgid "Button Style"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:170
+msgid "Normal"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:175
+msgid "Hover"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:184
+#: src/components/Settings/ButtonSettings/index.js:233
+msgid "Text Color"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:200
+#: src/components/Settings/ButtonSettings/index.js:251
+msgid "Background"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:220
+#: src/components/Settings/ButtonSettings/index.js:289
+msgid "Reset the custom style and back to theme default style?"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:227
+#: src/components/Settings/ButtonSettings/index.js:298
+msgid "Reset"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:269
+msgid "Font Size"
+msgstr ""
+
+#: src/components/Settings/ButtonSettings/index.js:279
+msgid "Width"
+msgstr ""
+
+#: app/assets/base.php:268
+msgctxt "Google font: on or off"
+msgid "on"
+msgstr ""

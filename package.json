@@ -28,6 +28,7 @@
 		"start:fresh": "rm -rf assets/build && npm run start",
 		"build:fresh": "rm -rf assets/build && npm run build && ls -la assets/build",
 
+		"build:makepot": "npx @wp-blocks/make-pot ./ languages",
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
 		"format": "wp-scripts format",
@@ -49,7 +50,7 @@
 		"product quotation",
 		"add to quote"
 	],
-	"author": "mahafuz<m.mahfuz.me@gmail.com>",
+	"author": "mahafuz <m.mahfuz.me@gmail.com>",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
