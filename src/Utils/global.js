@@ -29,6 +29,30 @@ export function getPages() {
     return config.pages;
 }
 
+export function getRoutePath() {
+    return config.route_path;
+}
+
+export function isAdmin() {
+    return config?.is_admin;
+}
+
+export function getAdminUrl() {
+    return config?.admin_url;
+}
+
+export function isPro() {
+    return config?.is_pro;
+}
+
+export function currentUserCan() {
+    return config?.current_user_can;
+}
+
+export function getCurrentUserId() {
+    return config?.current_user_id;
+}
+
 export const sliceString = (text, length = 20, more = '...') => {
     if (!text || text.length < length) {
         return text;

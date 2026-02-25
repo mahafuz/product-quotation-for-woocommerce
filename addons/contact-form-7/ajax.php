@@ -35,7 +35,7 @@ class Ajax {
 	 * @return void
 	 */
 	public function get_all_forms() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		check_ajax_referer( 'quotify_ajax', 'security' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
@@ -61,7 +61,7 @@ class Ajax {
 	 * @return void
 	 */
 	public function save_settings() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		check_ajax_referer( 'quotify_ajax', 'security' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error([
@@ -85,7 +85,7 @@ class Ajax {
 	 * @return void
 	 */
 	public function get_settings() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		check_ajax_referer( 'quotify_ajax', 'security' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error([

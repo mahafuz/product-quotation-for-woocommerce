@@ -1,12 +1,13 @@
+import { fireNotify, renderError } from '@Utils/spa';
+
 import {
 	API,
-	current_user_can,
-	current_user_id,
-	fireNotify,
-	is_admin,
-	renderError,
+	getAjaxUrl,
 	makeRequest,
-} from '@Utils/helper';
+	currentUserCan,
+	getCurrentUserId,
+	isAdmin,
+} from '@Utils/global';
 
 import {
 	DELETE_QUOTATION,
@@ -18,7 +19,7 @@ import {
 } from '@Redux/types/quotations.types';
 
 import { __ } from '@wordpress/i18n';
-import { ajaxurl, pqfw_nonce } from '@Utils/helper';
+import { ajaxNonce } from '@Utils/config';
 
 export const fetchAllQuotations =
 	(status = 'publish', page = 1, per_page = 10, search = '') =>
@@ -26,15 +27,15 @@ export const fetchAllQuotations =
 		let params = {
 			action: 'quotify/ajax/quotations/load',
 			status: status === 'all' ? 'any' : status,
-			nonce: pqfw_nonce,
+			nonce: ajaxNonce(),
 			page,
 			per_page,
 			context: 'edit',
 		};
-		if (!is_admin || current_user_can.manage_options === false) {
+		if (!isAdmin || currentUserCan().manage_options === false) {
 			params = {
 				...params,
-				author: current_user_id,
+				author: getCurrentUserId(),
 			};
 		}
 		if (search) {
@@ -44,7 +45,7 @@ export const fetchAllQuotations =
 			};
 		}
 
-		return await API.get(ajaxurl, {
+		return await API.get(getAjaxUrl(), {
 			params,
 		}).then(
 			(response) => {
@@ -54,7 +55,9 @@ export const fetchAllQuotations =
 						data: response?.data?.data?.quotations,
 						totalItems: parseInt(response?.data?.data?.total),
 						status,
-						currentPage:  parseInt(response?.data?.data?.currentPage)
+						currentPage: parseInt(
+							response?.data?.data?.currentPage
+						),
 					},
 				});
 				return response;
@@ -73,19 +76,19 @@ export const updateCurrentPage = (page) => (dispatch) => {
 };
 
 export const getQuote = (id) => async (dispatch) => {
-	return await API.get(ajaxurl, {
+	return await API.get(getAjaxUrl(), {
 		params: {
 			action: 'quotify/ajax/quotations/get',
 			id,
-			nonce: pqfw_nonce,
+			nonce: ajaxNonce(),
 		},
 	}).then(
 		(response) => {
 			dispatch({
 				type: FETCH_QUOTATION,
 				payload: {
-					quotation: response?.data.data?.quotation
-				}
+					quotation: response?.data.data?.quotation,
+				},
 			});
 
 			return response;
@@ -100,7 +103,7 @@ export const moveQuoteToTrash = (id) => async (dispatch) => {
 	makeRequest({
 		action: 'quotify/ajax/quotations/delete',
 		id,
-		nonce: pqfw_nonce,
+		nonce: ajaxNonce(),
 		force: false,
 	}).then((response) => {
 		if (response.data?.success) {
@@ -120,7 +123,7 @@ export const deleteQuote = (id) => async (dispatch) => {
 	makeRequest({
 		action: 'quotify/ajax/quotations/delete',
 		id,
-		nonce: pqfw_nonce,
+		nonce: ajaxNonce(),
 		force: true,
 	}).then((response) => {
 		if (response.data?.success) {
@@ -140,7 +143,7 @@ export const restoreQuote = (params) => async (dispatch) => {
 	makeRequest({
 		action: 'quotify/ajax/quotations/restore',
 		id: params.id,
-		nonce: pqfw_nonce
+		nonce: ajaxNonce(),
 	}).then((response) => {
 		if (response.data?.success) {
 			dispatch({

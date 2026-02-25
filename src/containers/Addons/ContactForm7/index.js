@@ -14,12 +14,11 @@ import { BsFillGearFill } from 'react-icons/bs';
 
 import WPModal from '@Components/Modal/WPModal';
 
+import { makeRequest } from '@Utils/global';
+
 import {
 	fireNotify,
-	getAddonActiveStatus,
-	addons as allAddons,
-	makeRequest,
-} from '@Utils/helper';
+} from '@Utils/spa';
 
 function index({ addon }) {
 	const navigate = useNavigate();

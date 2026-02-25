@@ -33,20 +33,20 @@ const statusArray = [
 
 import BulkAction from '@Components/BulkAction';
 
+import { getRoutePath } from '@Utils/global';
+
 import {
-	is_admin,
-	admin_url,
-	is_pro,
-	route_path,
+	getAdminUrl,
+	isPro,
 	sliceString,
-	moveCourseToTrash,
-} from '@Utils/helper';
+	isAdmin
+} from '@Utils/global';
 
 import {
 	moveQuoteToTrash,
 	deleteQuote,
 	restoreQuote,
-} from '../../redux/actions/quotations.actions';
+} from '@Redux/actions/quotations.actions';
 
 function index() {
 	const dispatch = useDispatch();
@@ -222,8 +222,8 @@ function index() {
 						<div className="quotify-table-title">
 							<Link
 								to={`${
-									is_admin
-										? `${route_path}admin.php?page=quotify&id=${row.id}&action=view`
+								isAdmin()	
+										? `${getRoutePath()}admin.php?page=quotify&id=${row.id}&action=view`
 										: `view-quote/${row.id}`
 								}`}
 							>
@@ -265,9 +265,9 @@ function index() {
 								type="button"
 								preset="purple"
 								onClick={() => {
-									if (is_admin) {
+									if (isAdmin()) {
 										navigate(
-											`${route_path}admin.php?page=quotify&id=${row.id}&action=view`
+											`${getRoutePath()}admin.php?page=quotify&id=${row.id}&action=view`
 										);
 									} else {
 										navigate(`view-/${row.id}`);

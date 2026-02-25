@@ -1,7 +1,7 @@
 import { Modal } from '@wordpress/components';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { modalFullWidthStyles } from '@Utils/helper';
+import { modalFullWidthStyles } from '@Utils/spa';
 
 import './index.scss';
 

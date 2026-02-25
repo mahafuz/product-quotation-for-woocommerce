@@ -24,7 +24,7 @@ const baseConfig = {
 			'@Components': path.resolve(rootPath, 'src/components/'),
 			'@Containers': path.resolve(rootPath, 'src/containers/'),
 			'@Global': path.resolve(rootPath, 'src/global/'),
-			'@Utils': path.resolve(rootPath, 'src/Utils/'),
+			'@Utils': path.resolve(rootPath, 'src/utils/'),
 			'@Assets': path.resolve(rootPath, 'src/assets/'),
 			'@Redux': path.resolve(rootPath, 'src/redux/'),
 			'@Images': path.resolve(rootPath, 'src/images/'),

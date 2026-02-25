@@ -9,12 +9,9 @@ import TopBar from '@Components/TopBar';
 
 import './index.scss';
 
-import {
-	makeRequest,
-	admin_url,
-	route_path,
-	fireNotify,
-} from '@Utils/helper';
+import { getAdminUrl, getRoutePath, makeRequest } from '@Utils/global';
+
+import { fireNotify } from '@Utils/spa';
 
 const cf7Addon = {
 	label: __('Contact Form 7', 'quotify'),
@@ -23,9 +20,9 @@ const cf7Addon = {
 	required_plugin: false,
 	details: __('Use contact form 7 as quotation submission form.', 'quotify'),
 	icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
-	url: `${admin_url}admin.php?page=forms`,
+	url: `${getAdminUrl()}admin.php?page=forms`,
 	docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
-	settings: `${route_path}?page=quotify-settings`,
+	settings: `${getRoutePath()}?page=quotify-settings`,
 };
 
 export default function index() {

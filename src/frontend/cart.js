@@ -14,7 +14,7 @@ import {makeRequest} from '@Utils/global';
 
 			$(document).on('click', '.pqfw-remove-product', function () {
 				const $hash = $(this).data('id');
-				self.removeProduct($hash);
+				this.removeProduct($hash);
 			});
 
 			$(document).on('change', '.pqfw-quantity', function () {
@@ -31,7 +31,7 @@ import {makeRequest} from '@Utils/global';
 
 
 				const products = window.pqfwProducts;
-				self.updateProduct(products);
+				this.updateProduct(products);
 			});
 
 			$(document).on('change', '.pqfw-message > textarea', function () {
@@ -40,29 +40,29 @@ import {makeRequest} from '@Utils/global';
 
 				window.pqfwProducts[hash]['message'] = new_message;
 				const products = window.pqfwProducts;
-				self.updateProduct(products);
+				this.updateProduct(products);
 			});
 		},
 		initialize: function () {
 			makeRequest({
 				action: 'quotify/ajax/cart/load'
 			}).then((response) => {
-				self.dataLoaded(response);
+				this.dataLoaded(response);
 			});
 		},
 		sendData: function (button) {
-			if (self.variationAlert()) {
-				self.setLoading(button);
+			if (this.variationAlert()) {
+				this.setLoading(button);
 
 				makeRequest({
 					action: 'quotify/ajax/cart/add_product',
 					productID: $(button).data('id'),
-					variationID: self.getVariationID(),
-					variationDetails: self.getVariationDetails(),
-					quantity: self.getQuantity(),
+					variationID: this.getVariationID(),
+					variationDetails: this.getVariationDetails(),
+					quantity: this.getQuantity(),
 				}).then((response) => {
 					if (response.data?.success) {
-						self.addToQuotationCart(button);
+						this.addToQuotationCart(button);
 					} else {
 						alert(response?.data?.data?.message, 'error');
 					}
@@ -72,7 +72,7 @@ import {makeRequest} from '@Utils/global';
 		addToQuotationCart: function (button) {
 			$(button).removeClass('loading');
 			$(button).addClass('added');
-			self.viewQuotationCart(button);
+			this.viewQuotationCart(button);
 		},
 		viewQuotationCart: function (button) {
 			var url = PQFW_OBJECT.cartPageUrl;
@@ -146,7 +146,7 @@ import {makeRequest} from '@Utils/global';
 				hash: $hash,
 			}).then((response) => {
 				if (response.data?.success) {
-					self.dataLoaded(response);
+					this.dataLoaded(response);
 				} else {
 					// alert(response?.data?.data?.message, 'error');
 				}
@@ -165,7 +165,7 @@ import {makeRequest} from '@Utils/global';
 				products: products,
 			}).then((response) => {
 				if (response.data?.success) {
-					self.dataLoaded(response);
+					this.dataLoaded(response);
 				} else {
 					// alert(response?.data?.data?.message, 'error');
 				}

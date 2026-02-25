@@ -71,7 +71,7 @@ class Cart {
 		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
 			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
 		}
-		
+
 		if ( ! empty( $_POST['data'] ) ) {
 			$product    = json_decode( wp_unslash( $_POST['data'] ), true );
 			$product_id = isset( $product['productID'] ) ? absint( $product['productID'] ) : 0;
@@ -79,7 +79,7 @@ class Cart {
 			if ( $product_id ) {
 				$variation  = isset( $product['variationID'] ) ? absint( $product['variationID'] ) : 0;
 				$quantity   = isset( $product['quantity'] ) ? absint( $product['quantity'] ) : 1;
-				$wc_product = wc_get_product( $product_id );
+				$wc_product = \wc_get_product( $product_id );
 
 				$variationDetail = quotify()->cart()->sanitize_variation_detail( $product['variationDetails'] );
 				$price           = quotify()->cart()->get_simple_variations_price( $wc_product, $variation );

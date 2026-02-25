@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { route_path } from '@Utils/helper';
+import { getRoutePath } from '@Utils/global';
 
 export default function MenuItem(props) {
 	const { className, children, parent, currentPath, subMenuItems } = props;
@@ -23,7 +23,7 @@ export default function MenuItem(props) {
 										key={index}
 									>
 										<Link
-											to={`${route_path}admin.php?page=${parent}${
+											to={`${getRoutePath()}admin.php?page=${parent}${
 												item.slug
 													? '&path=' + item.slug
 													: ''

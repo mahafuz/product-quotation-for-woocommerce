@@ -121,19 +121,9 @@ class Settings {
 	 * @access  public
 	 * @return  void
 	 */
-	public function save() {
-		if ( ! isset( $_REQUEST['security'] ) || ! wp_verify_nonce( $_REQUEST['security'], 'pqfw_nonce' ) ) {
-			wp_send_json_error([
-				'message' => esc_html__( 'Unauthorized Action', 'quotify' ),
-			], 400 );
-		}
-
-		$settings = isset( $_POST['settings'] ) ? (array) json_decode( wp_unslash( $_POST['settings'] ) ) : false;
-
-		if ( ! is_array( $settings ) ) {
-			wp_send_json_error([
-				'message' => esc_html__( 'Invalid Settings.', 'quotify' ),
-			], 400 );
+	public function save( $settings ) {
+		if ( ! is_array( $settings ) || empty( $settings ) ) {
+			wp_send_json_error( __( 'Invalid settings data.', 'quotify' ), 400 );
 		}
 
 		$allowed   = $this->getAll();

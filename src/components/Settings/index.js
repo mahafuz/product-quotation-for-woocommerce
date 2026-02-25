@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { __ } from '@wordpress/i18n';
 import 'react-toastify/dist/ReactToastify.css';
-import { getSavedSettings, getNonce, makeRequest } from '@Utils/helper';
+import { getSavedSettings } from '@Utils/config';
+import { makeRequest } from '@Utils/global';
 
 import { FETCH_SETTINGS } from '@Redux/types/settings.types';
 
@@ -21,7 +22,7 @@ import GeneralSettingsIcon from '@src/images/cog.svg';
 
 import '@src/scss/settings.scss';
 import './index.scss';
-import { fireNotify } from '@Utils/helper';
+import { fireNotify } from '@Utils/spa';
 
 const App = () => {
 	const dispatch = useDispatch();

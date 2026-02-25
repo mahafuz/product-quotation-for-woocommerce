@@ -36,7 +36,9 @@ class Settings {
 	 * @since 2.0.1
 	 */
 	public function get_permalink() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		$pageID = isset( $_POST['pageID'] ) ? absint( $_POST['pageID'] ) : false;
 
@@ -57,7 +59,9 @@ class Settings {
 	 * @since 2.5.0
 	 */
 	public function get_all() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		return wp_send_json_success([
 			'message'  => __( 'Fetched settings successfully', 'quotify' ),
@@ -71,9 +75,19 @@ class Settings {
 	 * @since 2.5.0
 	 */
 	public function save() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
-		quotify()->settings()->save();
+		$settings = isset( $_POST['settings'] ) ? (array) json_decode( wp_unslash( $_POST['settings'] ) ) : false;
+
+		if ( ! is_array( $settings ) ) {
+			wp_send_json_error([
+				'message' => esc_html__( 'Invalid Settings.', 'quotify' ),
+			], 400 );
+		}
+
+		quotify()->settings()->save( $settings );
 
 		wp_send_json_success([
 			'message'  => __( 'Addon settings updated.', 'quotify' ),

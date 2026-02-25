@@ -2,12 +2,12 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createPortal } from '@wordpress/element';
 import { BrowserRouter as Router } from 'react-router-dom';
-import BackendDashboard from './components/BackendDashboard';
-import AdminMenu from './components/AdminMenu';
+import BackendDashboard from '@Components/BackendDashboard';
+import AdminMenu from '@Components/AdminMenu';
 
-import store from './redux/store';
+import store from '@Redux/store';
 
-import './scss/backend.scss';
+import '@Scss/backend.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const container = document.getElementById('quotify-backend-dashboard');

@@ -3,7 +3,7 @@ import Navigation from '@Components/Navigation';
 
 import AngleRightIcon from '@src/images/angle-right.svg';
 
-import { plugin_logo } from '@Utils/helper';
+import { getPluginLogo } from '@Utils/config';
 import './index.scss';
 
 function index({ render }) {
@@ -12,7 +12,7 @@ function index({ render }) {
 			<div className="quotify-backend-top-bar-left">
 				<img
 					className="quotify-backend-app-logo"
-					src={plugin_logo}
+					src={getPluginLogo()}
 					alt={__('logo', 'quotify')}
 				/>
 				<div className="separator">

@@ -6,11 +6,9 @@ import Help from '@Containers/Help';
 import Settings from '@Components/Settings';
 import PopupNotification from '@Components/PopupNotification';
 
-import {
-	useQuery,
-	woocommerce_is_active,
-	woocommerce_notice,
-} from '@Utils/helper';
+import { useQuery } from '@Utils/spa';
+
+import { getWCNotice } from '@Utils/config';
 
 const renderSwitch = (page, id, action, path) => {
 	switch (page) {
@@ -38,9 +36,9 @@ export default function BackendDashboard() {
 		<>
 			<div
 				dangerouslySetInnerHTML={{
-					__html: woocommerce_notice,
+					__html: getWCNotice(),
 				}}
-				className='quotify-notice'
+				className="quotify-notice"
 			></div>
 			<PopupNotification icon={false} hideProgressBar={true} />
 			{renderSwitch(

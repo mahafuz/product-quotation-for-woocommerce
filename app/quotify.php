@@ -171,11 +171,12 @@ final class Quotify {
 	public function loader() {
 		$this->define_constants();
 		$this->sessions();
+		$this->ajax();
 		$this->admin();
 		$this->menu();
 		$this->assets();
 		$this->addons();
-		$this->ajax();
+
 		$this->buttons();
 		$this->forms();
 		$this->shortcodes();

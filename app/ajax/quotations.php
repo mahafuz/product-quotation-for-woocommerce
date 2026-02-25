@@ -37,7 +37,7 @@ class Quotations {
 	 * @since 1.2.0
 	 */
 	public function load() {
-		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You do not have permission to view quotations.', 'quotify' ) );
@@ -67,7 +67,7 @@ class Quotations {
 	 * @return void
 	 */
 	public function get_item() {
-		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_send_json_error( __( 'You do not have permission to view quotations.', 'quotify' ) );
@@ -122,7 +122,7 @@ class Quotations {
 	 * @return void
 	 */
 	public function delete_item() {
-		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_send_json_error( __( 'You do not have permission to delete quotation.', 'quotify' ) );
@@ -160,7 +160,7 @@ class Quotations {
 	 * @return void
 	 */
 	public function restore_item() {
-		check_ajax_referer( 'pqfw_nonce', 'nonce' );
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_send_json_error( __( 'You do not have permission to delete quotation.', 'quotify' ) );

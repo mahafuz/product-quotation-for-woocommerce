@@ -93,7 +93,6 @@ class Assets extends Base {
 		}
 	}
 
-
 	/**
 	 * Enqueue frontend scripts.
 	 *
@@ -103,41 +102,32 @@ class Assets extends Base {
 		$frontend_data = $this->get_frontend_scripts_data();
 		$suffix = QUOTIFY_PLUGIN_VERSION;
 
-		wp_register_script(
-			'quotify-frontend-config',
-			QUOTIFY_PLUGIN_ASSETS_URI . sprintf( 'build/config.%s.js', $suffix ),
-			[],
-			$suffix,
-			true
-		);
-
-		wp_localize_script( 'quotify-frontend-config', 'QUOTIFY_CONFIG', $frontend_data );
-
-		wp_enqueue_script( 'quotify-frontend-config' );
-
 		wp_enqueue_script(
 			'pqfw-quotation-button',
 			QUOTIFY_PLUGIN_ASSETS_URI . sprintf( 'build/button.%s.js', $suffix ),
-			[ 'wp-util', 'wp-i18n', 'quotify-frontend-config' ],
+			[ 'wp-util', 'wp-i18n', 'jquery' ],
 			$suffix,
 			true
 		);
 
+		wp_localize_script( 'pqfw-quotation-button', 'QUOTIFY_CONFIG', $frontend_data );
 		wp_set_script_translations( 'pqfw-quotation-button', 'quotify' );
 
 		wp_enqueue_script(
 			'pqfw-quotation-cart',
 			QUOTIFY_PLUGIN_ASSETS_URI . sprintf( 'build/cart.%s.js', defined( WP_DEBUG ) ? time() : $suffix ),
-			[ 'pqfw-quotation-button', 'wp-util', 'jquery', 'wp-i18n', 'quotify-frontend-config' ],
+			[ 'wp-util', 'jquery', 'wp-i18n' ],
 			$suffix,
 			true
 		);
+
+		wp_localize_script( 'pqfw-quotation-cart', 'QUOTIFY_CONFIG', $frontend_data );
 		wp_set_script_translations( 'pqfw-quotation-cart', 'quotify' );
 
 		wp_enqueue_script(
 			'pqfw-form',
 			QUOTIFY_PLUGIN_ASSETS_URI . sprintf( 'build/form.%s.js', defined( WP_DEBUG ) ? time() : $suffix ),
-			[ 'jquery', 'wp-i18n', 'quotify-frontend-config' ],
+			[ 'jquery', 'wp-i18n' ],
 			$suffix,
 			true
 		);

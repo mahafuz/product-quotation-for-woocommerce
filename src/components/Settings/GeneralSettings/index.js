@@ -1,13 +1,15 @@
 import {useState, useEffect} from 'react'
 
 import { FormToggle, SelectControl } from '@wordpress/components';
-import { getPages, getCart, makeRequest } from '@Utils/helper';
+import { makeRequest } from '@Utils/global';
+import { getPages } from '@Utils/global';
+import { getCartUrl } from '@Utils/cart';
 
 import { __ } from '@wordpress/i18n';
 
 const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 	const [pages, setPages] = useState([...getPages()]);
-	const [cart, setCart] = useState(getCart( 'url' ) );
+	const [cart, setCart] = useState(getCartUrl());
 
 	useEffect(()=>{
 		makeRequest({

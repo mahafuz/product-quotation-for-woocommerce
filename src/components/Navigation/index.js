@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { route_path, useQuery } from '@Utils/helper';
+import { getRoutePath } from '@Utils/global';
+import { useQuery } from '@Utils/spa';
 import './index.scss';
 
 const Navigation = ({ currentPath }) => {
-	const adminmenu = window.QUOTIFY_CONFIG.menu;
+	const adminmenu = window?.QUOTIFY_CONFIG?.menu;
 	const query = useQuery();
 	const page = query.get('page');
 
@@ -13,7 +14,7 @@ const Navigation = ({ currentPath }) => {
 				([ key, navItem], index) => (
 					<Link
 						key={navItem.label}
-						to={`${route_path}admin.php?page=${key}`}
+						to={`${getRoutePath()}admin.php?page=${key}`}
 						className={
 							page === key
 								? 'current navigation-item'

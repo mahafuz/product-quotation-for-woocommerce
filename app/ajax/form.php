@@ -36,7 +36,7 @@ class Form {
 	 * @return void
 	 */
 	public function submit() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		check_ajax_referer( 'quotify_ajax', 'security' );
 
 		$entry = ! empty( $_POST['data'] ) ? json_decode( wp_unslash( $_POST['data'] ), true ) : false;
 

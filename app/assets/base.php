@@ -39,7 +39,7 @@ class Base {
 			'ajaxurl'                => esc_url( admin_url( 'admin-ajax.php' ) ),
 			'site_url'               => site_url(),
 			'route_path'             => wp_parse_url( admin_url(), PHP_URL_PATH ),
-			'menu'                   => wp_json_encode( quotify()->menu()->get() ),
+			'menu'                   => quotify()->menu()->get(),
 			'woocommerce_is_active'  => Helper::is_plugin_active( 'woocommerce/woocommerce.php' ),
 			'woocommerce_notice'     => Helper::woocommerce_notice(),
 			'current_user_id'        => get_current_user_id(),

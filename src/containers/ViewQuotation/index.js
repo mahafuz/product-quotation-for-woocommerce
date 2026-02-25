@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { getQuote } from '@Redux/actions/quotations.actions';
 import TopBar from '@Components/TopBar';
-
-import { route_path } from '@Utils/helper';
+import { getRoutePath } from '@Utils/global';
 
 import './index.scss'; // keep this if you're adding SCSS or CSS in the same file
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,7 @@ function Index({ id }) {
 		dispatch(getQuote(id)).then((response) => {
 			if (response?.data?.data?.not_found) {
 				navigate(
-					`${route_path}admin.php?page=quotify`
+					`${getRoutePath()}admin.php?page=quotify`
 				);
 			}
 

@@ -37,7 +37,7 @@ class Addons {
 	 * @return void
 	 */
 	public function get_all() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		check_ajax_referer( 'quotify_ajax', 'security' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
@@ -55,7 +55,7 @@ class Addons {
 	 * @return void
 	 */
 	public function save() {
-		check_ajax_referer( 'pqfw_nonce', 'security' );
+		check_ajax_referer( 'quotify_ajax', 'security' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();

@@ -82,6 +82,6 @@ export const renderError = (e) => {
     );
 };
 
-export const useQuery = () => {
+export function useQuery() {
     return new URLSearchParams(useLocation().search);
 };
