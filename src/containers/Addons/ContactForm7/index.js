@@ -209,17 +209,21 @@ function index({ addon }) {
 			</div>
 
 			<div className="quotify-card-footer">
-				<FormToggle
-					checked={status}
-					onChange={(e) => handleChange(e, addon)}
-				/>
+				{!addon?.upcoming && (
+					<>
+						<FormToggle
+							checked={status}
+							onChange={(e) => handleChange(e, addon)}
+						/>
 
-				<Button
-					className="quotify-more-settings"
-					onClick={() => setOpenModal(true)}
-					aria-label={`Settings for ${addon.name}`}
-					icon={<BsFillGearFill />}
-				/>
+						<Button
+							className="quotify-more-settings"
+							onClick={() => setOpenModal(true)}
+							aria-label={`Settings for ${addon.name}`}
+							icon={<BsFillGearFill />}
+						/>
+					</>
+				)}
 			</div>
 		</div>
 	);

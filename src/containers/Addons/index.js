@@ -18,6 +18,7 @@ const cf7Addon = {
 	name: 'cf7',
 	is_pro: false,
 	required_plugin: false,
+	upcoming: true,
 	details: __('Use contact form 7 as quotation submission form.', 'quotify'),
 	icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
 	url: `${getAdminUrl()}admin.php?page=forms`,
