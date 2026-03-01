@@ -106,6 +106,10 @@ class Settings {
 				'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].',
 				'quotify'
 			),
+			// rate limiter settings (count per time window, window in minutes).
+			'pqfw_rate_limit_enabled'        => false,
+			'pqfw_rate_limit_count'          => 5,
+			'pqfw_rate_limit_period'         => 60, // minutes.
 			'quotation_cart_page'            => \Quotify\Library\Helper::getCart(),
 		];
 
@@ -118,7 +122,7 @@ class Settings {
 	/**
 	 * Saving settings.
 	 *
-	 * @access  public
+	 * @param array $settings Settings to save.
 	 * @return  void
 	 */
 	public function save( $settings ) {
@@ -133,6 +137,17 @@ class Settings {
 
 		if ( isset( $sanitized['quotation_cart_page'] ) && absint( get_option( 'pqfw_quotations_cart' ) ) !== absint( $sanitized['quotation_cart_page'] ) ) {
 			update_option( 'pqfw_quotations_cart', absint( $sanitized['quotation_cart_page'] ) );
+		}
+
+		// Ensure rate limit values are integers/bools.
+		if ( isset( $sanitized['pqfw_rate_limit_enabled'] ) ) {
+			$sanitized['pqfw_rate_limit_enabled'] = filter_var( $sanitized['pqfw_rate_limit_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_rate_limit_count'] ) ) {
+			$sanitized['pqfw_rate_limit_count'] = absint( $sanitized['pqfw_rate_limit_count'] );
+		}
+		if ( isset( $sanitized['pqfw_rate_limit_period'] ) ) {
+			$sanitized['pqfw_rate_limit_period'] = absint( $sanitized['pqfw_rate_limit_period'] );
 		}
 
 		update_option( self::OPTION_GROUP_KEY, $sanitized );

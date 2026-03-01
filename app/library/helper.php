@@ -360,6 +360,38 @@ class Helper {
 	}
 
 	/**
+	 * Determine client IP address.
+	 *
+	 * Attempts to read common server variables and falls back to REMOTE_ADDR.
+	 * This is used for rate limiting and logging.
+	 *
+	 * @since 2.5.1
+	 * @return string|false IP address or false if unavailable.
+	 */
+	public static function get_client_ip() {
+		$keys = [
+			'HTTP_CLIENT_IP',
+			'HTTP_X_FORWARDED_FOR',
+			'HTTP_X_FORWARDED',
+			'HTTP_X_CLUSTER_CLIENT_IP',
+			'HTTP_FORWARDED_FOR',
+			'HTTP_FORWARDED',
+			'REMOTE_ADDR',
+		];
+
+		foreach ( $keys as $key ) {
+			if ( ! empty( $_SERVER[ $key ] ) ) { // phpcs:ignore
+				$ip = trim( strtok( $_SERVER[ $key ], ',' ) ); // take first IP in list.
+				if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+					return $ip;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Check if woocommerce plugin is activated
 	 *
 	 * @since v1.0.0

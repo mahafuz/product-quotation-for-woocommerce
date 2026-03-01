@@ -77,7 +77,7 @@ export const makeRequest = async (payload = {}, isRaw = false) => {
             return response;
         },
         (error) => {
-            console.log(error); // eslint-disable-line
+           return error.response || { data: { data: 'An error occurred. Please try again.' } };
         }
     );
 };

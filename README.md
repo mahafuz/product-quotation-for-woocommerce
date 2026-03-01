@@ -61,6 +61,11 @@ Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/produc
 
 == Changelog ==
 
+= 2.5.1 - 01-03-2026 =
+* ADDED: Rate limiter for quotation form submissions with configurable limits.
+* ADDED: Settings UI to enable rate limiting and define count/period.
+* IMPROVEMENTS: Security – prevent spam and abuse.
+
 = 2.5.0 - 12-09-2025 =
 * ADDED: New dashboard for better quotation management.
 * IMPROVEMENTS: Compatibility with latest wordpress versions.

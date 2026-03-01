@@ -26,6 +26,14 @@ jQuery(function ( $ ) {
 				var t = $( this ),
 					loader = t.next('.loading-spinner');
 
+				responseStatus.removeClass('success error').html('');
+				responseStatus.hide();
+
+				errors = false;
+
+				l.removeClass('hasError');
+				$('.pqfw-privacy-policy').removeClass('hasError');
+
 				// validating fields empty value.
 				var $input, $textarea, $this;
 				l.each( function () {
@@ -39,9 +47,6 @@ jQuery(function ( $ ) {
 							if( $textarea.val() == "" ) {
 								$this.addClass( "hasError" );
 								errors = true;
-							}else {
-								$this.removeClass( "hasError" );
-								errors = false;
 							}
 						}
 					} else {
@@ -49,17 +54,11 @@ jQuery(function ( $ ) {
 							if( $input.val() == "" ) {
 								$this.addClass( "hasError" );
 								errors = true;
-							}else {
-								$this.removeClass( "hasError" );
-								errors = false;
 							}
 						}
 						if ( $input.attr( "type" ) === "email" ) {
-							if( $input.prop( "required" ) ) {
-								if( $input.val() !== '' && emailReg.test( $input.val() ) ) {
-									$this.removeClass( "hasError" );
-									errors = false;
-								}else {
+							if( $input.prop( "required" ) || $input.val() !== '' ) {
+								if( ! emailReg.test( $input.val() ) ) {
 									$this.addClass( "hasError" );
 									errors = true;
 								}
@@ -73,7 +72,9 @@ jQuery(function ( $ ) {
 					if ( privacyPolicy.length && ! privacyPolicy.prop('checked') ) {
 						errors = true;
 						privacyPolicy.parents( '.pqfw-privacy-policy' ).addClass('hasError');
-						alert( 'Please accept privacy policy If you want to proceed.' );
+						responseStatus.addClass('error');
+						responseStatus.html( '<p class="quotify-form-validation-error">Please accept privacy policy to proceed.</p>' );
+						responseStatus.show();
 					}
 				}
 
@@ -94,15 +95,25 @@ jQuery(function ( $ ) {
 					}
 
 					if ( ! $.isEmptyObject( data ) ) {
+						// Show loading state
+						loader.addClass('loading');
+						t.prop('disabled', true);
+
 						makeRequest({
 							action: 'quotify/ajax/quotation/submit',
 							data,
 						}).then(function(response) {
+							// Hide loading state
+							loader.removeClass('loading');
+							t.prop('disabled', false);
+
+							// Handle axios response structure: response.data.data
+							var responseData = response?.data?.data;
 
 							if( response?.data?.success ) {
 								responseStatus.removeClass('error');
 								responseStatus.addClass('success');
-								responseStatus.html( response?.data?.data );
+								responseStatus.html( responseData );
 
 								input.each( function () {
 									$( this ).val( '' );
@@ -112,9 +123,13 @@ jQuery(function ( $ ) {
 									$( this ).val( '' );
 								});
 
-								responseStatus.removeClass('error');
-								responseStatus.addClass('success');
-								responseStatus.html( response?.data?.data );
+								// Uncheck privacy policy checkbox
+								var privacyPolicy = $( '#pqfw_privacy_policy_checkbox' );
+								if ( privacyPolicy.length ) {
+									privacyPolicy.prop('checked', false);
+								}
+
+								responseStatus.show();
 
 								setTimeout(function() {
 									window.QuotifyCart.initialize();
@@ -125,19 +140,50 @@ jQuery(function ( $ ) {
 
 								let html = '';
 
-								if( $.type( response?.data?.data?.field ) == 'array' ) {
-									$.each( response?.data?.data?.field, function(key, value) {
-										html += '<p class="quotify-form-validation-error">';
-										html += value;
-										html += '</p>';
-									});
+								if ( $.type( responseData ) === 'object' && responseData !== null ) {
+									// Handle WP_Error structure where errors are indexed by code (e.g., 'field': [error1, error2])
+									for ( var code in responseData ) {
+										if ( responseData.hasOwnProperty( code ) ) {
+											var errorMessages = responseData[ code ];
+											// errorMessages can be a string or array
+											if ( $.isArray( errorMessages ) ) {
+												$.each( errorMessages, function( index, message ) {
+													html += '<p class="quotify-form-validation-error">' + message + '</p>';
+												});
+											} else if ( typeof errorMessages === 'string' ) {
+												html += '<p class="quotify-form-validation-error">' + errorMessages + '</p>';
+											}
+										}
+									}
+								} else if ( typeof responseData === 'string' ) {
+									// Generic error message (e.g., rate limit, security check).
+									html = '<p class="quotify-form-validation-error">' + responseData + '</p>';
 								}
 
 								responseStatus.html( html );
+								responseStatus.show();
 							}
+						}).catch(function(error) {
+							// Hide loading state
+							loader.removeClass('loading');
+							t.prop('disabled', false);
+
+							responseStatus.removeClass('success');
+							responseStatus.addClass('error');
+							responseStatus.html( '<p class="quotify-form-validation-error">An error occurred. Please try again.</p>' );
+							responseStatus.show();
+
+							console.error('Form submission error:', error);
 						});
 					}
 				}else {
+					// Scroll to first error
+					var firstError = $( '.hasError' ).first();
+					if ( firstError.length ) {
+						$( 'html, body' ).animate({
+							scrollTop: firstError.offset().top - 50
+						}, 300 );
+					}
 					return false;
 				}
 

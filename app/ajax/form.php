@@ -40,6 +40,8 @@ class Form {
 			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
 		}
 
+		do_action( 'quotify/quotations/before_submit' );
+
 		$entry = ! empty( $_POST['data'] ) ? json_decode( wp_unslash( $_POST['data'] ), true ) : false;
 
 		if ( ! $entry ) {
@@ -85,5 +87,7 @@ class Form {
 		} else {
 			wp_send_json_error( __( 'Something went wrong', 'quotify' ) );
 		}
+
+		do_action( 'quotify/quotations/after_submit' );
 	}
 }
