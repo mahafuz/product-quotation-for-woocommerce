@@ -1,10 +1,13 @@
 import {
 	FETCH_QUOTATION,
-	MOVE_TO_TRASH,
-	DELETE_QUOTATION,
+	STATUS_UPDATE,
 } from '@Redux/types/quotations.types';
 
-const initialState = {};
+const initialState = {
+	quotation: null,
+	loading: false,
+	error: null,
+};
 
 function quotationReducer(state = initialState, action) {
 	const payload = action.payload;
@@ -13,41 +16,22 @@ function quotationReducer(state = initialState, action) {
 		case FETCH_QUOTATION:
 			return {
 				...state,
-				...payload.quotation
-			}
-		case MOVE_TO_TRASH:
-			if (state.data) {
-				const updatedData = state.data.map((item) => {
-					if (parseInt(item.id) === parseInt(payload.id)) {
-						return { ...item, ...payload };
-					}
-					return item;
-				});
-
+				quotation: payload.quotation,
+				loading: false,
+				error: null,
+			};
+		case STATUS_UPDATE:
+			// Update the quotation status in the current quotation
+			if (state.quotation && state.quotation.ID === payload.id) {
 				return {
 					...state,
-					data: updatedData,
+					quotation: {
+						...state.quotation,
+						status: payload.status,
+					},
 				};
 			}
-			return {
-				...state,
-				data: [payload],
-			};
-		case DELETE_QUOTATION:
-			if (state.data) {
-				return {
-					...state,
-					data: [
-						...state.data.filter(
-							(item) => parseInt(item.id) !== parseInt(payload.id)
-						),
-					],
-				};
-			}
-			return {
-				...state,
-				data: [payload],
-			};
+			return state;
 		default:
 			return state;
 	}

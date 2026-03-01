@@ -168,6 +168,19 @@ class Quotations {
 			$data = array_shift( $value );
 			$data = maybe_unserialize( $data );
 
+			// Sanitize customer data fields
+			if ( 'pqfw_customer_name' === $key ) {
+				$data = sanitize_text_field( $data );
+			} elseif ( 'pqfw_customer_email' === $key ) {
+				$data = sanitize_email( $data );
+			} elseif ( 'pqfw_customer_phone' === $key ) {
+				$data = sanitize_text_field( $data );
+			} elseif ( 'pqfw_customer_subject' === $key ) {
+				$data = sanitize_text_field( $data );
+			} elseif ( 'pqfw_customer_comments' === $key ) {
+				$data = sanitize_textarea_field( $data );
+			}
+
 			$response[ $key ] = $data;
 		}
 

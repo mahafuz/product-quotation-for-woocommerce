@@ -16,6 +16,7 @@ import {
 	UPDATE_CURRENT_PAGE,
 	MOVE_TO_TRASH,
 	RESTORE_QUOTATION,
+	STATUS_UPDATE,
 } from '@Redux/types/quotations.types';
 
 import { __ } from '@wordpress/i18n';
@@ -97,6 +98,65 @@ export const getQuote = (id) => async (dispatch) => {
 			renderError(e);
 		}
 	);
+};
+
+export const updateQuoteStatus = (id, status) => async (dispatch) => {
+	return await makeRequest({
+		action: 'quotify/ajax/quotations/update_status',
+		id,
+		status,
+		nonce: ajaxNonce(),
+	}).then((response) => {
+		if (response.data?.success) {
+			dispatch({
+				type: STATUS_UPDATE,
+				payload: { id, status },
+			});
+
+			// Update the current quotation in state
+			dispatch({
+				type: FETCH_QUOTATION,
+				payload: {
+					quotation: response.data?.data?.quotation,
+				},
+			});
+
+			fireNotify(
+				__( 'Quotation status updated successfully!', 'quotify' ),
+				'success'
+			);
+
+			return response;
+		} else {
+			renderError(response.data?.data || response.data);
+			return response;
+		}
+	}).catch((error) => {
+		renderError(error);
+		return error;
+	});
+};
+
+export const emailQuotation = (id) => async (dispatch) => {
+	return await makeRequest({
+		action: 'quotify/ajax/quotations/email',
+		id,
+		nonce: ajaxNonce(),
+	}).then((response) => {
+		if (response.data?.success) {
+			fireNotify(
+				__( 'Quotation sent to customer successfully!', 'quotify' ),
+				'success'
+			);
+			return response;
+		} else {
+			renderError(response.data?.data || response.data);
+			return response;
+		}
+	}).catch((error) => {
+		renderError(error);
+		return error;
+	});
 };
 
 export const moveQuoteToTrash = (id) => async (dispatch) => {

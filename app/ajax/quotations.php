@@ -29,6 +29,8 @@ class Quotations {
 		add_action( 'wp_ajax_quotify/ajax/quotations/get', [ $this, 'get_item' ] );
 		add_action( 'wp_ajax_quotify/ajax/quotations/delete', [ $this, 'delete_item' ] );
 		add_action( 'wp_ajax_quotify/ajax/quotations/restore', [ $this, 'restore_item' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/update_status', [ $this, 'update_status' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/email', [ $this, 'send_email' ] );
 	}
 
 	/**
@@ -92,22 +94,63 @@ class Quotations {
 			]);
 		}
 
+		// Verify post type is correct
+		if ( 'pqfw_quotations' !== $post->post_type ) {
+			wp_send_json_error([
+				'message' => __( 'Invalid quotation.', 'quotify' ),
+				'not_found' => true,
+			]);
+		}
+
 		$quotation = [
-			'ID'            => $post->ID,
-			'title'         => get_the_title( $post ),
-			'content'       => apply_filters( 'the_content', $post->post_content ),
-			'excerpt'       => get_the_excerpt( $post ),
-			'date'          => get_the_date( '', $post ),
-			'modified_date' => get_the_modified_date( '', $post ),
-			'slug'          => $post->post_name,
-			'status'        => $post->post_status,
-			'type'          => $post->post_type,
-			'permalink'     => get_permalink( $post ),
+			'ID'            => absint( $post->ID ),
+			'title'         => sanitize_text_field( get_the_title( $post ) ),
+			'content'       => wp_kses_post( apply_filters( 'the_content', $post->post_content ) ),
+			'excerpt'       => wp_kses_post( get_the_excerpt( $post ) ),
+			'date'          => sanitize_text_field( get_the_date( '', $post ) ),
+			'modified_date' => sanitize_text_field( get_the_modified_date( '', $post ) ),
+			'slug'          => sanitize_title( $post->post_name ),
+			'status'        => sanitize_key( $post->post_status ),
+			'type'          => sanitize_key( $post->post_type ),
+			'permalink'     => esc_url( get_permalink( $post ) ),
 		];
 
 		$meta = quotify()->quotations()->format_meta( $id );
 
-		$quotation['author_name'] = quotify()->quotations()->get_author( $post, $meta );
+		// Sanitize price HTML in products info
+		if ( isset( $meta['pqfw_products_info'] ) && is_array( $meta['pqfw_products_info'] ) ) {
+			foreach ( $meta['pqfw_products_info'] as &$product ) {
+				if ( isset( $product['price'] ) ) {
+					// Allow only safe HTML for price formatting (currency symbols, etc)
+					$product['price'] = wp_kses( $product['price'], [
+						'span' => ['class' => true],
+						'del' => true,
+						'ins' => true,
+						'b' => true,
+						'strong' => true,
+						'em' => true,
+					] );
+				}
+				if ( isset( $product['name'] ) ) {
+					$product['name'] = sanitize_text_field( $product['name'] );
+				}
+				if ( isset( $product['link'] ) ) {
+					$product['link'] = esc_url( $product['link'] );
+				}
+				if ( isset( $product['img'] ) ) {
+					$product['img'] = esc_url( $product['img'] );
+				}
+				if ( isset( $product['message'] ) ) {
+					$product['message'] = sanitize_textarea_field( $product['message'] );
+				}
+				if ( isset( $product['quantity'] ) ) {
+					$product['quantity'] = absint( $product['quantity'] );
+				}
+			}
+			unset( $product );
+		}
+
+		$quotation['author_name'] = sanitize_text_field( quotify()->quotations()->get_author( $post, $meta ) );
 		$quotation['meta']   = $meta;
 
 		wp_send_json_success([
@@ -178,5 +221,140 @@ class Quotations {
 			'message'   => __( 'Quotation Moved to Trash!', 'quotify' ),
 			'quotation' => $post,
 		]);
+	}
+
+	/**
+	 * Update quotation status.
+	 *
+	 * @return void
+	 */
+	public function update_status() {
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( __( 'You do not have permission to update quotation status.', 'quotify' ) );
+			wp_die();
+		}
+
+		$id     = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+		$status = isset( $_POST['status'] ) ? sanitize_key( $_POST['status'] ) : '';
+
+		if ( ! $id ) {
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
+		}
+
+		// Validate status
+		$valid_statuses = [ 'pending', 'publish', 'draft', 'trash' ];
+		if ( ! in_array( $status, $valid_statuses, true ) ) {
+			wp_send_json_error( __( 'Invalid status.', 'quotify' ) );
+		}
+
+		$post = get_post( $id );
+
+		if ( ! $post || is_wp_error( $post ) ) {
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
+		}
+
+		if ( 'pqfw_quotations' !== $post->post_type ) {
+			wp_send_json_error( __( 'Invalid quotation.', 'quotify' ) );
+		}
+
+		// Update post status
+		$result = wp_update_post( [
+			'ID'          => $id,
+			'post_status' => $status,
+		], true );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( __( 'Failed to update status.', 'quotify' ) );
+		}
+
+		// Get updated quotation data
+		$updated_post = get_post( $id, OBJECT, 'display' );
+		$quotation = [
+			'ID'     => absint( $updated_post->ID ),
+			'title'  => sanitize_text_field( get_the_title( $updated_post ) ),
+			'status' => sanitize_key( $updated_post->post_status ),
+		];
+
+		wp_send_json_success([
+			'message'   => __( 'Status updated successfully.', 'quotify' ),
+			'quotation' => $quotation,
+		]);
+	}
+
+	/**
+	 * Send quotation email to customer.
+	 *
+	 * @return void
+	 */
+	public function send_email() {
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( __( 'You do not have permission to send emails.', 'quotify' ) );
+			wp_die();
+		}
+
+		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+
+		if ( ! $id ) {
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
+		}
+
+		$post = get_post( $id );
+
+		if ( ! $post || is_wp_error( $post ) ) {
+			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
+		}
+
+		if ( 'pqfw_quotations' !== $post->post_type ) {
+			wp_send_json_error( __( 'Invalid quotation.', 'quotify' ) );
+		}
+
+		// Get customer email
+		$customer_email = get_post_meta( $id, 'pqfw_customer_email', true );
+
+		if ( ! is_email( $customer_email ) ) {
+			wp_send_json_error( __( 'Customer email not found.', 'quotify' ) );
+		}
+
+		// Prepare email data
+		$meta     = quotify()->quotations()->format_meta( $id );
+		$quote    = $post;
+		$author   = sanitize_user( get_the_author_meta( 'first_name', $quote->post_author ) );
+		$title    = get_the_title( $id );
+		$handle   = ! empty( $author ) ? esc_attr( $author ) : esc_attr( $title );
+		$subject  = sanitize_text_field( $meta['pqfw_customer_subject'] ?? __( 'Your Quotation', 'quotify' ) );
+		$products = $meta['pqfw_products_info'] ?? [];
+		$headers  = [ 'Content-Type: text/html; charset=UTF-8' ];
+
+		// Build email content
+		ob_start();
+		$collection = [
+			'fullname'    => $handle,
+			'email'       => $customer_email,
+			'subject'     => $subject,
+			'phone'       => $meta['pqfw_customer_phone'] ?? '',
+			'comments'    => $meta['pqfw_customer_comments'] ?? '',
+			'products'    => $products,
+			'email_title' => get_bloginfo( 'name' ),
+			'site_url'    => get_bloginfo( 'url' ),
+			'quotation_id' => $id,
+			'is_admin_email' => false,
+		];
+		require QUOTIFY_PLUGIN_VIEWS . 'email/new-quote.php';
+		$body = ob_get_clean();
+
+		// Send email
+		$sent = quotify()->mail()->send( $customer_email, $subject, $body, $headers );
+
+		if ( $sent ) {
+			wp_send_json_success([
+				'message' => __( 'Quotation sent to customer successfully.', 'quotify' ),
+			]);
+		} else {
+			wp_send_json_error( __( 'Failed to send email.', 'quotify' ) );
+		}
 	}
 }
