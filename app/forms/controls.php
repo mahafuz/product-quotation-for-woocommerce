@@ -167,7 +167,8 @@ class Controls {
 
 		if ( $args['required'] ) {
 			$html .= sprintf(
-				'<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="text" name="%s" value="%s"/>',
+				'<label for="%s" class="pqfw-form-label" id="%s">%s %s</label>
+				<input type="text" name="%s" value="%s" %s />',
 				esc_attr( $args['name'] ),
 				esc_attr( $args['html_id'] ),
 				esc_attr( $args['label'] ),
@@ -222,7 +223,7 @@ class Controls {
 
 		if ( $args['required'] ) {
 			$html .= sprintf(
-				'<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="email" name="%s" value="%s" />',
+				'<label for="%s" class="pqfw-form-label" id="%s">%s %s</label><input type="email" name="%s" value="%s" %s />',
 				esc_attr( $args['name'] ),
 				esc_attr( $args['html_id'] ),
 				esc_attr( $args['label'] ),

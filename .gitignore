@@ -6,7 +6,4 @@ assets/build/
 package-lock.json
 composer.lock
 
-# Keep bin directory for PhpStorm PHPCS integration
-!bin/
-bin/*.*
-!bin/.gitkeep
+Docs

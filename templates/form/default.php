@@ -39,7 +39,6 @@ defined( 'ABSPATH' ) || exit;
 			class="submit"
 		/>
 		<div class="loading-spinner"></div>
-		<?php wp_nonce_field( 'pqfw_form_nonce_action', 'pqfw_form_nonce_field' ); ?>
 	</div>
 
 	<div class="pqfw-form-response-status"></div>

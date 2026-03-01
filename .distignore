@@ -1,4 +1,3 @@
-.DS_Store
 .gitignore
 README.md
 package.json
@@ -13,3 +12,6 @@ appsero.json
 webpack.config.js
 .git
 .github
+Docs/
+bin/
+.DS_Store

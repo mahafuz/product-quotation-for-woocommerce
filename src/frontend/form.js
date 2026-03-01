@@ -24,7 +24,6 @@ jQuery(function ( $ ) {
 				ev.preventDefault();
 
 				var t = $( this ),
-					nonce = f.find( 'input[name="pqfw_form_nonce_field"]').val(),
 					loader = t.next('.loading-spinner');
 
 				// validating fields empty value.
@@ -118,8 +117,8 @@ jQuery(function ( $ ) {
 								responseStatus.html( response?.data?.data );
 
 								setTimeout(function() {
-									window.pqfwCart.initialize();
-								}, 1000);
+									window.QuotifyCart.initialize();
+								}, 500);
 							} else {
 								responseStatus.removeClass('success');
 								responseStatus.addClass('error');

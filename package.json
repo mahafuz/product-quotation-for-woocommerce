@@ -19,9 +19,6 @@
 		"build:frontend": "wp-scripts build --config webpack/webpack.frontend.config.js",
 		"build:fresh:frontend": "rm -rf assets/build/{button,cart,form}.*.* && npm run build:frontend",
 
-		"build:admin": "wp-scripts build --config webpack/webpack.admin.config.js",
-		"build:fresh:admin": "rm -rf assets/build/admin.*.* && npm run build:admin",
-
 		"start": "wp-scripts start",
 		"build": "wp-scripts build",
 

@@ -36,7 +36,9 @@ class Form {
 	 * @return void
 	 */
 	public function submit() {
-		check_ajax_referer( 'quotify_ajax', 'security' );
+		if ( ! wp_verify_nonce( $_POST['security'], 'quotify_ajax' ) ) {
+			wp_send_json_error( __( 'Security check failed!', 'quotify' ) );
+		}
 
 		$entry = ! empty( $_POST['data'] ) ? json_decode( wp_unslash( $_POST['data'] ), true ) : false;
 
