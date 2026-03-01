@@ -17,6 +17,7 @@ import {
 	MOVE_TO_TRASH,
 	RESTORE_QUOTATION,
 	STATUS_UPDATE,
+	FETCH_STATS,
 } from '@Redux/types/quotations.types';
 
 import { __ } from '@wordpress/i18n';
@@ -160,7 +161,7 @@ export const emailQuotation = (id) => async (dispatch) => {
 };
 
 export const moveQuoteToTrash = (id) => async (dispatch) => {
-	makeRequest({
+	return makeRequest({
 		action: 'quotify/ajax/quotations/delete',
 		id,
 		nonce: ajaxNonce(),
@@ -169,18 +170,22 @@ export const moveQuoteToTrash = (id) => async (dispatch) => {
 		if (response.data?.success) {
 			dispatch({
 				type: MOVE_TO_TRASH,
-				payload: response.data,
+				payload: { data: response.data },
 			});
 
 			fireNotify(__(`Moved to Trash!`, 'quotify'), 'success');
 		} else {
-			renderError(e);
+			renderError(response.data?.data || response.data);
 		}
+		return response;
+	}).catch((error) => {
+		renderError(error);
+		return error;
 	});
 };
 
 export const deleteQuote = (id) => async (dispatch) => {
-	makeRequest({
+	return makeRequest({
 		action: 'quotify/ajax/quotations/delete',
 		id,
 		nonce: ajaxNonce(),
@@ -189,26 +194,30 @@ export const deleteQuote = (id) => async (dispatch) => {
 		if (response.data?.success) {
 			dispatch({
 				type: DELETE_QUOTATION,
-				payload: response.data,
+				payload: { data: response.data },
 			});
 
 			fireNotify(__(`Quotation Deleted!`, 'quotify'), 'success');
 		} else {
-			renderError(e);
+			renderError(response.data?.data || response.data);
 		}
+		return response;
+	}).catch((error) => {
+		renderError(error);
+		return error;
 	});
 };
 
-export const restoreQuote = (params) => async (dispatch) => {
-	makeRequest({
+export const restoreQuote = (id) => async (dispatch) => {
+	return makeRequest({
 		action: 'quotify/ajax/quotations/restore',
-		id: params.id,
+		id,
 		nonce: ajaxNonce(),
 	}).then((response) => {
 		if (response.data?.success) {
 			dispatch({
 				type: RESTORE_QUOTATION,
-				payload: response.data,
+				payload: { data: response.data },
 			});
 
 			fireNotify(
@@ -216,7 +225,33 @@ export const restoreQuote = (params) => async (dispatch) => {
 				'success'
 			);
 		} else {
-			renderError(e);
+			renderError(response.data?.data || response.data);
 		}
+		return response;
+	}).catch((error) => {
+		renderError(error);
+		return error;
+	});
+};
+
+export const fetchStats = (date_filter = 'all') => async (dispatch) => {
+	return await makeRequest({
+		action: 'quotify/ajax/quotations/stats',
+		date_filter,
+		nonce: ajaxNonce(),
+	}).then((response) => {
+		if (response.data?.success) {
+			dispatch({
+				type: FETCH_STATS,
+				payload: response.data?.data?.stats || {},
+			});
+			return response.data?.data?.stats;
+		} else {
+			renderError(response.data?.data || response.data);
+			return null;
+		}
+	}).catch((error) => {
+		renderError(error);
+		return null;
 	});
 };

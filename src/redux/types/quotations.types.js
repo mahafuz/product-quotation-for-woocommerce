@@ -7,3 +7,4 @@ export const UPDATE_CURRENT_PAGE = 'update_current_page';
 export const MOVE_TO_TRASH = 'move_to_trash';
 export const RESTORE_QUOTATION = 'restore_quotation';
 export const STATUS_UPDATE = 'status_update';
+export const FETCH_STATS = 'fetch_stats';

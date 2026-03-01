@@ -4,13 +4,22 @@ import {
 	MOVE_TO_TRASH,
 	DELETE_QUOTATION,
 	RESTORE_QUOTATION,
-	UPDATE_CURRENT_PAGE
+	UPDATE_CURRENT_PAGE,
+	FETCH_STATS
 } from '@Redux/types/quotations.types';
 
 const initialState = {
 	data: false,
 	totalItems: 0,
-	currentPage: 1
+	currentPage: 1,
+	status: 'all',
+	stats: {
+		total: 0,
+		pending: 0,
+		approved: 0,
+		trash: 0,
+		value: 0,
+	}
 };
 
 function quotationsReducer(state = initialState, action) {
@@ -19,8 +28,11 @@ function quotationsReducer(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_ALL_QUOTATIONS:
 			return {
-				...state.quotations,
-				...payload,
+				...state,
+				data: payload.data,
+				totalItems: payload.totalItems,
+				currentPage: payload.currentPage,
+				status: payload.status || state.status,
 			};
 		case MOVE_TO_TRASH:
 			if (state.data) {
@@ -105,10 +117,15 @@ function quotationsReducer(state = initialState, action) {
 		case UPDATE_CURRENT_PAGE:
 			return {
 				...state,
-				data: {
-					...state.data,
-					currentPage: payload
-				}				
+				currentPage: payload,
+			}
+		case FETCH_STATS:
+			return {
+				...state,
+				stats: {
+					...state.stats,
+					...payload,
+				}
 			}
 		default:
 			return state;

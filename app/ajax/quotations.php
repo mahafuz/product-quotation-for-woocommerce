@@ -31,6 +31,8 @@ class Quotations {
 		add_action( 'wp_ajax_quotify/ajax/quotations/restore', [ $this, 'restore_item' ] );
 		add_action( 'wp_ajax_quotify/ajax/quotations/update_status', [ $this, 'update_status' ] );
 		add_action( 'wp_ajax_quotify/ajax/quotations/email', [ $this, 'send_email' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/stats', [ $this, 'get_stats' ] );
+		add_action( 'wp_ajax_quotify/ajax/quotations/export', [ $this, 'export_csv' ] );
 	}
 
 	/**
@@ -356,5 +358,288 @@ class Quotations {
 		} else {
 			wp_send_json_error( __( 'Failed to send email.', 'quotify' ) );
 		}
+	}
+
+	/**
+	 * Get quotation statistics for dashboard.
+	 *
+	 * @return void
+	 */
+	public function get_stats() {
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( __( 'You do not have permission to view statistics.', 'quotify' ) );
+			wp_die();
+		}
+
+		$date_filter = isset( $_GET['date_filter'] ) ? sanitize_text_field( $_GET['date_filter'] ) : 'all';
+
+		// Calculate date range based on filter
+		$date_query = $this->get_date_query( $date_filter );
+
+		// Get total count
+		$total_args = [
+			'post_type'      => 'pqfw_quotations',
+			'post_status'    => 'any',
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+			'date_query'     => $date_query,
+		];
+
+		$query = new WP_Query( $total_args );
+		$total = $query->found_posts;
+
+		// Get pending count
+		$pending_args = $total_args;
+		$pending_args['post_status'] = 'pending';
+		$query = new WP_Query( $pending_args );
+		$pending = $query->found_posts;
+
+		// Get approved (publish) count
+		$approved_args = $total_args;
+		$approved_args['post_status'] = 'publish';
+		$query = new WP_Query( $approved_args );
+		$approved = $query->found_posts;
+
+		// Get trash count
+		$trash_args = $total_args;
+		$trash_args['post_status'] = 'trash';
+		$query = new WP_Query( $trash_args );
+		$trash = $query->found_posts;
+
+		// Calculate total value (sum of products with prices)
+		$value = $this->calculate_total_value( $date_query );
+
+		wp_send_json_success([
+			'message' => __( 'Statistics fetched successfully.', 'quotify' ),
+			'stats' => [
+				'total'    => $total,
+				'pending'  => $pending,
+				'approved'  => $approved,
+				'trash'    => $trash,
+				'value'    => $value,
+			],
+		]);
+	}
+
+	/**
+	 * Calculate date query array based on date filter.
+	 *
+	 * @param string $filter The date filter key.
+	 * @return array|false Date query array or false.
+	 */
+	private function get_date_query( $filter ) {
+		if ( 'all' === $filter ) {
+			return false;
+		}
+
+		$now = current_time( 'timestamp' );
+		$year = date( 'Y', $now );
+		$month = date( 'm', $now );
+		$day = date( 'd', $now );
+		$week = date( 'W', $now );
+
+		switch ( $filter ) {
+			case 'today':
+				return [
+					[
+						'after'     => mktime( 0, 0, 0, $month, $day, $year ),
+						'before'    => mktime( 23, 59, 59, $month, $day, $year ),
+						'inclusive' => true,
+					],
+				];
+
+			case 'week':
+				return [
+					[
+						'after'     => strtotime( 'this week 00:00:00', $now ),
+						'before'    => strtotime( 'this week 23:59:59', $now ),
+						'inclusive' => true,
+					],
+				];
+
+			case 'month':
+				return [
+					[
+						'after'     => mktime( 0, 0, 0, $month, 1, $year ),
+						'before'    => mktime( 23, 59, 59, $month, cal_days_in_month( $year, $month ), $year ),
+						'inclusive' => true,
+					],
+				];
+
+			case 'quarter':
+				$quarter = ceil( $month / 3 );
+				$quarter_start_month = ( $quarter - 1 ) * 3 + 1;
+				return [
+					[
+						'after'     => mktime( 0, 0, 0, $quarter_start_month, 1, $year ),
+						'before'    => mktime( 23, 59, 59, $quarter_start_month + 2, cal_days_in_month( $year, $quarter_start_month + 2 ), $year ),
+						'inclusive' => true,
+					],
+				];
+
+			case 'year':
+				return [
+					[
+						'after'     => mktime( 0, 0, 0, 1, 1, $year ),
+						'before'    => mktime( 23, 59, 59, 12, 31, $year ),
+						'inclusive' => true,
+					],
+				];
+
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * Calculate total value of all products in quotations.
+	 *
+	 * @param array|false $date_query Date query array.
+	 * @return float Total value.
+	 */
+	private function calculate_total_value( $date_query = false ) {
+		$args = [
+			'post_type'      => 'pqfw_quotations',
+			'post_status'    => [ 'pending', 'publish' ],
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+			'date_query'     => $date_query,
+		];
+
+		$query = new WP_Query( $args );
+		$total_value = 0;
+
+		foreach ( $query->posts as $post_id ) {
+			$products = get_post_meta( $post_id, 'pqfw_products_info', true );
+			if ( is_array( $products ) ) {
+				foreach ( $products as $product ) {
+					$numeric_value = 0;
+					$quantity = isset( $product['quantity'] ) ? absint( $product['quantity'] ) : 1;
+
+					// Try to get price from different fields
+					if ( isset( $product['price_html'] ) ) {
+						// Extract numeric value from price HTML
+						$price = html_entity_decode( $product['price_html'] );
+						$price = preg_replace( '/[^0-9.,]/', '', $price );
+						$numeric_value = (float) $price;
+					} elseif ( isset( $product['price'] ) ) {
+						// Price field might be HTML or numeric
+						if ( is_numeric( $product['price'] ) ) {
+							$numeric_value = (float) $product['price'];
+						} else {
+							// Extract numeric value from price HTML string
+							$price = html_entity_decode( $product['price'] );
+							$price = preg_replace( '/[^0-9.,]/', '', $price );
+							$numeric_value = (float) $price;
+						}
+					}
+
+					$total_value += $numeric_value * $quantity;
+				}
+			}
+		}
+
+		return $total_value;
+	}
+
+	/**
+	 * Export quotations to CSV.
+	 *
+	 * @since 2.5.0
+	 * @return void
+	 */
+	public function export_csv() {
+		check_ajax_referer( 'quotify_ajax', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( __( 'You do not have permission to export quotations.', 'quotify' ) );
+			wp_die();
+		}
+
+		$status   = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'all';
+		$date_filter = isset( $_GET['date_filter'] ) ? sanitize_text_field( $_GET['date_filter'] ) : 'all';
+
+		// Calculate date query if needed
+		$date_query = 'all' !== $date_filter ? $this->get_date_query( $date_filter ) : false;
+
+		// Build query args
+		$args = [
+			'post_type'      => 'pqfw_quotations',
+			'post_status'    => 'all' === $status ? [ 'pending', 'publish' ] : $status,
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+			'date_query'     => $date_query,
+		];
+
+		$query = new WP_Query( $args );
+		$quotation_ids = $query->posts;
+
+		if ( empty( $quotation_ids ) ) {
+			wp_send_json_error( __( 'No quotations found to export.', 'quotify' ) );
+		}
+
+		// Set headers for CSV download
+		header( 'Content-Type: text/csv' );
+		header( 'Content-Disposition: attachment; filename=quotations-' . date( 'Y-m-d' ) . '.csv' );
+		header( 'Pragma: no-cache' );
+		header( 'Expires: 0' );
+
+		// Open output stream
+		$output = fopen( 'php://output', 'w' );
+
+		// Add BOM for UTF-8
+		fprintf( $output, "\xEF\xBB\xBF" );
+
+		// CSV headers
+		$headers = [
+			'ID',
+			'Title',
+			'Author',
+			'Email',
+			'Phone',
+			'Status',
+			'Date',
+			'Products',
+			'Comments',
+		];
+
+		fputcsv( $output, $headers );
+
+		// Write quotation data
+		foreach ( $quotation_ids as $quotation_id ) {
+			$post = get_post( $quotation_id );
+			$meta = quotify()->quotations()->format_meta( $quotation_id );
+			$author_name = quotify()->quotations()->get_author( $post, $meta );
+
+			// Format products as string
+			$products_info = $meta['pqfw_products_info'] ?? [];
+			$products = [];
+			foreach ( $products_info as $product ) {
+				$product_name = $product['name'] ?? '';
+				$quantity = $product['quantity'] ?? 1;
+				$price = $product['price'] ?? '';
+				$products[] = $product_name . ' (x' . $quantity . ') - ' . $price;
+			}
+			$products_string = implode( ' | ', $products );
+
+			$row = [
+				$quotation_id,
+				get_the_title( $quotation_id ),
+				$author_name,
+				$meta['pqfw_customer_email'] ?? '',
+				$meta['pqfw_customer_phone'] ?? '',
+				get_post_status( $quotation_id ),
+				get_the_date( 'Y-m-d H:i:s', $quotation_id ),
+				$products_string,
+				$meta['pqfw_customer_comments'] ?? '',
+			];
+
+			fputcsv( $output, $row );
+		}
+
+		fclose( $output );
+		exit;
 	}
 }

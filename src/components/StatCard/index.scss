@@ -1,0 +1,162 @@
+// ============================================
+// Stat Card Component
+// ============================================
+
+.quotify-stat-card {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s ease;
+
+	&:hover {
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	}
+
+	&.quotify-stat-card--clickable {
+		cursor: pointer;
+
+		&:hover {
+			transform: translateY(-2px);
+			border-color: #2271b1;
+		}
+	}
+
+	&--primary {
+		border-left: 4px solid #2271b1;
+
+		.quotify-stat-card__icon {
+			background: #eff6ff;
+			color: #2271b1;
+		}
+	}
+
+	&--warning {
+		border-left: 4px solid #f59e0b;
+
+		.quotify-stat-card__icon {
+			background: #fffbeb;
+			color: #f59e0b;
+		}
+	}
+
+	&--success {
+		border-left: 4px solid #22c55e;
+
+		.quotify-stat-card__icon {
+			background: #f0fdf4;
+			color: #22c55e;
+		}
+	}
+
+	&--danger {
+		border-left: 4px solid #ef4444;
+
+		.quotify-stat-card__icon {
+			background: #fef2f2;
+			color: #ef4444;
+		}
+	}
+
+	&--purple {
+		border-left: 4px solid #8b5cf6;
+
+		.quotify-stat-card__icon {
+			background: #f5f3ff;
+			color: #8b5cf6;
+		}
+	}
+
+	&--default {
+		border-left: 4px solid #6b7280;
+
+		.quotify-stat-card__icon {
+			background: #f9fafb;
+			color: #6b7280;
+		}
+	}
+
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		border-radius: 12px;
+		flex-shrink: 0;
+
+		svg {
+			width: 28px;
+			height: 28px;
+		}
+	}
+
+	&__content {
+		flex: 1;
+		min-width: 0;
+	}
+
+	&__value {
+		font-size: 28px;
+		font-weight: 700;
+		color: #111827;
+		line-height: 1;
+		margin-bottom: 4px;
+	}
+
+	&__label {
+		font-size: 14px;
+		font-weight: 500;
+		color: #6b7280;
+	}
+
+	&__trend {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 12px;
+		font-weight: 600;
+		margin-top: 6px;
+
+		&.up {
+			color: #22c55e;
+		}
+
+		&.down {
+			color: #ef4444;
+		}
+
+		&.neutral {
+			color: #6b7280;
+		}
+	}
+}
+
+// Responsive
+@media (max-width: 768px) {
+	.quotify-stat-card {
+		padding: 16px;
+
+		&__icon {
+			width: 48px;
+			height: 48px;
+
+			svg {
+				width: 24px;
+				height: 24px;
+			}
+		}
+
+		&__value {
+			font-size: 22px;
+		}
+
+		&__label {
+			font-size: 13px;
+		}
+	}
+}
