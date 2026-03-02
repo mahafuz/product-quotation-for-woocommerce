@@ -50,8 +50,47 @@ class Install {
 		add_action( 'admin_init', [ $this, 'redirect' ] );
 		add_option( '_pqfw_activation_redirect', true );
 
+		// Init Freemius.
+		$this->quotify_ffs();
+
+		// Signal that SDK was initiated.
+		do_action( 'quotify_ffs_loaded' );
+
 		register_activation_hook( QUOTIFY_PLUGIN_FILE, [ $this, 'activate' ] );
 		register_activation_hook( QUOTIFY_PLUGIN_FILE, [ $this, 'deactivate' ] );
+	}
+
+	/**
+	 * Initialize Freemius SDK.
+	 *
+	 * @return array Freemius SDK instance.
+	 */
+	public function quotify_ffs() {
+		global $quotify_ffs;
+
+		if ( ! isset( $quotify_ffs ) ) {
+
+			// Include Freemius SDK.
+			require_once QUOTIFY_PLUGIN_ROOT_PATH . '/freemius/start.php';
+
+			$quotify_ffs = fs_dynamic_init([
+				'id'               => '20611',
+				'slug'             => 'quotify',
+				'type'             => 'plugin',
+				'public_key'       => 'pk_8f3aaf4f156015a7f95f6d4548528',
+				'is_premium'       => false,
+				'has_addons'       => false,
+				'has_paid_plans'   => false,
+				'is_org_compliant' => true,
+				'menu'             => [
+					'slug'    => 'quotify',
+					'account' => false,
+					'support' => false,
+				],
+			]);
+		}
+
+		return $quotify_ffs;
 	}
 
 	/**

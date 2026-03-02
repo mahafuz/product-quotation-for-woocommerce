@@ -14,7 +14,7 @@ import {makeRequest} from '@Utils/global';
 
 			$(document).on('click', '.pqfw-remove-product', function () {
 				const $hash = $(this).data('id');
-				this.removeProduct($hash);
+				QuotifyCart.removeProduct($hash);
 			});
 
 			$(document).on('change', '.pqfw-quantity', function () {
@@ -31,7 +31,7 @@ import {makeRequest} from '@Utils/global';
 
 
 				const products = window.pqfwProducts;
-				this.updateProduct(products);
+				QuotifyCart.updateProduct(products);
 			});
 
 			$(document).on('change', '.pqfw-message > textarea', function () {
@@ -40,7 +40,7 @@ import {makeRequest} from '@Utils/global';
 
 				window.pqfwProducts[hash]['message'] = new_message;
 				const products = window.pqfwProducts;
-				this.updateProduct(products);
+				QuotifyCart.updateProduct(products);
 			});
 		},
 		initialize: function () {
