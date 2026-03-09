@@ -157,51 +157,46 @@ const QuotationsList = () => {
 	}, [dispatch, status, quotations.currentPage, searchTerm, dateFilter]);
 
 	// Bulk action handler
-	const bulkActionHandler = useCallback((selectedRows, bulkAction) => {
-		if (status !== 'trash') {
-			selectedRows.forEach((item) => {
-				dispatch(
-					moveQuoteToTrash({
-						ID: item.id ? item.id : item.ID,
-					})
-				);
-			});
+	const bulkActionHandler = useCallback(async (selectedRows, bulkAction) => {
+		if (status !== 'trash' && bulkAction.value === 'trash') {
+			// Move to trash - for non-trash tabs
+			const promises = selectedRows.map((item) =>
+				dispatch(moveQuoteToTrash(item.id ? item.id : item.ID))
+			);
+
+			await Promise.all(promises);
 			fireNotify(
-				__('Selected quotations moved to trash.', 'quotify'),
+				__('%d quotations moved to trash.', 'quotify').replace('%d', selectedRows.length),
 				'success'
 			);
-		} else if (bulkAction.value === 'restore') {
-			selectedRows.forEach((item) => {
-				dispatch(restoreQuote(item.id ? item.id : item.ID));
-			});
+		} else if (status === 'trash' && bulkAction.value === 'restore') {
+			// Restore - for trash tab only
+			const promises = selectedRows.map((item) =>
+				dispatch(restoreQuote(item.id ? item.id : item.ID))
+			);
+
+			await Promise.all(promises);
 			fireNotify(
-				__('Selected quotations restored.', 'quotify'),
+				__('%d quotations restored.', 'quotify').replace('%d', selectedRows.length),
 				'success'
 			);
-		} else {
-			if (
-				confirm(
-					__(
-						'Are you sure you want to permanently delete selected quotations?',
-						'quotify'
-					)
-				)
-			) {
-				selectedRows.forEach((item) => {
-					dispatch(
-						deleteQuote({
-							ID: item.id ? item.id : item.ID,
-						})
-					);
-				});
-				fireNotify(
-					__('Selected quotations permanently deleted.', 'quotify'),
-					'success'
-				);
-			}
+		} else if (bulkAction.value === 'delete') {
+			// Delete permanently - for trash tab only
+			const promises = selectedRows.map((item) =>
+				dispatch(deleteQuote(item.id ? item.id : item.ID))
+			);
+
+			await Promise.all(promises);
+			fireNotify(
+				__('%d quotations permanently deleted.', 'quotify').replace('%d', selectedRows.length),
+				'success'
+			);
 		}
+
+		// Clear selection and refresh data
 		setBulkActionData({});
-	}, [status, dispatch]);
+		handleActionComplete();
+	}, [status, dispatch, handleActionComplete]);
 
 	// Bulk action options
 	const bulkOptions = useMemo(() => {
@@ -213,6 +208,20 @@ const QuotationsList = () => {
 			{ value: 'delete', label: __('Delete Permanently', 'quotify') },
 		];
 	}, [status]);
+
+	// Get confirm message based on selected action
+	const getConfirmMessage = useCallback((bulkAction) => {
+		if (bulkAction.value === 'trash') {
+			return __('Are you sure you want to move selected quotations to trash?', 'quotify');
+		}
+		if (bulkAction.value === 'restore') {
+			return __('Are you sure you want to restore selected quotations?', 'quotify');
+		}
+		if (bulkAction.value === 'delete') {
+			return __('Are you sure you want to permanently delete selected quotations? This action cannot be undone.', 'quotify');
+		}
+		return '';
+	}, []);
 
 	// Table columns
 	const columns = useMemo(() => [
@@ -410,33 +419,10 @@ const QuotationsList = () => {
 							</div>
 
 							<div className="quotify-quotations-header__actions">
-								<button
-									className="quotify-export-button"
-									onClick={handleExport}
-									type="button"
-									title={__('Export to CSV', 'quotify')}
-								>
-									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-										<polyline points="7 10 12 15 17 10" />
-										<line x1="12" y1="15" x2="12" y2="3" />
-									</svg>
-									<span>{__('Export', 'quotify')}</span>
-								</button>
 								<BulkAction
 									data={bulkActionData}
 									applyActionHandler={bulkActionHandler}
-									confirmMessage={
-										status === 'trash'
-											? __(
-													'Are you sure you want to permanently delete selected quotations?',
-													'quotify'
-											  )
-											: __(
-													'Are you sure you want to move to trash?',
-													'quotify'
-											  )
-									}
+									confirmMessage={getConfirmMessage}
 									options={bulkOptions}
 								/>
 							</div>
@@ -481,7 +467,7 @@ const QuotationsList = () => {
 											customStyles={{
 												table: {
 													style: {
-														height: '600px',
+														height: '400px',
 													},
 												},
 											}}

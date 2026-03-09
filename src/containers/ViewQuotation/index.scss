@@ -21,19 +21,15 @@ $quotify-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $quotify-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 $quotify-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
-// Content Wrapper
-.quotify-content-wrap {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 24px;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-	color: $quotify-gray-800;
-	line-height: 1.6;
-}
-
 // ============================================
 // Header Section
 // ============================================
+
+.quotify-single-quotation  {
+	.quotify-content-wrap {
+		flex-direction: column;
+	}
+}
 
 .quotify-quote-header {
 	display: flex;
@@ -49,36 +45,34 @@ $quotify-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 
 .quotify-quote-title-section {
 	flex: 1;
 	min-width: 300px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
 }
 
 .quotify-quote-title {
-	margin: 0 0 12px 0;
+	margin: 0;
 	font-size: 28px;
 	font-weight: 700;
 	color: $quotify-gray-900;
 	line-height: 1.2;
 }
 
-.quotify-quote-meta {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	flex-wrap: wrap;
-}
-
-.quotify-quote-id {
-	font-size: 14px;
-	font-weight: 600;
-	color: $quotify-gray-600;
-	background: $quotify-gray-100;
-	padding: 4px 12px;
-	border-radius: 4px;
+.quotify-status-wrapper {
+	position: relative;
+	display: inline-block;
 }
 
 .quotify-quote-actions {
 	display: flex;
 	gap: 8px;
 	flex-wrap: wrap;
+}
+
+.quotify-action-menu {
+	position: relative;
+	display: inline-block;
 }
 
 // ============================================
@@ -705,16 +699,6 @@ $quotify-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 
 // ============================================
 // Dropdown Menu
 // ============================================
-
-.quotify-status-wrapper {
-	position: relative;
-	display: inline-block;
-}
-
-.quotify-action-menu {
-	position: relative;
-	display: inline-block;
-}
 
 .quotify-dropdown-menu {
 	position: absolute;

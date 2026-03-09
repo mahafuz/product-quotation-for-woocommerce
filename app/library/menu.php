@@ -157,7 +157,7 @@ class Menu {
 	 * @return string
 	 */
 	public static function get_toplevel_menu_title() {
-		return apply_filters( 'pqfw/admin/toplevel_menu_title', __( 'Quotations', 'quotify' ) );
+		return apply_filters( 'pqfw/admin/toplevel_menu_title', __( 'Quotify', 'quotify' ) );
 	}
 
 	/**

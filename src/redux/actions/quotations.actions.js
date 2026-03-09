@@ -170,7 +170,7 @@ export const moveQuoteToTrash = (id) => async (dispatch) => {
 		if (response.data?.success) {
 			dispatch({
 				type: MOVE_TO_TRASH,
-				payload: { data: response.data },
+				payload: { id },
 			});
 
 			fireNotify(__(`Moved to Trash!`, 'quotify'), 'success');
@@ -194,7 +194,7 @@ export const deleteQuote = (id) => async (dispatch) => {
 		if (response.data?.success) {
 			dispatch({
 				type: DELETE_QUOTATION,
-				payload: { data: response.data },
+				payload: { id },
 			});
 
 			fireNotify(__(`Quotation Deleted!`, 'quotify'), 'success');
@@ -217,7 +217,7 @@ export const restoreQuote = (id) => async (dispatch) => {
 		if (response.data?.success) {
 			dispatch({
 				type: RESTORE_QUOTATION,
-				payload: { data: response.data },
+				payload: { id },
 			});
 
 			fireNotify(

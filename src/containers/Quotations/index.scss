@@ -387,7 +387,16 @@
 .quotify-bulk-actions {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 12px;
+
+	.quotify-bulk-count {
+		font-size: 14px;
+		font-weight: 500;
+		color: #6b7280;
+		padding: 8px 12px;
+		background: #f3f4f6;
+		border-radius: 6px;
+	}
 
 	.quotify-button {
 		height: 38px;

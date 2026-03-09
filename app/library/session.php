@@ -53,20 +53,10 @@ class Session {
 	 * @return void
 	 */
 	private function __construct() {
-		add_action( 'woocommerce_init', [ $this, 'start' ] );
+
 	}
 
-	/**
-	 * Start WooCommerce session for users.
-	 *
-	 * @since   2.0.3
-	 * @return  void
-	 */
-	public function start() {
-		if ( isset( WC()->session ) ) {
-			WC()->session->set_customer_session_cookie( true );
-		}
-	}
+
 
 	/**
 	 * Set data to plugin group session.

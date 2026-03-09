@@ -56,6 +56,8 @@ class Install {
 		// Signal that SDK was initiated.
 		do_action( 'quotify_ffs_loaded' );
 
+		add_action( 'woocommerce_init', [ $this, 'start' ] );
+
 		register_activation_hook( QUOTIFY_PLUGIN_FILE, [ $this, 'activate' ] );
 		register_activation_hook( QUOTIFY_PLUGIN_FILE, [ $this, 'deactivate' ] );
 	}
@@ -91,6 +93,19 @@ class Install {
 		}
 
 		return $quotify_ffs;
+	}
+
+	/**
+	 * Start WooCommerce session for users.
+	 *
+	 * @since   2.0.3
+	 * @return  void
+	 */
+	public function start() {
+		if ( isset( WC()->session ) ) {
+			error_log( 'Ran session for a user' );
+			WC()->session->set_customer_session_cookie( true );
+		}
 	}
 
 	/**

@@ -37,13 +37,13 @@
 	display: flex;
     box-sizing: border-box;
     margin: 0 auto 100px;
-    max-width: 1250px;
+    max-width: 80%;
     padding: 0 15px;
     width: 100%;
 }
 
 .quotify-card {
-    width: 100%;
+	max-width: 100%;
     padding: 15px 30px 30px;
     margin-top: 15px;
     margin-bottom: 15px;

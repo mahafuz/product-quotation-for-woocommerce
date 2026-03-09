@@ -175,8 +175,15 @@ class Quotations {
 		}
 
 		$force = isset( $_POST['force'] ) ? wp_validate_boolean( $_POST['force'] ) : false;
-		$id    = json_decode( wp_unslash( $_POST['id'] ), true );
-		$id    = ! empty( $id['ID'] ) ? absint( $id['ID'] ) : 0;
+
+		// Handle both plain ID and JSON-encoded ID formats for backward compatibility
+		$id    = isset( $_POST['id'] ) ? wp_unslash( $_POST['id'] ) : '';
+		$decoded = json_decode( $id, true );
+		if ( is_array( $decoded ) && isset( $decoded['ID'] ) ) {
+			$id = absint( $decoded['ID'] );
+		} else {
+			$id = absint( $id );
+		}
 
 		if ( ! $id ) {
 			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
@@ -218,6 +225,11 @@ class Quotations {
 		}
 
 		$post = wp_untrash_post( $id );
+
+		$result = wp_update_post( [
+			'ID'          => $id,
+			'post_status' => 'pending',
+		], true );
 
 		wp_send_json_success([
 			'message'   => __( 'Quotation Moved to Trash!', 'quotify' ),

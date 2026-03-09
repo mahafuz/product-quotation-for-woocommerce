@@ -16,7 +16,7 @@ const config = {
 		form: path.resolve(__dirname, 'src/frontend/form.js'),
 
 		// Admin common utilities
-		admin: path.resolve(__dirname, 'src/common/quotify-admin-common.js'),
+		//admin: path.resolve(__dirname, 'src/common/quotify-admin-common.js'),
 	},
 	output: {
 		filename: `[name].${PRODUCT_QUOTATION_VERSION}.js`,
