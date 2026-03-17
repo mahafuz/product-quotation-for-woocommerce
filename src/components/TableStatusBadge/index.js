@@ -18,11 +18,11 @@ const TableStatusBadge = ({ status }) => {
 			className: 'status-trash',
 			icon: '🗑'
 		},
-		draft: {
-			label: __('Draft', 'quotify'),
-			className: 'status-draft',
-			icon: '📝'
-		},
+		// draft: {
+		// 	label: __('Draft', 'quotify'),
+		// 	className: 'status-draft',
+		// 	icon: '📝'
+		// },
 	};
 
 	const config = statusConfig[status] || {

@@ -26,7 +26,7 @@ const StatusBadge = ({ status, isDropdown }) => {
 			className: 'status-approved',
 		},
 		trash: { label: __('Trash', 'quotify'), className: 'status-trash' },
-		draft: { label: __('Draft', 'quotify'), className: 'status-draft' },
+		// draft: { label: __('Draft', 'quotify'), className: 'status-draft' },
 	};
 
 	const config = statusConfig[status] || {
@@ -304,7 +304,7 @@ function Index({ id }) {
 	const statusOptions = [
 		{ value: 'pending', label: __('Pending', 'quotify'), icon: '⏱' },
 		{ value: 'publish', label: __('Approved', 'quotify'), icon: '✓' },
-		{ value: 'draft', label: __('Draft', 'quotify'), icon: '📝' },
+		// { value: 'draft', label: __('Draft', 'quotify'), icon: '📝' },
 		{ value: 'trash', label: __('Trash', 'quotify'), icon: '🗑' },
 	];
 
