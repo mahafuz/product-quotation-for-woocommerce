@@ -5,5 +5,3 @@ assets/build/
 .list-packages.json
 package-lock.json
 composer.lock
-
-Docs
