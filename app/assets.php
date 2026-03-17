@@ -61,15 +61,21 @@ class Assets extends Base {
 	 */
 	public function admin_scripts( $hook ) {
 		if ( \Quotify\Library\Helper::pageLookUp( $hook ) ) {
-			wp_enqueue_style( 'pqfw-admin-style', QUOTIFY_PLUGIN_ASSETS_URI . 'build/backend.css', [ 'wp-components' ], QUOTIFY_PLUGIN_ASSETS_URI . 'build/backend.css', 'all' );
+			$dependencies = include_once QUOTIFY_PLUGIN_ASSETS_DIR . sprintf( 'build/backend.%s.asset.php', QUOTIFY_PLUGIN_VERSION );
+
+			wp_enqueue_style(
+				'pqfw-admin-style',
+				QUOTIFY_PLUGIN_ASSETS_URI . 'build/backend.css',
+				[ 'wp-components' ],
+				$dependencies['version'],
+				'all'
+			);
 
 			if ( ! did_action( 'wp_enqueue_media' ) ) {
 				wp_enqueue_media();
 			}
 
 			$this->load_block_editor_scripts();
-
-			$dependencies = include_once QUOTIFY_PLUGIN_ASSETS_DIR . sprintf( 'build/backend.%s.asset.php', QUOTIFY_PLUGIN_VERSION );
 
 			wp_enqueue_style(
 				'pqfw-web-font',
