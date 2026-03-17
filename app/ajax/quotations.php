@@ -1,21 +1,13 @@
 <?php
-/**
- * PQFW class
- *
- * @author      Mahafuz
- * @package     PQFW
- * @since       1.2.0
- */
-
 namespace Quotify\Ajax;
 
 use WP_Query;
 
 /**
- * PQFW class
+ * Quotify quotations ajax class
  *
  * @author      Mahafuz
- * @package     PQFW
+ * @package     Quotify
  * @since       1.2.0
  */
 class Quotations {

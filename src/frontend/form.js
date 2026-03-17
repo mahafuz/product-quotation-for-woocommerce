@@ -1,5 +1,5 @@
 /**
- * PQFW frontend JS.
+ * Quotify frontend JS.
  *
  * @author Mahafuz
  * @package Quotify

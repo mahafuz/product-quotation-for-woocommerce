@@ -1,6 +1,6 @@
 <?php
 /**
- * Addon interface for PQFW plugin extensions.
+ * Addon interface for Quotify plugin extensions.
  *
  * Defines the standard structure for all addons to ensure consistency
  * and required functionality across all extensions. This interface
@@ -10,7 +10,7 @@
  * @package Quotify
  */
 
-namespace PQFW\Utils\Interfaces;
+namespace Quotify\Utils\Interfaces;
 
 defined( 'ABSPATH' ) || exit;
 

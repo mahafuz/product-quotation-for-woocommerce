@@ -1,9 +1,9 @@
 <?php
 /**
- * PQFW class
+ * Quotify forms class
  *
  * @author      Mahafuz
- * @package     PQFW
+ * @package     Quotify
  * @since       1.2.0
  */
 

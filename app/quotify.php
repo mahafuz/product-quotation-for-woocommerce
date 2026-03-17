@@ -1,9 +1,9 @@
 <?php
 /**
- * PQFW class
+ * Quotify class
  *
  * @author      Mahafuz
- * @package     PQFW
+ * @package     Quotify
  * @since       1.2.0
  */
 
@@ -98,7 +98,7 @@ final class Quotify {
 	/**
 	 * Returns single instance of the class
 	 *
-	 * @return \PQFW
+	 * @return \Quotify
 	 * @since 1.0.0
 	 */
 	public static function instance() {
@@ -155,8 +155,8 @@ final class Quotify {
 		define( 'QUOTIFY_PLUGIN_ASSETS_URI', ( QUOTIFY_PLUGIN_ROOT_URI . 'assets' ) . '/' );
 		define( 'QUOTIFY_PLUGIN_ASSETS_DIR', ( QUOTIFY_PLUGIN_ROOT_PATH . 'assets' ) . '/' );
 
-		define( 'PQFW_ADDONS_DIR_PATH', ( QUOTIFY_PLUGIN_ROOT_PATH . 'addons' ) . '/' );
-		define( 'PQFW_ADDONS_DIR_URI', ( QUOTIFY_PLUGIN_ROOT_PATH . 'addons' ) . '/' );
+		define( 'QUOTIFY_ADDONS_DIR_PATH', ( QUOTIFY_PLUGIN_ROOT_PATH . 'addons' ) . '/' );
+		define( 'QUOTIFY_ADDONS_DIR_URI', ( QUOTIFY_PLUGIN_ROOT_PATH . 'addons' ) . '/' );
 
 		define( 'QUOTIFY_PLUGIN_LANGUAGES_PATH', ( QUOTIFY_PLUGIN_ROOT_PATH . 'languages' ) . '/' );
 		define( 'QUOTIFY_PLUGIN_VIEWS', ( QUOTIFY_PLUGIN_ROOT_PATH . 'templates' ) . '/' );
