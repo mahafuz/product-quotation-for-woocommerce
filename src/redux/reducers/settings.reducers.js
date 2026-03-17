@@ -1,22 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { FETCH_SETTINGS, SAVE_SETTINGS } from '@Redux/types/settings.types';
 
-const initialState = {
-	settings: {},
-	activeTab: "general",
-};
+const initialState = {};
 
-const settingsSlice = createSlice({
-    name: "settings",
-    initialState,
-    reducers: {
-        setSettings: (state, action) => {
-            state.settings = action.payload;
-        },
-        setActiveTab: (state, action) => {
-            state.activeTab = action.payload;
-        }
-    },
-});
+function settingsReducer(state = initialState, action) {
+	const payload = action.payload;
 
-export const { setSettings, setActiveTab } = settingsSlice.actions;
-export default settingsSlice.reducer;
+	switch (action.type) {
+		case FETCH_SETTINGS:
+			return {
+				...state,
+				...payload,
+			};
+		case SAVE_SETTINGS:
+			return state;
+		default:
+			return state;
+	}
+}
+
+export default settingsReducer;

@@ -1,12 +1,13 @@
+import { fireNotify, renderError } from '@Utils/spa';
+
 import {
 	API,
-	current_user_can,
-	current_user_id,
-	fireNotify,
-	is_admin,
-	renderError,
+	getAjaxUrl,
 	makeRequest,
-} from '@Utils/helper';
+	currentUserCan,
+	getCurrentUserId,
+	isAdmin,
+} from '@Utils/global';
 
 import {
 	DELETE_QUOTATION,
@@ -15,25 +16,28 @@ import {
 	UPDATE_CURRENT_PAGE,
 	MOVE_TO_TRASH,
 	RESTORE_QUOTATION,
+	STATUS_UPDATE,
+	FETCH_STATS,
 } from '@Redux/types/quotations.types';
 
 import { __ } from '@wordpress/i18n';
-import { ajaxurl } from '@Utils/helper';
+import { ajaxNonce } from '@Utils/config';
 
 export const fetchAllQuotations =
 	(status = 'publish', page = 1, per_page = 10, search = '') =>
 	async (dispatch) => {
 		let params = {
-			action: 'quotify/ajax/load',
+			action: 'quotify/ajax/quotations/load',
 			status: status === 'all' ? 'any' : status,
+			nonce: ajaxNonce(),
 			page,
 			per_page,
 			context: 'edit',
 		};
-		if (!is_admin || current_user_can.manage_options === false) {
+		if (!isAdmin || currentUserCan().manage_options === false) {
 			params = {
 				...params,
-				author: current_user_id,
+				author: getCurrentUserId(),
 			};
 		}
 		if (search) {
@@ -43,7 +47,7 @@ export const fetchAllQuotations =
 			};
 		}
 
-		return await API.get(ajaxurl, {
+		return await API.get(getAjaxUrl(), {
 			params,
 		}).then(
 			(response) => {
@@ -53,6 +57,9 @@ export const fetchAllQuotations =
 						data: response?.data?.data?.quotations,
 						totalItems: parseInt(response?.data?.data?.total),
 						status,
+						currentPage: parseInt(
+							response?.data?.data?.currentPage
+						),
 					},
 				});
 				return response;
@@ -71,18 +78,19 @@ export const updateCurrentPage = (page) => (dispatch) => {
 };
 
 export const getQuote = (id) => async (dispatch) => {
-	return await API.get(ajaxurl, {
+	return await API.get(getAjaxUrl(), {
 		params: {
-			action: 'quotify/quotation/get',
+			action: 'quotify/ajax/quotations/get',
 			id,
+			nonce: ajaxNonce(),
 		},
 	}).then(
 		(response) => {
 			dispatch({
 				type: FETCH_QUOTATION,
 				payload: {
-					quotation: response?.data.data?.quotation
-				}
+					quotation: response?.data.data?.quotation,
+				},
 			});
 
 			return response;
@@ -93,54 +101,123 @@ export const getQuote = (id) => async (dispatch) => {
 	);
 };
 
-export const moveQuoteToTrash = (id) => async (dispatch) => {
-	makeRequest({
-		action: 'quotify/quotations/delete',
+export const updateQuoteStatus = (id, status) => async (dispatch) => {
+	return await makeRequest({
+		action: 'quotify/ajax/quotations/update_status',
 		id,
+		status,
+		nonce: ajaxNonce(),
+	}).then((response) => {
+		if (response.data?.success) {
+			dispatch({
+				type: STATUS_UPDATE,
+				payload: { id, status },
+			});
+
+			// Update the current quotation in state
+			dispatch({
+				type: FETCH_QUOTATION,
+				payload: {
+					quotation: response.data?.data?.quotation,
+				},
+			});
+
+			fireNotify(
+				__( 'Quotation status updated successfully!', 'quotify' ),
+				'success'
+			);
+
+			return response;
+		} else {
+			renderError(response.data?.data || response.data);
+			return response;
+		}
+	}).catch((error) => {
+		renderError(error);
+		return error;
+	});
+};
+
+export const emailQuotation = (id) => async (dispatch) => {
+	return await makeRequest({
+		action: 'quotify/ajax/quotations/email',
+		id,
+		nonce: ajaxNonce(),
+	}).then((response) => {
+		if (response.data?.success) {
+			fireNotify(
+				__( 'Quotation sent to customer successfully!', 'quotify' ),
+				'success'
+			);
+			return response;
+		} else {
+			renderError(response.data?.data || response.data);
+			return response;
+		}
+	}).catch((error) => {
+		renderError(error);
+		return error;
+	});
+};
+
+export const moveQuoteToTrash = (id) => async (dispatch) => {
+	return makeRequest({
+		action: 'quotify/ajax/quotations/delete',
+		id,
+		nonce: ajaxNonce(),
 		force: false,
 	}).then((response) => {
 		if (response.data?.success) {
 			dispatch({
 				type: MOVE_TO_TRASH,
-				payload: response.data,
+				payload: { id },
 			});
 
 			fireNotify(__(`Moved to Trash!`, 'quotify'), 'success');
 		} else {
-			renderError(e);
+			renderError(response.data?.data || response.data);
 		}
+		return response;
+	}).catch((error) => {
+		renderError(error);
+		return error;
 	});
 };
 
 export const deleteQuote = (id) => async (dispatch) => {
-	makeRequest({
-		action: 'quotify/quotations/delete',
+	return makeRequest({
+		action: 'quotify/ajax/quotations/delete',
 		id,
+		nonce: ajaxNonce(),
 		force: true,
 	}).then((response) => {
-		console.log('response', response);
 		if (response.data?.success) {
 			dispatch({
 				type: DELETE_QUOTATION,
-				payload: response.data,
+				payload: { id },
 			});
 
 			fireNotify(__(`Quotation Deleted!`, 'quotify'), 'success');
 		} else {
-			renderError(e);
+			renderError(response.data?.data || response.data);
 		}
+		return response;
+	}).catch((error) => {
+		renderError(error);
+		return error;
 	});
 };
 
-export const restoreQuote = (params) => async (dispatch) => {
-	makeRequest({
-		action: 'quotify/quotations/restore',
-		id: params.id,
+export const restoreQuote = (id) => async (dispatch) => {
+	return makeRequest({
+		action: 'quotify/ajax/quotations/restore',
+		id,
+		nonce: ajaxNonce(),
 	}).then((response) => {
 		if (response.data?.success) {
 			dispatch({
 				type: RESTORE_QUOTATION,
-				payload: response.data,
+				payload: { id },
 			});
 
 			fireNotify(
@@ -148,7 +225,33 @@ export const restoreQuote = (params) => async (dispatch) => {
 				'success'
 			);
 		} else {
-			renderError(e);
+			renderError(response.data?.data || response.data);
 		}
+		return response;
+	}).catch((error) => {
+		renderError(error);
+		return error;
+	});
+};
+
+export const fetchStats = (date_filter = 'all') => async (dispatch) => {
+	return await makeRequest({
+		action: 'quotify/ajax/quotations/stats',
+		date_filter,
+		nonce: ajaxNonce(),
+	}).then((response) => {
+		if (response.data?.success) {
+			dispatch({
+				type: FETCH_STATS,
+				payload: response.data?.data?.stats || {},
+			});
+			return response.data?.data?.stats;
+		} else {
+			renderError(response.data?.data || response.data);
+			return null;
+		}
+	}).catch((error) => {
+		renderError(error);
+		return null;
 	});
 };

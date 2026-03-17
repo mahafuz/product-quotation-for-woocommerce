@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { __ } from '@wordpress/i18n';
 
 const defaultProps = {
-	data: [],
+	data: {},
 	applyActionHandler: () => {},
 	confirmMessage: '',
 	options: [{ value: 'delete', label: __('Delete', 'quotify') }],
@@ -18,9 +18,27 @@ export default function BulkAction({
 	options,
 }) {
 	const [bulkAction, setBulkAction] = useState({});
+
+	// Only show when rows are selected
+	const selectedCount = data?.selectedRows?.length || 0;
+	if (selectedCount === 0) {
+		return null;
+	}
+
+	// Get confirm message - can be a string or a function
+	const getConfirmMessage = () => {
+		if (typeof confirmMessage === 'function') {
+			return confirmMessage(bulkAction);
+		}
+		return confirmMessage;
+	};
+
 	return (
 		<React.Fragment>
 			<div className="quotify-bulk-actions">
+				<span className="quotify-bulk-count">
+					{selectedCount} {selectedCount === 1 ? __('item selected', 'quotify') : __('items selected', 'quotify')}
+				</span>
 				<Select
 					className="quotify-select"
 					classNamePrefix="quotify-react-select"
@@ -33,15 +51,15 @@ export default function BulkAction({
 					onChange={(e) => setBulkAction(e)}
 				/>
 				<Button
+					className='quotify-button'
 					type="button"
 					preset="light-purple"
 					onClick={() => {
-						if (
-							data.selectedRows &&
-							data.selectedRows.length > 0 &&
-							bulkAction.value &&
-							confirm(confirmMessage) //eslint-disable-line
-						) {
+						if (bulkAction.value) {
+							const message = getConfirmMessage();
+							if (message && !confirm(message)) { //eslint-disable-line
+								return;
+							}
 							applyActionHandler(data.selectedRows, bulkAction);
 							setBulkAction('');
 						}

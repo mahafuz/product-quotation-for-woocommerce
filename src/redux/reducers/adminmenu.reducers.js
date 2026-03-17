@@ -1,10 +1,10 @@
 import { FETCH_ADMIN_MENU } from '../types/adminmenu.types';
-import { menu } from '@Utils/helper';
+import { adminMenu } from '@Utils/config';
 
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	...JSON.parse(menu),
+	...adminMenu()
 };
 
 const adminmenuReducer = createSlice({

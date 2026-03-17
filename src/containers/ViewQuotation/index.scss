@@ -1,51 +1,823 @@
-.quote-container {
-	max-width: 800px;
-	margin: 40px auto;
-	padding: 20px;
-	font-family: Arial, sans-serif;
-	color: #333;
-	flex-direction: column;
+// ============================================
+// Quotify - Single Quotation View Styles
+// ============================================
+
+// Variables
+$quotify-primary: #2271b1;
+$quotify-primary-hover: #135e96;
+$quotify-success: #00a32a;
+$quotify-warning: #d63638;
+$quotify-gray-50: #f9fafb;
+$quotify-gray-100: #f3f4f6;
+$quotify-gray-200: #e5e7eb;
+$quotify-gray-300: #d1d5db;
+$quotify-gray-400: #9ca3af;
+$quotify-gray-600: #4b5563;
+$quotify-gray-700: #374151;
+$quotify-gray-800: #1f2937;
+$quotify-gray-900: #111827;
+$quotify-border-radius: 8px;
+$quotify-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$quotify-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$quotify-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+// ============================================
+// Header Section
+// ============================================
+
+.quotify-single-quotation  {
+	.quotify-content-wrap {
+		flex-direction: column;
+	}
 }
 
-// .quote-card {
-// 	background-color: #f9f9f9;
-// 	padding: 20px;
-// 	margin-bottom: 20px;
-// 	border-radius: 6px;
-// 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-// }
-
-.quote-card h2,
-.quote-card h3 {
-	margin-bottom: 10px;
-	color: #222;
-}
-
-.quote-card p {
-	margin: 6px 0;
-}
-
-.product-item {
+.quotify-quote-header {
 	display: flex;
+	justify-content: space-between;
 	align-items: flex-start;
-	margin-bottom: 15px;
-	border-bottom: 1px solid #ddd;
-	padding-bottom: 10px;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-bottom: 24px;
+	padding-bottom: 24px;
+	border-bottom: 2px solid $quotify-gray-200;
 }
 
-.product-item img {
-	width: 80px;
-	height: 80px;
-	object-fit: cover;
-	margin-right: 15px;
-	border: 1px solid #ccc;
+.quotify-quote-title-section {
+	flex: 1;
+	min-width: 300px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.quotify-quote-title {
+	margin: 0;
+	font-size: 28px;
+	font-weight: 700;
+	color: $quotify-gray-900;
+	line-height: 1.2;
+}
+
+.quotify-status-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+.quotify-quote-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.quotify-action-menu {
+	position: relative;
+	display: inline-block;
+}
+
+// ============================================
+// Status Badge
+// ============================================
+
+.quotify-status-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 14px;
+	border-radius: 20px;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: capitalize;
+
+	.status-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	&.status-pending {
+		background: #fff7ed;
+		color: #c2410c;
+		border: 1px solid #fed7aa;
+
+		.status-dot {
+			background: #f97316;
+		}
+	}
+
+	&.status-approved {
+		background: #f0fdf4;
+		color: #15803d;
+		border: 1px solid #bbf7d0;
+
+		.status-dot {
+			background: #22c55e;
+		}
+	}
+
+	&.status-trash {
+		background: #fef2f2;
+		color: #b91c1c;
+		border: 1px solid #fecaca;
+
+		.status-dot {
+			background: #ef4444;
+		}
+	}
+
+	&.status-draft {
+		background: #f8fafc;
+		color: #475569;
+		border: 1px solid #e2e8f0;
+
+		.status-dot {
+			background: #94a3b8;
+		}
+	}
+
+	&.status-unknown {
+		background: $quotify-gray-100;
+		color: $quotify-gray-600;
+		border: 1px solid $quotify-gray-300;
+
+		.status-dot {
+			background: $quotify-gray-600;
+		}
+	}
+}
+
+@keyframes pulse {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+// ============================================
+// Buttons
+// ============================================
+
+.quotify-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 18px;
+	font-size: 14px;
+	font-weight: 500;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-decoration: none;
+	white-space: nowrap;
+
+	svg {
+		flex-shrink: 0;
+	}
+
+	&.quotify-btn-primary {
+		background: $quotify-primary;
+		color: #fff;
+
+		&:hover {
+			background: $quotify-primary-hover;
+			transform: translateY(-1px);
+			box-shadow: $quotify-shadow-md;
+		}
+
+		&:active {
+			transform: translateY(0);
+		}
+	}
+
+	&.quotify-btn-secondary {
+		background: #fff;
+		color: $quotify-gray-700;
+		border: 1px solid $quotify-gray-300;
+
+		&:hover {
+			background: $quotify-gray-50;
+			border-color: $quotify-gray-400;
+		}
+
+		&:active {
+			background: $quotify-gray-100;
+		}
+	}
+}
+
+// ============================================
+// Grid Layout
+// ============================================
+
+.quotify-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: 24px;
+	margin-bottom: 24px;
+}
+
+// ============================================
+// Card Styles
+// ============================================
+
+.quotify-card {
+	background: #fff;
+	border: 1px solid $quotify-gray-200;
+	border-radius: $quotify-border-radius;
+	box-shadow: $quotify-shadow-sm;
+	overflow: hidden;
+	transition: box-shadow 0.2s ease;
+
+	&:hover {
+		box-shadow: $quotify-shadow-md;
+	}
+}
+
+.quotify-card-header {
+	padding: 20px 24px;
+	border-bottom: 1px solid $quotify-gray-200;
+	background: $quotify-gray-50;
+}
+
+.quotify-card-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: $quotify-gray-900;
+
+	svg {
+		flex-shrink: 0;
+		color: $quotify-gray-600;
+	}
+}
+
+.quotify-card-body {
+	padding: 24px;
+}
+
+// ============================================
+// Info Rows
+// ============================================
+
+.quotify-info-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 12px 0;
+	border-bottom: 1px solid $quotify-gray-100;
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	a {
+		color: $quotify-primary;
+		text-decoration: none;
+		transition: color 0.2s ease;
+
+		&:hover {
+			color: $quotify-primary-hover;
+			text-decoration: underline;
+		}
+	}
+}
+
+.quotify-info-icon {
+	display: flex;
+	align-items: center;
+	color: $quotify-gray-600;
+}
+
+.quotify-info-label {
+	font-weight: 600;
+	color: $quotify-gray-600;
+	min-width: 100px;
+	flex-shrink: 0;
+}
+
+.quotify-info-value {
+	color: $quotify-gray-800;
+	word-break: break-word;
+}
+
+// ============================================
+// Comments Section
+// ============================================
+
+.quotify-comments {
+	padding: 16px 0;
+}
+
+.quotify-comments-text {
+	margin: 8px 0 0 0;
+	padding: 16px;
+	background: $quotify-gray-50;
+	border-left: 4px solid $quotify-primary;
 	border-radius: 4px;
+	font-style: italic;
+	color: $quotify-gray-700;
+	line-height: 1.7;
 }
 
-.product-info h4 {
-	margin: 0 0 5px;
+// ============================================
+// Products Section
+// ============================================
+
+.quotify-products-card .quotify-card-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
 }
 
-.product-info p {
-	margin: 3px 0;
+.quotify-product-count {
+	font-size: 13px;
+	font-weight: 500;
+	color: $quotify-gray-600;
+	background: $quotify-gray-200;
+	padding: 4px 12px;
+	border-radius: 12px;
+}
+
+.quotify-products-list {
+	display: grid;
+	gap: 16px;
+}
+
+.quotify-product-card {
+	display: flex;
+	gap: 16px;
+	padding: 16px;
+	background: $quotify-gray-50;
+	border: 1px solid $quotify-gray-200;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: #fff;
+		box-shadow: $quotify-shadow-md;
+		border-color: $quotify-gray-300;
+		transform: translateY(-2px);
+	}
+}
+
+.quotify-product-image {
+	position: relative;
+	width: 100px;
+	height: 100px;
+	flex-shrink: 0;
+	border-radius: 6px;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid $quotify-gray-200;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+}
+
+.quotify-product-image-placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	color: $quotify-gray-400;
+	background: $quotify-gray-100;
+}
+
+.quotify-product-quantity {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	background: $quotify-primary;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 4px 8px;
+	border-radius: 12px;
+	box-shadow: $quotify-shadow-sm;
+}
+
+.quotify-product-details {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+}
+
+.quotify-product-name {
+	text-decoration: none;
+	color: inherit;
+
+	h4 {
+		margin: 0;
+		font-size: 16px;
+		font-weight: 600;
+		color: $quotify-gray-900;
+		transition: color 0.2s ease;
+
+		&:hover {
+			color: $quotify-primary;
+		}
+	}
+}
+
+.quotify-product-price {
+	font-size: 18px;
+	font-weight: 700;
+	color: $quotify-success;
+
+	span {
+		// Allow HTML content for formatted prices
+	}
+}
+
+.quotify-product-message {
+	padding: 12px;
+	background: #fffbeb;
+	border-left: 3px solid #f59e0b;
+	border-radius: 4px;
+	font-size: 14px;
+	color: $quotify-gray-700;
+
+	strong {
+		color: $quotify-gray-900;
+	}
+}
+
+// ============================================
+// Empty States
+// ============================================
+
+.quotify-empty-products,
+.quotify-empty-state,
+.quotify-error-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 60px 24px;
+	text-align: center;
+
+	svg {
+		color: $quotify-gray-400;
+		margin-bottom: 16px;
+	}
+
+	h3 {
+		margin: 0 0 8px 0;
+		font-size: 20px;
+		font-weight: 600;
+		color: $quotify-gray-900;
+	}
+
+	p {
+		margin: 0;
+		font-size: 15px;
+		color: $quotify-gray-600;
+	}
+}
+
+.quotify-error-state {
+	svg {
+		color: #ef4444;
+	}
+
+	h3 {
+		color: #b91c1c;
+	}
+
+	p {
+		margin-bottom: 20px;
+	}
+}
+
+// ============================================
+// Loading Skeleton
+// ============================================
+
+.quotify-skeleton {
+	.skeleton-header {
+		margin-bottom: 24px;
+		padding-bottom: 24px;
+		border-bottom: 2px solid $quotify-gray-200;
+	}
+
+	.skeleton-title {
+		width: 300px;
+		height: 32px;
+		background: linear-gradient(90deg, $quotify-gray-200 25%, $quotify-gray-100 50%, $quotify-gray-200 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 4px;
+		margin-bottom: 12px;
+	}
+
+	.skeleton-meta {
+		width: 150px;
+		height: 24px;
+		background: linear-gradient(90deg, $quotify-gray-200 25%, $quotify-gray-100 50%, $quotify-gray-200 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 4px;
+	}
+
+	.skeleton-card {
+		background: #fff;
+		border: 1px solid $quotify-gray-200;
+		border-radius: 8px;
+		padding: 24px;
+		margin-bottom: 24px;
+	}
+
+	.skeleton-section-title {
+		width: 200px;
+		height: 20px;
+		background: linear-gradient(90deg, $quotify-gray-200 25%, $quotify-gray-100 50%, $quotify-gray-200 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 4px;
+		margin-bottom: 16px;
+	}
+
+	.skeleton-line {
+		height: 16px;
+		background: linear-gradient(90deg, $quotify-gray-200 25%, $quotify-gray-100 50%, $quotify-gray-200 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 4px;
+		margin-bottom: 12px;
+
+		&.short {
+			width: 60%;
+		}
+	}
+
+	.skeleton-product {
+		display: flex;
+		gap: 16px;
+		padding: 16px;
+		background: $quotify-gray-50;
+		border-radius: 8px;
+	}
+
+	.skeleton-product-img {
+		width: 100px;
+		height: 100px;
+		flex-shrink: 0;
+		background: linear-gradient(90deg, $quotify-gray-200 25%, $quotify-gray-100 50%, $quotify-gray-200 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 6px;
+	}
+
+	.skeleton-product-info {
+		flex: 1;
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+// ============================================
+// Responsive Design
+// ============================================
+
+@media (max-width: 768px) {
+	.quotify-content-wrap {
+		padding: 16px;
+	}
+
+	.quotify-quote-header {
+		flex-direction: column;
+	}
+
+	.quotify-quote-title {
+		font-size: 22px;
+	}
+
+	.quotify-quote-actions {
+		width: 100%;
+
+		.quotify-btn {
+			flex: 1;
+			justify-content: center;
+		}
+	}
+
+	.quotify-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.quotify-product-card {
+		flex-direction: column;
+	}
+
+	.quotify-product-image {
+		width: 100%;
+		height: 200px;
+	}
+
+	.quotify-info-row {
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.quotify-info-label {
+		min-width: auto;
+	}
+
+	.quotify-card-body {
+		padding: 16px;
+	}
+
+	.quotify-card-header {
+		padding: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.quotify-quote-title {
+		font-size: 20px;
+	}
+
+	.quotify-status-badge {
+		font-size: 12px;
+		padding: 4px 10px;
+	}
+
+	.quotify-product-price {
+		font-size: 16px;
+	}
+}
+
+// ============================================
+// Print Styles
+// ============================================
+
+@media print {
+	.quotify-quote-actions,
+	.quotify-btn {
+		display: none !important;
+	}
+
+	.quotify-content-wrap {
+		max-width: 100%;
+	}
+
+	.quotify-card {
+		break-inside: avoid;
+		box-shadow: none;
+		border: 1px solid #ccc;
+	}
+
+	.quotify-product-card {
+		break-inside: avoid;
+	}
+}
+
+// ============================================
+// Dropdown Menu
+// ============================================
+
+.quotify-dropdown-menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	min-width: 200px;
+	background: #fff;
+	border: 1px solid $quotify-gray-200;
+	border-radius: 8px;
+	box-shadow: $quotify-shadow-lg;
+	z-index: 1000;
+	overflow: hidden;
+	animation: dropdownFadeIn 0.15s ease-out;
+
+	&.quotify-dropdown-left {
+		right: auto;
+		left: 0;
+	}
+}
+
+@keyframes dropdownFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.quotify-dropdown-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	padding: 12px 16px;
+	background: none;
+	border: none;
+	text-align: left;
+	font-size: 14px;
+	font-weight: 500;
+	color: $quotify-gray-800;
+	cursor: pointer;
+	transition: background 0.15s ease;
+
+	svg {
+		flex-shrink: 0;
+		color: $quotify-gray-600;
+	}
+
+	&:hover {
+		background: $quotify-gray-50;
+	}
+
+	&:active {
+		background: $quotify-gray-100;
+	}
+
+	&.active {
+		background: $quotify-gray-100;
+		color: $quotify-primary;
+
+		svg {
+			color: $quotify-primary;
+		}
+
+		.status-icon {
+			color: $quotify-primary;
+		}
+	}
+
+	&.danger {
+		color: #dc2626;
+
+		svg {
+			color: #dc2626;
+		}
+
+		&:hover {
+			background: #fef2f2;
+		}
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+}
+
+.quotify-dropdown-divider {
+	height: 1px;
+	background: $quotify-gray-200;
+	margin: 4px 0;
+}
+
+.status-icon {
+	font-size: 16px;
+	width: 20px;
+	text-align: center;
+}
+
+.status-clickable {
+	cursor: pointer;
+	user-select: none;
+
+	&:hover {
+		filter: brightness(0.95);
+	}
+}
+
+.quotify-status-badge-button {
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+	border-radius: inherit;
+
+	.quotify-status-badge {
+		display: inline-flex;
+	}
 }

@@ -1,5 +1,6 @@
 import { FETCH_ADMIN_MENU } from './../types/adminmenu.types';
-import { makeRequest, renderError } from '@Utils/helper';
+import { makeRequest } from '@Utils/global';
+import { renderError } from '@Utils/spa';
 
 export const fetchAdminMenuItems = () => async (dispatch) => {
 	return makeRequest({

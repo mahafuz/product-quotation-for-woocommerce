@@ -1,33 +1,49 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 
-import Addon from './Addon';
+import { FETCH_ADDONS } from '@Redux/types/addons.types';
+
+import ContactForm7 from './ContactForm7';
 import TopBar from '@Components/TopBar';
 
 import './index.scss';
 
-import {
-	makeRequest,
-	getAllAddons,
-	addons as allAddons,
-	admin_url,
-	getAddonInfo,
-} from '@Utils/helper';
+import { getAdminUrl, getRoutePath, makeRequest } from '@Utils/global';
 
-const addonsInfo = [
-	{
-		label: __('Contact Form 7', 'pqfw'),
-		name: 'contact-form-7',
-		is_pro: false,
-		required_plugin: false,
-		upcoming: true,
-		details: __('Use contact form 7 as quotation submission form.', 'pqfw'),
-		icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
-		url: `${admin_url}admin.php?page=forms`,
-		docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
-	},
-];
+import { fireNotify } from '@Utils/spa';
+
+const cf7Addon = {
+	label: __('Contact Form 7', 'quotify'),
+	name: 'cf7',
+	is_pro: false,
+	required_plugin: false,
+	upcoming: true,
+	details: __('Use contact form 7 as quotation submission form.', 'quotify'),
+	icon: 'https://ps.w.org/contact-form-7/assets/icon.svg',
+	url: `${getAdminUrl()}admin.php?page=forms`,
+	docsUrl: `https://wpindiedev.xyz/docs/contact-form-7/`,
+	settings: `${getRoutePath()}?page=quotify-settings`,
+};
 
 export default function index() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		makeRequest({
+			action: 'quotify/ajax/addons/get_all',
+		}).then((response) => {
+			if (response.data?.success) {
+				dispatch({
+					type: FETCH_ADDONS,
+					payload: response.data?.data,
+				});
+			} else {
+				fireNotify(__('Addon Failed to saved.', 'quotify'), 'error');
+			}
+		});
+	}, []);
+
 	return (
 		<>
 			<TopBar
@@ -41,10 +57,7 @@ export default function index() {
 			/>
 
 			<div className="quotify-content-wrap quote-container quotify-addons-wrapper">
-				{addonsInfo &&
-					addonsInfo?.map((addon, index) => (
-						<Addon addon={addon} key={index} />
-					))}
+				<ContactForm7 addon={cf7Addon} />
 			</div>
 		</>
 	);

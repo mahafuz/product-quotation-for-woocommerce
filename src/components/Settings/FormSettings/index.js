@@ -50,6 +50,65 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 						<p className="description">{__( 'Ask user to accept terms and condition before submitting the quotation form.' )}</p>
 					</td>
 				</tr>
+				<tr>
+					<th>{__( 'Enable Rate Limiting' )}</th>
+					<td>
+						<FormToggle
+							checked={ settings?.pqfw_rate_limit_enabled }
+							onChange={(e) => setSettings({
+								...settings,
+								pqfw_rate_limit_enabled: e.target.checked
+							})}
+						/>
+						<p className="description">
+							{__(
+								'Limit how many times the same visitor can submit the quotation form within a time window.',
+							)}
+						</p>
+					</td>
+				</tr>
+				{ settings?.pqfw_rate_limit_enabled ? (
+					<>
+						<tr>
+							<th>{__( 'Max Submissions' )}</th>
+							<td>
+								<input
+									type="number"
+									className="small-text"
+									min="1"
+									value={ settings?.pqfw_rate_limit_count }
+									onChange={(e) => setSettings({
+										...settings,
+										pqfw_rate_limit_count: parseInt(e.target.value, 10) || 0,
+									})}
+								/>
+								<p className="description">
+									{__( 'Number of submissions allowed' )}
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<th>{__( 'Time Window (minutes)' )}</th>
+							<td>
+								<input
+									type="number"
+									className="small-text"
+									min="1"
+									value={ settings?.pqfw_rate_limit_period }
+									onChange={(e) => setSettings({
+										...settings,
+										pqfw_rate_limit_period: parseInt(e.target.value, 10) || 0,
+									})}
+								/>
+								<p className="description">
+									{__(
+										'Window size during which submissions are counted (in minutes).',
+									)}
+								</p>
+							</td>
+						</tr>
+					</>
+				) : ''}
 				{ settings?.privacy_policy ? (
 					<>
 						<tr>

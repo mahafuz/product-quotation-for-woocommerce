@@ -1,0 +1,76 @@
+// ============================================
+// Empty State Component
+// ============================================
+
+.quotify-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 80px 24px;
+	text-align: center;
+
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 120px;
+		height: 120px;
+		background: #f9fafb;
+		border-radius: 50%;
+		color: #9ca3af;
+		margin-bottom: 24px;
+
+		svg {
+			width: 48px;
+			height: 48px;
+		}
+	}
+
+	&__title {
+		margin: 0 0 12px 0;
+		font-size: 20px;
+		font-weight: 600;
+		color: #111827;
+	}
+
+	&__message {
+		margin: 0 0 24px 0;
+		font-size: 15px;
+		color: #6b7280;
+		max-width: 400px;
+		line-height: 1.6;
+	}
+
+	.quotify-btn {
+		margin-top: 8px;
+	}
+}
+
+// ============================================
+// Responsive
+// ============================================
+
+@media (max-width: 768px) {
+	.quotify-empty-state {
+		padding: 60px 20px;
+
+		&__icon {
+			width: 100px;
+			height: 100px;
+
+			svg {
+				width: 40px;
+				height: 40px;
+			}
+		}
+
+		&__title {
+			font-size: 18px;
+		}
+
+		&__message {
+			font-size: 14px;
+		}
+	}
+}

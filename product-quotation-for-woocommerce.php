@@ -3,13 +3,14 @@
  * Plugin Name: Products Quotation For WooCommerce
  * Plugin URI: https://github.com/mahafuz/product-quotation-for-woocommerce
  * Description: Removes the 'Add to cart' button from WooCommerce and adds a simple 'Request for quotation' form on all product pages instead of it.
- * Version: 2.0.4
+ * Version: 2.5.0
+ * Requires Plugins: woocommerce
  * Author: Mahafuz <m.mahfuz.me@gmail.com>
  * Author URI: https://github.com/mahafuz/
- * Text Domain: pqfw
+ * Text Domain: quotify
  * Domain Path: /languages
  *
- * @package PQFW
+ * @package Quotify
  */
 
 // if direct access than exit the file.
@@ -20,36 +21,43 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.2.0
  */
-define( 'PQFW_PLUGIN_FILE', __FILE__ );
-define( 'PQFW_PLUGIN_NAME', __( 'Products Quotation For WooCommerce', 'pqfw' ) );
-define( 'PQFW_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'PQFW_PLUGIN_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'PQFW_PLUGIN_SLUG', 'pqfw-product-quotations' );
+if ( ! defined( 'QUOTIFY_PLUGIN_FILE' ) ) {
+	define( 'QUOTIFY_PLUGIN_FILE', __FILE__ );
+}
 
-define( 'PQFW_PLUGIN_URL', trailingslashit( plugins_url( '/', __FILE__ ) ) );
-define( 'PQFW_PLUGIN_ROOT_URI', plugins_url( '/', __FILE__ ) );
-define( 'PQFW_PLUGIN_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'QUOTIFY_PLUGIN_BASENAME' ) ) {
+	define( 'QUOTIFY_PLUGIN_BASENAME', plugin_basename( QUOTIFY_PLUGIN_FILE ) );
+}
 
-define( 'PQFW_PLUGIN_ASSETS', trailingslashit( PQFW_PLUGIN_URL . 'assets' ) );
-define( 'PQFW_PLUGIN_ASSETS_DIR', trailingslashit( PQFW_PLUGIN_PATH . 'assets' ) );
-define( 'PQFW_ADDONS_DIR_PATH', trailingslashit( PQFW_PLUGIN_PATH . 'addons' ) );
-define( 'PQFW_ADDONS_SETTINGS_KEY', 'pqfw_addons' );
-define( 'PQFW_PLUGIN_LANGUAGES_PATH', plugin_dir_path( __FILE__ ) . 'languages/' );
-define( 'PQFW_PLUGIN_VIEWS', trailingslashit( plugin_dir_path( __FILE__ ) . 'includes/Views' ) );
-define( 'PQFW_PLUGIN_VERSION', '2.0.4' );
+if ( ! defined( 'QUOTIFY_PLUGIN_ROOT_PATH' ) ) {
+	define( 'QUOTIFY_PLUGIN_ROOT_PATH', plugin_dir_path( __FILE__ ) );
+}
 
-/**
- * Initializing the plugin migration.
- *
- * @since 1.0.0
- */
-register_activation_hook(__FILE__, function () {
-	pqfw()->migration->run();
-	add_option( '_pqfw_activation_redirect', true );
-});
+// Load autoloader.
+require __DIR__ . '/app/autoload.php';
 
-require PQFW_PLUGIN_PATH . 'includes/PQFW.php';
+if ( ! \Quotify\Autoload::init() ) {
+	return;
+}
 
-add_action( 'plugins_loaded', function () {
-	pqfw();
-});
+// Include the main plugin class.
+if ( ! class_exists( 'Quotify', false ) ) {
+	include_once dirname( QUOTIFY_PLUGIN_FILE ) . '/app/quotify.php';
+}
+
+require __DIR__ . '/.config.php';
+
+require __DIR__ . '/app/install.php';
+
+if ( ! function_exists( 'quotify' ) ) {
+	/**
+	 * Returns the plugin main class.
+	 *
+	 * @return \Quotify
+	 */
+	function quotify() {
+		return \Quotify::instance();
+	}
+
+	quotify();
+}

@@ -1,22 +1,27 @@
-import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
+import { Link } from 'react-router-dom';
+import Navigation from '@Components/Navigation';
+import { getRoutePath } from '@Utils/global';
 
-import Navigation from "@Components/Navigation";
+import AngleRightIcon from '@src/images/angle-right.svg';
 
-import { toplevel_menu_icon_url } from '@Utils/helper';
+import { getPluginLogo } from '@Utils/config';
 import './index.scss';
 
 function index({ render }) {
 	return (
 		<div className="quotify-top-bar">
 			<div className="quotify-backend-top-bar-left">
-				<img
-					className="quotify-backend-app-logo"
-					src={toplevel_menu_icon_url}
-					alt={__('logo', 'quotify')}
-				/>
-				<h4>{__('Quotify', 'quotify')}</h4>
-				<div className="separator"></div>
+				<Link to={`${getRoutePath()}admin.php?page=quotify`}>
+					<img
+						className="quotify-backend-app-logo"
+						src={getPluginLogo()}
+						alt={__('logo', 'quotify')}
+					/>
+				</Link>
+				<div className="separator">
+					<img src={AngleRightIcon} alt="" />
+				</div>
 				{render()}
 			</div>
 			<div className="quotify-backend-top-bar-right">

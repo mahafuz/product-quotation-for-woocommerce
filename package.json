@@ -1,72 +1,92 @@
 {
-  "name": "product-quotation-for-woocommerce",
-  "version": "1.0.0",
-  "description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
-  "main": "index.js",
-  "scripts": {
-    "build": "wp-scripts build",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses",
-    "format": "wp-scripts format",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:pkg-json": "wp-scripts lint-pkg-json",
-    "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start",
-    "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mahafuz/product-quotation-for-woocommerce.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
-  },
-  "homepage": "https://github.com/mahafuz/product-quotation-for-woocommerce#readme",
-  "devDependencies": {
-    "@babel/core": "^7.28.3",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-react": "^7.27.1",
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/postcss": "^4.1.12",
-    "@wordpress/eslint-plugin": "^22.15.0",
-    "@wordpress/scripts": "^30.22.0",
-    "autoprefixer": "^10.4.21",
-    "babel-loader": "^10.0.0",
-    "babel-plugin-module-resolver": "^5.0.2",
-    "clean-webpack-plugin": "^4.0.0",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsdoc": "^54.1.0",
-    "mini-css-extract-plugin": "^2.9.4",
-    "postcss-loader": "^8.1.1",
-    "sass-loader": "^16.0.5",
-    "style-loader": "^4.0.0",
-    "webpack": "^5.101.2",
-    "webpack-cli": "^6.0.1"
-  },
-  "dependencies": {
-    "@chakra-ui/icon": "^3.2.0",
-    "@chakra-ui/react": "^2.10.9",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@reduxjs/toolkit": "^2.8.2",
-    "@wordpress/components": "^30.2.0",
-    "@wordpress/dataviews": "^7.0.0",
-    "@wordpress/i18n": "^6.2.0",
-    "framer-motion": "^12.23.12",
-    "moment": "^2.30.1",
-    "react-data-table-component": "^7.7.0",
-    "react-icons": "^5.5.0",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.8.1",
-    "react-select": "^5.10.2",
-    "react-toastify": "^11.0.5"
-  }
+	"name": "quotify-product-quotation-for-woocommerce",
+	"version": "1.0.0",
+	"description": "Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form.",
+	"main": "index.js",
+	"scripts": {
+		"start:spa": "wp-scripts start --config webpack/webpack.spa.config.js",
+		"start:fresh:spa": "rm -rf assets/build/backend.*.* && npm run start:spa",
+
+		"start:frontend": "wp-scripts start --config webpack/webpack.frontend.config.js",
+		"start:fresh:frontend": "rm -rf assets/build/{button,cart,form}.*.* && npm run start:frontend",
+
+		"start:admin": "wp-scripts start --config webpack/webpack.admin.config.js",
+		"start:fresh:admin": "rm -rf assets/build/admin.*.* && npm run start:admin",
+
+		"build:spa": "wp-scripts build --config webpack/webpack.spa.config.js",
+		"build:fresh:spa": "rm -rf assets/build/backend.*.* && npm run build:spa",
+
+		"build:frontend": "wp-scripts build --config webpack/webpack.frontend.config.js",
+		"build:fresh:frontend": "rm -rf assets/build/{button,cart,form}.*.* && npm run build:frontend",
+
+		"start": "wp-scripts start",
+		"build": "wp-scripts build",
+
+		"start:fresh": "rm -rf assets/build && npm run start",
+		"build:fresh": "rm -rf assets/build && npm run build && ls -la assets/build",
+
+		"build:makepot": "npx @wp-blocks/make-pot ./ languages",
+		"check-engines": "wp-scripts check-engines",
+		"check-licenses": "wp-scripts check-licenses",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"test:e2e": "wp-scripts test-e2e",
+		"test:unit": "wp-scripts test-unit-js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mahafuz/product-quotation-for-woocommerce.git"
+	},
+	"keywords": [
+		"quotation",
+		"product quotation",
+		"add to quote"
+	],
+	"author": "mahafuz <m.mahfuz.me@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/mahafuz/product-quotation-for-woocommerce/issues"
+	},
+	"homepage": "https://github.com/mahafuz/product-quotation-for-woocommerce#readme",
+	"devDependencies": {
+		"@babel/core": "^7.28.3",
+		"@babel/plugin-proposal-class-properties": "^7.18.6",
+		"@babel/preset-env": "^7.28.3",
+		"@babel/preset-react": "^7.27.1",
+		"@tailwindcss/forms": "^0.5.10",
+		"@tailwindcss/postcss": "^4.1.12",
+		"@wordpress/eslint-plugin": "^22.0.0",
+		"@wordpress/scripts": "^19.2.4",
+		"autoprefixer": "^10.4.21",
+		"babel-loader": "^10.0.0",
+		"babel-plugin-module-resolver": "^5.0.2",
+		"clean-webpack-plugin": "^4.0.0",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-jsdoc": "^54.1.0",
+		"mini-css-extract-plugin": "^2.9.4",
+		"postcss-loader": "^8.1.1",
+		"sass-loader": "^16.0.5",
+		"style-loader": "^4.0.0",
+		"webpack": "^5.101.2",
+		"webpack-cli": "^6.0.1"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.14.0",
+		"@fortawesome/react-fontawesome": "^3.0.2",
+		"@reduxjs/toolkit": "^2.8.2",
+		"@wordpress/components": "^28.9.0",
+		"@wordpress/i18n": "^5.9.0",
+		"axios": "^1.13.4",
+		"react-data-table-component": "^7.7.0",
+		"react-icons": "^5.5.0",
+		"react-redux": "^9.2.0",
+		"react-router-dom": "^7.8.1",
+		"react-select": "^5.10.2",
+		"react-toastify": "^11.0.5"
+	}
 }

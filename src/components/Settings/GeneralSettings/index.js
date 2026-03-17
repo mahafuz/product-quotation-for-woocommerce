@@ -1,23 +1,22 @@
 import {useState, useEffect} from 'react'
 
 import { FormToggle, SelectControl } from '@wordpress/components';
-import { getPages, getCart, getNonce } from '@Utils/helper';
+import { makeRequest } from '@Utils/global';
+import { getPages } from '@Utils/global';
+import { getCartUrl } from '@Utils/cart';
 
 import { __ } from '@wordpress/i18n';
 
 const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 	const [pages, setPages] = useState([...getPages()]);
-	const [cart, setCart] = useState(getCart( 'url' ) );
+	const [cart, setCart] = useState(getCartUrl());
 
 	useEffect(()=>{
-		wp.ajax.send( 'pqfw_cart_get_permalink', {
-			data: {
-				_wpnonce: getNonce(),
-				pageID: settings?.quotation_cart_page
-			},
-			success: ({ url }) => {
-				setCart(url);
-			}
+		makeRequest({
+			action: 'quotify/cart/get_permalink',
+			pageID: settings?.quotation_cart_page
+		}).then(({ data }) => {
+			setCart(data?.data?.url);
 		});
 	}, [settings.quotation_cart_page]);
 

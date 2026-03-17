@@ -1,0 +1,181 @@
+<?php
+/**
+ * Responsible for handling the plugin settings.
+ *
+ * @since 1.2.0
+ * @package Quotify
+ */
+
+namespace Quotify\Library;
+
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Manages the options form dashboard.
+ *
+ * @author      Mahafuz
+ * @package     Quotify
+ * @since       1.0.0
+ */
+class Settings {
+
+	/**
+	 * Contain default settings.
+	 *
+	 * @var   array Default settings.
+	 * @since 1.0.0
+	 */
+	protected $default;
+
+	/**
+	 * Contain saved settings.
+	 *
+	 * @var   array Saved settings.
+	 * @since 1.0.0
+	 */
+	protected $saved;
+
+	/**
+	 * Contain saved and unsaved settings.
+	 *
+	 * @var   array All combined settings.
+	 * @since 1.0.0
+	 */
+	private $all;
+
+	/**
+	 * Quotify plugin settings group key.
+	 *
+	 * @var string
+	 * @since 2.5.0
+	 */
+	const OPTION_GROUP_KEY = 'pqfw_settings';
+
+	/**
+	 * Class instance.
+	 *
+	 * @var Quotify\Settings
+	 */
+	private static $instance;
+
+	/**
+	 * Runs before load the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Quotify\Settings
+	 */
+	public static function init() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Process and return the saved(wp_options) settings.
+	 *
+	 * @access  protected
+	 * @return  array $settings
+	 */
+	public function getAll() {
+		$this->default = [
+			'pqfw_form_default_design'       => true,
+			'pqfw_floating_form'             => true,
+			'pqfw_shop_page_button'          => true,
+			'pqfw_product_page_button'       => true,
+			'pqfw_form_send_mail'            => true,
+			'pqfw_send_mail_to_customer'     => true,
+			'recipient'                      => sanitize_email( get_option( 'admin_email' ) ),
+			'button_hover_color'             => '',
+			'button_hover_bg_color'          => '',
+			'button_normal_color'            => '',
+			'button_normal_bg_color'         => '',
+			'button_font_size'               => '',
+			'button_width'                   => '',
+			'button_text'                    => __( 'Add to Quote', 'quotify' ),
+			'hide_add_to_cart_button'        => false,
+			'hide_product_prices'            => false,
+			'button_position'                => 'woocommerce_after_shop_loop_item',
+			'button_position_single_product' => 'woocommerce_after_add_to_cart_quantity',
+			'privacy_policy'                 => false,
+			'privacy_policy_label'           => __( 'I have read and agree to the website terms and conditions.', 'quotify' ),
+			'privacy_policy_content'         => __(
+				'Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy].',
+				'quotify'
+			),
+			// rate limiter settings (count per time window, window in minutes).
+			'pqfw_rate_limit_enabled'        => false,
+			'pqfw_rate_limit_count'          => 5,
+			'pqfw_rate_limit_period'         => 60, // minutes.
+			'quotation_cart_page'            => \Quotify\Library\Helper::getCart(),
+		];
+
+		$this->saved = get_option( self::OPTION_GROUP_KEY, $this->default );
+		$this->all   = wp_parse_args( $this->saved, $this->default );
+
+		return $this->all;
+	}
+
+	/**
+	 * Saving settings.
+	 *
+	 * @param array $settings Settings to save.
+	 * @return  void
+	 */
+	public function save( $settings ) {
+		if ( ! is_array( $settings ) || empty( $settings ) ) {
+			wp_send_json_error( __( 'Invalid settings data.', 'quotify' ), 400 );
+		}
+
+		$allowed   = $this->getAll();
+		$sanitized = array_filter( $settings, function ( $key ) use ( $allowed ) {
+			return array_key_exists( $key, $allowed );
+		}, ARRAY_FILTER_USE_KEY );
+
+		if ( isset( $sanitized['quotation_cart_page'] ) && absint( get_option( 'pqfw_quotations_cart' ) ) !== absint( $sanitized['quotation_cart_page'] ) ) {
+			update_option( 'pqfw_quotations_cart', absint( $sanitized['quotation_cart_page'] ) );
+		}
+
+		// Ensure rate limit values are integers/bools.
+		if ( isset( $sanitized['pqfw_rate_limit_enabled'] ) ) {
+			$sanitized['pqfw_rate_limit_enabled'] = filter_var( $sanitized['pqfw_rate_limit_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_rate_limit_count'] ) ) {
+			$sanitized['pqfw_rate_limit_count'] = absint( $sanitized['pqfw_rate_limit_count'] );
+		}
+		if ( isset( $sanitized['pqfw_rate_limit_period'] ) ) {
+			$sanitized['pqfw_rate_limit_period'] = absint( $sanitized['pqfw_rate_limit_period'] );
+		}
+
+		update_option( self::OPTION_GROUP_KEY, $sanitized );
+
+		wp_send_json_success([
+			'message' => esc_html__( 'Settings has been updated.', 'quotify' ),
+		], 200 );
+	}
+
+	/**
+	 * Get settings by key or get all settings without any key.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $key Setting key.
+	 * @return mixed      Saved settings.
+	 */
+	public function get( $key = null ) {
+		if ( empty( $key ) ) {
+			return $this->getAll();
+		}
+
+		$settings = $this->getAll();
+
+		if ( isset( $settings[ $key ] ) ) {
+			return $settings[ $key ];
+		}
+
+		return false;
+	}
+}

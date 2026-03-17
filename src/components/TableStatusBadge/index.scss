@@ -1,0 +1,53 @@
+// ============================================
+// Table Status Badge Component
+// ============================================
+
+.quotify-table-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: capitalize;
+	white-space: nowrap;
+
+	&__icon {
+		font-size: 12px;
+	}
+
+	&__label {
+		line-height: 1;
+	}
+
+	&.status-pending {
+		background: #fff7ed;
+		color: #c2410c;
+		border: 1px solid #fed7aa;
+	}
+
+	&.status-approved {
+		background: #f0fdf4;
+		color: #15803d;
+		border: 1px solid #bbf7d0;
+	}
+
+	&.status-trash {
+		background: #fef2f2;
+		color: #b91c1c;
+		border: 1px solid #fecaca;
+	}
+
+	&.status-draft {
+		background: #f8fafc;
+		color: #475569;
+		border: 1px solid #e2e8f0;
+	}
+
+	&.status-unknown {
+		background: #f9fafb;
+		color: #6b7280;
+		border: 1px solid #e5e7eb;
+	}
+}

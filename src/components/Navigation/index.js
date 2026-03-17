@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
-import { route_path, useQuery } from '@Utils/helper';
+import { getRoutePath } from '@Utils/global';
+import { useQuery } from '@Utils/spa';
 import './index.scss';
 
 const Navigation = ({ currentPath }) => {
-	const adminmenu = window.PqfwGlobal.menu;
+	const adminmenu = window?.QUOTIFY_CONFIG?.menu;
 	const query = useQuery();
 	const page = query.get('page');
 
 	return (
 		<div className="quotify-backend-dashboard-navigation">
-			{Object.entries(JSON.parse(adminmenu)).map(
+			{/* {Object.entries(JSON.parse(adminmenu)).map(
 				([ key, navItem], index) => (
 					<Link
 						key={navItem.label}
-						to={`${route_path}admin.php?page=${key}`}
+						to={`${getRoutePath()}admin.php?page=${key}`}
 						className={
 							page === key
 								? 'current navigation-item'
@@ -23,7 +24,7 @@ const Navigation = ({ currentPath }) => {
 						{navItem.title}
 					</Link>
 				)
-			)}
+			)} */}
 		</div>
 	);
 };

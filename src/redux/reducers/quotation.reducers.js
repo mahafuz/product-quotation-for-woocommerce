@@ -1,10 +1,16 @@
 import {
 	FETCH_QUOTATION,
+	STATUS_UPDATE,
 	MOVE_TO_TRASH,
+	RESTORE_QUOTATION,
 	DELETE_QUOTATION,
 } from '@Redux/types/quotations.types';
 
-const initialState = {};
+const initialState = {
+	quotation: null,
+	loading: false,
+	error: null,
+};
 
 function quotationReducer(state = initialState, action) {
 	const payload = action.payload;
@@ -13,41 +19,55 @@ function quotationReducer(state = initialState, action) {
 		case FETCH_QUOTATION:
 			return {
 				...state,
-				...payload.quotation
+				quotation: payload.quotation,
+				loading: false,
+				error: null,
+			};
+		case STATUS_UPDATE:
+			// Update the quotation status in the current quotation
+			if (state.quotation && state.quotation.ID === payload.id) {
+				return {
+					...state,
+					quotation: {
+						...state.quotation,
+						status: payload.status,
+					},
+				};
 			}
+			return state;
 		case MOVE_TO_TRASH:
-			if (state.data) {
-				const updatedData = state.data.map((item) => {
-					if (parseInt(item.id) === parseInt(payload.id)) {
-						return { ...item, ...payload };
-					}
-					return item;
-				});
-
+			// Update the quotation status to trash
+			if (state.quotation && state.quotation.ID === payload.id) {
 				return {
 					...state,
-					data: updatedData,
+					quotation: {
+						...state.quotation,
+						status: 'trash',
+					},
 				};
 			}
-			return {
-				...state,
-				data: [payload],
-			};
+			return state;
+		case RESTORE_QUOTATION:
+			// Update the quotation status when restored
+			if (state.quotation && state.quotation.ID === payload.id) {
+				return {
+					...state,
+					quotation: {
+						...state.quotation,
+						status: 'pending',
+					},
+				};
+			}
+			return state;
 		case DELETE_QUOTATION:
-			if (state.data) {
+			// Clear quotation if it was deleted
+			if (state.quotation && state.quotation.ID === payload.id) {
 				return {
 					...state,
-					data: [
-						...state.data.filter(
-							(item) => parseInt(item.id) !== parseInt(payload.id)
-						),
-					],
+					quotation: null,
 				};
 			}
-			return {
-				...state,
-				data: [payload],
-			};
+			return state;
 		default:
 			return state;
 	}

@@ -1,5 +1,9 @@
 node_modules
+vendor
 assets/build/
 .DS_Store
 .list-packages.json
 package-lock.json
+composer.lock
+
+Docs

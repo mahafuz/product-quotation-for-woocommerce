@@ -2,7 +2,7 @@
  * PQFW Admin CSS.
  *
  * @author Mahafuz
- * @package PQFW
+ * @package Quotify
  * @version 1.0.0
  */
 
@@ -133,7 +133,7 @@ table.wp-list-table.widefat.fixed.striped.posts {
 
 .pqfw-help-page {display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: center; 
     margin-top: 30px;}
 
 .help-block {flex: 1;
@@ -161,3 +161,13 @@ table.wp-list-table.widefat.fixed.striped.posts {
 td.pqfw-product-thumbnail > a {display: block;}
 
 td.pqfw-product-thumbnail > a > img {max-width: 100%;}
+
+.pqfw-initial-preloader {
+    height: 100vh;
+    width:calc( 160px + 100% );
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 100%;
+    overflow: hidden;
+}

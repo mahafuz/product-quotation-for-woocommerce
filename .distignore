@@ -7,3 +7,11 @@ node_modules
 src
 .distignore
 appsero.json
+.prettierignore
+.prettierrc.js
+webpack.config.js
+.git
+.github
+Docs/
+bin/
+.DS_Store
