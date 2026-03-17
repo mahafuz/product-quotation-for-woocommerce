@@ -288,7 +288,7 @@ class Cart {
 			$product_ids = [];
 
 			foreach ( $products as $product ) {
-				$products_id[] = $product['id'];
+				$product_ids[] = $product['id'];
 			}
 
 			return $product_ids;
