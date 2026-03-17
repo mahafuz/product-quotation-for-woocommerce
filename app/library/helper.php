@@ -272,7 +272,7 @@ class Helper {
 		global $wpdb;
 
 		if ( ! is_numeric( $id ) || ! absint( $id ) ) {
-			new WP_Error( 'invalid', __( 'Illegal operation', 'quotify' ) );
+			return new WP_Error( 'invalid', __( 'Illegal operation', 'quotify' ) );
 		}
 
 		$meta = $wpdb->get_results(
