@@ -14,80 +14,80 @@
 	 * License for the specific language governing permissions and limitations
 	 * under the License.
 	 */
-    if ( ! defined( 'ABSPATH' ) ) {
-        exit;
-    }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	require_once dirname( __FILE__ ) . '/FreemiusBase.php';
+	require_once __DIR__ . '/FreemiusBase.php';
 
-	if ( ! defined( 'FS_SDK__USER_AGENT' ) ) {
-		define( 'FS_SDK__USER_AGENT', 'fs-php-' . Freemius_Api_Base::VERSION );
-	}
+if ( ! defined( 'FS_SDK__USER_AGENT' ) ) {
+	define( 'FS_SDK__USER_AGENT', 'fs-php-' . Freemius_Api_Base::VERSION );
+}
 
-	if ( ! defined( 'FS_SDK__SIMULATE_NO_CURL' ) ) {
-		define( 'FS_SDK__SIMULATE_NO_CURL', false );
-	}
+if ( ! defined( 'FS_SDK__SIMULATE_NO_CURL' ) ) {
+	define( 'FS_SDK__SIMULATE_NO_CURL', false );
+}
 
-	if ( ! defined( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_CLOUDFLARE' ) ) {
-		define( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_CLOUDFLARE', false );
-	}
+if ( ! defined( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_CLOUDFLARE' ) ) {
+	define( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_CLOUDFLARE', false );
+}
 
-	if ( ! defined( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_SQUID_ACL' ) ) {
-		define( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_SQUID_ACL', false );
-	}
+if ( ! defined( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_SQUID_ACL' ) ) {
+	define( 'FS_SDK__SIMULATE_NO_API_CONNECTIVITY_SQUID_ACL', false );
+}
 
-	if ( ! defined( 'FS_SDK__HAS_CURL' ) ) {
-		if ( FS_SDK__SIMULATE_NO_CURL ) {
-			define( 'FS_SDK__HAS_CURL', false );
-		} else {
-			$curl_required_methods = array(
-				'curl_version',
-				'curl_exec',
-				'curl_init',
-				'curl_close',
-				'curl_setopt',
-				'curl_setopt_array',
-				'curl_error',
-			);
+if ( ! defined( 'FS_SDK__HAS_CURL' ) ) {
+	if ( FS_SDK__SIMULATE_NO_CURL ) {
+		define( 'FS_SDK__HAS_CURL', false );
+	} else {
+		$curl_required_methods = [
+			'curl_version',
+			'curl_exec',
+			'curl_init',
+			'curl_close',
+			'curl_setopt',
+			'curl_setopt_array',
+			'curl_error',
+		];
 
-			$has_curl = true;
-			foreach ( $curl_required_methods as $m ) {
-				if ( ! function_exists( $m ) ) {
-					$has_curl = false;
-					break;
-				}
+		$has_curl = true;
+		foreach ( $curl_required_methods as $m ) {
+			if ( ! function_exists( $m ) ) {
+				$has_curl = false;
+				break;
 			}
-
-			define( 'FS_SDK__HAS_CURL', $has_curl );
 		}
-	}
 
-    if ( ! defined( 'FS_SDK__SSLVERIFY' ) ) {
-        define( 'FS_SDK__SSLVERIFY', false );
-    }
+		define( 'FS_SDK__HAS_CURL', $has_curl );
+	}
+}
+
+if ( ! defined( 'FS_SDK__SSLVERIFY' ) ) {
+	define( 'FS_SDK__SSLVERIFY', false );
+}
 
 	$curl_version = FS_SDK__HAS_CURL ?
 		curl_version() :
-		array( 'version' => '7.37' );
+		[ 'version' => '7.37' ];
 
-	if ( ! defined( 'FS_API__PROTOCOL' ) ) {
-		define( 'FS_API__PROTOCOL', version_compare( $curl_version['version'], '7.37', '>=' ) ? 'https' : 'http' );
-	}
+if ( ! defined( 'FS_API__PROTOCOL' ) ) {
+	define( 'FS_API__PROTOCOL', version_compare( $curl_version['version'], '7.37', '>=' ) ? 'https' : 'http' );
+}
 
-	if ( ! defined( 'FS_API__LOGGER_ON' ) ) {
-		define( 'FS_API__LOGGER_ON', false );
-	}
+if ( ! defined( 'FS_API__LOGGER_ON' ) ) {
+	define( 'FS_API__LOGGER_ON', false );
+}
 
-	if ( ! defined( 'FS_API__ADDRESS' ) ) {
-		define( 'FS_API__ADDRESS', '://api.freemius.com' );
-	}
-	if ( ! defined( 'FS_API__SANDBOX_ADDRESS' ) ) {
-		define( 'FS_API__SANDBOX_ADDRESS', '://sandbox-api.freemius.com' );
-	}
+if ( ! defined( 'FS_API__ADDRESS' ) ) {
+	define( 'FS_API__ADDRESS', '://api.freemius.com' );
+}
+if ( ! defined( 'FS_API__SANDBOX_ADDRESS' ) ) {
+	define( 'FS_API__SANDBOX_ADDRESS', '://sandbox-api.freemius.com' );
+}
 
-	if ( ! class_exists( 'Freemius_Api_WordPress' ) ) {
+if ( ! class_exists( 'Freemius_Api_WordPress' ) ) {
 	class Freemius_Api_WordPress extends Freemius_Api_Base {
-		private static $_logger = array();
+		private static $_logger = [];
 
 		/**
 		 * @param string      $pScope   'app', 'developer', 'user' or 'install'.
@@ -115,9 +115,9 @@
 			return $address . $pCanonizedPath;
 		}
 
-		#----------------------------------------------------------------------------------
-		#region Servers Clock Diff
-		#----------------------------------------------------------------------------------
+		// ----------------------------------------------------------------------------------
+		// region Servers Clock Diff
+		// ----------------------------------------------------------------------------------
 
 		/**
 		 * @var int Clock diff in seconds between current server to API server.
@@ -148,7 +148,7 @@
 			return ( $time - strtotime( $pong->timestamp ) );
 		}
 
-		#endregion
+		// endregion
 
 		/**
 		 * @var string http or https
@@ -164,14 +164,14 @@
 			self::$_protocol = 'http';
 		}
 
-        /**
-         * Sets API connection protocol to HTTPS.
-         *
-         * @since 2.5.4
-         */
-        public static function SetHttps() {
-            self::$_protocol = 'https';
-        }
+		/**
+		 * Sets API connection protocol to HTTPS.
+		 *
+		 * @since 2.5.4
+		 */
+		public static function SetHttps() {
+			self::$_protocol = 'https';
+		}
 
 		/**
 		 * @since 1.0.4
@@ -241,34 +241,34 @@
 			$now          = ( time() - self::$_clock_diff );
 			$date         = date( 'r', $now );
 
-			if ( in_array( $pMethod, array( 'POST', 'PUT' ) ) ) {
-                $content_type = 'application/json';
+			if ( in_array( $pMethod, [ 'POST', 'PUT' ] ) ) {
+				$content_type = 'application/json';
 
-                if ( ! empty( $pPostParams ) ) {
-                    $content_md5 = md5( $pPostParams );
-                }
-            }
+				if ( ! empty( $pPostParams ) ) {
+					$content_md5 = md5( $pPostParams );
+				}
+			}
 
-			$string_to_sign = implode( $eol, array(
+			$string_to_sign = implode( $eol, [
 				$pMethod,
 				$content_md5,
 				$content_type,
 				$date,
-				$pResourceUrl
-			) );
+				$pResourceUrl,
+			] );
 
 			// If secret and public keys are identical, it means that
 			// the signature uses public key hash encoding.
 			$auth_type = ( $this->_secret !== $this->_public ) ? 'FS' : 'FSP';
 
-			$auth = array(
+			$auth = [
 				'date'          => $date,
 				'authorization' => $auth_type . ' ' . $this->_id . ':' .
-				                   $this->_public . ':' .
-				                   self::Base64UrlEncode( hash_hmac(
-					                   'sha256', $string_to_sign, $this->_secret
-				                   ) )
-			);
+								   $this->_public . ':' .
+								self::Base64UrlEncode( hash_hmac(
+									'sha256', $string_to_sign, $this->_secret
+								) ),
+			];
 
 			if ( ! empty( $content_md5 ) ) {
 				$auth['content_md5'] = $content_md5;
@@ -279,8 +279,8 @@
 
 		/**
 		 * Get API request URL signed via query string.
-         *
-         * @since 1.2.3 Stopped using http_build_query(). Instead, use urlencode(). In some environments the encoding of http_build_query() can generate a URL that once used with a redirect, the `&` querystring separator is escaped to `&amp;` which breaks the URL (Added by @svovaf).
+		 *
+		 * @since 1.2.3 Stopped using http_build_query(). Instead, use urlencode(). In some environments the encoding of http_build_query() can generate a URL that once used with a redirect, the `&` querystring separator is escaped to `&amp;` which breaks the URL (Added by @svovaf).
 		 *
 		 * @param string $pPath
 		 *
@@ -288,19 +288,19 @@
 		 *
 		 * @return string
 		 */
-        function GetSignedUrl( $pPath ) {
-            $resource     = explode( '?', $this->CanonizePath( $pPath ) );
-            $pResourceUrl = $resource[0];
+		function GetSignedUrl( $pPath ) {
+			$resource     = explode( '?', $this->CanonizePath( $pPath ) );
+			$pResourceUrl = $resource[0];
 
-            $auth = $this->GenerateAuthorizationParams( $pResourceUrl );
+			$auth = $this->GenerateAuthorizationParams( $pResourceUrl );
 
-            return Freemius_Api_WordPress::GetUrl(
-                $pResourceUrl . '?' .
-                ( 1 < count( $resource ) && ! empty( $resource[1] ) ? $resource[1] . '&' : '' ) .
-                'authorization=' . urlencode( $auth['authorization'] ) .
-                '&auth_date=' . urlencode( $auth['date'] )
-                , $this->_isSandbox );
-        }
+			return Freemius_Api_WordPress::GetUrl(
+				$pResourceUrl . '?' .
+				( 1 < count( $resource ) && ! empty( $resource[1] ) ? $resource[1] . '&' : '' ) .
+				'authorization=' . urlencode( $auth['authorization'] ) .
+				'&auth_date=' . urlencode( $auth['date'] ),
+			$this->_isSandbox );
+		}
 
 		/**
 		 * @author Vova Feldman
@@ -311,11 +311,11 @@
 		 * @return mixed
 		 */
 		private static function ExecuteRequest( $pUrl, &$pWPRemoteArgs ) {
-            $bt = debug_backtrace();
+			$bt = debug_backtrace();
 
 			$start = microtime( true );
 
-            $response = self::RemoteRequest( $pUrl, $pWPRemoteArgs );
+			$response = self::RemoteRequest( $pUrl, $pWPRemoteArgs );
 
 			if ( FS_API__LOGGER_ON ) {
 				$end = microtime( true );
@@ -323,7 +323,7 @@
 				$has_body      = ( isset( $pWPRemoteArgs['body'] ) && ! empty( $pWPRemoteArgs['body'] ) );
 				$is_http_error = is_wp_error( $response );
 
-				self::$_logger[] = array(
+				self::$_logger[] = [
 					'id'        => count( self::$_logger ),
 					'start'     => $start,
 					'end'       => $end,
@@ -336,36 +336,36 @@
 						json_encode( $response->get_error_messages() ),
 					'code'      => ! $is_http_error ? $response['response']['code'] : null,
 					'backtrace' => $bt,
-				);
+				];
 			}
 
 			return $response;
 		}
 
-        /**
-         * @author Leo Fajardo (@leorw)
-         *
-         * @param string $pUrl
-         * @param array  $pWPRemoteArgs
-         *
-         * @return array|WP_Error The response array or a WP_Error on failure.
-         */
-        static function RemoteRequest( $pUrl, $pWPRemoteArgs ) {
-            $response = wp_remote_request( $pUrl, $pWPRemoteArgs );
+		/**
+		 * @author Leo Fajardo (@leorw)
+		 *
+		 * @param string $pUrl
+		 * @param array  $pWPRemoteArgs
+		 *
+		 * @return array|WP_Error The response array or a WP_Error on failure.
+		 */
+		static function RemoteRequest( $pUrl, $pWPRemoteArgs ) {
+			$response = wp_remote_request( $pUrl, $pWPRemoteArgs );
 
-            if (
-                is_array( $response ) &&
-                (
-                    empty( $response['headers'] ) ||
-                    empty( $response['headers']['x-api-server'] )
-                )
-            ) {
-                // API is considered blocked if the response doesn't include the `x-api-server` header. When there's no error but this header doesn't exist, the response is usually not in the expected form (e.g., cannot be JSON-decoded).
-                $response = new WP_Error( 'api_blocked', htmlentities( $response['body'] ) );
-            }
+			if (
+				is_array( $response ) &&
+				(
+					empty( $response['headers'] ) ||
+					empty( $response['headers']['x-api-server'] )
+				)
+			) {
+				// API is considered blocked if the response doesn't include the `x-api-server` header. When there's no error but this header doesn't exist, the response is usually not in the expected form (e.g., cannot be JSON-decoded).
+				$response = new WP_Error( 'api_blocked', htmlentities( $response['body'] ) );
+			}
 
-            return $response;
-        }
+			return $response;
+		}
 
 		/**
 		 * @return array
@@ -389,7 +389,7 @@
 		private static function MakeStaticRequest(
 			$pCanonizedPath,
 			$pMethod = 'GET',
-			$pParams = array(),
+			$pParams = [],
 			$pWPRemoteArgs = null,
 			$pIsSandbox = false,
 			$pBeforeExecutionFunction = null
@@ -403,9 +403,9 @@
 
 			if ( empty( $pWPRemoteArgs ) ) {
 				$user_agent = 'Freemius/WordPress-SDK/' . Freemius_Api_Base::VERSION . '; ' .
-				              home_url();
+							  home_url();
 
-				$pWPRemoteArgs = array(
+				$pWPRemoteArgs = [
 					'method'           => strtoupper( $pMethod ),
 					'connect_timeout'  => 10,
 					'timeout'          => 60,
@@ -413,39 +413,39 @@
 					'redirection'      => 5,
 					'user-agent'       => $user_agent,
 					'blocking'         => true,
-				);
+				];
 			}
 
 			if ( ! isset( $pWPRemoteArgs['headers'] ) ||
-			     ! is_array( $pWPRemoteArgs['headers'] )
+				 ! is_array( $pWPRemoteArgs['headers'] )
 			) {
-				$pWPRemoteArgs['headers'] = array();
+				$pWPRemoteArgs['headers'] = [];
 			}
 
-			if ( in_array( $pMethod, array( 'POST', 'PUT' ) ) ) {
-                $pWPRemoteArgs['headers']['Content-type'] = 'application/json';
+			if ( in_array( $pMethod, [ 'POST', 'PUT' ] ) ) {
+				$pWPRemoteArgs['headers']['Content-type'] = 'application/json';
 
-                if ( is_array( $pParams ) && 0 < count( $pParams ) ) {
-                    $pWPRemoteArgs['body'] = json_encode( $pParams );
-                }
+				if ( is_array( $pParams ) && 0 < count( $pParams ) ) {
+					$pWPRemoteArgs['body'] = json_encode( $pParams );
+				}
 			}
 
 			$request_url = self::GetUrl( $pCanonizedPath, $pIsSandbox );
 
 			$resource = explode( '?', $pCanonizedPath );
 
-            if ( FS_SDK__HAS_CURL ) {
-                // Disable the 'Expect: 100-continue' behaviour. This causes cURL to wait
-                // for 2 seconds if the server does not support this header.
-                $pWPRemoteArgs['headers']['Expect'] = '';
-            }
+			if ( FS_SDK__HAS_CURL ) {
+				// Disable the 'Expect: 100-continue' behaviour. This causes cURL to wait
+				// for 2 seconds if the server does not support this header.
+				$pWPRemoteArgs['headers']['Expect'] = '';
+			}
 
 			if ( 'https' === substr( strtolower( $request_url ), 0, 5 ) ) {
 				$pWPRemoteArgs['sslverify'] = FS_SDK__SSLVERIFY;
 			}
 
 			if ( false !== $pBeforeExecutionFunction &&
-			     is_callable( $pBeforeExecutionFunction )
+				 is_callable( $pBeforeExecutionFunction )
 			) {
 				$pWPRemoteArgs = call_user_func( $pBeforeExecutionFunction, $resource[0], $pWPRemoteArgs );
 			}
@@ -464,11 +464,12 @@
 					 * fall back to IPv6 and the error EHOSTUNREACH is returned by the
 					 * operating system.
 					 */
-					$matches = array();
+					$matches = [];
 					$regex   = '/Failed to connect to ([^:].*): Network is unreachable/';
 					if ( preg_match( $regex, $result->get_error_message( 'http_request_failed' ), $matches ) ) {
 						/**
 						 * Validate IP before calling `inet_pton()` to avoid PHP un-catchable warning.
+						 *
 						 * @author Vova Feldman (@svovaf)
 						 */
 						if ( filter_var( $matches[1], FILTER_VALIDATE_IP ) ) {
@@ -476,7 +477,7 @@
 								/**
 								 * error_log('Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.');
 								 * Hook to an action triggered just before cURL is executed to resolve the IP version to v4.
-								 * 
+								 *
 								 * @phpstan-ignore-next-line
 								 */
 								add_action( 'http_api_curl', 'Freemius_Api_WordPress::CurlResolveToIPv4', 10, 1 );
@@ -503,22 +504,22 @@
 
 			if ( is_null( $decoded ) ) {
 				if ( preg_match( '/Please turn JavaScript on/i', $response_body ) &&
-				     preg_match( '/text\/javascript/', $response_body )
+					 preg_match( '/text\/javascript/', $response_body )
 				) {
 					self::ThrowCloudFlareDDoSException( $response_body );
 				} else if ( preg_match( '/Access control configuration prevents your request from being allowed at this time. Please contact your service provider if you feel this is incorrect./', $response_body ) &&
-				            preg_match( '/squid/', $response_body )
+							preg_match( '/squid/', $response_body )
 				) {
 					self::ThrowSquidAclException( $response_body );
 				} else {
-					$decoded = (object) array(
-						'error' => (object) array(
+					$decoded = (object) [
+						'error' => (object) [
 							'type'    => 'Unknown',
 							'message' => $response_body,
 							'code'    => 'unknown',
-							'http'    => 402
-						)
-					);
+							'http'    => 402,
+						],
+					];
 				}
 			}
 
@@ -543,7 +544,7 @@
 		public function MakeRequest(
 			$pCanonizedPath,
 			$pMethod = 'GET',
-			$pParams = array(),
+			$pParams = [],
 			$pWPRemoteArgs = null
 		) {
 			$resource = explode( '?', $pCanonizedPath );
@@ -557,7 +558,7 @@
 				$pParams,
 				$pWPRemoteArgs,
 				$this->_isSandbox,
-				$sign_request ? array( &$this, 'SignRequest' ) : null
+				$sign_request ? [ &$this, 'SignRequest' ] : null
 			);
 		}
 
@@ -577,24 +578,24 @@
 			return $handle;
 		}
 
-		#----------------------------------------------------------------------------------
-		#region Connectivity Test
-		#----------------------------------------------------------------------------------
+		// ----------------------------------------------------------------------------------
+		// region Connectivity Test
+		// ----------------------------------------------------------------------------------
 
-        /**
-         * This method exists only for backward compatibility to prevent a fatal error from happening when called from an outdated piece of code.
-         *
-         * @param mixed $pPong
-         *
-         * @return bool
-         */
-        public static function Test( $pPong = null ) {
-            return (
-                is_object( $pPong ) &&
-                isset( $pPong->api ) &&
-                'pong' === $pPong->api
-            );
-        }
+		/**
+		 * This method exists only for backward compatibility to prevent a fatal error from happening when called from an outdated piece of code.
+		 *
+		 * @param mixed $pPong
+		 *
+		 * @return bool
+		 */
+		public static function Test( $pPong = null ) {
+			return (
+				is_object( $pPong ) &&
+				isset( $pPong->api ) &&
+				'pong' === $pPong->api
+			);
+		}
 
 		/**
 		 * Ping API to test connectivity.
@@ -609,24 +610,24 @@
 				$result = (object) $e->getResult();
 			} catch ( Exception $e ) {
 				// Map to error object.
-				$result = (object) array(
-					'error' => (object) array(
+				$result = (object) [
+					'error' => (object) [
 						'type'    => 'Unknown',
 						'message' => $e->getMessage() . ' (' . $e->getFile() . ': ' . $e->getLine() . ')',
 						'code'    => 'unknown',
-						'http'    => 402
-					)
-				);
+						'http'    => 402,
+					],
+				];
 			}
 
 			return $result;
 		}
 
-		#endregion
+		// endregion
 
-		#----------------------------------------------------------------------------------
-		#region Connectivity Exceptions
-		#----------------------------------------------------------------------------------
+		// ----------------------------------------------------------------------------------
+		// region Connectivity Exceptions
+		// ----------------------------------------------------------------------------------
 
 		/**
 		 * @param \WP_Error $pError
@@ -648,9 +649,9 @@
 			if ( self::IsCurlError( $pError ) ) {
 				$message = $pError->get_error_message( 'http_request_failed' );
 
-				#region Check if there are any missing cURL methods.
+				// region Check if there are any missing cURL methods.
 
-				$curl_required_methods = array(
+				$curl_required_methods = [
 					'curl_version',
 					'curl_exec',
 					'curl_init',
@@ -658,10 +659,10 @@
 					'curl_setopt',
 					'curl_setopt_array',
 					'curl_error',
-				);
+				];
 
 				// Find all missing methods.
-				$missing_methods = array();
+				$missing_methods = [];
 				foreach ( $curl_required_methods as $m ) {
 					if ( ! function_exists( $m ) ) {
 						$missing_methods[] = $m;
@@ -669,18 +670,18 @@
 				}
 
 				if ( ! empty( $missing_methods ) ) {
-					throw new Freemius_Exception( array(
-						'error'           => (object) array(
+					throw new Freemius_Exception( [
+						'error'           => (object) [
 							'type'    => 'cUrlMissing',
 							'message' => $message,
 							'code'    => 'curl_missing',
-							'http'    => 402
-						),
+							'http'    => 402,
+						],
 						'missing_methods' => $missing_methods,
-					) );
+					] );
 				}
 
-				#endregion
+				// endregion
 
 				// cURL error - "cURL error {{errno}}: {{error}}".
 				$parts = explode( ':', substr( $message, strlen( 'cURL error ' ) ), 2 );
@@ -688,21 +689,21 @@
 				$code    = ( 0 < count( $parts ) ) ? $parts[0] : 'http_request_failed';
 				$message = ( 1 < count( $parts ) ) ? $parts[1] : $message;
 
-				$e = new Freemius_Exception( array(
-					'error' => (object) array(
+				$e = new Freemius_Exception( [
+					'error' => (object) [
 						'code'    => $code,
 						'message' => $message,
 						'type'    => 'CurlException',
-					),
-				) );
+					],
+				] );
 			} else {
-				$e = new Freemius_Exception( array(
-					'error' => (object) array(
+				$e = new Freemius_Exception( [
+					'error' => (object) [
 						'code'    => $pError->get_error_code(),
 						'message' => $pError->get_error_message(),
 						'type'    => 'WPRemoteException',
-					),
-				) );
+					],
+				] );
 			}
 
 			throw $e;
@@ -714,14 +715,14 @@
 		 * @throws Freemius_Exception
 		 */
 		private static function ThrowCloudFlareDDoSException( $pResult = '' ) {
-			throw new Freemius_Exception( array(
-				'error' => (object) array(
+			throw new Freemius_Exception( [
+				'error' => (object) [
 					'type'    => 'CloudFlareDDoSProtection',
 					'message' => $pResult,
 					'code'    => 'cloudflare_ddos_protection',
-					'http'    => 402
-				)
-			) );
+					'http'    => 402,
+				],
+			] );
 		}
 
 		/**
@@ -730,16 +731,16 @@
 		 * @throws Freemius_Exception
 		 */
 		private static function ThrowSquidAclException( $pResult = '' ) {
-			throw new Freemius_Exception( array(
-				'error' => (object) array(
+			throw new Freemius_Exception( [
+				'error' => (object) [
 					'type'    => 'SquidCacheBlock',
 					'message' => $pResult,
 					'code'    => 'squid_cache_block',
-					'http'    => 402
-				)
-			) );
+					'http'    => 402,
+				],
+			] );
 		}
 
-		#endregion
+		// endregion
 	}
-    }
+}
