@@ -47,13 +47,13 @@ class Admin {
 		'toplevel_page_quotify',
 		'quotify-quotations',
 		'quotify-settings',
-		'quotations_page_quotify-settings',
+		'quotify_page_quotify-settings',
 		'quotify-addons',
-		'quotations_page_quotify-addons',
+		'quotify_page_quotify-addons',
 		'quotify-tools',
-		'quotations_page_quotify-tools',
+		'quotify_page_quotify-tools',
 		'quotify-help',
-		'quotations_page_quotify-help',
+		'quotify_page_quotify-help',
 	];
 
 	/**
