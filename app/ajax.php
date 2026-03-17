@@ -91,7 +91,7 @@ class Ajax {
 	public function __construct() {
 		$this->quotations = new \Quotify\Ajax\Quotations();
 		$this->settings   = new \Quotify\Ajax\Settings();
-		$this->addons     = new \Quotify\Ajax\Addons();
+		// $this->addons     = new \Quotify\Ajax\Addons();
 		$this->cart       = new \Quotify\Ajax\Cart();
 		$this->form       = new \Quotify\Ajax\Form();
 	}

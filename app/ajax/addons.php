@@ -27,8 +27,8 @@ class Addons {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_quotify/ajax/addons/get_all', [ $this, 'get_all' ] );
-		add_action( 'wp_ajax_quotify/ajax/addons/save', [ $this, 'save' ] );
+		// add_action( 'wp_ajax_quotify/ajax/addons/get_all', [ $this, 'get_all' ] );
+		// add_action( 'wp_ajax_quotify/ajax/addons/save', [ $this, 'save' ] );
 	}
 
 	/**

@@ -232,7 +232,7 @@ final class Quotify {
 	 * @var Quotify\Internals\Addons
 	 */
 	public function addons() {
-		return \Quotify\Internals\Addons::init();
+		// return \Quotify\Internals\Addons::init();
 	}
 
 	/**
