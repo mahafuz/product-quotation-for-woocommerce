@@ -45,7 +45,10 @@ if ( ! class_exists( 'Quotify', false ) ) {
 	include_once dirname( QUOTIFY_PLUGIN_FILE ) . '/app/quotify.php';
 }
 
-require __DIR__ . '/.config.php';
+$configs = __DIR__ . '/.config.php';
+if ( WP_DEBUG && file_exists( $configs ) ) {
+	require $configs;
+}
 
 require __DIR__ . '/app/install.php';
 
