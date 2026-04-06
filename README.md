@@ -4,8 +4,8 @@ Tags: request a quote, email quote, quotations, request for quote, hide-price, s
 Requires at least: 4.0
 WC requires at least: 6.0
 WC tested up to: 10.1.2
-Tested up to: 6.8
-Stable tag: 2.5.0
+Tested up to: 6.9
+Stable tag: 2.6.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -61,10 +61,11 @@ Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/produc
 
 == Changelog ==
 
-= 2.5.1 - 01-03-2026 =
-* ADDED: Rate limiter for quotation form submissions with configurable limits.
-* ADDED: Settings UI to enable rate limiting and define count/period.
-* IMPROVEMENTS: Security – prevent spam and abuse.
+= 2.6.0 - 06-04-2026 =
+* ADDED: New dashboard for better quotation management.
+* IMPROVEMENTS: Advanced UI Features for quotation management
+* IMPROVEMENTS: Compatibility with latest wordpress versions.
+* FIXED: Minor bugs
 
 = 2.5.0 - 12-09-2025 =
 * ADDED: New dashboard for better quotation management.
