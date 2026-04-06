@@ -1,5 +1,7 @@
 .gitignore
 README.md
+composer.lock
+composer.json
 package.json
 package-lock.json
 phpcs.xml
@@ -15,3 +17,4 @@ webpack.config.js
 Docs/
 bin/
 .DS_Store
+vendor
