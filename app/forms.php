@@ -100,12 +100,6 @@ class Forms {
 	 * @return string
 	 */
 	private function get_form_type() {
-		$form_type = quotify()->addons()->get();
-
-		if ( ! empty( $form_type['cf7'] ) && wp_validate_boolean( $form_type['cf7'] ) ) {
-			return 'cf7';
-		}
-
 		return 'default';
 	}
 
