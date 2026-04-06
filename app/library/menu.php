@@ -111,7 +111,7 @@ class Menu {
 	 * @return string
 	 */
 	public static function get_plugin_logo() {
-		return QUOTIFY_PLUGIN_ROOT_URI . 'src/images/logo.png';
+		return QUOTIFY_PLUGIN_ROOT_URI . 'assets/images/logo.png';
 	}
 
 	/**
