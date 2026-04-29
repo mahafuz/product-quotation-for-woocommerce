@@ -57,14 +57,14 @@ class Ajax {
 	/**
 	 * Contains ajax requests for the addons.
 	 *
-	 * @var Quotify\Ajax\Addons
+	 * @var \Quotify\Ajax\Addons
 	 */
 	private $addons;
 
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Ajax
+	 * @var \Quotify\Ajax
 	 */
 	private static $instance;
 
@@ -73,7 +73,7 @@ class Ajax {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Ajax
+	 * @return \Quotify\Ajax
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

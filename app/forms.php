@@ -13,7 +13,7 @@ namespace Quotify;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Responsible for managing plugin ajax requests.
+ * Responsible for managing plugin forms and controls.
  *
  * @since 2.4.0
  */
@@ -21,7 +21,7 @@ class Forms {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Forms
+	 * @var \Quotify\Forms
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Forms {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Quotify\Forms
+	 * @return \Quotify\Forms
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

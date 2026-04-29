@@ -21,7 +21,7 @@ class Cart {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Internals\Cart
+	 * @var \Quotify\Internals\Cart
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Cart {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Quotify\Internals\Cart
+	 * @return \Quotify\Internals\Cart
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

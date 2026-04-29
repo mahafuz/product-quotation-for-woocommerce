@@ -32,7 +32,7 @@ class Addons {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Internals\Addons
+	 * @var \Quotify\Internals\Addons
 	 */
 	private static $instance;
 
@@ -41,7 +41,7 @@ class Addons {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Quotify\Internals\Addons
+	 * @return \Quotify\Internals\Addons
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {
@@ -110,6 +110,14 @@ class Addons {
 		return $status;
 	}
 
+	/**
+	 * Save addon status.
+	 *
+	 * @param string $addon The addon name.
+	 * @param bool   $status The addon status.
+	 *
+	 * @return [type]
+	 */
 	public function save( $addon, $status ) {
 		return $this->set( $addon, $status );
 	}

@@ -55,7 +55,7 @@ class Settings {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Settings
+	 * @var \Quotify\Library\Settings
 	 */
 	private static $instance;
 
@@ -64,7 +64,7 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Settings
+	 * @return \Quotify\Library\Settings
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

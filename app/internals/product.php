@@ -24,7 +24,7 @@ class Product {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Internals\Product
+	 * @var \Quotify\Internals\Product
 	 */
 	private static $instance;
 
@@ -33,7 +33,7 @@ class Product {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Internals\Product
+	 * @return \Quotify\Internals\Product
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

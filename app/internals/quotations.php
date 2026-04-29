@@ -21,7 +21,7 @@ class Quotations {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Internals\Quotations
+	 * @var \Quotify\Internals\Quotations
 	 */
 	private static $instance;
 

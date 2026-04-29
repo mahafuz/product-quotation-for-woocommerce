@@ -21,7 +21,7 @@ class Install {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Install
+	 * @var \Quotify\Install
 	 */
 	private static $instance;
 
@@ -30,7 +30,7 @@ class Install {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Install
+	 * @return \Quotify\Install
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

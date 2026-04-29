@@ -21,7 +21,7 @@ class Menu {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Menu
+	 * @var \Quotify\Library\Menu
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Menu {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Menu
+	 * @return \Quotify\Library\Menu
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

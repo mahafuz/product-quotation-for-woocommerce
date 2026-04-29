@@ -13,7 +13,7 @@ namespace Quotify;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Responsible for managing plugin ajax requests.
+ * Responsible for managing plugin database operations.
  *
  * @since 2.4.0
  */
@@ -21,14 +21,14 @@ class Database {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Database
+	 * @var \Quotify\Database
 	 */
 	private static $instance;
 
 	/**
 	 * Class instance
 	 *
-	 * @return Quotify\Database
+	 * @return \Quotify\Database
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

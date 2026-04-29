@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin class
+ * Assets class
  *
  * @since   2.0.3
  * @package Quotify
@@ -23,7 +23,7 @@ class Assets extends Base {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Loader
+	 * @var \Quotify\Assets
 	 */
 	private static $instance;
 
@@ -32,7 +32,7 @@ class Assets extends Base {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Loader
+	 * @return \Quotify\Assets
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

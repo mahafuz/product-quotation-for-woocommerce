@@ -22,7 +22,7 @@ class Admin {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Admin
+	 * @var \Quotify\Admin
 	 */
 	private static $instance = null;
 
@@ -31,7 +31,7 @@ class Admin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Admin
+	 * @return \Quotify\Admin
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

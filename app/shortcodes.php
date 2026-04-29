@@ -13,7 +13,7 @@ namespace Quotify;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Responsible for managing plugin ajax requests.
+ * Responsible for managing plugin shortcodes.
  *
  * @since 2.4.0
  */
@@ -21,7 +21,7 @@ class Shortcodes {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Shortcodes
+	 * @var \Quotify\Shortcodes
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Shortcodes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Quotify\Shortcodes
+	 * @return Quotify\Shortcodes
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

@@ -21,7 +21,7 @@ class Controls {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Forms\Controls
+	 * @var \Quotify\Forms\Controls
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Controls {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Quotify\Forms\Controls
+	 * @return \Quotify\Forms\Controls
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

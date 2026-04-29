@@ -21,7 +21,7 @@ class Buttons {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Button
+	 * @var \Quotify\Internals\Buttons
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Buttons {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Button
+	 * @return \Quotify\Internals\Buttons
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

@@ -26,74 +26,10 @@ final class Quotify {
 	/**
 	 * Single instance of the class
 	 *
-	 * @var Quotify
+	 * @var \Quotify
 	 * @since 2.5.0
 	 */
 	private static $instance = null;
-
-	/**
-	 * Session instance.
-	 *
-	 * @var WC_Session|WC_Session_Handler
-	 */
-	private $session = null;
-
-	/**
-	 * Query instance.
-	 *
-	 * @var Quotify\Query
-	 */
-	private $query = null;
-
-	/**
-	 * Contains helpers methods.
-	 *
-	 * @var mixed
-	 */
-	private $helpers;
-
-	/**
-	 * Product factory instance.
-	 *
-	 * @var Quotify\Factory
-	 */
-	private $product_factory = null;
-
-	/**
-	 * Cart instance.
-	 *
-	 * @var Quotify\Cart
-	 */
-	private $cart = null;
-
-	/**
-	 * Container for the addons.
-	 *
-	 * @var Quotify\Addons
-	 */
-	private $addons = null;
-
-	/**
-	 * Container for the menus.
-	 *
-	 * @var Quotify\Menu
-	 */
-	private $menu = null;
-
-	/**
-	 * Container for the settings.
-	 *
-	 * @var Quotify\Settings
-	 */
-	private $settings;
-
-	/**
-	 * Responsible for the plugin mail.
-	 *
-	 * @var mixed
-	 */
-	private $mailer;
-	private $mail; //phpcs:ignore
 
 	/**
 	 * Returns single instance of the class
@@ -188,18 +124,18 @@ final class Quotify {
 	/**
 	 * Quotify menu instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Menu
+	 * @since 2.5.0
+	 * @return \Quotify\Library\Menu
 	 */
 	public function menu() {
 		return \Quotify\Library\Menu::init();
 	}
 
 	/**
-	 * Quotify menu instance.
+	 * Quotify assets instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Menu
+	 * @since 2.5.0
+	 * @return \Quotify\Assets
 	 */
 	public function assets() {
 		return \Quotify\Assets::init();
@@ -208,8 +144,8 @@ final class Quotify {
 	/**
 	 * Quotify ajax instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Ajax
+	 * @since 2.5.0
+	 * @return \Quotify\Ajax
 	 */
 	private function ajax() {
 		return \Quotify\Ajax::init();
@@ -218,28 +154,26 @@ final class Quotify {
 	/**
 	 * Quotify settings instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Settings
+	 * @since 2.5.0
+	 * @return \Quotify\Library\Settings
 	 */
 	public function settings() {
 		return \Quotify\Library\Settings::init();
 	}
 
 	/**
-	 * Quotify settings instance.
+	 * Quotify addons instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Addons
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Addons|void
 	 */
-	public function addons() {
-		// return \Quotify\Internals\Addons::init();
-	}
+	public function addons() {}
 
 	/**
-	 * Quotify settings instance.
+	 * Quotify quotations instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Quotations
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Quotations
 	 */
 	public function quotations() {
 		return \Quotify\Internals\Quotations::init();
@@ -248,28 +182,28 @@ final class Quotify {
 	/**
 	 * Quotify frontend instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Frontend
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Frontend
 	 */
 	public function frontend() {
-		return Quotify\Internals\Frontend::init();
+		return \Quotify\Internals\Frontend::init();
 	}
 
 	/**
-	 * Quotify frontend instance.
+	 * Quotify buttons instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Button
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Buttons
 	 */
 	public function buttons() {
-		return Quotify\Internals\Buttons::init();
+		return \Quotify\Internals\Buttons::init();
 	}
 
 	/**
-	 * Quotify frontend instance.
+	 * Quotify admin instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Admin
+	 * @since 2.5.0
+	 * @return \Quotify\Admin
 	 */
 	public function admin() {
 		return \Quotify\Admin::init();
@@ -278,8 +212,8 @@ final class Quotify {
 	/**
 	 * Quotify cart instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Cart
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Cart
 	 */
 	public function cart() {
 		return \Quotify\Internals\Cart::init();
@@ -288,68 +222,68 @@ final class Quotify {
 	/**
 	 * Quotify forms instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Forms
+	 * @since 2.5.0
+	 * @return \Quotify\Forms
 	 */
 	public function forms() {
-		return Quotify\Forms::init();
+		return \Quotify\Forms::init();
 	}
 
 	/**
-	 * Quotify forms instance.
+	 * Quotify form controls instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Forms\Controls
+	 * @since 2.5.0
+	 * @return \Quotify\Forms\Controls
 	 */
 	public function controls() {
-		return Quotify\Forms\Controls::init();
+		return \Quotify\Forms\Controls::init();
 	}
 
 	/**
 	 * Quotify shortcodes instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Forms\Controls
+	 * @since 2.5.0
+	 * @return \Quotify\Shortcodes
 	 */
 	public function shortcodes() {
 		return \Quotify\Shortcodes::init();
 	}
 
 	/**
-	 * Quotify shortcodes instance.
+	 * Quotify mail instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Forms\Controls
+	 * @since 2.5.0
+	 * @return \Quotify\Library\Mail
 	 */
 	public function mail() {
 		return \Quotify\Library\Mail::init();
 	}
 
 	/**
-	 * Quotify shortcodes instance.
+	 * Quotify hooks instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Hooks
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Hooks
 	 */
 	public function hooks() {
 		return \Quotify\Internals\Hooks::init();
 	}
 
 	/**
-	 * Quotify shortcodes instance.
+	 * Quotify session instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Hooks
+	 * @since 2.5.0
+	 * @return \Quotify\Library\Session
 	 */
 	public function sessions() {
 		return \Quotify\Library\Session::init();
 	}
 
 	/**
-	 * Quotify shortcodes instance.
+	 * Quotify product instance.
 	 *
-	 * @2.5.0
-	 * @var Quotify\Internals\Product
+	 * @since 2.5.0
+	 * @return \Quotify\Internals\Product
 	 */
 	public function product() {
 		return \Quotify\Internals\Product::init();
@@ -358,8 +292,8 @@ final class Quotify {
 	/**
 	 * Quotify template manager instance.
 	 *
-	 * @2.6.0
-	 * @var Quotify\Library\Template_Manager
+	 * @since 2.6.0
+	 * @return \Quotify\Library\Template_Manager
 	 */
 	public function templates() {
 		return \Quotify\Library\Template_Manager::init();

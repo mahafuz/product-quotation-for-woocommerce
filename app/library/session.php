@@ -28,7 +28,7 @@ class Session {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Session
+	 * @var \Quotify\Library\Session
 	 */
 	private static $instance;
 
@@ -37,7 +37,7 @@ class Session {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Session
+	 * @return \Quotify\Library\Session
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

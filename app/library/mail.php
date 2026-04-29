@@ -1,6 +1,6 @@
 <?php
 /**
- * Responsible for managing the plugin base scripts.
+ * Responsible for managing plugin email functionality.
  *
  * @since   1.0.0
  * @package Quotify
@@ -12,7 +12,7 @@ namespace Quotify\Library;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Responsible for managing the plugin base scripts.
+ * Responsible for managing plugin email functionality.
  *
  * @since   1.0.0
  * @package Quotify
@@ -22,7 +22,7 @@ class Mail {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Shortcodes
+	 * @var \Quotify\Library\Mail
 	 */
 	private static $instance = null;
 
@@ -31,7 +31,7 @@ class Mail {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Quotify\Shortcodes
+	 * @return Quotify\Library\Mail
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {

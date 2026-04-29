@@ -21,7 +21,7 @@ class Frontend {
 	/**
 	 * Class instance.
 	 *
-	 * @var Quotify\Frontend
+	 * @var \Quotify\Internals\Frontend
 	 */
 	private static $instance = null;
 
@@ -30,7 +30,7 @@ class Frontend {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Frontend
+	 * @return \Quotify\Internals\Frontend
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {
