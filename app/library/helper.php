@@ -447,4 +447,35 @@ class Helper {
 		<?php
 		return ob_get_clean();
 	}
+
+	/**
+	 * Parse email subject placeholders.
+	 *
+	 * Replaces placeholders in email subject with actual values from quotation data.
+	 * Supported placeholders: {quotation_id}, {customer_name}, {site_name},
+	 * {customer_subject}, {customer_email}, {date}, {time}.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param string $subject Email subject with placeholders.
+	 * @param array  $data    Quotation data.
+	 * @return string Parsed email subject.
+	 */
+	public static function parse_email_subject( $subject, $data ) {
+		if ( empty( $subject ) ) {
+			return $subject;
+		}
+
+		$replacements = [
+			'{quotation_id}'     => isset( $data['quotation_id'] ) ? '#' . intval( $data['quotation_id'] ) : '',
+			'{customer_name}'    => isset( $data['fullname'] ) ? sanitize_text_field( $data['fullname'] ) : '',
+			'{site_name}'        => isset( $data['email_title'] ) ? sanitize_text_field( $data['email_title'] ) : get_bloginfo( 'name' ),
+			'{customer_subject}' => isset( $data['subject'] ) ? sanitize_text_field( $data['subject'] ) : '',
+			'{customer_email}'   => isset( $data['email'] ) ? sanitize_email( $data['email'] ) : '',
+			'{date}'             => isset( $data['date'] ) ? sanitize_text_field( $data['date'] ) : current_time( get_option( 'date_format' ) ),
+			'{time}'             => isset( $data['time'] ) ? sanitize_text_field( $data['time'] ) : current_time( get_option( 'time_format' ) ),
+		];
+
+		return str_replace( array_keys( $replacements ), array_values( $replacements ), $subject );
+	}
 }

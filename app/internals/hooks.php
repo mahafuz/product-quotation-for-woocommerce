@@ -85,7 +85,14 @@ class Hooks {
 			// First request in the window.
 			wp_cache_set( $transient_key, 1, '', $expires );
 			// Also store in transient for persistence across cache clears.
-			set_transient( $transient_key . '_data', [ 'count' => 1, 'start' => $now ], $expires );
+			set_transient(
+				$transient_key . '_data',
+				[
+					'count' => 1,
+					'start' => $now,
+				],
+				$expires
+			);
 			return;
 		}
 
@@ -94,7 +101,14 @@ class Hooks {
 		if ( false === $data || ( $now - $data['start'] ) > $expires ) {
 			// Window expired, reset counter.
 			wp_cache_set( $transient_key, 1, '', $expires );
-			set_transient( $transient_key . '_data', [ 'count' => 1, 'start' => $now ], $expires );
+			set_transient(
+				$transient_key . '_data',
+				[
+					'count' => 1,
+					'start' => $now,
+				],
+				$expires
+			);
 			return;
 		}
 
@@ -143,14 +157,14 @@ class Hooks {
 	private function log_rate_limit_hit( $ip, $count, $retry_after ) {
 		// Get existing log or create new one.
 		$log_key = 'quotify_rate_limit_log';
-		$log     = get_option( $log_key, [] );
+		$log = get_option( $log_key, [] );
 
 		// Add entry with timestamp.
 		$log[] = [
-			'ip'      => $ip,
-			'count'   => $count,
-			'time'    => current_time( 'mysql' ),
-			'retry'   => $retry_after,
+			'ip' => $ip,
+			'count' => $count,
+			'time' => current_time( 'mysql' ),
+			'retry' => $retry_after,
 		];
 
 		// Keep only last 100 entries to prevent bloat.
@@ -165,49 +179,53 @@ class Hooks {
 	 * Handle quotation submission and send email notifications.
 	 *
 	 * Processes new quotation submissions, sanitizes data, and sends emails
-	 * to both customer and admin based on plugin settings.
+	 * to both customer and admin based on plugin settings using the template system.
 	 *
 	 * @since 2.0.4
+	 * @since 2.6.0 - Updated to use Template_Manager for separate admin/customer templates.
 	 * @access public
 	 *
 	 * @param int $id The post ID of the submitted quotation.
 	 * @return void
 	 */
 	public function quotation_submit( $id ) {
-		$quote    = get_post( $id );
-		$meta     = Helper::get_post_meta_by_id( $id );
-		$author   = sanitize_user( get_the_author_meta( 'first_name', $quote->post_author ) );
-		$title    = get_the_title( $id );
-		$handle   = ! empty( $author ) ? esc_attr( $author ) : esc_attr( $title );
-		$email    = sanitize_email( $meta['pqfw_customer_email'] );
-		$phone    = Helper::sanitizePhoneNumber( $meta['pqfw_customer_phone'] );
-		$subject  = sanitize_text_field( $meta['pqfw_customer_subject'] );
-		$comments = sanitize_text_field( $meta['pqfw_customer_comments'] );
-		$products = $meta['pqfw_products_info'];
-		$headers  = [ 'Content-Type: text/html; charset=UTF-8' ];
-		$response = [];
+		// Get template data using Template Manager.
+		$template_data = quotify()->templates()->prepare_quotation_data( $id );
 
-		ob_start();
-			$collection = [
-				'fullname'    => $handle,
-				'email'       => $email,
-				'subject'     => $subject,
-				'phone'       => $phone,
-				'comments'    => $comments,
-				'products'    => $products,
-				'email_title' => get_bloginfo( 'name' ),
-				'site_url'    => get_bloginfo( 'url' ),
-			];
-				require QUOTIFY_PLUGIN_VIEWS . 'email/new-quote.php';
-			$body = ob_get_clean();
+		// Generate email subjects using Mail class.
+		$admin_subject = quotify()->mail()->get_admin_subject( $template_data );
+		$customer_subject = quotify()->mail()->get_customer_subject( $template_data );
 
-			if ( quotify()->settings()->get( 'pqfw_send_mail_to_customer' ) ) {
-				$is_send = quotify()->mail()->send( $email, $subject, $body, $headers );
+		// Send email to customer if enabled.
+		if ( quotify()->settings()->get( 'pqfw_send_mail_to_customer' ) ) {
+			$customer_email = $template_data['email'];
+			$customer_body = quotify()->templates()->render( 'new-quotation', 'customer', $template_data );
+
+			if ( ! empty( $customer_body ) ) {
+				// Get headers with Reply-To set to admin email for customer responses.
+				$admin_recipient = quotify()->settings()->get( 'recipient' );
+				$headers = quotify()->mail()->get_headers( [
+					'reply_to' => $admin_recipient,
+				] );
+
+				quotify()->mail()->send( $customer_email, $customer_subject, $customer_body, $headers );
 			}
+		}
 
-			if ( quotify()->settings()->get( 'pqfw_form_send_mail' ) ) {
-				$recipient = sanitize_email( quotify()->settings()->get( 'recipient' ) );
-				$is_send = quotify()->mail()->send( $recipient, $subject, $body, $headers );
+		// Send email to admin if enabled.
+		if ( quotify()->settings()->get( 'pqfw_form_send_mail' ) ) {
+			$recipient = sanitize_email( quotify()->settings()->get( 'recipient' ) );
+			$admin_body = quotify()->templates()->render( 'new-quotation', 'admin', $template_data );
+
+			if ( ! empty( $admin_body ) ) {
+				// Get headers with Reply-To set to customer email for admin responses.
+				$customer_email = $template_data['email'];
+				$headers = quotify()->mail()->get_headers( [
+					'reply_to' => $customer_email,
+				] );
+
+				quotify()->mail()->send( $recipient, $admin_subject, $admin_body, $headers );
 			}
+		}
 	}
 }

@@ -51,13 +51,12 @@ class Form {
 		$fullname = sanitize_user( $entry['pqfw_customer_name'] );
 		$email    = sanitize_email( $entry['pqfw_customer_email'] );
 		$phone    = \Quotify\Library\Helper::sanitizePhoneNumber( $entry['pqfw_customer_phone'] );
-		$subject  = sanitize_text_field( $entry['pqfw_customer_subject'] );
 		$comments = sanitize_textarea_field( $entry['pqfw_customer_comments'] );
+		$subject  = isset( $entry['pqfw_customer_subject'] ) ? sanitize_text_field( $entry['pqfw_customer_subject'] ) : '';
 
 		$validate = \Quotify\Library\Helper::validate([
 			'fullname' => $fullname,
 			'email'    => $email,
-			'subject'  => $subject,
 			'phone'    => $phone,
 			'comments' => $comments,
 		]);

@@ -4,151 +4,151 @@ import { FormToggle } from '@wordpress/components';
 const FormSettings = ({ settings, setSettings, saveSettings }) => {
   return (
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
-		<h3 className='pqfw-tab-title'>{__( 'Form Settings' )}</h3>
-		<div className="inside">
-			<p className="help">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
+			<h3 className='pqfw-tab-title'>{__( 'Form Settings' )}</h3>
+			<div className="inside">
+				<p className="help">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
 
-			<table className="form-table">
-				<tr>
-					<th>{__( 'Default Form Style' )}</th>
-					<td>
-						<FormToggle
-							checked={ settings?.pqfw_form_default_design }
-							onChange={(e) => setSettings({
-								...settings,
-								pqfw_form_default_design: e.target.checked
-							})}
-						/>
-						<p className="description">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
-					</td>
-				</tr>
-				{ settings?.pqfw_form_default_design ? (
+				<table className="form-table">
 					<tr>
 						<th>{__( 'Default Form Style' )}</th>
 						<td>
 							<FormToggle
-								checked={ settings?.pqfw_floating_form }
+								checked={ settings?.pqfw_form_default_design }
 								onChange={(e) => setSettings({
 									...settings,
-									pqfw_floating_form: e.target.checked
+									pqfw_form_default_design: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class.' )}</p>
+							<p className="description">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
 						</td>
 					</tr>
-				) : ''}
-				<tr>
-					<th>{__( 'Add Privacy Policy' )}</th>
-					<td>
-						<FormToggle
-							checked={ settings?.privacy_policy }
-							onChange={(e) => setSettings({
-								...settings,
-								privacy_policy: e.target.checked
-							})}
-						/>
-						<p className="description">{__( 'Ask user to accept terms and condition before submitting the quotation form.' )}</p>
-					</td>
-				</tr>
-				<tr>
-					<th>{__( 'Enable Rate Limiting' )}</th>
-					<td>
-						<FormToggle
-							checked={ settings?.pqfw_rate_limit_enabled }
-							onChange={(e) => setSettings({
-								...settings,
-								pqfw_rate_limit_enabled: e.target.checked
-							})}
-						/>
-						<p className="description">
-							{__(
-								'Limit how many times the same visitor can submit the quotation form within a time window.',
-							)}
-						</p>
-					</td>
-				</tr>
-				{ settings?.pqfw_rate_limit_enabled ? (
-					<>
+					{ settings?.pqfw_form_default_design ? (
 						<tr>
-							<th>{__( 'Max Submissions' )}</th>
+							<th>{__( 'Default Form Style' )}</th>
 							<td>
-								<input
-									type="number"
-									className="small-text"
-									min="1"
-									value={ settings?.pqfw_rate_limit_count }
+								<FormToggle
+									checked={ settings?.pqfw_floating_form }
 									onChange={(e) => setSettings({
 										...settings,
-										pqfw_rate_limit_count: parseInt(e.target.value, 10) || 0,
+										pqfw_floating_form: e.target.checked
 									})}
 								/>
-								<p className="description">
-									{__( 'Number of submissions allowed' )}
-								</p>
+								<p className="description">{__( 'Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class.' )}</p>
 							</td>
 						</tr>
-						<tr>
-							<th>{__( 'Time Window (minutes)' )}</th>
-							<td>
-								<input
-									type="number"
-									className="small-text"
-									min="1"
-									value={ settings?.pqfw_rate_limit_period }
-									onChange={(e) => setSettings({
-										...settings,
-										pqfw_rate_limit_period: parseInt(e.target.value, 10) || 0,
-									})}
-								/>
-								<p className="description">
-									{__(
-										'Window size during which submissions are counted (in minutes).',
-									)}
-								</p>
-							</td>
-						</tr>
-					</>
-				) : ''}
-				{ settings?.privacy_policy ? (
-					<>
-						<tr>
-							<th>{__( 'Privacy Policy Label' )}</th>
-							<td>
-								<input
-									type="text"
-									className="regular-text"
-									value={ settings?.privacy_policy_label }
-									onChange={(e) => setSettings({
-										...settings,
-										privacy_policy_label: e.target.value
-									})}
-								/>
-								<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>{__( 'Privacy Policy' )}</th>
-							<td>
-								<textarea
-									cols="30"
-									rows="5" className="regular-text"
-									onChange={(e) => setSettings({
-										...settings,
-										privacy_policy_content: e.target.value
-									})}
-								>{ settings?.privacy_policy_content }</textarea>
-								<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
-							</td>
-						</tr>
-					</>
-				) : ''}
-			</table>
+					) : ''}
+					<tr>
+						<th>{__( 'Add Privacy Policy' )}</th>
+						<td>
+							<FormToggle
+								checked={ settings?.privacy_policy }
+								onChange={(e) => setSettings({
+									...settings,
+									privacy_policy: e.target.checked
+								})}
+							/>
+							<p className="description">{__( 'Ask user to accept terms and condition before submitting the quotation form.' )}</p>
+						</td>
+					</tr>
+					<tr>
+						<th>{__( 'Enable Rate Limiting' )}</th>
+						<td>
+							<FormToggle
+								checked={ settings?.pqfw_rate_limit_enabled }
+								onChange={(e) => setSettings({
+									...settings,
+									pqfw_rate_limit_enabled: e.target.checked
+								})}
+							/>
+							<p className="description">
+								{__(
+									'Limit how many times the same visitor can submit the quotation form within a time window.',
+								)}
+							</p>
+						</td>
+					</tr>
+					{ settings?.pqfw_rate_limit_enabled ? (
+						<>
+							<tr>
+								<th>{__( 'Max Submissions' )}</th>
+								<td>
+									<input
+										type="number"
+										className="small-text"
+										min="1"
+										value={ settings?.pqfw_rate_limit_count }
+										onChange={(e) => setSettings({
+											...settings,
+											pqfw_rate_limit_count: parseInt(e.target.value, 10) || 0,
+										})}
+									/>
+									<p className="description">
+										{__( 'Number of submissions allowed' )}
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Time Window (minutes)' )}</th>
+								<td>
+									<input
+										type="number"
+										className="small-text"
+										min="1"
+										value={ settings?.pqfw_rate_limit_period }
+										onChange={(e) => setSettings({
+											...settings,
+											pqfw_rate_limit_period: parseInt(e.target.value, 10) || 0,
+										})}
+									/>
+									<p className="description">
+										{__(
+											'Window size during which submissions are counted (in minutes).',
+										)}
+									</p>
+								</td>
+							</tr>
+						</>
+					) : ''}
+					{ settings?.privacy_policy ? (
+						<>
+							<tr>
+								<th>{__( 'Privacy Policy Label' )}</th>
+								<td>
+									<input
+										type="text"
+										className="regular-text"
+										value={ settings?.privacy_policy_label }
+										onChange={(e) => setSettings({
+											...settings,
+											privacy_policy_label: e.target.value
+										})}
+									/>
+									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Privacy Policy' )}</th>
+								<td>
+									<textarea
+										cols="30"
+										rows="5" className="regular-text"
+										onChange={(e) => setSettings({
+											...settings,
+											privacy_policy_content: e.target.value
+										})}
+									>{ settings?.privacy_policy_content }</textarea>
+									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
+								</td>
+							</tr>
+						</>
+					) : ''}
+				</table>
+			</div>
+			<div className="submit-wrapper">
+				<button className="button button-primary" onClick={saveSettings}>{__( 'Save Changes' )}</button>
+			</div>
 		</div>
-		<div className="submit-wrapper">
-			<button className="button button-primary" onClick={saveSettings}>{__( 'Save Changes' )}</button>
-		</div>
-	</div>
-  )
+	  )
 }
 
 export default FormSettings

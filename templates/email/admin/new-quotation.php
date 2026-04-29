@@ -1,12 +1,8 @@
 <?php
 /**
- * Legacy Email Template (Backward Compatibility)
+ * Admin Email Template - New Quotation Notification
  *
- * This template is kept for backward compatibility.
- * It uses the new template parts system internally.
- *
- * @since 2.4.0
- * @since 2.6.0 - Refactored to use template parts.
+ * @since 2.6.0
  * @package Quotify
  */
 
@@ -16,17 +12,17 @@ defined( 'ABSPATH' ) || exit;
 // Load email helper functions.
 require_once QUOTIFY_PLUGIN_VIEWS . 'email/email-functions.php';
 
-// Normalize data with backward compatibility for old variable names.
-$collection = isset( $collection ) ? $collection : [];
-$data = quotify_get_email_data( $collection );
-
-// Legacy variable support for templates that might expect them.
-$products = $data['products'];
+// Normalize data.
+$data = quotify_get_email_data( get_defined_vars() );
 
 // Header args.
 $header_args = [
-	'title'       => $data['email_title'] . ' - Customer Quotation',
-	'heading'     => __( 'New Customer Inquiry', 'quotify' ),
+	'title'       => sprintf(
+		/* translators: %s: Site name */
+		__( '%s - New Quotation Request', 'quotify' ),
+		$data['email_title']
+	),
+	'heading'     => __( 'New Quotation Request Received', 'quotify' ),
 	'description' => '',
 	'align'       => 'align-center',
 ];
@@ -47,10 +43,37 @@ quotify_get_email_template_part( 'customer-details', null, [
 ?>
 
 <?php
-// Product list - detailed view (legacy behavior).
+// Product list - detailed for admin.
 quotify_get_email_template_part( 'product-list-detailed', null, [
 	'products' => $data['products'],
 	'heading'  => __( 'Requested Products', 'quotify' ),
+] );
+?>
+
+<?php if ( ! empty( $data['admin_edit_url'] ) ) : ?>
+	<?php
+	// Action buttons.
+	quotify_get_email_template_part( 'action-buttons', null, [
+		'buttons' => [
+			[
+				'text'  => __( 'View & Edit Quotation', 'quotify' ),
+				'url'   => $data['admin_edit_url'],
+				'style' => 'primary',
+			],
+		],
+		'align'     => 'center',
+		'box_style' => 'actions',
+	] );
+	?>
+<?php endif; ?>
+
+<?php
+// Meta information.
+quotify_get_email_template_part( 'meta-info', null, [
+	'quotation_id' => $data['quotation_id'],
+	'date'         => $data['date'],
+	'time'         => $data['time'],
+	'subject'      => $data['subject'],
 ] );
 ?>
 

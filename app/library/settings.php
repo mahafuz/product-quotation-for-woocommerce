@@ -111,6 +111,10 @@ class Settings {
 			'pqfw_rate_limit_count'          => 5,
 			'pqfw_rate_limit_period'         => 60, // minutes.
 			'quotation_cart_page'            => \Quotify\Library\Helper::getCart(),
+			// email template settings.
+			'pqfw_custom_email_subject_enabled' => false,
+			'pqfw_admin_email_subject'       => '',
+			'pqfw_customer_email_subject'    => '',
 		];
 
 		$this->saved = get_option( self::OPTION_GROUP_KEY, $this->default );

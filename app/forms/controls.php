@@ -101,25 +101,31 @@ class Controls {
 				'html_id'  => 'pqfw_customer_email',
 				'required' => true,
 			],
-			[
+		];
+
+		$custom_subjects_enabled = quotify()->settings()->get( 'pqfw_custom_email_subject_enabled' );
+		if ( ! $custom_subjects_enabled ) {
+			$this->default_fields[] = [
 				'name'     => 'pqfw_customer_subject',
 				'type'     => 'text',
 				'label'    => __( 'Subject:', 'quotify' ),
 				'html_id'  => 'pqfw_customer_subject',
 				'required' => true,
-			],
-			[
-				'name'    => 'pqfw_customer_phone',
-				'type'    => 'text',
-				'label'   => __( 'Phone:', 'quotify' ),
-				'html_id' => 'pqfw_customer_phone',
-			],
-			[
-				'name'    => 'pqfw_customer_comments',
-				'type'    => 'textarea',
-				'label'   => __( 'Comments:', 'quotify' ),
-				'html_id' => 'pqfw_customer_comments',
-			],
+			];
+		}
+
+		$this->default_fields[] = [
+			'name'    => 'pqfw_customer_phone',
+			'type'    => 'text',
+			'label'   => __( 'Phone:', 'quotify' ),
+			'html_id' => 'pqfw_customer_phone',
+		];
+
+		$this->default_fields[] = [
+			'name'    => 'pqfw_customer_comments',
+			'type'    => 'textarea',
+			'label'   => __( 'Comments:', 'quotify' ),
+			'html_id' => 'pqfw_customer_comments',
 		];
 
 		$this->fields = apply_filters( 'pqfw_add_form_fields', $this->default_fields );

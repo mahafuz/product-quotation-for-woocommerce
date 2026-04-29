@@ -354,4 +354,14 @@ final class Quotify {
 	public function product() {
 		return \Quotify\Internals\Product::init();
 	}
+
+	/**
+	 * Quotify template manager instance.
+	 *
+	 * @2.6.0
+	 * @var Quotify\Library\Template_Manager
+	 */
+	public function templates() {
+		return \Quotify\Library\Template_Manager::init();
+	}
 }
