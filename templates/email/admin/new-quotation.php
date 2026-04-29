@@ -22,7 +22,7 @@ $header_args = [
 		__( '%s - New Quotation Request', 'quotify' ),
 		$data['email_title']
 	),
-	'heading'     => __( 'New Quotation Request Received', 'quotify' ),
+	'heading'     => quotify_get_custom_email_message( 'admin', 'greeting', __( 'New Quotation Request Received', 'quotify' ) ),
 	'description' => '',
 	'align'       => 'align-center',
 ];

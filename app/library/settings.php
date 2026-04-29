@@ -115,6 +115,19 @@ class Settings {
 			'pqfw_custom_email_subject_enabled' => false,
 			'pqfw_admin_email_subject'       => '',
 			'pqfw_customer_email_subject'    => '',
+			// Email message customization.
+			'pqfw_custom_email_messages_enabled' => false,
+			// Customer email messages.
+			'pqfw_customer_email_greeting'      => __( 'Thank You for Your Inquiry!', 'quotify' ),
+			'pqfw_customer_email_intro'         => __( 'Thank you for your interest in our products. We have successfully received your quotation request and our team is reviewing it. You can expect to hear from us within 1-2 business days with a detailed quotation.', 'quotify' ), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+			'pqfw_customer_email_what_next'     => __( "Our team reviews your product inquiry and requirements\nWe prepare a customized quotation with pricing details\nYou'll receive an email with your quotation and next steps\nIf you have questions, feel free to contact us anytime", 'quotify' ), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+			'pqfw_customer_email_closing'       => __( 'We appreciate your business and look forward to serving you!', 'quotify' ),
+			'pqfw_customer_email_signature'     => __( 'This email was sent by Quotify - Product Quotation for WooCommerce', 'quotify' ),
+			// Admin email messages.
+			'pqfw_admin_email_greeting'         => __( 'New Quotation Request Received', 'quotify' ),
+			'pqfw_admin_email_intro'            => __( 'A new quotation request has been submitted on your website. Please review the details below and respond to the customer as soon as possible.', 'quotify' ), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+			'pqfw_admin_email_closing'          => __( 'Please log in to your WordPress admin to view and manage this quotation.', 'quotify' ),
+			'pqfw_admin_email_signature'        => __( 'This email was sent by Quotify - Product Quotation for WooCommerce', 'quotify' ),
 		];
 
 		$this->saved = get_option( self::OPTION_GROUP_KEY, $this->default );
@@ -152,6 +165,51 @@ class Settings {
 		}
 		if ( isset( $sanitized['pqfw_rate_limit_period'] ) ) {
 			$sanitized['pqfw_rate_limit_period'] = absint( $sanitized['pqfw_rate_limit_period'] );
+		}
+
+		// Sanitize email template content.
+		if ( isset( $sanitized['pqfw_custom_email_template_enabled'] ) ) {
+			$sanitized['pqfw_custom_email_template_enabled'] = filter_var( $sanitized['pqfw_custom_email_template_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_admin_email_template'] ) ) {
+			$sanitized['pqfw_admin_email_template'] = wp_kses_post( $sanitized['pqfw_admin_email_template'] );
+		}
+		if ( isset( $sanitized['pqfw_customer_email_template'] ) ) {
+			$sanitized['pqfw_customer_email_template'] = wp_kses_post( $sanitized['pqfw_customer_email_template'] );
+		}
+
+		// Sanitize email message customization settings.
+		if ( isset( $sanitized['pqfw_custom_email_messages_enabled'] ) ) {
+			$sanitized['pqfw_custom_email_messages_enabled'] = filter_var( $sanitized['pqfw_custom_email_messages_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		// Customer email messages.
+		if ( isset( $sanitized['pqfw_customer_email_greeting'] ) ) {
+			$sanitized['pqfw_customer_email_greeting'] = sanitize_text_field( $sanitized['pqfw_customer_email_greeting'] );
+		}
+		if ( isset( $sanitized['pqfw_customer_email_intro'] ) ) {
+			$sanitized['pqfw_customer_email_intro'] = wp_kses_post( $sanitized['pqfw_customer_email_intro'] );
+		}
+		if ( isset( $sanitized['pqfw_customer_email_what_next'] ) ) {
+			$sanitized['pqfw_customer_email_what_next'] = sanitize_textarea_field( $sanitized['pqfw_customer_email_what_next'] );
+		}
+		if ( isset( $sanitized['pqfw_customer_email_closing'] ) ) {
+			$sanitized['pqfw_customer_email_closing'] = sanitize_text_field( $sanitized['pqfw_customer_email_closing'] );
+		}
+		if ( isset( $sanitized['pqfw_customer_email_signature'] ) ) {
+			$sanitized['pqfw_customer_email_signature'] = sanitize_text_field( $sanitized['pqfw_customer_email_signature'] );
+		}
+		// Admin email messages.
+		if ( isset( $sanitized['pqfw_admin_email_greeting'] ) ) {
+			$sanitized['pqfw_admin_email_greeting'] = sanitize_text_field( $sanitized['pqfw_admin_email_greeting'] );
+		}
+		if ( isset( $sanitized['pqfw_admin_email_intro'] ) ) {
+			$sanitized['pqfw_admin_email_intro'] = wp_kses_post( $sanitized['pqfw_admin_email_intro'] );
+		}
+		if ( isset( $sanitized['pqfw_admin_email_closing'] ) ) {
+			$sanitized['pqfw_admin_email_closing'] = sanitize_text_field( $sanitized['pqfw_admin_email_closing'] );
+		}
+		if ( isset( $sanitized['pqfw_admin_email_signature'] ) ) {
+			$sanitized['pqfw_admin_email_signature'] = sanitize_text_field( $sanitized['pqfw_admin_email_signature'] );
 		}
 
 		update_option( self::OPTION_GROUP_KEY, $sanitized );

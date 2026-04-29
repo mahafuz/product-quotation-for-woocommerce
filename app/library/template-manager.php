@@ -139,6 +139,17 @@ class Template_Manager {
 	 * @return string Rendered template HTML.
 	 */
 	public function render( $template_name, $type = 'admin', $data = [] ) {
+		$custom_templates_enabled = quotify()->settings()->get( 'pqfw_custom_email_template_enabled' );
+
+		if ( $custom_templates_enabled ) {
+			$custom_template_key = 'admin' === $type ? 'pqfw_admin_email_template' : 'pqfw_customer_email_template';
+			$custom_template = quotify()->settings()->get( $custom_template_key );
+
+			if ( ! empty( $custom_template ) ) {
+				return $this->render_custom_template( $custom_template, $data );
+			}
+		}
+
 		$template_path = $this->get_template_path( $template_name, $type );
 
 		if ( ! $template_path ) {
@@ -146,7 +157,7 @@ class Template_Manager {
 		}
 
 		// Extract data variables for template use.
-		extract( $data, EXTR_OVERWRITE );
+		extract( $data, EXTR_OVERWRITE ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
 		// Start output buffering.
 		ob_start();
@@ -158,6 +169,92 @@ class Template_Manager {
 		$content = ob_get_clean();
 
 		return $content;
+	}
+
+	/**
+	 * Render custom email template from settings.
+	 *
+	 * Replaces placeholders in custom template with data.
+	 *
+	 * @since 2.6.0
+	 * @access private
+	 *
+	 * @param string $template Custom template HTML.
+	 * @param array  $data     Template data.
+	 * @return string Rendered template.
+	 */
+	private function render_custom_template( $template, $data ) {
+		$placeholders = [
+			'{quotation_id}'       => isset( $data['quotation_id'] ) ? '#' . intval( $data['quotation_id'] ) : '',
+			'{customer_name}'      => isset( $data['fullname'] ) ? sanitize_text_field( $data['fullname'] ) : '',
+			'{customer_email}'     => isset( $data['email'] ) ? sanitize_email( $data['email'] ) : '',
+			'{customer_phone}'     => isset( $data['phone'] ) ? sanitize_text_field( $data['phone'] ) : '',
+			'{customer_subject}'   => isset( $data['subject'] ) ? sanitize_text_field( $data['subject'] ) : '',
+			'{customer_comments}'  => isset( $data['comments'] ) ? wp_kses_post( $data['comments'] ) : '',
+			'{site_name}'          => isset( $data['email_title'] ) ? sanitize_text_field( $data['email_title'] ) : get_bloginfo( 'name' ),
+			'{site_url}'           => isset( $data['site_url'] ) ? esc_url( $data['site_url'] ) : home_url( '/' ),
+			'{date}'               => isset( $data['date'] ) ? sanitize_text_field( $data['date'] ) : current_time( get_option( 'date_format' ) ),
+			'{time}'               => isset( $data['time'] ) ? sanitize_text_field( $data['time'] ) : current_time( get_option( 'time_format' ) ),
+			'{admin_edit_url}'     => isset( $data['admin_edit_url'] ) ? esc_url( $data['admin_edit_url'] ) : '',
+			'{product_list}'       => isset( $data['products'] ) ? $this->render_product_list( $data['products'], $data ) : '',
+		];
+
+		$content = str_replace( array_keys( $placeholders ), array_values( $placeholders ), $template );
+
+		/**
+		 * Filter custom email template content.
+		 *
+		 * @since 2.6.0
+		 *
+		 * @param string $content    Rendered template content.
+		 * @param string $template   Original template.
+		 * @param array  $data       Template data.
+		 * @param array  $placeholders Placeholder replacements.
+		 */
+		return apply_filters( 'quotify_custom_email_template', $content, $template, $data, $placeholders );
+	}
+
+	/**
+	 * Render product list for custom templates.
+	 *
+	 * @since 2.6.0
+	 * @access private
+	 *
+	 * @param array $products Product list.
+	 * @param array $data     Template data.
+	 * @return string Product list HTML.
+	 */
+	private function render_product_list( $products, $data ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		if ( empty( $products ) ) {
+			return '';
+		}
+
+		ob_start();
+		echo '<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">';
+		echo '<thead><tr style="background: #f8f9fa;">';
+		echo '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">' . esc_html__( 'Product', 'quotify' ) . '</th>';
+		echo '<th style="padding: 10px; border: 1px solid #ddd; text-align: center;">' . esc_html__( 'Quantity', 'quotify' ) . '</th>';
+		echo '</tr></thead>';
+		echo '<tbody>';
+
+		foreach ( $products as $product ) {
+			$product_title = isset( $product['title'] ) ? sanitize_text_field( $product['title'] ) : '';
+			$product_qty = isset( $product['quantity'] ) ? absint( $product['quantity'] ) : 1;
+			$product_price = isset( $product['price'] ) ? wp_kses_post( $product['price'] ) : '';
+
+			echo '<tr>';
+			echo '<td style="padding: 10px; border: 1px solid #ddd;">';
+			echo esc_html( $product_title );
+			if ( ! empty( $product_price ) ) {
+				echo ' - ' . wp_kses_post( $product_price );
+			}
+			echo '</td>';
+			echo '<td style="padding: 10px; border: 1px solid #ddd; text-align: center;">' . esc_html( $product_qty ) . '</td>';
+			echo '</tr>';
+		}
+
+		echo '</tbody></table>';
+		return ob_get_clean();
 	}
 
 	/**

@@ -39,7 +39,7 @@ function quotify_get_email_styles() {
 function quotify_get_email_template_part( $slug, $name = null, $data = [] ) {
 	// Extract data variables for template use.
 	if ( ! empty( $data ) ) {
-		extract( $data, EXTR_OVERWRITE );
+		extract( $data, EXTR_OVERWRITE ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 	}
 
 	$template = false;
@@ -192,4 +192,34 @@ function quotify_sanitize_email_content( $content, $type = 'text' ) {
 		default:
 			return sanitize_text_field( $content );
 	}
+}
+
+/**
+ * Get custom email message from settings.
+ *
+ * Retrieves custom email messages if the feature is enabled,
+ * otherwise returns the fallback message.
+ *
+ * @since 2.6.0
+ *
+ * @param string $type     Email type (admin or customer).
+ * @param string $section  Message section (greeting, intro, what_next, closing, signature).
+ * @param string $fallback Fallback message if custom message is not set.
+ * @return string Custom or fallback message.
+ */
+function quotify_get_custom_email_message( $type, $section, $fallback = '' ) {
+	$custom_enabled = quotify()->settings()->get( 'pqfw_custom_email_messages_enabled' );
+
+	if ( ! $custom_enabled ) {
+		return $fallback;
+	}
+
+	$setting_key = 'pqfw_' . $type . '_email_' . $section;
+	$custom_message = quotify()->settings()->get( $setting_key );
+
+	if ( empty( $custom_message ) ) {
+		return $fallback;
+	}
+
+	return $custom_message;
 }

@@ -31,7 +31,7 @@ quotify_get_email_template_part( 'header-default', null, [ 'args' => $header_arg
 ?>
 
 <div class="greeting-box">
-	<h2><?php esc_html_e( 'Thank You for Your Inquiry!', 'quotify' ); ?></h2>
+	<h2><?php echo esc_html( quotify_get_custom_email_message( 'customer', 'greeting', __( 'Thank You for Your Inquiry!', 'quotify' ) ) ); ?></h2>
 	<p><?php esc_html_e( 'We\'ve received your quotation request and will get back to you shortly.', 'quotify' ); ?></p>
 </div>
 
@@ -44,10 +44,8 @@ quotify_get_email_template_part( 'header-default', null, [ 'args' => $header_arg
 
 <p>
 	<?php
-	esc_html_e(
-		'Thank you for your interest in our products. We have successfully received your quotation request and our team is reviewing it. You can expect to hear from us within 1-2 business days with a detailed quotation.',
-		'quotify'
-	);
+	$default_intro = __( 'Thank you for your interest in our products. We have successfully received your quotation request and our team is reviewing it. You can expect to hear from us within 1-2 business days with a detailed quotation.', 'quotify' ); // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+	echo wp_kses_post( quotify_get_custom_email_message( 'customer', 'intro', $default_intro ) );
 	?>
 </p>
 
@@ -77,12 +75,18 @@ quotify_get_email_template_part( 'product-list-simple', null, [
 ?>
 
 <h4 class="section-heading"><?php esc_html_e( 'What Happens Next?', 'quotify' ); ?></h4>
-<ul style="color: #333333;">
-	<li><?php esc_html_e( 'Our team reviews your product inquiry and requirements', 'quotify' ); ?></li>
-	<li><?php esc_html_e( 'We prepare a customized quotation with pricing details', 'quotify' ); ?></li>
-	<li><?php esc_html_e( 'You\'ll receive an email with your quotation and next steps', 'quotify' ); ?></li>
-	<li><?php esc_html_e( 'If you have questions, feel free to contact us anytime', 'quotify' ); ?></li>
-</ul>
+<?php
+	$default_what_next = __( "Our team reviews your product inquiry and requirements\nWe prepare a customized quotation with pricing details\nYou'll receive an email with your quotation and next steps\nIf you have questions, feel free to contact us anytime", 'quotify' ); // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+	$what_next = quotify_get_custom_email_message( 'customer', 'what_next', $default_what_next );
+	$what_next_lines = explode( "\n", $what_next );
+if ( ! empty( $what_next_lines ) ) :
+	?>
+	<ul style="color: #333333;">
+	<?php foreach ( $what_next_lines as $line ) : ?>
+			<li><?php echo esc_html( $line ); ?></li>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>
 
 <div class="box-contact">
 	<h4><?php esc_html_e( 'Need to Get in Touch?', 'quotify' ); ?></h4>
@@ -100,7 +104,7 @@ quotify_get_email_template_part( 'product-list-simple', null, [
 </div>
 
 <p style="text-align: center; margin-top: 30px;">
-	<em><?php esc_html_e( 'We appreciate your business and look forward to serving you!', 'quotify' ); ?></em>
+	<em><?php echo esc_html( quotify_get_custom_email_message( 'customer', 'closing', __( 'We appreciate your business and look forward to serving you!', 'quotify' ) ) ); ?></em>
 </p>
 
 <?php
