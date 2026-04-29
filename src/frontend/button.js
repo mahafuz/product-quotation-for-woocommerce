@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { makeRequest } from '@Utils/global';
+import config from '@Utils/config';
 
 import {
 	getCartUrl,
@@ -27,35 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	$(document).on(
-		'click',
-		'.quotify-quote-btn-wrap > .pqfw-add-to-quotation-single',
-		function (event) {
-			event.preventDefault();
+			'click',
+			'.quotify-quote-btn-wrap > .pqfw-add-to-quotation-single',
+			function (event) {
+				event.preventDefault();
 
-			if (variationAlert()) {
-				const button = $(this);
-				const productId = button.data('id');
-				const loader = button.children('.loading-spinner');
-				loader.addClass('loading');
+				if (variationAlert()) {
+					const button = $(this);
+					const productId = button.data('id');
+					const loader = button.children('.loading-spinner');
+					loader.addClass('loading');
 
-				makeRequest({
-					action: 'quotify/ajax/cart/add_product',
-					data: {
-						productID: parseInt(productId, 10),
-						variationID: getVariationID(),
-						variationDetails: getVariationDetails(),
-						quantity: getQuantity(),
-					},
-				}).then((response) => {
-					if (response.data?.success) {
-						const btnLabel = __('View Quotation Cart', 'quotify');
-						viewQuotationCart(button, btnLabel);
-						loader.removeClass('loading');
-					} else {
-						alert(response?.data?.message, 'error');
-					}
-				});
+					makeRequest({
+						action: 'quotify/ajax/cart/add_product',
+						data: {
+							productID: parseInt(productId, 10),
+							variationID: getVariationID(),
+							variationDetails: getVariationDetails(),
+							quantity: getQuantity(),
+						},
+					}).then((response) => {
+						if (response.data?.success) {
+							const settings = config?.settings || {};
+							const btnLabel = settings?.cart_button_text || __('View Quotation Cart', 'quotify');
+							viewQuotationCart(button, btnLabel);
+							loader.removeClass('loading');
+						} else {
+							alert(response?.data?.message, 'error');
+						}
+					});
+				}
 			}
-		}
-	);
+		);
 });

@@ -15,7 +15,7 @@ export function variationAlert() {
 	return true;
 }
 
-export const viewQuotationCart = (button) => {
+export const viewQuotationCart = (button, label = null) => {
 	const url = getCartUrl();
 
 	if (url) {
@@ -23,7 +23,8 @@ export const viewQuotationCart = (button) => {
 		const link = document.createElement('a');
 		link.className = 'pqfw-view-quotation-cart';
 		link.href = url;
-		link.textContent = 'View Quotation Cart';
+		const settings = config?.settings || {};
+		link.textContent = label || settings?.cart_button_text || 'View Quotation Cart';
 		$(button).after(link);
 	}
 };

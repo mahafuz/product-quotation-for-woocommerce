@@ -53,6 +53,7 @@ class Base {
 			'toplevel_menu_title'    => Menu::get_toplevel_menu_title(),
 			'logo_url'               => Menu::get_logo_url(),
 			'version'                => QUOTIFY_PLUGIN_VERSION,
+			'settings'               => quotify()->settings()->get(),
 		];
 	}
 

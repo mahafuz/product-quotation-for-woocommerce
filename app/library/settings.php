@@ -96,6 +96,7 @@ class Settings {
 			'button_font_size'               => '',
 			'button_width'                   => '',
 			'button_text'                    => __( 'Add to Quote', 'quotify' ),
+			'cart_button_text'               => __( 'View Quotation Cart', 'quotify' ),
 			'hide_add_to_cart_button'        => false,
 			'hide_product_prices'            => false,
 			'button_position'                => 'woocommerce_after_shop_loop_item',
@@ -111,6 +112,23 @@ class Settings {
 			'pqfw_rate_limit_count'          => 5,
 			'pqfw_rate_limit_period'         => 60, // minutes.
 			'quotation_cart_page'            => \Quotify\Library\Helper::getCart(),
+			// Form field customization.
+			'pqfw_form_fields_customization_enabled' => false,
+			'pqfw_field_name_label'          => __( 'Full Name', 'quotify' ),
+			'pqfw_field_name_required'       => true,
+			'pqfw_field_email_label'         => __( 'Email', 'quotify' ),
+			'pqfw_field_email_required'      => true,
+			'pqfw_field_subject_label'       => __( 'Subject', 'quotify' ),
+			'pqfw_field_subject_required'    => true,
+			'pqfw_field_phone_label'         => __( 'Phone', 'quotify' ),
+			'pqfw_field_phone_required'      => false,
+			'pqfw_field_comments_label'      => __( 'Comments', 'quotify' ),
+			'pqfw_field_comments_required'   => false,
+			'pqfw_field_name_enabled'        => true,
+			'pqfw_field_email_enabled'       => true,
+			'pqfw_field_subject_enabled'     => true,
+			'pqfw_field_phone_enabled'       => true,
+			'pqfw_field_comments_enabled'    => true,
 			// email template settings.
 			'pqfw_custom_email_subject_enabled' => false,
 			'pqfw_admin_email_subject'       => '',
@@ -165,6 +183,64 @@ class Settings {
 		}
 		if ( isset( $sanitized['pqfw_rate_limit_period'] ) ) {
 			$sanitized['pqfw_rate_limit_period'] = absint( $sanitized['pqfw_rate_limit_period'] );
+		}
+
+		// Sanitize form field customization settings.
+		if ( isset( $sanitized['pqfw_form_fields_customization_enabled'] ) ) {
+			$sanitized['pqfw_form_fields_customization_enabled'] = filter_var( $sanitized['pqfw_form_fields_customization_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		// Field labels.
+		if ( isset( $sanitized['pqfw_field_name_label'] ) ) {
+			$sanitized['pqfw_field_name_label'] = sanitize_text_field( $sanitized['pqfw_field_name_label'] );
+		}
+		if ( isset( $sanitized['pqfw_field_email_label'] ) ) {
+			$sanitized['pqfw_field_email_label'] = sanitize_text_field( $sanitized['pqfw_field_email_label'] );
+		}
+		if ( isset( $sanitized['pqfw_field_subject_label'] ) ) {
+			$sanitized['pqfw_field_subject_label'] = sanitize_text_field( $sanitized['pqfw_field_subject_label'] );
+		}
+		if ( isset( $sanitized['pqfw_field_phone_label'] ) ) {
+			$sanitized['pqfw_field_phone_label'] = sanitize_text_field( $sanitized['pqfw_field_phone_label'] );
+		}
+		if ( isset( $sanitized['pqfw_field_comments_label'] ) ) {
+			$sanitized['pqfw_field_comments_label'] = sanitize_text_field( $sanitized['pqfw_field_comments_label'] );
+		}
+		// Field required status.
+		if ( isset( $sanitized['pqfw_field_name_required'] ) ) {
+			$sanitized['pqfw_field_name_required'] = filter_var( $sanitized['pqfw_field_name_required'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_email_required'] ) ) {
+			$sanitized['pqfw_field_email_required'] = filter_var( $sanitized['pqfw_field_email_required'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_subject_required'] ) ) {
+			$sanitized['pqfw_field_subject_required'] = filter_var( $sanitized['pqfw_field_subject_required'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_phone_required'] ) ) {
+			$sanitized['pqfw_field_phone_required'] = filter_var( $sanitized['pqfw_field_phone_required'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_comments_required'] ) ) {
+			$sanitized['pqfw_field_comments_required'] = filter_var( $sanitized['pqfw_field_comments_required'], FILTER_VALIDATE_BOOLEAN );
+		}
+		// Field enabled status.
+		if ( isset( $sanitized['pqfw_field_name_enabled'] ) ) {
+			$sanitized['pqfw_field_name_enabled'] = filter_var( $sanitized['pqfw_field_name_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_email_enabled'] ) ) {
+			$sanitized['pqfw_field_email_enabled'] = filter_var( $sanitized['pqfw_field_email_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_subject_enabled'] ) ) {
+			$sanitized['pqfw_field_subject_enabled'] = filter_var( $sanitized['pqfw_field_subject_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_phone_enabled'] ) ) {
+			$sanitized['pqfw_field_phone_enabled'] = filter_var( $sanitized['pqfw_field_phone_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+		if ( isset( $sanitized['pqfw_field_comments_enabled'] ) ) {
+			$sanitized['pqfw_field_comments_enabled'] = filter_var( $sanitized['pqfw_field_comments_enabled'], FILTER_VALIDATE_BOOLEAN );
+		}
+
+		// Sanitize cart button text.
+		if ( isset( $sanitized['cart_button_text'] ) ) {
+			$sanitized['cart_button_text'] = sanitize_text_field( $sanitized['cart_button_text'] );
 		}
 
 		// Sanitize email template content.

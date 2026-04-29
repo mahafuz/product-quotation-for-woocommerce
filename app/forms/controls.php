@@ -86,47 +86,98 @@ class Controls {
 		$this->requiredHTML = '<span class="field-required">*</span>';
 		$this->requiredAttr = 'required="1"';
 
-		$this->default_fields = [
-			[
+		$customization_enabled = quotify()->settings()->get( 'pqfw_form_fields_customization_enabled' );
+
+		if ( $customization_enabled ) {
+			$name_label = quotify()->settings()->get( 'pqfw_field_name_label' );
+			$name_required = quotify()->settings()->get( 'pqfw_field_name_required' );
+			$name_enabled = quotify()->settings()->get( 'pqfw_field_name_enabled' );
+
+			$email_label = quotify()->settings()->get( 'pqfw_field_email_label' );
+			$email_required = quotify()->settings()->get( 'pqfw_field_email_required' );
+			$email_enabled = quotify()->settings()->get( 'pqfw_field_email_enabled' );
+
+			$phone_label = quotify()->settings()->get( 'pqfw_field_phone_label' );
+			$phone_required = quotify()->settings()->get( 'pqfw_field_phone_required' );
+			$phone_enabled = quotify()->settings()->get( 'pqfw_field_phone_enabled' );
+
+			$comments_label = quotify()->settings()->get( 'pqfw_field_comments_label' );
+			$comments_required = quotify()->settings()->get( 'pqfw_field_comments_required' );
+			$comments_enabled = quotify()->settings()->get( 'pqfw_field_comments_enabled' );
+		} else {
+			$name_label = __( 'Full Name:', 'quotify' );
+			$name_required = true;
+			$name_enabled = true;
+
+			$email_label = __( 'Email:', 'quotify' );
+			$email_required = true;
+			$email_enabled = true;
+
+			$phone_label = __( 'Phone:', 'quotify' );
+			$phone_required = false;
+			$phone_enabled = true;
+
+			$comments_label = __( 'Comments:', 'quotify' );
+			$comments_required = false;
+			$comments_enabled = true;
+		}
+
+		$this->default_fields = [];
+
+		if ( $name_enabled ) {
+			$this->default_fields[] = [
 				'name'     => 'pqfw_customer_name',
 				'type'     => 'text',
-				'label'    => __( 'Full Name:', 'quotify' ),
+				'label'    => $name_label,
 				'html_id'  => 'pqfw_customer_name',
-				'required' => true,
-			],
-			[
-				'name'     => 'pqfw_customer_email',
-				'type'     => 'email',
-				'label'    => __( 'Email:', 'quotify' ),
-				'html_id'  => 'pqfw_customer_email',
-				'required' => true,
-			],
-		];
-
-		$custom_subjects_enabled = quotify()->settings()->get( 'pqfw_custom_email_subject_enabled' );
-		if ( ! $custom_subjects_enabled ) {
-			$this->default_fields[] = [
-				'name'     => 'pqfw_customer_subject',
-				'type'     => 'text',
-				'label'    => __( 'Subject:', 'quotify' ),
-				'html_id'  => 'pqfw_customer_subject',
-				'required' => true,
+				'required' => $name_required,
 			];
 		}
 
-		$this->default_fields[] = [
-			'name'    => 'pqfw_customer_phone',
-			'type'    => 'text',
-			'label'   => __( 'Phone:', 'quotify' ),
-			'html_id' => 'pqfw_customer_phone',
-		];
+		if ( $email_enabled ) {
+			$this->default_fields[] = [
+				'name'     => 'pqfw_customer_email',
+				'type'     => 'email',
+				'label'    => $email_label,
+				'html_id'  => 'pqfw_customer_email',
+				'required' => $email_required,
+			];
+		}
 
-		$this->default_fields[] = [
-			'name'    => 'pqfw_customer_comments',
-			'type'    => 'textarea',
-			'label'   => __( 'Comments:', 'quotify' ),
-			'html_id' => 'pqfw_customer_comments',
-		];
+		$custom_subjects_enabled = quotify()->settings()->get( 'pqfw_custom_email_subject_enabled' );
+		$subject_enabled = $customization_enabled ? quotify()->settings()->get( 'pqfw_field_subject_enabled' ) : true;
+		$subject_required = $customization_enabled ? quotify()->settings()->get( 'pqfw_field_subject_required' ) : true;
+		$subject_label = $customization_enabled ? quotify()->settings()->get( 'pqfw_field_subject_label' ) : __( 'Subject:', 'quotify' );
+
+		if ( ! $custom_subjects_enabled && $subject_enabled ) {
+			$this->default_fields[] = [
+				'name'     => 'pqfw_customer_subject',
+				'type'     => 'text',
+				'label'    => $subject_label,
+				'html_id'  => 'pqfw_customer_subject',
+				'required' => $subject_required,
+			];
+		}
+
+		if ( $phone_enabled ) {
+			$this->default_fields[] = [
+				'name'    => 'pqfw_customer_phone',
+				'type'    => 'text',
+				'label'   => $phone_label,
+				'html_id' => 'pqfw_customer_phone',
+				'required' => $phone_required,
+			];
+		}
+
+		if ( $comments_enabled ) {
+			$this->default_fields[] = [
+				'name'    => 'pqfw_customer_comments',
+				'type'    => 'textarea',
+				'label'   => $comments_label,
+				'html_id' => 'pqfw_customer_comments',
+				'required' => $comments_required,
+			];
+		}
 
 		$this->fields = apply_filters( 'pqfw_add_form_fields', $this->default_fields );
 	}

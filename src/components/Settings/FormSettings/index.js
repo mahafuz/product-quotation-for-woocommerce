@@ -109,6 +109,220 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 							</tr>
 						</>
 					) : ''}
+					<tr>
+						<th>{__( 'Customize Form Fields' )}</th>
+						<td>
+							<FormToggle
+								checked={ settings?.pqfw_form_fields_customization_enabled }
+								onChange={(e) => setSettings({
+									...settings,
+									pqfw_form_fields_customization_enabled: e.target.checked
+								})}
+							/>
+							<p className="description">{__( 'Enable customization of form field labels, required status, and visibility.' )}</p>
+						</td>
+					</tr>
+					{ settings?.pqfw_form_fields_customization_enabled ? (
+						<>
+							<tr>
+								<th colspan="2">
+									<h4>{__( 'Form Field Configuration' )}</h4>
+									<p className="description">{__( 'Customize the labels, required status, and visibility for each form field.' )}</p>
+								</th>
+							</tr>
+							<tr>
+								<th>{__( 'Full Name Field' )}</th>
+								<td>
+									<div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Enabled:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_name_enabled }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_name_enabled: e.target.checked
+												})}
+											/>
+										</div>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Required:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_name_required }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_name_required: e.target.checked
+												})}
+											/>
+										</div>
+										<input
+											type="text"
+											className="regular-text"
+											placeholder={__( 'Full Name' )}
+											value={ settings?.pqfw_field_name_label || '' }
+											onChange={(e) => setSettings({
+												...settings,
+												pqfw_field_name_label: e.target.value
+											})}
+											style={{marginLeft: '10px'}}
+										/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Email Field' )}</th>
+								<td>
+									<div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Enabled:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_email_enabled }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_email_enabled: e.target.checked
+												})}
+											/>
+										</div>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Required:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_email_required }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_email_required: e.target.checked
+												})}
+											/>
+										</div>
+										<input
+											type="text"
+											className="regular-text"
+											placeholder={__( 'Email' )}
+											value={ settings?.pqfw_field_email_label || '' }
+											onChange={(e) => setSettings({
+												...settings,
+												pqfw_field_email_label: e.target.value
+											})}
+											style={{marginLeft: '10px'}}
+										/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Subject Field' )}</th>
+								<td>
+									<div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Enabled:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_subject_enabled }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_subject_enabled: e.target.checked
+												})}
+											/>
+										</div>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Required:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_subject_required }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_subject_required: e.target.checked
+												})}
+											/>
+										</div>
+										<input
+											type="text"
+											className="regular-text"
+											placeholder={__( 'Subject' )}
+											value={ settings?.pqfw_field_subject_label || '' }
+											onChange={(e) => setSettings({
+												...settings,
+												pqfw_field_subject_label: e.target.value
+											})}
+											style={{marginLeft: '10px'}}
+										/>
+									</div>
+									<p className="description">{__( 'Note: This field is automatically hidden when custom email subjects are enabled.' )}</p>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Phone Field' )}</th>
+								<td>
+									<div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Enabled:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_phone_enabled }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_phone_enabled: e.target.checked
+												})}
+											/>
+										</div>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Required:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_phone_required }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_phone_required: e.target.checked
+												})}
+											/>
+										</div>
+										<input
+											type="text"
+											className="regular-text"
+											placeholder={__( 'Phone' )}
+											value={ settings?.pqfw_field_phone_label || '' }
+											onChange={(e) => setSettings({
+												...settings,
+												pqfw_field_phone_label: e.target.value
+											})}
+											style={{marginLeft: '10px'}}
+										/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Comments Field' )}</th>
+								<td>
+									<div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Enabled:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_comments_enabled }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_comments_enabled: e.target.checked
+												})}
+											/>
+										</div>
+										<div>
+											<label style={{marginRight: '8px'}}>{__( 'Required:' )}</label>
+											<FormToggle
+												checked={ settings?.pqfw_field_comments_required }
+												onChange={(e) => setSettings({
+													...settings,
+													pqfw_field_comments_required: e.target.checked
+												})}
+											/>
+										</div>
+										<input
+											type="text"
+											className="regular-text"
+											placeholder={__( 'Comments' )}
+											value={ settings?.pqfw_field_comments_label || '' }
+											onChange={(e) => setSettings({
+												...settings,
+												pqfw_field_comments_label: e.target.value
+											})}
+											style={{marginLeft: '10px'}}
+										/>
+									</div>
+								</td>
+							</tr>
+						</>
+					) : ''}
 					{ settings?.privacy_policy ? (
 						<>
 							<tr>
