@@ -99,6 +99,36 @@ const ProductItem = ({ product, index }) => {
 		setImgError(true);
 	};
 
+	// Parse variation detail if present
+	const getVariationDetails = () => {
+		if (!product.variation_detail || typeof product.variation_detail !== 'string') {
+			return null;
+		}
+
+		// variation_detail format: "key|value,key|value,"
+		const details = product.variation_detail.split(',').filter(item => item && item.trim());
+
+		if (details.length === 0) {
+			return null;
+		}
+
+		return (
+			<div className="quotify-product-variations">
+				{details.map((detail, idx) => {
+					const parts = detail.split('|');
+					if (parts.length === 2 && parts[0] && parts[1]) {
+						return (
+							<span key={idx} className="quotify-variation-item">
+								<strong>{parts[0]}</strong>: {parts[1]}
+							</span>
+						);
+					}
+					return null;
+				})}
+			</div>
+		);
+	};
+
 	return (
 		<div className="quotify-product-card" key={product.id || index}>
 			<div className="quotify-product-image">
@@ -146,6 +176,7 @@ const ProductItem = ({ product, index }) => {
 				>
 					<h4>{product.name}</h4>
 				</a>
+				{getVariationDetails()}
 				{product.price && (
 					<div className="quotify-product-price">
 						<span

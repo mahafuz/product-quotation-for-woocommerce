@@ -446,6 +446,30 @@ $quotify-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 
 	}
 }
 
+.quotify-product-variations {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 4px;
+}
+
+.quotify-variation-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 10px;
+	background: $quotify-gray-100;
+	border: 1px solid $quotify-gray-200;
+	border-radius: 4px;
+	font-size: 13px;
+	color: $quotify-gray-700;
+
+	strong {
+		color: $quotify-gray-900;
+		font-weight: 600;
+	}
+}
+
 .quotify-product-message {
 	padding: 12px;
 	background: #fffbeb;
