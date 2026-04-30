@@ -40,10 +40,14 @@ class Quotations {
 			wp_die();
 		}
 
-		$status   = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'publish';
-		$search   = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
-		$page     = isset( $_GET['page'] ) ? absint( wp_unslash( $_GET['page'] ) ) : 1;
-		$per_page = isset( $_GET['per_page'] ) ? absint( wp_unslash( $_GET['per_page'] ) ) : 10;
+		$status      = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'publish';
+		$search      = isset( $_GET['search'] ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
+		$page        = isset( $_GET['page'] ) ? absint( wp_unslash( $_GET['page'] ) ) : 1;
+		$per_page    = isset( $_GET['per_page'] ) ? absint( wp_unslash( $_GET['per_page'] ) ) : 10;
+		$date_filter = isset( $_GET['date_filter'] ) ? sanitize_text_field( $_GET['date_filter'] ) : 'all';
+
+		// Calculate date query based on filter
+		$date_query = $this->get_date_query( $date_filter );
 
 		$args = [
 			'post_status'    => $status,
@@ -51,6 +55,11 @@ class Quotations {
 			'paged'          => $page,
 			's'              => $search,
 		];
+
+		// Add date query if not 'all'
+		if ( $date_query ) {
+			$args['date_query'] = $date_query;
+		}
 
 		$response = quotify()->quotations()->query( $args )->get();
 
@@ -101,8 +110,8 @@ class Quotations {
 			'title'         => sanitize_text_field( get_the_title( $post ) ),
 			'content'       => wp_kses_post( apply_filters( 'the_content', $post->post_content ) ),
 			'excerpt'       => wp_kses_post( get_the_excerpt( $post ) ),
-			'date'          => sanitize_text_field( get_the_date( '', $post ) ),
-			'modified_date' => sanitize_text_field( get_the_modified_date( '', $post ) ),
+			'date'          => sanitize_text_field( get_the_date( get_option( 'date_format' ), $post ) ),
+			'modified_date' => sanitize_text_field( get_the_modified_date( get_option( 'date_format' ), $post ) ),
 			'slug'          => sanitize_title( $post->post_name ),
 			'status'        => sanitize_key( $post->post_status ),
 			'type'          => sanitize_key( $post->post_type ),
@@ -117,7 +126,7 @@ class Quotations {
 				if ( isset( $product['price'] ) ) {
 					// Allow only safe HTML for price formatting (currency symbols, etc)
 					$product['price'] = wp_kses( $product['price'], [
-						'span' => ['class' => true],
+						'span' => [ 'class' => true ],
 						'del' => true,
 						'ins' => true,
 						'b' => true,
@@ -144,7 +153,7 @@ class Quotations {
 			unset( $product );
 		}
 
-		$quotation['author_name'] = sanitize_text_field( quotify()->quotations()->get_author( $post, $meta ) );
+		$quotation['author_name'] = sanitize_text_field( quotify()->quotations()->get_author( $post ) );
 		$quotation['meta']   = $meta;
 
 		wp_send_json_success([
@@ -438,56 +447,89 @@ class Quotations {
 			return false;
 		}
 
+		// Use WordPress current_time for local time
 		$now = current_time( 'timestamp' );
-		$year = date( 'Y', $now );
-		$month = date( 'm', $now );
-		$day = date( 'd', $now );
-		$week = date( 'W', $now );
+		$year = intval( date_i18n( 'Y', $now ) );
+		$month = intval( date_i18n( 'm', $now ) );
+		$day = intval( date_i18n( 'd', $now ) );
 
 		switch ( $filter ) {
 			case 'today':
+				$today = date_i18n( 'Y-m-d', $now );
 				return [
 					[
-						'after'     => mktime( 0, 0, 0, $month, $day, $year ),
-						'before'    => mktime( 23, 59, 59, $month, $day, $year ),
+						'after'     => $today,
+						'before'    => $today,
 						'inclusive' => true,
 					],
 				];
 
 			case 'week':
+				// Calculate week start and end using WordPress time
+				$week_start = date_i18n( 'Y-m-d', strtotime( 'this week', $now ) );
+				$week_end = date_i18n( 'Y-m-d', strtotime( 'this week +6 days', $now ) );
 				return [
 					[
-						'after'     => strtotime( 'this week 00:00:00', $now ),
-						'before'    => strtotime( 'this week 23:59:59', $now ),
+						'after'     => $week_start,
+						'before'    => $week_end,
 						'inclusive' => true,
 					],
 				];
 
 			case 'month':
+				// Get first day of month
+				$month_start_timestamp = mktime( 0, 0, 0, $month, 1, $year );
+				$month_start = date_i18n( 'Y-m-d', $month_start_timestamp );
+
+				// Get last day of month using WordPress date
+				$days_in_month = intval( date_i18n( 't', $month_start_timestamp ) );
+				$month_end_timestamp = mktime( 23, 59, 59, $month, $days_in_month, $year );
+				$month_end = date_i18n( 'Y-m-d', $month_end_timestamp );
+
 				return [
 					[
-						'after'     => mktime( 0, 0, 0, $month, 1, $year ),
-						'before'    => mktime( 23, 59, 59, $month, cal_days_in_month( $year, $month ), $year ),
+						'after'     => $month_start,
+						'before'    => $month_end,
 						'inclusive' => true,
 					],
 				];
 
 			case 'quarter':
-				$quarter = ceil( $month / 3 );
+				// Calculate quarter start and end
+				$quarter = intval( ceil( $month / 3 ) );
 				$quarter_start_month = ( $quarter - 1 ) * 3 + 1;
+
+				// Quarter start
+				$quarter_start_timestamp = mktime( 0, 0, 0, $quarter_start_month, 1, $year );
+				$quarter_start = date_i18n( 'Y-m-d', $quarter_start_timestamp );
+
+				// Quarter end
+				$quarter_end_month = $quarter_start_month + 2;
+				$days_in_quarter_end_month = intval( date_i18n( 't', mktime( 0, 0, 0, $quarter_end_month, 1, $year ) ) );
+				$quarter_end_timestamp = mktime( 23, 59, 59, $quarter_end_month, $days_in_quarter_end_month, $year );
+				$quarter_end = date_i18n( 'Y-m-d', $quarter_end_timestamp );
+
 				return [
 					[
-						'after'     => mktime( 0, 0, 0, $quarter_start_month, 1, $year ),
-						'before'    => mktime( 23, 59, 59, $quarter_start_month + 2, cal_days_in_month( $year, $quarter_start_month + 2 ), $year ),
+						'after'     => $quarter_start,
+						'before'    => $quarter_end,
 						'inclusive' => true,
 					],
 				];
 
 			case 'year':
+				// Year start
+				$year_start_timestamp = mktime( 0, 0, 0, 1, 1, $year );
+				$year_start = date_i18n( 'Y-m-d', $year_start_timestamp );
+
+				// Year end
+				$year_end_timestamp = mktime( 23, 59, 59, 12, 31, $year );
+				$year_end = date_i18n( 'Y-m-d', $year_end_timestamp );
+
 				return [
 					[
-						'after'     => mktime( 0, 0, 0, 1, 1, $year ),
-						'before'    => mktime( 23, 59, 59, 12, 31, $year ),
+						'after'     => $year_start,
+						'before'    => $year_end,
 						'inclusive' => true,
 					],
 				];
@@ -586,7 +628,7 @@ class Quotations {
 
 		// Set headers for CSV download
 		header( 'Content-Type: text/csv' );
-		header( 'Content-Disposition: attachment; filename=quotations-' . date( 'Y-m-d' ) . '.csv' );
+		header( 'Content-Disposition: attachment; filename=quotations-' . date_i18n( 'Y-m-d' ) . '.csv' );
 		header( 'Pragma: no-cache' );
 		header( 'Expires: 0' );
 

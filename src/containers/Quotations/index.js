@@ -50,19 +50,40 @@ const QuotationsList = () => {
 	const [bulkActionData, setBulkActionData] = useState({});
 	const [hasInitialized, setHasInitialized] = useState(false);
 
-	// Track initial mount
+	// Track initial mount and current filter values using refs to prevent unnecessary re-renders
 	const isInitialMount = useRef(true);
+	const statusRef = useRef(status);
+	const dateFilterRef = useRef(dateFilter);
+	const searchTermRef = useRef(searchTerm);
 
-	// Fetch quotations with useCallback to prevent infinite re-renders
-	const fetchQuotations = useCallback((page = 1, perPage = 10, search = '') => {
+	// Update refs when values change
+	useEffect(() => {
+		statusRef.current = status;
+	}, [status]);
+
+	useEffect(() => {
+		dateFilterRef.current = dateFilter;
+	}, [dateFilter]);
+
+	useEffect(() => {
+		searchTermRef.current = searchTerm;
+	}, [searchTerm]);
+
+	// Fetch quotations - stable function that uses refs to avoid dependency on changing values
+	const fetchQuotations = useCallback((page = 1, perPage = 10, search = '', currentStatus = null, currentDateFilter = null) => {
+		const actualStatus = currentStatus ?? statusRef.current;
+		const actualDateFilter = currentDateFilter ?? dateFilterRef.current;
+		const actualSearch = search || searchTermRef.current;
+
 		setFetching(true);
-		dispatch(fetchAllQuotations(status, page, perPage, search))
+		dispatch(fetchAllQuotations(actualStatus, page, perPage, actualSearch, actualDateFilter))
 			.finally(() => {
 				setFetching(false);
+				setSearching(false);
 			});
-	}, [dispatch, status]);
+	}, [dispatch]);
 
-	// Fetch stats
+	// Fetch stats - stable function
 	const fetchDashboardStats = useCallback((filter = 'all') => {
 		dispatch(fetchStats(filter));
 	}, [dispatch]);
@@ -74,16 +95,17 @@ const QuotationsList = () => {
 			// Only fetch if we don't have data or status changed
 			if (!quotations.data || quotations.data.length === 0) {
 				setFetching(true);
-				dispatch(fetchAllQuotations(status, 1, 10, ''))
+				dispatch(fetchAllQuotations(status, 1, 10, '', dateFilter))
 					.finally(() => {
 						setFetching(false);
+						setSearching(false);
 						setHasInitialized(true);
 					});
 			} else {
 				setHasInitialized(true);
 			}
 		}
-	}, [dispatch, status, quotations.data]); // Only re-run if status changes
+	}, []); // Only run on mount
 
 	// Fetch stats when date filter changes (including initial mount)
 	useEffect(() => {
@@ -92,26 +114,33 @@ const QuotationsList = () => {
 
 	// Handle status change
 	const handleStatusChange = useCallback((newStatus) => {
+		if (newStatus === statusRef.current) {
+			return;
+		}
 		setStatus(newStatus);
 		setBulkActionData({});
-	}, []);
+		fetchQuotations(1, 10, searchTermRef.current, newStatus, dateFilterRef.current);
+	}, [fetchQuotations]);
 
 	// Handle search
 	const handleSearch = useCallback((term) => {
+		if (term === searchTermRef.current) {
+			setSearching(false);
+			return;
+		}
 		setSearching(true);
 		setSearchTerm(term);
-		setFetching(true);
-		dispatch(fetchAllQuotations(status, 1, 10, term))
-			.finally(() => {
-				setSearching(false);
-				setFetching(false);
-			});
-	}, [dispatch, status]);
+		fetchQuotations(1, 10, term, statusRef.current, dateFilterRef.current);
+	}, [fetchQuotations]);
 
 	// Handle date filter change
 	const handleDateChange = useCallback((filter) => {
+		if (filter === dateFilterRef.current) {
+			return;
+		}
 		setDateFilter(filter);
-	}, []);
+		fetchQuotations(1, 10, searchTermRef.current, statusRef.current, filter);
+	}, [fetchQuotations]);
 
 	// Handle export to CSV
 	const handleExport = useCallback(() => {
@@ -138,23 +167,22 @@ const QuotationsList = () => {
 	// Handle page change
 	const handlePageChange = useCallback((page) => {
 		dispatch(updateCurrentPage(page));
-		fetchQuotations(page, 10, searchTerm);
-	}, [dispatch, fetchQuotations, searchTerm]);
+		fetchQuotations(page, 10, searchTermRef.current, statusRef.current, dateFilterRef.current);
+	}, [dispatch, fetchQuotations]);
 
 	// Handle rows per page change
 	const handleItemsPage = useCallback((itemsPerPage, page) => {
 		dispatch(updateCurrentPage(page));
-		fetchQuotations(page, itemsPerPage, searchTerm);
-	}, [dispatch, fetchQuotations, searchTerm]);
+		fetchQuotations(page, itemsPerPage, searchTermRef.current, statusRef.current, dateFilterRef.current);
+	}, [dispatch, fetchQuotations]);
 
 	// Handle action callbacks - refreshes the list and stats
 	const handleActionComplete = useCallback(() => {
 		setBulkActionData({});
-		// Refetch current page with current filters
-		dispatch(fetchAllQuotations(status, quotations.currentPage || 1, 10, searchTerm));
-		// Also refresh stats to reflect changes
-		dispatch(fetchStats(dateFilter));
-	}, [dispatch, status, quotations.currentPage, searchTerm, dateFilter]);
+		const currentPage = quotations.currentPage || 1;
+		dispatch(fetchAllQuotations(statusRef.current, currentPage, 10, searchTermRef.current, dateFilterRef.current));
+		dispatch(fetchStats(dateFilterRef.current));
+	}, [dispatch, fetchQuotations, fetchDashboardStats]);
 
 	// Bulk action handler
 	const bulkActionHandler = useCallback(async (selectedRows, bulkAction) => {

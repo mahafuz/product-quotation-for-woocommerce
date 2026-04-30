@@ -93,12 +93,13 @@ class Quotations {
 	}
 
 	/**
-	 * Get author by post id.
+	 * Get author by post id or post object.
 	 *
-	 * @param  int $post_id The post id.
+	 * @param  int|\WP_Post $post The post id or post object.
 	 * @return string
 	 */
-	public function get_author( $post_id ) {
+	public function get_author( $post ) {
+		$post_id = is_a( $post, 'WP_Post' ) ? $post->ID : $post;
 		$author_id   = get_post_field( 'post_author', $post_id );
 		$post_author = get_the_author_meta( 'display_name', get_the_author_meta( 'display_name', $author_id ) );
 
@@ -118,7 +119,7 @@ class Quotations {
 		return [
 			'id'          => absint( get_the_ID() ),
 			'title'       => esc_html( get_the_title() ),
-			'date'        => esc_html( get_the_date() ),
+			'date'        => esc_html( get_the_date( get_option( 'date_format' ) ) ),
 			'status'      => sanitize_key( get_post_status() ),
 			'author_name' => $this->get_author( get_the_ID() ),
 		];
@@ -168,7 +169,7 @@ class Quotations {
 			$data = array_shift( $value );
 			$data = maybe_unserialize( $data );
 
-			// Sanitize customer data fields
+			// Sanitize customer data fields.
 			if ( 'pqfw_customer_name' === $key ) {
 				$data = sanitize_text_field( $data );
 			} elseif ( 'pqfw_customer_email' === $key ) {

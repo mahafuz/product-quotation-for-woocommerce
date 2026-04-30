@@ -24,7 +24,7 @@ import { __ } from '@wordpress/i18n';
 import { ajaxNonce } from '@Utils/config';
 
 export const fetchAllQuotations =
-	(status = 'publish', page = 1, per_page = 10, search = '') =>
+	(status = 'publish', page = 1, per_page = 10, search = '', date_filter = 'all') =>
 	async (dispatch) => {
 		let params = {
 			action: 'quotify/ajax/quotations/load',
@@ -44,6 +44,12 @@ export const fetchAllQuotations =
 			params = {
 				...params,
 				search,
+			};
+		}
+		if (date_filter && date_filter !== 'all') {
+			params = {
+				...params,
+				date_filter,
 			};
 		}
 
