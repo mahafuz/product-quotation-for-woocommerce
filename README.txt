@@ -1,6 +1,6 @@
 === Product Quotation - Request a Quote for WooCommerce ===
 Contributors: mahfuz01
-Tags: request a quote, email quote, quotations, request for quote, hide-price, send-email, proposal
+Tags: request a quote, price quote, woocommerce quote, quote cart, rfq
 Requires at least: 4.0
 WC requires at least: 6.0
 WC tested up to: 10.1.2
