@@ -1,4 +1,4 @@
-=== Product Quotation - Request a Quote for WooCommerce ===
+=== Quotify | Product Quotation - Request a Quote for WooCommerce ===
 Contributors: mahfuz01
 Tags: request a quote, price quote, woocommerce quote, quote cart, rfq
 Requires at least: 4.0
@@ -13,34 +13,77 @@ Allow your customer to add products to Quotation Cart and ask for price or any i
 
 == Description ==
 
-**🔥🔥 Allow your customer to add products to Quotation Cart and ask for price or any information regarding the order by submitting a Quotation form. 🔥🔥**
+Transform your WooCommerce store into a powerful B2B quotation system with Quotify - Product Quotation for WooCommerce.
 
-Get quotations on specific products by adding a quote button for each product and allow users to add products on a Quotation Cart as they like and submit the quotation form by filling up with their questions.
-You can also hide the quotation button from the single product page or the shop page.
-The site owner will receive an email with the quote request and can reply with a custom quote.
+Quotify replaces the standard "Add to Cart" functionality with a professional quotation request workflow, perfect for wholesale businesses, custom product manufacturers, and service-based providers.
 
-## Product Quotation - Request a Quote for WooCommerce ##
+**What Makes Quotify Different?**
 
-Get product quotations from the customers in one place in a simple and elegant way with the [Product Quotation For WooCommerce](https://github.com/mahafuz/product-quotation-for-woocommerce)
+🎯 Modern React Dashboard - Lightning-fast admin interface to manage all quotations with advanced filtering, statistics, and bulk operations
+
+📊 Real-Time Analytics - Track quotation performance with date-range filtering and live statistics dashboard
+
+🔄 Full Variation Support - Customers select specific product variations, admins see complete product details with variation attributes
+
+📧 Smart Email System - Customizable email templates with dynamic placeholders for professional customer communication
+
+🔒 Built-in Security - Configurable rate limiting prevents spam and abuse, protecting your site from unwanted submissions
+
+All features included free. No premium upsells, no hidden costs.
+
+**Perfect For:**
+- Wholesale businesses offering bulk pricing
+- Custom product manufacturers (made-to-order items)
+- B2B operations needing formal quote workflows
+- Service-based businesses (consultations, custom solutions)
+- Anyone needing flexible pricing beyond fixed cart prices
+
+Stop losing customers who need personalized pricing. Quotify makes it easy to receive, manage, and respond to quotation requests professionally.
 
 [See the Live Demo](http://wpdiscountx.com/shop/)
 
 
-## 🔥 Product Quotation For Woocommerce Features  ##
+## 🚀 Features
 
-* Show the "Add to Quotation" button on all products page
-* Show the "Add to Quotation" button on shop/category pages
-* Support to variable products. Customers can select specific product variations from the quotations
-* Get updated price on products quantity update.
-* Customize the “Add to quote” button style and the colors.
-* Hide "Add to cart" button for all products.
-* Hide price for all products
-* Show a Privacy Policy field in the form
-* Allows your customers to fill out the predefined form and send the quotation request
-* Admin gets an automatic email when a customer submits a new quotation request
-* Flexibility to use any page for the quotation list and form on any page of your site. No need to copy/paste the shortcode.
-* Automatically list each quotation submission on Dashboard.
-* No complicated settings. All is set up to go. Simply install it and it works.
+**Customer Experience:**
+* “Add to Quotation” buttons on shop and product pages
+* Persistent quotation cart with session management
+* Variable product support - Customers select specific variations (Color, Size, etc.)
+* Customizable quotation form with predefined fields
+* Real-time price updates based on quantity
+
+**Admin Dashboard (New React SPA):**
+* Lightning-fast modern interface for managing quotations
+* Real-time statistics dashboard (Total, Pending, Approved, Trash, Total Value)
+* Filter quotations by status (All, Pending, Approved, Trash)
+* Advanced date-range filtering (Today, This Week, This Month, This Quarter, This Year, All Time)
+* Search quotations by customer name, email, or content
+* Bulk operations - Move to trash, restore, delete multiple quotations at once
+* Quick status changes with one click
+* Email customers directly from the dashboard
+* View complete quotation details with product variation attributes
+* Mobile-responsive design - manage from any device
+
+**Email & Notifications:**
+* Automatic admin email notifications for new quotation requests
+* Customizable email subjects with dynamic placeholders
+* Dynamic tags: {quotation_id}, {customer_name}, {site_name}, {date}, {time}, {customer_email}, {customer_subject}
+* Professional HTML email templates included
+
+**Security & Performance:**
+* Configurable rate limiting to prevent form spam and abuse
+* AJAX nonce verification on all requests for security
+* Optimized database queries for fast performance
+* Proper input sanitization and escaping
+
+**Configuration Options:**
+* Flexible button placement (shop pages, product pages, or both)
+* Option to hide “Add to Cart” buttons for quotation-only mode
+* Customizable form field labels
+* Adjustable rate limit parameters (requests per time period)
+* Toggle between custom email subjects or customer-provided subjects
+
+**All features included free. No premium version required.**
 
 ## 💙 LOVED Product Quotation For WooCommerce? ##
 - If you love Product Quotation For WooCommerce, rate us on [WordPress](https://wordpress.org/plugins/product-quotation-for-woocommerce/#reviews)
@@ -60,6 +103,25 @@ Visit [Product Quotation Form For WooCommerce](https://github.com/mahafuz/produc
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 2.7.0 - 01-05-2026 =
+**✨ Major Update: Complete Admin Dashboard Overhaul**
+
+* ✨ NEW: Modern React-based admin dashboard (single-page application)
+* ✨ NEW: Real-time statistics dashboard with live counts and value tracking
+* ✨ NEW: Advanced date filtering (Today, This Week, This Month, This Quarter, This Year, All Time)
+* ✨ NEW: Search quotations by customer name, email, or content
+* ✨ NEW: Bulk operations (move to trash, restore, delete) for efficient management
+* ✨ NEW: Quick status changes directly from the interface
+* ✨ NEW: Custom email subjects with dynamic placeholders
+* ✨ NEW: Configurable rate limiting for form submission protection
+* ✨ NEW: Product variation attributes displayed in quotation details
+* ✨ IMPROVED: Optimized rendering performance (eliminates blinking during filter changes)
+* ✨ IMPROVED: Date display now uses WordPress date format setting consistently
+* ✨ IMPROVED: Email templates with customizable subjects
+* ✨ FIXED: Date filter now correctly filters quotations by selected date range
+* ✨ FIXED: get_author() method handles both post objects and post IDs
+* ✨ FIXED: Resolved session management issues
 
 = 2.6.0 - 06-04-2026 =
 * ADDED: New dashboard for better quotation management.
@@ -146,8 +208,8 @@ Thanks!
 
 == Screenshots ==
 
-1. Add to Quotation from the shop page
-2. Add to Quotation from Single Page
-3. Quotation Cart
-4. Quotations
-5. Settings
+1. Add to Quotation from shop page - "Add to Quotation" button on product listing
+2. Add to Quotation from Single Page - Variation selection and "Add to Quotation" button
+3. Quotation Cart - Customer view with products added to cart
+4. Quotations List - Modern React dashboard showing all quotations
+5. Settings Panel - Configure buttons, email templates, and rate limiting
