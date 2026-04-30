@@ -53,7 +53,6 @@ class Session {
 	 * @return void
 	 */
 	private function __construct() {
-
 	}
 
 

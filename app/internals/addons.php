@@ -101,6 +101,13 @@ class Addons {
 		return $addons;
 	}
 
+	/**
+	 * Set addon status.
+	 *
+	 * @param mixed $addon The addon name.
+	 * @param mixed $status The addon status.
+	 * @return bool True if the addon status was set successfully, false otherwise.
+	 */
 	private function set( $addon, $status ) {
 		$saved_addons = (array) json_decode( get_option( self::OPTION_GROUP ), true );
 		$saved_addons[ $addon ] = $status;
@@ -116,7 +123,7 @@ class Addons {
 	 * @param string $addon The addon name.
 	 * @param bool   $status The addon status.
 	 *
-	 * @return [type]
+	 * @return bool True if the addon status was set successfully, false otherwise.
 	 */
 	public function save( $addon, $status ) {
 		return $this->set( $addon, $status );
