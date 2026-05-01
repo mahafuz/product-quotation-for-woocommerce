@@ -67,7 +67,7 @@ class Install {
 	 */
 	public function appsero_init() {
 		if ( ! class_exists( 'Appsero\Client' ) ) {
-			require_once QUOTIFY_PLUGIN_ROOT_PATH . '/appsero/src/Client.php';
+			require_once QUOTIFY_PLUGIN_ROOT_PATH . 'appsero/src/Client.php';
 		}
 
 		$client = new \Appsero\Client(
