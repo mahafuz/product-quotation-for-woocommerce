@@ -14,11 +14,13 @@ import GeneralSettings from './GeneralSettings';
 import ButtonSettings from './ButtonSettings';
 import FormSettings from './FormSettings';
 import EmailSettings from './EmailSettings';
+import CartSettings from './CartSettings';
 
 import ButtonIcon from '@src/images/button.png';
 import FormIcon from '@src/images/form.png';
 import EmailIcon from '@src/images/email.png';
 import GeneralSettingsIcon from '@src/images/cog.svg';
+import CartIcon from '@src/images/customization.svg';
 
 import '@src/scss/settings.scss';
 import './index.scss';
@@ -112,7 +114,7 @@ const App = () => {
 							}}
 						>
 							<img src={GeneralSettingsIcon} />{' '}
-							{__('General Settings')}
+							{__('General')}
 						</a>
 						<a
 							href="#"
@@ -123,6 +125,16 @@ const App = () => {
 							}}
 						>
 							<img src={ButtonIcon} /> {__('Button')}
+						</a>
+						<a
+							href="#"
+							className={`pqfw-settings-nav-tab${activeTab === 'cart' ? ` pqfw-settings-nav-tab-active` : ''}`}
+							onClick={() => {
+								setActiveTab('cart');
+								saveActiveTab('cart');
+							}}
+						>
+							<img src={CartIcon} /> {__('Cart')}
 						</a>
 						<a
 							href="#"
@@ -155,6 +167,13 @@ const App = () => {
 						)}
 						{activeTab === 'button' && (
 							<ButtonSettings
+								settings={settings}
+								setSettings={setSettings}
+								saveSettings={saveSettings}
+							/>
+						)}
+						{activeTab === 'cart' && (
+							<CartSettings
 								settings={settings}
 								setSettings={setSettings}
 								saveSettings={saveSettings}
