@@ -1,3 +1,4 @@
+.claude
 .gitignore
 README.md
 composer.lock
@@ -9,11 +10,11 @@ node_modules
 src
 .distignore
 appsero.json
+.github
 .prettierignore
 .prettierrc.js
 webpack.config.js
 .git
-.github
 Docs/
 bin/
 .DS_Store
