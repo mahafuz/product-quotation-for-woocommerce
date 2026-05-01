@@ -50,6 +50,39 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 							<p className="description">{__( 'Ask user to accept terms and condition before submitting the quotation form.' )}</p>
 						</td>
 					</tr>
+					{ settings?.privacy_policy ? (
+						<>
+							<tr>
+								<th>{__( 'Privacy Policy Label' )}</th>
+								<td>
+									<input
+										type="text"
+										className="regular-text"
+										value={ settings?.privacy_policy_label }
+										onChange={(e) => setSettings({
+											...settings,
+											privacy_policy_label: e.target.value
+										})}
+									/>
+									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
+								</td>
+							</tr>
+							<tr>
+								<th>{__( 'Privacy Policy' )}</th>
+								<td>
+									<textarea
+										cols="30"
+										rows="5" className="regular-text"
+										onChange={(e) => setSettings({
+											...settings,
+											privacy_policy_content: e.target.value
+										})}
+									>{ settings?.privacy_policy_content }</textarea>
+									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
+								</td>
+							</tr>
+						</>
+					) : ''}
 					<tr>
 						<th>{__( 'Enable Rate Limiting' )}</th>
 						<td>
@@ -319,39 +352,6 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 											style={{marginLeft: '10px'}}
 										/>
 									</div>
-								</td>
-							</tr>
-						</>
-					) : ''}
-					{ settings?.privacy_policy ? (
-						<>
-							<tr>
-								<th>{__( 'Privacy Policy Label' )}</th>
-								<td>
-									<input
-										type="text"
-										className="regular-text"
-										value={ settings?.privacy_policy_label }
-										onChange={(e) => setSettings({
-											...settings,
-											privacy_policy_label: e.target.value
-										})}
-									/>
-									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
-								</td>
-							</tr>
-							<tr>
-								<th>{__( 'Privacy Policy' )}</th>
-								<td>
-									<textarea
-										cols="30"
-										rows="5" className="regular-text"
-										onChange={(e) => setSettings({
-											...settings,
-											privacy_policy_content: e.target.value
-										})}
-									>{ settings?.privacy_policy_content }</textarea>
-									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
 								</td>
 							</tr>
 						</>
