@@ -244,6 +244,16 @@ class Settings {
 			$sanitized['cart_button_text'] = sanitize_text_field( $sanitized['cart_button_text'] );
 		}
 
+		// Sanitize hide_add_to_cart_button setting.
+		if ( isset( $sanitized['hide_add_to_cart_button'] ) ) {
+			$sanitized['hide_add_to_cart_button'] = filter_var( $sanitized['hide_add_to_cart_button'], FILTER_VALIDATE_BOOLEAN );
+		}
+
+		// Sanitize hide_product_prices setting.
+		if ( isset( $sanitized['hide_product_prices'] ) ) {
+			$sanitized['hide_product_prices'] = filter_var( $sanitized['hide_product_prices'], FILTER_VALIDATE_BOOLEAN );
+		}
+
 		// Sanitize empty cart message.
 		if ( isset( $sanitized['empty_cart_message'] ) ) {
 			$sanitized['empty_cart_message'] = sanitize_text_field( $sanitized['empty_cart_message'] );
