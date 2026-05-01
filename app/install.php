@@ -50,11 +50,8 @@ class Install {
 		add_action( 'admin_init', [ $this, 'redirect' ] );
 		add_option( '_pqfw_activation_redirect', true );
 
-		// Init Freemius.
-		$this->quotify_ffs();
-
-		// Signal that SDK was initiated.
-		do_action( 'quotify_ffs_loaded' );
+		// Init Appsero.
+		$this->appsero_init();
 
 		add_action( 'woocommerce_init', [ $this, 'start' ] );
 
@@ -62,37 +59,24 @@ class Install {
 		register_activation_hook( QUOTIFY_PLUGIN_FILE, [ $this, 'deactivate' ] );
 	}
 
+
 	/**
-	 * Initialize Freemius SDK.
+	 * Initialize the plugin tracker
 	 *
-	 * @return array Freemius SDK instance.
+	 * @return void
 	 */
-	public function quotify_ffs() {
-		global $quotify_ffs;
-
-		if ( ! isset( $quotify_ffs ) ) {
-
-			// Include Freemius SDK.
-			require_once QUOTIFY_PLUGIN_ROOT_PATH . '/freemius/start.php';
-
-			$quotify_ffs = fs_dynamic_init([
-				'id'               => '20611',
-				'slug'             => 'quotify',
-				'type'             => 'plugin',
-				'public_key'       => 'pk_8f3aaf4f156015a7f95f6d4548528',
-				'is_premium'       => false,
-				'has_addons'       => false,
-				'has_paid_plans'   => false,
-				'is_org_compliant' => true,
-				'menu'             => [
-					'slug'    => 'quotify',
-					'account' => false,
-					'support' => false,
-				],
-			]);
+	public function appsero_init() {
+		if ( ! class_exists( 'Appsero\Client' ) ) {
+			require_once QUOTIFY_PLUGIN_ROOT_PATH . '/appsero/src/Client.php';
 		}
 
-		return $quotify_ffs;
+		$client = new \Appsero\Client(
+			'e806fe7d-f314-425d-8be4-9f62fdaf71cf',
+			'Product Quotation &#8211; Product Quotation For WooCommerce',
+			QUOTIFY_PLUGIN_FILE
+		);
+
+		$client->insights()->init();
 	}
 
 	/**
@@ -103,7 +87,6 @@ class Install {
 	 */
 	public function start() {
 		if ( isset( WC()->session ) ) {
-			error_log( 'Ran session for a user' );
 			WC()->session->set_customer_session_cookie( true );
 		}
 	}
