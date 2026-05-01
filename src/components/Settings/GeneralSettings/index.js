@@ -70,6 +70,23 @@ const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 						<p className="description">{__('Choose the quote cart page from the list where users will see the list of added products to the quote. Visit current')} <a target="_blank" href={cart}><strong>{__('Quotation Cart Page')}</strong></a></p>
 					</td>
 				</tr>
+
+
+				<tr>
+					<th>{__('Empty cart message')}</th>
+					<td>
+						<input
+							type="text"
+							className="regular-text"
+							value={ settings?.empty_cart_message || '' }
+							onChange={(e) => setSettings({
+								...settings,
+								empty_cart_message: e.target.value
+							})}
+						/>
+						<p className="description">{__('Custom message to display when the quotation cart is empty.')}</p>
+					</td>
+				</tr>
 			</table>
 		</div>
 		<div className="submit-wrapper">

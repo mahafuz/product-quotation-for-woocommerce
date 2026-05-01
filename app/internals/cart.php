@@ -337,9 +337,14 @@ class Cart {
 		$products = quotify()->cart()->get_products();
 
 		if ( ! is_array( $products ) || count( $products ) < 1 ) {
+			$empty_message = quotify()->settings()->get( 'empty_cart_message' );
+			if ( empty( $empty_message ) ) {
+				$empty_message = __( 'Your quotation cart is currently empty.', 'quotify' );
+			}
+
 			echo '<tr>';
 				echo '<td colspan="6" align="center">';
-					echo esc_html__( 'There are no product added in the Quotations Cart', 'quotify' );
+					echo esc_html( $empty_message );
 				echo '</td>';
 			echo '</tr>';
 		}

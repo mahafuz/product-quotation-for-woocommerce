@@ -112,6 +112,7 @@ class Settings {
 			'pqfw_rate_limit_count'          => 5,
 			'pqfw_rate_limit_period'         => 60, // minutes.
 			'quotation_cart_page'            => \Quotify\Library\Helper::getCart(),
+			'empty_cart_message'             => __( 'Your quotation cart is currently empty.', 'quotify' ),
 			// Form field customization.
 			'pqfw_form_fields_customization_enabled' => false,
 			'pqfw_field_name_label'          => __( 'Full Name', 'quotify' ),
@@ -241,6 +242,11 @@ class Settings {
 		// Sanitize cart button text.
 		if ( isset( $sanitized['cart_button_text'] ) ) {
 			$sanitized['cart_button_text'] = sanitize_text_field( $sanitized['cart_button_text'] );
+		}
+
+		// Sanitize empty cart message.
+		if ( isset( $sanitized['empty_cart_message'] ) ) {
+			$sanitized['empty_cart_message'] = sanitize_text_field( $sanitized['empty_cart_message'] );
 		}
 
 		// Sanitize email template content.
