@@ -18,4 +18,3 @@ Docs/
 bin/
 .DS_Store
 vendor
-config.php
