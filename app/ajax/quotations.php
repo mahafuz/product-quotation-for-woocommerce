@@ -1,5 +1,15 @@
 <?php
+/**
+ * Quotify quotations ajax class.
+ *
+ * @since 1.0.0
+ * @package Quotify
+ */
+
 namespace Quotify\Ajax;
+
+// if direct access than exit the file.
+defined( 'ABSPATH' ) || exit;
 
 use WP_Query;
 
@@ -24,7 +34,6 @@ class Quotations {
 		add_action( 'wp_ajax_quotify/ajax/quotations/update_status', [ $this, 'update_status' ] );
 		add_action( 'wp_ajax_quotify/ajax/quotations/email', [ $this, 'send_email' ] );
 		add_action( 'wp_ajax_quotify/ajax/quotations/stats', [ $this, 'get_stats' ] );
-		add_action( 'wp_ajax_quotify/ajax/quotations/export', [ $this, 'export_csv' ] );
 	}
 
 	/**
@@ -46,7 +55,6 @@ class Quotations {
 		$per_page    = isset( $_GET['per_page'] ) ? absint( wp_unslash( $_GET['per_page'] ) ) : 10;
 		$date_filter = isset( $_GET['date_filter'] ) ? sanitize_text_field( $_GET['date_filter'] ) : 'all';
 
-		// Calculate date query based on filter
 		$date_query = $this->get_date_query( $date_filter );
 
 		$args = [
@@ -56,7 +64,6 @@ class Quotations {
 			's'              => $search,
 		];
 
-		// Add date query if not 'all'
 		if ( $date_query ) {
 			$args['date_query'] = $date_query;
 		}
@@ -83,7 +90,7 @@ class Quotations {
 
 		if ( ! $id ) {
 			wp_send_json_error([
-				'message' => __( 'Quotation not found.', 'quotify' ),
+				'message'   => __( 'Quotation not found.', 'quotify' ),
 				'not_found' => true,
 			]);
 		}
@@ -92,15 +99,14 @@ class Quotations {
 
 		if ( empty( $post ) || is_wp_error( $post ) ) {
 			wp_send_json_error([
-				'message' => __( 'Quotation not found.', 'quotify' ),
+				'message'   => __( 'Quotation not found.', 'quotify' ),
 				'not_found' => true,
 			]);
 		}
 
-		// Verify post type is correct
 		if ( 'pqfw_quotations' !== $post->post_type ) {
 			wp_send_json_error([
-				'message' => __( 'Invalid quotation.', 'quotify' ),
+				'message'   => __( 'Invalid quotation.', 'quotify' ),
 				'not_found' => true,
 			]);
 		}
@@ -120,19 +126,22 @@ class Quotations {
 
 		$meta = quotify()->quotations()->format_meta( $id );
 
-		// Sanitize price HTML in products info
 		if ( isset( $meta['pqfw_products_info'] ) && is_array( $meta['pqfw_products_info'] ) ) {
 			foreach ( $meta['pqfw_products_info'] as &$product ) {
 				if ( isset( $product['price'] ) ) {
-					// Allow only safe HTML for price formatting (currency symbols, etc)
-					$product['price'] = wp_kses( $product['price'], [
-						'span' => [ 'class' => true ],
-						'del' => true,
-						'ins' => true,
-						'b' => true,
-						'strong' => true,
-						'em' => true,
-					] );
+					$product['price'] = wp_kses(
+						$product['price'],
+						[
+							'span'   => [
+								'class' => true,
+							],
+							'del'    => true,
+							'ins'    => true,
+							'b'      => true,
+							'strong' => true,
+							'em'     => true,
+						]
+					);
 				}
 				if ( isset( $product['name'] ) ) {
 					$product['name'] = sanitize_text_field( $product['name'] );
@@ -177,9 +186,9 @@ class Quotations {
 
 		$force = isset( $_POST['force'] ) ? wp_validate_boolean( $_POST['force'] ) : false;
 
-		// Handle both plain ID and JSON-encoded ID formats for backward compatibility
-		$id    = isset( $_POST['id'] ) ? wp_unslash( $_POST['id'] ) : '';
+		$id      = isset( $_POST['id'] ) ? wp_unslash( $_POST['id'] ) : '';
 		$decoded = json_decode( $id, true );
+
 		if ( is_array( $decoded ) && isset( $decoded['ID'] ) ) {
 			$id = absint( $decoded['ID'] );
 		} else {
@@ -258,7 +267,6 @@ class Quotations {
 			wp_send_json_error( __( 'Quotation not found.', 'quotify' ) );
 		}
 
-		// Validate status
 		$valid_statuses = [ 'pending', 'publish', 'draft', 'trash' ];
 		if ( ! in_array( $status, $valid_statuses, true ) ) {
 			wp_send_json_error( __( 'Invalid status.', 'quotify' ) );
@@ -274,7 +282,6 @@ class Quotations {
 			wp_send_json_error( __( 'Invalid quotation.', 'quotify' ) );
 		}
 
-		// Update post status
 		$result = wp_update_post( [
 			'ID'          => $id,
 			'post_status' => $status,
@@ -284,7 +291,6 @@ class Quotations {
 			wp_send_json_error( __( 'Failed to update status.', 'quotify' ) );
 		}
 
-		// Get updated quotation data
 		$updated_post = get_post( $id, OBJECT, 'display' );
 		$quotation = [
 			'ID'     => absint( $updated_post->ID ),
@@ -327,14 +333,12 @@ class Quotations {
 			wp_send_json_error( __( 'Invalid quotation.', 'quotify' ) );
 		}
 
-		// Get customer email
 		$customer_email = get_post_meta( $id, 'pqfw_customer_email', true );
 
 		if ( ! is_email( $customer_email ) ) {
 			wp_send_json_error( __( 'Customer email not found.', 'quotify' ) );
 		}
 
-		// Prepare email data
 		$meta     = quotify()->quotations()->format_meta( $id );
 		$quote    = $post;
 		$author   = sanitize_user( get_the_author_meta( 'first_name', $quote->post_author ) );
@@ -344,24 +348,22 @@ class Quotations {
 		$products = $meta['pqfw_products_info'] ?? [];
 		$headers  = [ 'Content-Type: text/html; charset=UTF-8' ];
 
-		// Build email content
 		ob_start();
 		$collection = [
-			'fullname'    => $handle,
-			'email'       => $customer_email,
-			'subject'     => $subject,
-			'phone'       => $meta['pqfw_customer_phone'] ?? '',
-			'comments'    => $meta['pqfw_customer_comments'] ?? '',
-			'products'    => $products,
-			'email_title' => get_bloginfo( 'name' ),
-			'site_url'    => get_bloginfo( 'url' ),
-			'quotation_id' => $id,
+			'fullname'       => $handle,
+			'email'          => $customer_email,
+			'subject'        => $subject,
+			'phone'          => $meta['pqfw_customer_phone'] ?? '',
+			'comments'       => $meta['pqfw_customer_comments'] ?? '',
+			'products'       => $products,
+			'email_title'    => get_bloginfo( 'name' ),
+			'site_url'       => get_bloginfo( 'url' ),
+			'quotation_id'   => $id,
 			'is_admin_email' => false,
 		];
 		require QUOTIFY_PLUGIN_VIEWS . 'email/new-quote.php';
 		$body = ob_get_clean();
 
-		// Send email
 		$sent = quotify()->mail()->send( $customer_email, $subject, $body, $headers );
 
 		if ( $sent ) {
@@ -388,10 +390,8 @@ class Quotations {
 
 		$date_filter = isset( $_GET['date_filter'] ) ? sanitize_text_field( $_GET['date_filter'] ) : 'all';
 
-		// Calculate date range based on filter
 		$date_query = $this->get_date_query( $date_filter );
 
-		// Get total count
 		$total_args = [
 			'post_type'      => 'pqfw_quotations',
 			'post_status'    => 'any',
@@ -403,33 +403,32 @@ class Quotations {
 		$query = new WP_Query( $total_args );
 		$total = $query->found_posts;
 
-		// Get pending count
+		// Get pending count.
 		$pending_args = $total_args;
 		$pending_args['post_status'] = 'pending';
 		$query = new WP_Query( $pending_args );
 		$pending = $query->found_posts;
 
-		// Get approved (publish) count
+		// Get approved (publish) count.
 		$approved_args = $total_args;
 		$approved_args['post_status'] = 'publish';
 		$query = new WP_Query( $approved_args );
 		$approved = $query->found_posts;
 
-		// Get trash count
+		// Get trash count.
 		$trash_args = $total_args;
 		$trash_args['post_status'] = 'trash';
 		$query = new WP_Query( $trash_args );
 		$trash = $query->found_posts;
 
-		// Calculate total value (sum of products with prices)
 		$value = $this->calculate_total_value( $date_query );
 
 		wp_send_json_success([
 			'message' => __( 'Statistics fetched successfully.', 'quotify' ),
-			'stats' => [
+			'stats'   => [
 				'total'    => $total,
 				'pending'  => $pending,
-				'approved'  => $approved,
+				'approved' => $approved,
 				'trash'    => $trash,
 				'value'    => $value,
 			],
@@ -447,7 +446,6 @@ class Quotations {
 			return false;
 		}
 
-		// Use WordPress current_time for local time
 		$now = current_time( 'timestamp' );
 		$year = intval( date_i18n( 'Y', $now ) );
 		$month = intval( date_i18n( 'm', $now ) );
@@ -465,9 +463,8 @@ class Quotations {
 				];
 
 			case 'week':
-				// Calculate week start and end using WordPress time
 				$week_start = date_i18n( 'Y-m-d', strtotime( 'this week', $now ) );
-				$week_end = date_i18n( 'Y-m-d', strtotime( 'this week +6 days', $now ) );
+				$week_end   = date_i18n( 'Y-m-d', strtotime( 'this week +6 days', $now ) );
 				return [
 					[
 						'after'     => $week_start,
@@ -477,14 +474,12 @@ class Quotations {
 				];
 
 			case 'month':
-				// Get first day of month
 				$month_start_timestamp = mktime( 0, 0, 0, $month, 1, $year );
-				$month_start = date_i18n( 'Y-m-d', $month_start_timestamp );
+				$month_start           = date_i18n( 'Y-m-d', $month_start_timestamp );
 
-				// Get last day of month using WordPress date
-				$days_in_month = intval( date_i18n( 't', $month_start_timestamp ) );
+				$days_in_month       = intval( date_i18n( 't', $month_start_timestamp ) );
 				$month_end_timestamp = mktime( 23, 59, 59, $month, $days_in_month, $year );
-				$month_end = date_i18n( 'Y-m-d', $month_end_timestamp );
+				$month_end           = date_i18n( 'Y-m-d', $month_end_timestamp );
 
 				return [
 					[
@@ -495,19 +490,16 @@ class Quotations {
 				];
 
 			case 'quarter':
-				// Calculate quarter start and end
-				$quarter = intval( ceil( $month / 3 ) );
+				$quarter             = intval( ceil( $month / 3 ) );
 				$quarter_start_month = ( $quarter - 1 ) * 3 + 1;
 
-				// Quarter start
 				$quarter_start_timestamp = mktime( 0, 0, 0, $quarter_start_month, 1, $year );
-				$quarter_start = date_i18n( 'Y-m-d', $quarter_start_timestamp );
+				$quarter_start           = date_i18n( 'Y-m-d', $quarter_start_timestamp );
 
-				// Quarter end
-				$quarter_end_month = $quarter_start_month + 2;
+				$quarter_end_month         = $quarter_start_month + 2;
 				$days_in_quarter_end_month = intval( date_i18n( 't', mktime( 0, 0, 0, $quarter_end_month, 1, $year ) ) );
-				$quarter_end_timestamp = mktime( 23, 59, 59, $quarter_end_month, $days_in_quarter_end_month, $year );
-				$quarter_end = date_i18n( 'Y-m-d', $quarter_end_timestamp );
+				$quarter_end_timestamp     = mktime( 23, 59, 59, $quarter_end_month, $days_in_quarter_end_month, $year );
+				$quarter_end               = date_i18n( 'Y-m-d', $quarter_end_timestamp );
 
 				return [
 					[
@@ -518,13 +510,11 @@ class Quotations {
 				];
 
 			case 'year':
-				// Year start
 				$year_start_timestamp = mktime( 0, 0, 0, 1, 1, $year );
-				$year_start = date_i18n( 'Y-m-d', $year_start_timestamp );
+				$year_start           = date_i18n( 'Y-m-d', $year_start_timestamp );
 
-				// Year end
 				$year_end_timestamp = mktime( 23, 59, 59, 12, 31, $year );
-				$year_end = date_i18n( 'Y-m-d', $year_end_timestamp );
+				$year_end           = date_i18n( 'Y-m-d', $year_end_timestamp );
 
 				return [
 					[
@@ -564,18 +554,18 @@ class Quotations {
 					$numeric_value = 0;
 					$quantity = isset( $product['quantity'] ) ? absint( $product['quantity'] ) : 1;
 
-					// Try to get price from different fields
+					// Try to get price from different fields.
 					if ( isset( $product['price_html'] ) ) {
-						// Extract numeric value from price HTML
+						// Extract numeric value from price HTML.
 						$price = html_entity_decode( $product['price_html'] );
 						$price = preg_replace( '/[^0-9.,]/', '', $price );
 						$numeric_value = (float) $price;
 					} elseif ( isset( $product['price'] ) ) {
-						// Price field might be HTML or numeric
+						// Price field might be HTML or numeric.
 						if ( is_numeric( $product['price'] ) ) {
 							$numeric_value = (float) $product['price'];
 						} else {
-							// Extract numeric value from price HTML string
+							// Extract numeric value from price HTML string.
 							$price = html_entity_decode( $product['price'] );
 							$price = preg_replace( '/[^0-9.,]/', '', $price );
 							$numeric_value = (float) $price;
@@ -607,10 +597,10 @@ class Quotations {
 		$status   = isset( $_GET['status'] ) ? sanitize_text_field( $_GET['status'] ) : 'all';
 		$date_filter = isset( $_GET['date_filter'] ) ? sanitize_text_field( $_GET['date_filter'] ) : 'all';
 
-		// Calculate date query if needed
+		// Calculate date query if needed.
 		$date_query = 'all' !== $date_filter ? $this->get_date_query( $date_filter ) : false;
 
-		// Build query args
+		// Build query args.
 		$args = [
 			'post_type'      => 'pqfw_quotations',
 			'post_status'    => 'all' === $status ? [ 'pending', 'publish' ] : $status,
@@ -626,19 +616,19 @@ class Quotations {
 			wp_send_json_error( __( 'No quotations found to export.', 'quotify' ) );
 		}
 
-		// Set headers for CSV download
+		// Set headers for CSV download.
 		header( 'Content-Type: text/csv' );
 		header( 'Content-Disposition: attachment; filename=quotations-' . date_i18n( 'Y-m-d' ) . '.csv' );
 		header( 'Pragma: no-cache' );
 		header( 'Expires: 0' );
 
-		// Open output stream
+		// Open output stream.
 		$output = fopen( 'php://output', 'w' );
 
-		// Add BOM for UTF-8
+		// Add BOM for UTF-8.
 		fprintf( $output, "\xEF\xBB\xBF" );
 
-		// CSV headers
+		// CSV headers.
 		$headers = [
 			'ID',
 			'Title',
@@ -653,13 +643,13 @@ class Quotations {
 
 		fputcsv( $output, $headers );
 
-		// Write quotation data
+		// Write quotation data.
 		foreach ( $quotation_ids as $quotation_id ) {
 			$post = get_post( $quotation_id );
 			$meta = quotify()->quotations()->format_meta( $quotation_id );
 			$author_name = quotify()->quotations()->get_author( $post, $meta );
 
-			// Format products as string
+			// Format products as string.
 			$products_info = $meta['pqfw_products_info'] ?? [];
 			$products = [];
 			foreach ( $products_info as $product ) {

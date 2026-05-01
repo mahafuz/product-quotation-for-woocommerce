@@ -31,14 +31,16 @@ defined( 'ABSPATH' ) || exit;
 	</ul>
 
 	<div class="pqfw-form-field pqfw-submit">
-		<input
-			type="submit"
-			id="quotify-form-submit"
-			name="quotify-form-submit"
-			value="<?php echo esc_html__( 'Submit Query', 'quotify' ); ?>"
-			class="submit"
-		/>
-		<div class="loading-spinner"></div>
+		<div class="submit-btn-wrap">
+			<input
+				type="submit"
+				id="quotify-form-submit"
+				name="quotify-form-submit"
+				value="<?php echo esc_html__( 'Submit Query', 'quotify' ); ?>"
+				class="submit"
+			/>
+			<div class="loading-spinner"></div>
+		</div>
 	</div>
 
 	<div class="pqfw-form-response-status"></div>

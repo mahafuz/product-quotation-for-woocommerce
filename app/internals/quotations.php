@@ -51,7 +51,7 @@ class Quotations {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Quotify\Internals\Quotations
+	 * @return \Quotify\Internals\Quotations
 	 */
 	public static function init() {
 		if ( is_null( self::$instance ) ) {
@@ -65,7 +65,7 @@ class Quotations {
 	 *  The quotation query.
 	 *
 	 * @param  array $arguments The query arguments.
-	 * @return array
+	 * @return Object
 	 */
 	public function query( $arguments ) {
 		$this->arguments = (array) $arguments;
