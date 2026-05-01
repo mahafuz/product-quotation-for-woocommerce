@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { FormToggle } from '@wordpress/components';
+import { TextControl } from '@wordpress/components';
 
 const FormSettings = ({ settings, setSettings, saveSettings }) => {
   return (
@@ -142,6 +143,38 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 							</tr>
 						</>
 					) : ''}
+					<tr>
+						<th colspan="2">
+							<h4>{__( 'Form Submission Messages' )}</h4>
+							<p className="description">{__( 'Customize messages displayed after form submission.' )}</p>
+						</th>
+					</tr>
+					<tr>
+						<th>{__( 'Success Message' )}</th>
+						<td>
+							<TextControl
+								value={ settings?.quotation_success_message || '' }
+								onChange={(value) => setSettings({
+									...settings,
+									quotation_success_message: value
+								})}
+							/>
+							<p className="description">{__( 'Message displayed after successful quotation form submission.', 'quotify')}</p>
+						</td>
+					</tr>
+					<tr>
+						<th>{__( 'Error Message' )}</th>
+						<td>
+							<TextControl
+								value={ settings?.quotation_error_message || '' }
+								onChange={(value) => setSettings({
+									...settings,
+									quotation_error_message: value
+								})}
+							/>
+							<p className="description">{__( 'Message displayed when quotation form submission fails.', 'quotify')}</p>
+						</td>
+					</tr>
 					<tr>
 						<th>{__( 'Customize Form Fields' )}</th>
 						<td>

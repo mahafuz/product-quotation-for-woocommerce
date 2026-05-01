@@ -113,6 +113,10 @@ class Settings {
 			'pqfw_rate_limit_period'         => 60, // minutes.
 			'quotation_cart_page'            => \Quotify\Library\Helper::getCart(),
 			'empty_cart_message'             => __( 'Your quotation cart is currently empty.', 'quotify' ),
+			// Form submission messages.
+			'quotation_success_message'     => __( 'Your quotation is successfully submitted.', 'quotify' ),
+			'quotation_error_message'       => __( 'Something went wrong. Please try again.', 'quotify' ),
+			'add_to_cart_success_message'   => __( 'Product successfully added to quotation.', 'quotify' ),
 			// Form field customization.
 			'pqfw_form_fields_customization_enabled' => false,
 			'pqfw_field_name_label'          => __( 'Full Name', 'quotify' ),
@@ -257,6 +261,17 @@ class Settings {
 		// Sanitize empty cart message.
 		if ( isset( $sanitized['empty_cart_message'] ) ) {
 			$sanitized['empty_cart_message'] = sanitize_text_field( $sanitized['empty_cart_message'] );
+		}
+
+			// Sanitize form submission messages.
+		if ( isset( $sanitized['quotation_success_message'] ) ) {
+			$sanitized['quotation_success_message'] = sanitize_text_field( $sanitized['quotation_success_message'] );
+		}
+		if ( isset( $sanitized['quotation_error_message'] ) ) {
+			$sanitized['quotation_error_message'] = sanitize_text_field( $sanitized['quotation_error_message'] );
+		}
+		if ( isset( $sanitized['add_to_cart_success_message'] ) ) {
+			$sanitized['add_to_cart_success_message'] = sanitize_text_field( $sanitized['add_to_cart_success_message'] );
 		}
 
 		// Sanitize email template content.

@@ -137,9 +137,10 @@ class Cart {
 			wp_send_json_error( __( 'Failed to add product to quotation. Please try again.', 'quotify' ) );
 		}
 
+		$success_message = quotify()->settings()->get( 'add_to_cart_success_message' );
 		wp_send_json_success(
 			[
-				'message' => __( 'Product successfully added to quotation.', 'quotify' ),
+				'message' => $success_message ? $success_message : __( 'Product successfully added to quotation.', 'quotify' ),
 			]
 		);
 	}

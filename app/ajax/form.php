@@ -45,7 +45,8 @@ class Form {
 		$entry = ! empty( $_POST['data'] ) ? json_decode( wp_unslash( $_POST['data'] ), true ) : false;
 
 		if ( ! $entry ) {
-			wp_send_json_error( __( 'Something wen\'t wrong', 'quotify' ) );
+			$error_message = quotify()->settings()->get( 'quotation_error_message' );
+			wp_send_json_error( $error_message ? $error_message : __( 'Something went wrong', 'quotify' ) );
 		}
 
 		$fullname = sanitize_user( $entry['pqfw_customer_name'] );
@@ -82,9 +83,11 @@ class Form {
 
 			// Reset the current cart.
 			quotify()->cart()->purge();
-			wp_send_json_success( __( 'Your quotation is successfully submitted.', 'quotify' ) );
+			$success_message = quotify()->settings()->get( 'quotation_success_message' );
+			wp_send_json_success( $success_message ? $success_message : __( 'Your quotation is successfully submitted.', 'quotify' ) );
 		} else {
-			wp_send_json_error( __( 'Something went wrong', 'quotify' ) );
+			$error_message = quotify()->settings()->get( 'quotation_error_message' );
+			wp_send_json_error( $error_message ? $error_message : __( 'Something went wrong', 'quotify' ) );
 		}
 
 		do_action( 'quotify/quotations/after_submit' );

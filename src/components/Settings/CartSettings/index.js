@@ -53,6 +53,19 @@ const CartSettings = ({ settings, setSettings, saveSettings }) => {
 						<p className="description">{__('Custom message to display when the quotation cart is empty.', 'quotify')}</p>
 					</td>
 				</tr>
+				<tr>
+					<th>{__('Add to cart success message')}</th>
+					<td>
+						<TextControl
+							value={ settings?.add_to_cart_success_message || '' }
+							onChange={(value) => setSettings({
+								...settings,
+								add_to_cart_success_message: value
+							})}
+						/>
+						<p className="description">{__('Message displayed when a product is successfully added to the quotation cart.', 'quotify')}</p>
+					</td>
+				</tr>
 			</table>
 		</div>
 		<div className="submit-wrapper">
