@@ -53,11 +53,11 @@ class Frontend {
 			// Shop/archive pages.
 			add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'hideAddToCartButton' ], 10, 2 );
 
-			// Single product pages.
-			add_filter( 'woocommerce_single_product_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
-			add_filter( 'woocommerce_variable_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
-			add_filter( 'woocommerce_grouped_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
-			add_filter( 'woocommerce_external_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
+			// Single product pages - remove add to cart form actions.
+			remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
+			remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
+			remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
+			remove_action( 'woocommerce_external_add_to_cart', 'woocommerce_external_add_to_cart', 30 );
 
 			// Add CSS fallback for theme compatibility.
 			add_action( 'wp_head', [ $this, 'addHideCartButtonCSS' ] );
@@ -80,11 +80,6 @@ class Frontend {
 			add_filter( 'woocommerce_widget_price_display', [ $this, 'hideProductPrices' ], 10, 2 );
 			add_filter( 'woocommerce_format_price_range', [ $this, 'hideProductPrices' ], 10, 2 );
 			add_filter( 'woocommerce_get_price_suffix', [ $this, 'hideProductPrices' ], 10, 2 );
-
-			// Core price retrieval hooks with higher priority.
-			add_filter( 'woocommerce_get_price', [ $this, 'hideProductPrices' ], 999, 2 );
-			add_filter( 'woocommerce_get_regular_price', [ $this, 'hideProductPrices' ], 999, 2 );
-			add_filter( 'woocommerce_get_sale_price', [ $this, 'hideProductPrices' ], 999, 2 );
 
 			// Add CSS fallback for theme compatibility.
 			add_action( 'wp_head', [ $this, 'addHidePriceCSS' ] );
@@ -196,29 +191,38 @@ class Frontend {
 	public function addHidePriceCSS() {
 		?>
 		<style>
-			/* Comprehensive price hiding fallback for theme compatibility. */
-			.quotify-hide-prices .price,
-			.quotify-hide-prices .product-price,
-			.quotify-hide-prices span.price,
-			.quotify-hide-prices ins .amount,
-			.quotify-hide-prices del .amount,
-			.quotify-hide-prices del .woocommerce-Price-amount,
-			.quotify-hide-prices ins .woocommerce-Price-amount,
+			/* Surgical price hiding - only target price display elements, not containers. */
+			.quotify-hide-prices .amount,
 			.quotify-hide-prices .woocommerce-Price-amount,
 			.quotify-hide-prices .woocommerce-price-suffix,
-			.quotify-hide-prices .price-wrapper {
+			.quotify-hide-prices .currency-symbol {
 				display: none !important;
 			}
 
 			/* Hide WooCommerce block prices. */
-			.quotify-hide-prices .wp-block-woocommerce-price {
+			.quotify-hide-prices .wp-block-woocommerce-price .amount,
+			.quotify-hide-prices .wp-block-woocommerce-price .woocommerce-Price-amount {
 				display: none !important;
 			}
 
 			/* Hide price in widgets specifically. */
-			.quotify-hide-prices .widget .price,
-			.quotify-hide-prices .woocommerce_widget_price {
+			.quotify-hide-prices .widget .amount,
+			.quotify-hide-prices .widget .woocommerce-Price-amount {
 				display: none !important;
+			}
+
+			/* IMPORTANT: Explicitly preserve all buttons when prices are hidden. */
+			.quotify-hide-prices .single_add_to_cart_button,
+			.quotify-hide-prices .add_to_cart_button,
+			.quotify-hide-prices button[type="submit"][name="add-to-cart"],
+			.quotify-hide-prices .ajax_add_to_cart,
+			.quotify-hide-prices .pqfw-button,
+			.quotify-hide-prices .pqfw-add-to-quotation,
+			.quotify-hide-prices .pqfw-add-to-quotation-single,
+			.quotify-hide-prices .wp-block-button__link.wp-block-button__add-to-cart,
+			.quotify-hide-prices .wc-block-components-add-to-cart-button {
+				display: inline-block !important;
+				visibility: visible !important;
 			}
 		</style>
 		<?php
@@ -234,13 +238,25 @@ class Frontend {
 		?>
 		<script>
 			jQuery(document).ready(function($) {
-				// JavaScript fallback for dynamic content.
-				$('.quotify-hide-prices .price, .quotify-hide-prices .product-price, .quotify-hide-prices .woocommerce-Price-amount').hide();
+				// Surgical price hiding - only target price display elements.
+				$('.quotify-hide-prices .amount, .quotify-hide-prices .woocommerce-Price-amount, ' +
+					'.quotify-hide-prices .woocommerce-price-suffix').hide();
+
+				// Explicitly preserve all buttons when prices are hidden.
+				$('.quotify-hide-prices .single_add_to_cart_button, .quotify-hide-prices .add_to_cart_button, ' +
+					'.quotify-hide-prices .pqfw-button, .quotify-hide-prices .pqfw-add-to-quotation, ' +
+					'.quotify-hide-prices .pqfw-add-to-quotation-single').show();
 
 				// Watch for dynamically added prices (AJAX, page builders, etc.).
 				if (window.MutationObserver) {
 					var priceObserver = new MutationObserver(function(mutations) {
-						$('.quotify-hide-prices .price, .quotify-hide-prices .product-price, .quotify-hide-prices .woocommerce-Price-amount').hide();
+						$('.quotify-hide-prices .amount, .quotify-hide-prices .woocommerce-Price-amount, ' +
+							'.quotify-hide-prices .woocommerce-price-suffix').hide();
+
+						// Ensure buttons remain visible.
+						$('.quotify-hide-prices .single_add_to_cart_button, .quotify-hide-prices .add_to_cart_button, ' +
+							'.quotify-hide-prices .pqfw-button, .quotify-hide-prices .pqfw-add-to-quotation, ' +
+							'.quotify-hide-prices .pqfw-add-to-quotation-single').show();
 					});
 					priceObserver.observe(document.body, { childList: true, subtree: true });
 				}
