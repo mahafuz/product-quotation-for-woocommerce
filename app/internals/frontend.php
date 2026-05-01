@@ -47,7 +47,20 @@ class Frontend {
 	 */
 	private function __construct() {
 		if ( quotify()->settings()->get( 'hide_add_to_cart_button' ) ) {
+			// Shop/archive pages.
 			add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'hideAddToCartButton' ], 10, 2 );
+
+			// Single product pages.
+			add_filter( 'woocommerce_single_product_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
+			add_filter( 'woocommerce_variable_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
+			add_filter( 'woocommerce_grouped_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
+			add_filter( 'woocommerce_external_add_to_cart_button', [ $this, 'hideAddToCartButton' ], 10, 2 );
+
+			// Add CSS fallback for theme compatibility.
+			add_action( 'wp_head', [ $this, 'addHideCartButtonCSS' ] );
+
+			// Add body class for targeting.
+			add_filter( 'body_class', [ $this, 'addHideCartBodyClass' ] );
 		}
 
 		if ( quotify()->settings()->get( 'hide_product_prices' ) ) {
@@ -59,8 +72,8 @@ class Frontend {
 	}
 
 	/**
-	 * Hide add to cart in loop
-	 * Hide the button add to cart in the shop page
+	 * Hide add to cart buttons.
+	 * Hides add to cart buttons on all pages and product types.
 	 *
 	 * @since 1.2.6
 	 *
@@ -69,11 +82,8 @@ class Frontend {
 	 * @return mixed|string
 	 */
 	public function hideAddToCartButton( $html, $product ) {
-		if ( $product->is_type( 'simple' ) || ( is_shop() && $product->is_type( 'variable' ) ) || ( is_shop() && $product->is_type( 'grouped' ) ) ) {
-			return '';
-		}
-
-		return $html;
+		// Hide for all product types - no restrictions.
+		return '';
 	}
 
 	/**
@@ -106,5 +116,46 @@ class Frontend {
 			$content = '[pqfw_quotations_cart]';
 		}
 		return $content;
+	}
+
+	/**
+	 * Add CSS to hide add to cart buttons as fallback.
+	 * Provides theme compatibility for themes that override templates.
+	 *
+	 * @since 2.6.0
+	 */
+	public function addHideCartButtonCSS() {
+		?>
+		<style>
+			/* Hide add to cart buttons as fallback for theme compatibility. */
+			.quotify-hide-cart .single_add_to_cart_button,
+			.quotify-hide-cart .add_to_cart_button,
+			.quotify-hide-cart button[type="submit"][name="add-to-cart"],
+			.quotify-hide-cart .ajax_add_to_cart,
+			.quotify-hide-cart .single_variation_wrap .variations_button:disabled {
+				display: none !important;
+			}
+
+			/* Hide for specific WooCommerce blocks. */
+			.quotify-hide-cart .wp-block-button__link.wp-block-button__add-to-cart,
+			.quotify-hide-cart .wc-block-components-add-to-cart-button {
+				display: none !important;
+			}
+		</style>
+		<?php
+	}
+
+	/**
+	 * Add body class when hiding add to cart buttons.
+	 * Allows CSS targeting for theme compatibility.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array $classes Body classes.
+	 * @return array Modified body classes.
+	 */
+	public function addHideCartBodyClass( $classes ) {
+		$classes[] = 'quotify-hide-cart';
+		return $classes;
 	}
 }
