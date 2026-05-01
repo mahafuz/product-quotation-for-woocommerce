@@ -34,7 +34,4 @@ export function getPluginLogo() {
     return config?.plugin_logo;
 }
 
-
-console.log('config', config)
-
 export default config;
