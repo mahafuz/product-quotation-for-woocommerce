@@ -51,6 +51,44 @@ $quotify-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 
 	flex-wrap: wrap;
 }
 
+.quotify-back-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	background: #fff;
+	border: 1px solid $quotify-gray-300;
+	border-radius: 8px;
+	color: $quotify-gray-700;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	flex-shrink: 0;
+
+	svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	&:hover {
+		background: $quotify-gray-50;
+		border-color: $quotify-gray-400;
+		color: $quotify-gray-900;
+		transform: translateX(-2px);
+	}
+
+	&:active {
+		background: $quotify-gray-100;
+		transform: translateX(0);
+	}
+
+	&:focus {
+		outline: 2px solid $quotify-primary;
+		outline-offset: 2px;
+	}
+}
+
 .quotify-quote-title {
 	margin: 0;
 	font-size: 28px;
