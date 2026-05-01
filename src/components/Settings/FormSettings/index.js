@@ -6,7 +6,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
 			<h3 className='pqfw-tab-title'>{__( 'Form Settings' )}</h3>
 			<div className="inside">
-				<p className="help">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
+				<p className="help">{__('Customize quotation form behavior, style, and fields to match your store requirements.', 'quotify')}</p>
 
 				<table className="form-table">
 					<tr>
@@ -19,12 +19,12 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 									pqfw_form_default_design: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'For better experience choose your own form settings & styles that will ensure the design compatibility with your active theme.' )}</p>
+							<p className="description">{__('Use the plugin\'s default form styling for a consistent, professional appearance.', 'quotify')}</p>
 						</td>
 					</tr>
 					{ settings?.pqfw_form_default_design ? (
 						<tr>
-							<th>{__( 'Default Form Style' )}</th>
+							<th>{__( 'Floating Form Style' )}</th>
 							<td>
 								<FormToggle
 									checked={ settings?.pqfw_floating_form }
@@ -33,7 +33,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 										pqfw_floating_form: e.target.checked
 									})}
 								/>
-								<p className="description">{__( 'Use default form style that comes with this plugin or you can clean design your own form styles rather not overriding each css class.' )}</p>
+								<p className="description">{__('Apply a modern, compact floating form design. Disable to use custom CSS or theme styling.', 'quotify')}</p>
 							</td>
 						</tr>
 					) : ''}
@@ -47,7 +47,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 									privacy_policy: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'Ask user to accept terms and condition before submitting the quotation form.' )}</p>
+							<p className="description">{__('Require customers to accept your terms before submitting quotation requests.', 'quotify')}</p>
 						</td>
 					</tr>
 					{ settings?.privacy_policy ? (
@@ -64,7 +64,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 											privacy_policy_label: e.target.value
 										})}
 									/>
-									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
+									<p className="description">{__('Custom checkbox label. Supports shortcodes: [terms] and [privacy_policy]', 'quotify')}</p>
 								</td>
 							</tr>
 							<tr>
@@ -78,7 +78,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 											privacy_policy_content: e.target.value
 										})}
 									>{ settings?.privacy_policy_content }</textarea>
-									<p className="description">{__( 'You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)' )}</p>
+									<p className="description">{__('Custom checkbox label. Supports shortcodes: [terms] and [privacy_policy]', 'quotify')}</p>
 								</td>
 							</tr>
 						</>
@@ -116,7 +116,7 @@ const FormSettings = ({ settings, setSettings, saveSettings }) => {
 										})}
 									/>
 									<p className="description">
-										{__( 'Number of submissions allowed' )}
+										{__('Maximum number of form submissions allowed per visitor within the time window.', 'quotify')}
 									</p>
 								</td>
 							</tr>

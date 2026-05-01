@@ -6,7 +6,7 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
 			<h3 className='pqfw-tab-title'>{__( 'Email Settings' )}</h3>
 			<div className="inside">
-				<p className="help">{__( 'Customize email settings for better experience that will ensure the ease of use as you like.' )}</p>
+				<p className="help">{__('Configure email notifications for quotation requests sent to administrators and customers.', 'quotify')}</p>
 				<table className="form-table">
 	        		<tr>
 						<th>{__( 'Receive Email' )}</th>
@@ -18,7 +18,7 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 									pqfw_form_send_mail: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'Receive email for each user submitted quotation from the Quotations Cart page.' )}</p>
+							<p className="description">{__('Send notification emails to site administrators when customers submit quotation requests.', 'quotify')}</p>
 						</td>
 					</tr>
 					{settings?.pqfw_form_send_mail && (
@@ -34,7 +34,7 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 										recipient: e.target.value
 									})}
 								/>
-								<p className="description">{__( 'Add recipient email ID that will receive each quotation on the email.' )}</p>
+								<p className="description">{__('Email address that will receive quotation notifications. Default: admin email.', 'quotify')}</p>
 							</td>
 						</tr>
 					)}
@@ -48,7 +48,7 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 									pqfw_send_mail_to_customer: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'Send a copy of the email to the customer as well for each submitted quotation from the Quotations Cart page.' )}</p>
+							<p className="description">{__('Send confirmation emails to customers when they submit quotation requests.', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>
@@ -69,7 +69,7 @@ const EmailSettings = ({ settings, setSettings, saveSettings }) => {
 							<tr>
 								<th colspan="2">
 									<h4>{__( 'Email Subject Configuration' )}</h4>
-									<p className="description">{__( 'Customize email subjects using placeholders: {quotation_id}, {customer_name}, {site_name}, {customer_subject}, {customer_email}, {date}, {time}' )}</p>
+									<p className="description">{__('Available placeholders: {quotation_id}, {customer_name}, {site_name}, {customer_subject}, {customer_email}, {date}, {time}', 'quotify')}</p>
 								</th>
 							</tr>
 							<tr>

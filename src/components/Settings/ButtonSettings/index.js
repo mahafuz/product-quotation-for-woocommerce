@@ -51,11 +51,11 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
 			<h3 className='pqfw-tab-title'>{__( 'Button Settings' )}</h3>
 			<div className="inside">
-				<p className="help">{__( 'For better experience choose your own button settings and styles that will ensure the design compatibility with your active theme, as well as functionality' )}</p>
+				<p className="help">{__('Customize the appearance and behavior of quotation buttons to match your theme design.', 'quotify')}</p>
 
 				<table className="form-table">
 					<tr>
-						<th>{__('Show Button')}</th>
+					<th>{__('Shop Page Button')}</th>
 						<td>
 							<FormToggle
 								checked={ settings?.pqfw_shop_page_button }
@@ -64,11 +64,11 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 									pqfw_shop_page_button: e.target.checked
 								})}
 							/>
-							<p className="description">{__('Show Add To Quotation button on category/shop/loop page', 'quotify')}</p>
+							<p className="description">{__('Display quotation buttons on product listing pages (shop, category, and archive pages).', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>
-						<th>{__('Show Button')}</th>
+					<th>{__('Product Page Button')}</th>
 						<td>
 							<FormToggle
 								checked={ settings?.pqfw_product_page_button }
@@ -77,7 +77,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 									pqfw_product_page_button: e.target.checked
 								})}
 							/>
-							<p className="description">{__( 'Show Add To Quotation button on product single page' )}</p>
+							<p className="description">{__('Display quotation buttons on individual product detail pages.', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>
@@ -92,7 +92,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 									button_text: e.target.value
 								})}
 							/>
-							<p className="description">{__('Change Add To Quote button text')}</p>
+							<p className="description">{__('Customize the text displayed on quotation buttons throughout your store.', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>
@@ -107,7 +107,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 									cart_button_text: e.target.value
 								})}
 							/>
-							<p className="description">{__('Change View Quotation Cart button text')}</p>
+							<p className="description">{__('Customize the text shown on buttons that link to the quotation cart page.', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>
@@ -140,7 +140,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 									button_position: position
 								})}
 							/>
-							<p className="description">{__( 'Select Add To Quote button position in the loop.' )}</p>
+							<p className="description">{__('Choose where the quotation button appears on product listing pages relative to other product elements.', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>
@@ -169,7 +169,7 @@ const ButtonSettings = ({ settings, setSettings, saveSettings }) => {
 									button_position_single_product: position
 								})}
 							/>
-							<p className="description">{__( 'Select Add To Quote button position in the single product page.' )}</p>
+							<p className="description">{__('Choose where the quotation button appears on individual product pages relative to the add to cart button.', 'quotify')}</p>
 						</td>
 					</tr>
 					<tr>

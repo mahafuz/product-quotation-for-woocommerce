@@ -24,7 +24,7 @@ const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 	<div id="pqfw-settings-button" className='pqfw-settings-tab-content pqfw-settings-tab-content-active'>
 		<h3 className='pqfw-tab-title'>{__( 'General Settings' )}</h3>
 		<div className="inside">
-			<p className="help">{__('Customize general settings for better experience that will ensure the ease of use as you like.')}</p>
+			<p className="help">{__('Configure global quotation settings to customize how your customers interact with the quotation system.')}</p>
 			<table className="form-table">
 				<tr>
 					<th>{__('Hide "Add to cart" Button')}</th>
@@ -36,7 +36,7 @@ const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 								hide_add_to_cart_button: e.target.checked
 							})}
 						/>
-						<p className="description">{__('Hide the "Add to cart" buttons on all products.')}</p>
+						<p className="description">{__('When enabled, replaces WooCommerce "Add to cart" buttons with quotation buttons on all product pages.')}</p>
 					</td>
 				</tr>
 
@@ -50,12 +50,12 @@ const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 								hide_product_prices: e.target.checked
 							})}
 						/>
-						<p className="description">{('Hide product prices')}</p>
+						<p className="description">{__('Conceal product prices throughout your store to encourage customers to request quotations.', 'quotify')}</p>
 					</td>
 				</tr>
 
 				<tr>
-					<th>{__('"Quotation cart" page')}</th>
+					<th>{__('Quotation Cart Page')}</th>
 					<td>
 						<SelectControl
 							label={__('Quotation Cart Page')}
@@ -67,7 +67,7 @@ const GeneralSettings = ({ settings, setSettings, saveSettings }) => {
 								quotation_cart_page: id
 							})}
 						/>
-						<p className="description">{__('Choose the quote cart page from the list where users will see the list of added products to the quote. Visit current')} <a target="_blank" href={cart}><strong>{__('Quotation Cart Page')}</strong></a></p>
+						<p className="description">{__('Select the page where customers can view products added to their quotation. Currently viewing: ')} <a target="_blank" href={cart}><strong>{__('Quotation Cart Page', 'quotify')}</strong></a></p>
 					</td>
 				</tr>
 
