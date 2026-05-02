@@ -53,14 +53,8 @@ class Frontend {
 			// Shop/archive pages.
 			add_filter( 'woocommerce_loop_add_to_cart_link', [ $this, 'hideAddToCartButton' ], 10, 2 );
 
-			// Single product pages - remove add to cart form actions.
-			remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
-			remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
-			remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
-			remove_action( 'woocommerce_external_add_to_cart', 'woocommerce_external_add_to_cart', 30 );
-
 			// Add CSS fallback for theme compatibility.
-			add_action( 'wp_head', [ $this, 'addHideCartButtonCSS' ] );
+			add_action( 'wp_head', [ $this, 'addHideCartButtonCSS' ], 10 );
 
 			// Add body class for targeting.
 			add_filter( 'body_class', [ $this, 'addHideCartBodyClass' ] );
@@ -82,7 +76,7 @@ class Frontend {
 			add_filter( 'woocommerce_get_price_suffix', [ $this, 'hideProductPrices' ], 10, 2 );
 
 			// Add CSS fallback for theme compatibility.
-			add_action( 'wp_head', [ $this, 'addHidePriceCSS' ] );
+			add_action( 'wp_head', [ $this, 'addHidePriceCSS' ], 20 );
 
 			// Add JavaScript fallback for dynamic content.
 			add_action( 'wp_footer', [ $this, 'addHidePriceJS' ] );
@@ -100,11 +94,11 @@ class Frontend {
 	 *
 	 * @since 1.2.6
 	 *
-	 * @param string     $html    Link.
-	 * @param WC_Product $product Product.
+	 * @param string $html    Link.
+	 * @param Object $product Product.
 	 * @return mixed|string
 	 */
-	public function hideAddToCartButton( $html, $product ) {
+	public function hideAddToCartButton( $html, $product ) {//phpcs:ignore
 		// Hide for all product types - no restrictions.
 		return '';
 	}
@@ -154,8 +148,7 @@ class Frontend {
 			.quotify-hide-cart .single_add_to_cart_button,
 			.quotify-hide-cart .add_to_cart_button,
 			.quotify-hide-cart button[type="submit"][name="add-to-cart"],
-			.quotify-hide-cart .ajax_add_to_cart,
-			.quotify-hide-cart .single_variation_wrap .variations_button:disabled {
+			.quotify-hide-cart.product .quantity {
 				display: none !important;
 			}
 
@@ -209,20 +202,6 @@ class Frontend {
 			.quotify-hide-prices .widget .amount,
 			.quotify-hide-prices .widget .woocommerce-Price-amount {
 				display: none !important;
-			}
-
-			/* IMPORTANT: Explicitly preserve all buttons when prices are hidden. */
-			.quotify-hide-prices .single_add_to_cart_button,
-			.quotify-hide-prices .add_to_cart_button,
-			.quotify-hide-prices button[type="submit"][name="add-to-cart"],
-			.quotify-hide-prices .ajax_add_to_cart,
-			.quotify-hide-prices .pqfw-button,
-			.quotify-hide-prices .pqfw-add-to-quotation,
-			.quotify-hide-prices .pqfw-add-to-quotation-single,
-			.quotify-hide-prices .wp-block-button__link.wp-block-button__add-to-cart,
-			.quotify-hide-prices .wc-block-components-add-to-cart-button {
-				display: inline-block !important;
-				visibility: visible !important;
 			}
 		</style>
 		<?php
