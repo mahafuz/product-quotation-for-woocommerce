@@ -7,7 +7,7 @@ package.json
 package-lock.json
 phpcs.xml
 node_modules
-src
+/src/
 .distignore
 appsero.json
 .github
@@ -15,7 +15,7 @@ appsero.json
 .prettierrc.js
 webpack.config.js
 .git
-Docs/
-bin/
+/Docs/
+/bin/
 .DS_Store
-vendor
+/vendor
