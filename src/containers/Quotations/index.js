@@ -419,12 +419,6 @@ const QuotationsList = () => {
 							value={quotations.stats?.trash || 0}
 							onClick={() => handleStatusChange('trash')}
 						/>
-						<StatCard
-							variant="purple"
-							icon={statsIcons.value}
-							label={__('Total Value', 'quotify')}
-							value={formatValue(quotations.stats?.value || 0)}
-						/>
 					</div>
 
 					{/* Main Content */}
