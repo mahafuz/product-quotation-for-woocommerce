@@ -53,40 +53,33 @@ class Hooks {
 	 * @return void
 	 */
 	public function before_quotation_submit() {
-		// Rate limiter prevents the same IP from submitting the form too frequently.
 		$settings = quotify()->settings()->get();
 
 		if ( empty( $settings['pqfw_rate_limit_enabled'] ) ) {
-			return; // nothing to do if limiter is disabled.
+			return;
 		}
 
 		$max    = absint( $settings['pqfw_rate_limit_count'] );
-		$period = absint( $settings['pqfw_rate_limit_period'] ); // stored in minutes.
+		$period = absint( $settings['pqfw_rate_limit_period'] );
 
 		if ( $max < 1 || $period < 1 ) {
-			return; // invalid configuration, allow submission.
+			return;
 		}
 
 		$ip = Helper::get_client_ip();
 		if ( ! $ip ) {
-			return; // unable to determine IP, skip limiter.
+			return;
 		}
 
-		// Build transient key with plugin-specific prefix to avoid collisions.
 		$transient_key = 'quotify_rate_limit_' . md5( $ip );
-		$now           = time();
 		$expires       = $period * MINUTE_IN_SECONDS;
+		$now           = time();
 
-		// Use WordPress object cache for atomic increment to prevent race conditions.
-		// This is thread-safe and prevents concurrent requests from bypassing the limit.
-		$count = wp_cache_get( $transient_key );
+		$data = get_transient( $transient_key );
 
-		if ( false === $count ) {
-			// First request in the window.
-			wp_cache_set( $transient_key, 1, '', $expires );
-			// Also store in transient for persistence across cache clears.
+		if ( false === $data ) {
 			set_transient(
-				$transient_key . '_data',
+				$transient_key,
 				[
 					'count' => 1,
 					'start' => $now,
@@ -96,13 +89,12 @@ class Hooks {
 			return;
 		}
 
-		// Check if the window has expired.
-		$data = get_transient( $transient_key . '_data' );
-		if ( false === $data || ( $now - $data['start'] ) > $expires ) {
-			// Window expired, reset counter.
-			wp_cache_set( $transient_key, 1, '', $expires );
+		$window_start = $data['start'];
+		$window_end   = $window_start + $expires;
+
+		if ( $now >= $window_end ) {
 			set_transient(
-				$transient_key . '_data',
+				$transient_key,
 				[
 					'count' => 1,
 					'start' => $now,
@@ -112,25 +104,25 @@ class Hooks {
 			return;
 		}
 
-		// Atomically increment counter (thread-safe).
-		$new_count = wp_cache_incr( $transient_key );
+		$new_count = $data['count'] + 1;
 
-		// Update persistent data.
-		$data['count'] = $new_count;
-		set_transient( $transient_key . '_data', $data, $expires );
+		set_transient(
+			$transient_key,
+			[
+				'count' => $new_count,
+				'start' => $window_start,
+			],
+			$expires
+		);
 
 		if ( $new_count > $max ) {
-			// Calculate retry-after time in seconds.
-			$retry_after = $expires - ( $now - $data['start'] );
+			$retry_after = $window_end - $now;
 			$retry_minutes = ceil( $retry_after / MINUTE_IN_SECONDS );
 
-			// Log this rate limit hit for admin visibility.
 			$this->log_rate_limit_hit( $ip, $new_count, $retry_after );
 
-			// Send Retry-After header for proper HTTP semantics.
 			header( sprintf( 'Retry-After: %d', $retry_after ) );
 
-			// Send error with helpful message.
 			$message = sprintf(
 				/* translators: %s: number of minutes to wait */
 				__( 'Too many quotation requests. Please try again in %s minutes.', 'quotify' ),
