@@ -169,6 +169,10 @@ class Cart {
 
 		$variationDetail = $this->cart->sanitize_variation_detail( $variationDetail );
 
+		$variationDetail = array_filter( $variationDetail, function ( $value ) {
+			return '' !== $value && null !== $value;
+		} );
+
 		if ( empty( $variationDetail ) ) {
 			wp_send_json_error( __( 'Please complete all variation options.', 'quotify' ) );
 		}
@@ -190,6 +194,10 @@ class Cart {
 				foreach ( $available_variation['attributes'] as $attr_name => $attr_value ) {
 					$taxonomy   = str_replace( 'attribute_', '', $attr_name );
 					$attr_label = wc_attribute_label( $taxonomy );
+
+					if ( '' === $attr_value ) {
+						continue;
+					}
 
 					if ( ! isset( $variationDetail[ $attr_name ] ) ) {
 						$missing_attributes[]       = $attr_label;
