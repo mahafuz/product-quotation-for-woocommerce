@@ -276,7 +276,7 @@ final class Quotify {
 	 * @return \Quotify\Library\Session
 	 */
 	public function sessions() {
-		return \Quotify\Library\Session::init();
+		return new \Quotify\Library\Session();
 	}
 
 	/**

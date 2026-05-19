@@ -25,37 +25,6 @@ class Session {
 	 */
 	const OPTION_GROUP = 'pqfw_products_quotations_list';
 
-	/**
-	 * Class instance.
-	 *
-	 * @var \Quotify\Library\Session
-	 */
-	private static $instance;
-
-	/**
-	 * Runs before load the plugin.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return \Quotify\Library\Session
-	 */
-	public static function init() {
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * Class constructor.
-	 *
-	 * @return void
-	 */
-	private function __construct() {
-	}
-
-
 
 	/**
 	 * Set data to plugin group session.
@@ -69,10 +38,7 @@ class Session {
 			return false;
 		}
 
-		$existing = WC()->session->get( self::OPTION_GROUP, [] );
-		$new_data = array_merge( $existing, $payload );
-
-		WC()->session->set( self::OPTION_GROUP, $new_data );
+		WC()->session->set( self::OPTION_GROUP, $payload );
 		return true;
 	}
 

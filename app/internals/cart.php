@@ -21,9 +21,23 @@ class Cart {
 	/**
 	 * Class instance.
 	 *
-	 * @var \Quotify\Internals\Cart
+	 * @var \Quotify\Internals\Cart|null
 	 */
 	private static $instance = null;
+
+	/**
+	 * The cart session.
+	 *
+	 * @var \Quotify\Library\Session
+	 */
+	private $session;
+
+	/**
+	 * Cart products array.
+	 *
+	 * @var array
+	 */
+	private $products = [];
 
 	/**
 	 * Runs before load the plugin.
@@ -41,34 +55,206 @@ class Cart {
 	}
 
 	/**
-	 * Class Constructor
+	 * Checks if the current page is quotify cart page.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return bool True if on cart page, false otherwise.
+	 */
+	public function is_cart_page() {
+		$cart_page_id = get_option( 'pqfw_quotations_cart', 0 );
+
+		if ( empty( $cart_page_id ) ) {
+			return false;
+		}
+
+		$current_page_id = get_the_ID();
+
+		if ( empty( $current_page_id ) && wp_doing_ajax() ) {
+			$current_page_id = $this->get_page_id_from_ajax();
+		}
+
+		if ( empty( $current_page_id ) ) {
+			return false;
+		}
+
+		return absint( $current_page_id ) === absint( $cart_page_id );
+	}
+
+	/**
+	 * Get page ID from AJAX request using multiple fallback methods.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return int|false Page ID or false if not found.
+	 */
+	private function get_page_id_from_ajax() {
+		$page_id = false;
+		$referer = isset( $_SERVER['HTTP_REFERER'] ) ? wp_unslash( $_SERVER['HTTP_REFERER'] ) : '';
+
+		if ( empty( $referer ) || $this->is_external_referer( $referer ) ) {
+			return false;
+		}
+
+		$page_id = url_to_postid( $referer );
+
+		if ( ! $page_id ) {
+			$page_id = $this->extract_page_id_from_url( $referer );
+		}
+
+		if ( ! $page_id ) {
+			$page_id = $this->get_page_id_by_path( $referer );
+		}
+
+		return $page_id ? absint( $page_id ) : false;
+	}
+
+	/**
+	 * Check if referer is from external site.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param string $referer The referer URL.
+	 * @return bool True if external, false if internal.
+	 */
+	private function is_external_referer( $referer ) {
+		$home_url = home_url();
+		$referer_host = wp_parse_url( $referer, PHP_URL_HOST );
+		$home_host = wp_parse_url( $home_url, PHP_URL_HOST );
+
+		// Compare hosts (case-insensitive).
+		return strtolower( $referer_host ) !== strtolower( $home_host );
+	}
+
+	/**
+	 * Extract page ID from URL parameters.
+	 *
+	 * Handles:
+	 * - ?page_id=123
+	 * - ?p=123
+	 * - Custom query vars
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param string $url The URL to parse.
+	 * @return int|false Page ID or false if not found.
+	 */
+	private function extract_page_id_from_url( $url ) {
+		$parsed_url = wp_parse_url( $url );
+
+		if ( ! isset( $parsed_url['query'] ) ) {
+			return false;
+		}
+
+		parse_str( $parsed_url['query'], $query_params );
+
+		// Check for standard WordPress page ID parameters.
+		if ( isset( $query_params['page_id'] ) ) {
+			return absint( $query_params['page_id'] );
+		}
+
+		if ( isset( $query_params['p'] ) ) {
+			return absint( $query_params['p'] );
+		}
+
+		if ( isset( $query_params['post_id'] ) ) {
+			return absint( $query_params['post_id'] );
+		}
+
+		// Check for custom post type query vars.
+		if ( isset( $query_params['product'] ) ) {
+			$product_slug = sanitize_title_for_query( $query_params['product'] );
+			$product_page = get_page_by_path( $product_slug, OBJECT, 'product' );
+
+			if ( $product_page ) {
+				return $product_page->ID;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get page ID by comparing against known cart page path.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param string $url The URL to check.
+	 * @return int|false Page ID or false if not found.
+	 */
+	private function get_page_id_by_path( $url ) {
+		$cart_page_id = get_option( 'pqfw_quotations_cart', 0 );
+
+		if ( empty( $cart_page_id ) ) {
+			return false;
+		}
+
+		$cart_page_url = get_permalink( $cart_page_id );
+
+		if ( ! $cart_page_url ) {
+			return false;
+		}
+
+		// Extract path from both URLs for comparison.
+		$referer_path = wp_parse_url( $url, PHP_URL_PATH );
+		$cart_path = wp_parse_url( $cart_page_url, PHP_URL_PATH );
+
+		// Direct path match.
+		if ( $referer_path === $cart_path ) {
+			return $cart_page_id;
+		}
+
+		// Try with trailing slash normalization.
+		if ( untrailingslashit( $referer_path ) === untrailingslashit( $cart_path ) ) {
+			return $cart_page_id;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Class constructor.
+	 */
+	public function __construct() {
+		$this->session = new \Quotify\Library\Session();
+
+		if ( isset( $this->session ) ) {
+			$this->products = $this->session->get();
+		}
+	}
+
+	/**
+	 * Retrieves a product object.
 	 *
 	 * @param int $id The product id.
 	 * @since 2.5.0
+	 * @return \WC_Product|null Product object or null if not found.
 	 */
 	private function product( $id ) {
-		return wc_get_product( $id );
+		$product = wc_get_product( $id );
+
+		return $product ? $product : null;
 	}
 
 	/**
-	 * Returns boolean if product present in cart
+	 * Checks if product exists in cart.
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  string $hash The product has.
-	 * @return boolean      Product existence.
+	 * @param string $hash The product hash.
+	 * @return bool Product existence.
 	 */
 	public function has( $hash ) {
-		return quotify()->sessions()->has( $hash );
+		return isset( $this->products[ $hash ] );
 	}
 
 	/**
-	 * Returns boolean if product present in cart
+	 * Sanitizes variation detail array.
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  array $detail The variation detail.
-	 * @return mixed         Sanitized details or false.
+	 * @param array $detail The variation detail.
+	 * @return array|false Sanitized details or false.
 	 */
 	public function sanitize_variation_detail( $detail ) {
 		if ( is_array( $detail ) && count( $detail ) > 0 ) {
@@ -88,23 +274,23 @@ class Cart {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  integer $id The variation detail.
-	 * @return mixed       Sanitized details or false.
+	 * @param int $id The product ID.
+	 * @return bool True if variable product.
 	 */
 	private function is_variable( $id ) {
 		$product = $this->product( $id );
 
-		return $product->is_type( 'variable' );
+		return $product && $product->is_type( 'variable' );
 	}
 
 	/**
-	 * Generates the hash.
+	 * Generates the hash for a product.
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  integer $id               The variation detail.
-	 * @param  array   $variationDetails The variation detail.
-	 * @return string                    Generated hash.
+	 * @param int   $id               The product ID.
+	 * @param array $variationDetails The variation detail.
+	 * @return string Generated hash.
 	 */
 	private function generate_hash( $id, $variationDetails = '' ) {
 		$value = '';
@@ -115,9 +301,22 @@ class Cart {
 			}
 		}
 
-		$hash = md5( $id . $value );
+		return md5( $id . $value );
+	}
 
-		return $hash;
+	/**
+	 * Saves current cart state to session.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return bool True if saved successfully.
+	 */
+	private function save_to_session() {
+		if ( isset( $this->session ) ) {
+			return $this->session->set( $this->products );
+		}
+
+		return false;
 	}
 
 	/**
@@ -125,59 +324,66 @@ class Cart {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  string $hash The product identifier hash.
-	 * @return bool
+	 * @param string $hash The product identifier hash.
+	 * @return array|false Removed product or false if not found.
 	 */
 	public function remove_product( $hash ) {
-		$products = $this->get_products();
-
-		if ( is_array( $products ) && count( $products ) > 0 ) {
-			unset( $products[ $hash ] );
+		if ( ! $this->has( $hash ) ) {
+			return false;
 		}
 
-		return $this->add_products( $products );
+		$removed_item = $this->products[ $hash ];
+		unset( $this->products[ $hash ] );
+
+		$this->save_to_session();
+
+		return $removed_item;
 	}
 
 	/**
-	 * If $new_quantity is false will increment the existing quantity
-	 * if it is not false and is a number then will it will update existing quantity
-	 * if new quantity is zero it will remove the product from list
+	 * Updates product quantity in cart.
 	 *
-	 * @param string $hash     Product identifier hash.
-	 * @param mixed  $quantity New product quantity.
-	 */
-	private function update_quantity( $hash, $quantity = false ) {
-		$products = $this->get_products();
-
-		if ( 0 === $quantity ) {
-			$this->remove_product( $hash );
-			return;
-		}
-
-		if ( is_array( $products ) && count( $products ) > 0 ) {
-			if ( $quantity ) {
-				$products[ $hash ]['quantity'] = $products[ $hash ]['quantity'] + $quantity;
-			} else {
-				$products[ $hash ]['quantity'] = $products[ $hash ]['quantity'] + 1;
-			}
-		}
-
-		$this->add_products( $products );
-	}
-
-	/**
-	 * Adds products to the cart.
+	 * If $new_quantity is false will increment the existing quantity by 1.
+	 * If it is a number then will add to existing quantity.
+	 * If new quantity after update is zero it will remove the product from list.
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  array $products The products for add to the cart.
-	 * @return bool
+	 * @param string   $hash     Product identifier hash.
+	 * @param int|bool $quantity New product quantity to add (false to increment by 1).
+	 * @return bool True if updated successfully, false otherwise.
+	 */
+	private function update_quantity( $hash, $quantity = false ) {
+		if ( ! $this->has( $hash ) ) {
+			return false;
+		}
+
+		$new_quantity = $this->products[ $hash ]['quantity'] + ( false === $quantity ? 1 : (int) $quantity );
+
+		if ( 0 >= $new_quantity ) {
+			$this->remove_product( $hash );
+			return true;
+		}
+
+		$this->products[ $hash ]['quantity'] = $new_quantity;
+		$this->save_to_session();
+
+		return true;
+	}
+
+	/**
+	 * Sets products array and sanitizes.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param array $products The products to add to the cart.
+	 * @return array Sanitized products.
 	 */
 	public function add_products( $products ) {
-		$products = $this->sanitize_products( $products );
-		$products = quotify()->sessions()->set( $products );
+		$this->products = $this->sanitize_products( $products );
+		$this->save_to_session();
 
-		return $products;
+		return $this->products;
 	}
 
 	/**
@@ -185,44 +391,53 @@ class Cart {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  array $products The products for add to the cart.
-	 * @return array           Sanitized products.
+	 * @param array $products The products to add to the cart.
+	 * @return array Sanitized products.
 	 */
 	private function sanitize_products( $products ) {
-		if ( is_array( $products ) ) {
-			foreach ( $products as $key => $product ) {
-				$products[ $key ]['id'] = (int) $products[ $key ]['id'];
-				$products[ $key ]['variation'] = (int) $products[ $key ]['variation'];
-				$products[ $key ]['variation_detail'] = $this->sanitize_variation_detail( $products[ $key ]['variation_detail'] );
+		if ( ! is_array( $products ) ) {
+			return [];
+		}
 
-				$products[ $key ]['quantity'] = (int) $products[ $key ]['quantity'];
-				$products[ $key ]['message']  = sanitize_text_field( $products[ $key ]['message'] );
+		foreach ( $products as $key => $product ) {
+			$products[ $key ]['id']               = (int) $products[ $key ]['id'];
+			$products[ $key ]['variation']        = isset( $products[ $key ]['variation'] ) ? (int) $products[ $key ]['variation'] : 0;
+			$products[ $key ]['variation_detail'] = $this->sanitize_variation_detail( $products[ $key ]['variation_detail'] );
+			$products[ $key ]['quantity']         = (int) $products[ $key ]['quantity'];
+			$products[ $key ]['message']          = isset( $products[ $key ]['message'] ) ? sanitize_text_field( $products[ $key ]['message'] ) : '';
+			$products[ $key ]['price']            = isset( $products[ $key ]['price'] ) ? floatval( $products[ $key ]['price'] ) : 0.0;
 
-				if ( $products[ $key ]['quantity'] <= 0 ) {
-					unset( $products[ $key ] );
-				}
+			if ( $products[ $key ]['quantity'] <= 0 ) {
+				unset( $products[ $key ] );
 			}
 		}
+
 		return $products;
 	}
 
 	/**
-	 * Add product to the cart.
+	 * Adds product to the cart.
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  integer $id               The product id.
-	 * @param  integer $quantity         Product quantity.
-	 * @param  integer $variation        Product variation.
-	 * @param  integer $variation_detail Product variation details.
-	 * @param  integer $price            Product price.
-	 * @return bool
+	 * @param int      $id               The product id.
+	 * @param int      $quantity         Product quantity.
+	 * @param int|null $variation        Product variation ID (null for simple products).
+	 * @param array    $variation_detail Product variation details.
+	 * @param float    $price            Product price.
+	 * @param string   $message          Optional customer message.
+	 * @return array|false Updated cart or false on validation failure.
 	 */
-	public function add_product( $id, $quantity, $variation, $variation_detail, $price = 0 ) {
-		$products = $this->get_products();
-		$message  = '';
+	public function add_product( $id, $quantity, $variation = null, $variation_detail = [], $price = 0.0, $message = '' ) {
+		// Validate product exists.
+		$product = $this->product( $id );
 
-		if ( $this->is_variable( $id ) && false === $variation ) {
+		if ( ! $product ) {
+			return false;
+		}
+
+		// For variable products, variation must be provided.
+		if ( $this->is_variable( $id ) && null === $variation ) {
 			return false;
 		}
 
@@ -230,179 +445,175 @@ class Cart {
 			'id'               => (int) $id,
 			'quantity'         => (int) $quantity,
 			'variation'        => (int) $variation,
-			'price'            => $price,
+			'price'            => floatval( $price ),
 			'variation_detail' => $variation_detail,
-			'message'          => wp_strip_all_tags( $message ),
+			'message'          => sanitize_text_field( $message ),
 		];
 
 		$hash = $this->generate_hash( $new_product['id'], $variation_detail );
 
 		if ( $this->has( $hash ) ) {
-			/**
-			 * This will increment it by one,
-			 * as we are not entering the new quantity variable
-			 */
+			// Update existing product quantity and price.
 			$this->update_quantity( $hash, $new_product['quantity'] );
 			$this->update_price( $hash, $new_product['price'] );
-			return;
-		} else {
-			$products[ $hash ] = $new_product;
+			return $this->products;
 		}
 
-		return $this->add_products( $products );
+		// Add new product.
+		$this->products[ $hash ] = $new_product;
+		$this->save_to_session();
+
+		return $this->products;
 	}
 
 	/**
-	 * Update price for the product.
+	 * Update price for the product in cart.
 	 *
 	 * @since 2.0.1
+	 *
 	 * @param string $hash Product identifier hash.
-	 * @param float  $price Product price.
+	 * @param float  $price Product price to add.
+	 * @return bool True if updated, false on failure.
 	 */
 	public function update_price( $hash, $price ) {
-		$products = $this->get_products();
-
-		if ( is_array( $products ) && count( $products ) > 0 ) {
-			if ( $price ) {
-				$products[ $hash ]['price'] = $products[ $hash ]['price'] + $price;
-			} else {
-				$products[ $hash ]['price'] = $products[ $hash ]['price'] + 1;
-			}
+		if ( ! $this->has( $hash ) ) {
+			return false;
 		}
 
-		$this->add_products( $products );
+		$this->products[ $hash ]['price'] += floatval( $price );
+		$this->save_to_session();
+
+		return true;
 	}
 
 	/**
 	 * Retrieves products list from the cart.
 	 *
-	 * @param bool $only_ids The product ids.
-	 *
 	 * @since  1.2.0
 	 * @return array The product collection.
 	 */
-	public function get_products( $only_ids = false ) {
-		$products = quotify()->sessions()->get();
-
-		if ( $only_ids && ! empty( $products ) && is_array( $products ) ) {
-			$product_ids = [];
-
-			foreach ( $products as $product ) {
-				$product_ids[] = $product['id'];
-			}
-
-			return $product_ids;
-		}
-
-		return $products;
+	public function get_products() {
+		return (array) $this->products;
 	}
 
 	/**
 	 * Purge the session cart.
 	 *
 	 * @since 1.2.0
+	 *
+	 * @return array Empty products array.
 	 */
 	public function purge() {
-		return quotify()->sessions()->reset();
+		$this->products = [];
+		$this->save_to_session();
+
+		return $this->products;
 	}
 
 	/**
 	 * Builds the variation tree based on the details.
 	 *
 	 * @since  1.2.0
-	 * @param  string $details The variation details.
-	 * @return void
+	 *
+	 * @param string $details The variation details (comma-separated pairs).
+	 * @return string Generated HTML.
 	 */
 	public function build_variations( $details ) {
+		$html = '';
+
+		if ( empty( $details ) ) {
+			return $html;
+		}
+
 		$attributesGroup = explode( ',', $details );
+
 		if ( is_array( $attributesGroup ) && count( $attributesGroup ) > 0 ) {
 			foreach ( $attributesGroup as $attribute ) {
 				if ( '' !== $attribute ) {
 					$pair = explode( '|', $attribute );
-					echo isset( $pair[0] ) ? '<strong>' . esc_html( $pair[0] ) . '</strong> : ' : '';
-					echo isset( $pair[1] ) ? '<span>' . esc_html( $pair[0] ) . '</span><br>' : '';
+					$html .= isset( $pair[0] ) ? '<strong>' . esc_html( $pair[0] ) . '</strong> : ' : '';
+					$html .= isset( $pair[1] ) ? '<span>' . esc_html( $pair[1] ) . '</span><br>' : '';
 				}
 			}
 		}
+
+		return $html;
 	}
 
 	/**
 	 * Generates cart table html.
 	 *
-	 * @since 1.0.0
+	 * @param array $products The products.
 	 *
-	 * @return void|html            The generated html rows.
+	 * @since 1.0.0
 	 */
-	public function render() {
-		$products = quotify()->cart()->get_products();
-
+	public function render( $products ) {
 		if ( ! is_array( $products ) || count( $products ) < 1 ) {
 			$empty_message = quotify()->settings()->get( 'empty_cart_message' );
+
 			if ( empty( $empty_message ) ) {
 				$empty_message = __( 'Your quotation cart is currently empty.', 'quotify' );
 			}
 
 			echo '<tr>';
-				echo '<td colspan="6" align="center">';
-					echo esc_html( $empty_message );
-				echo '</td>';
+			echo '<td colspan="6" align="center">';
+			echo esc_html( $empty_message );
+			echo '</td>';
 			echo '</tr>';
-		}
+		} else {
+			foreach ( $products as $key => $product ) {
+				$productOBJ = $this->product( $product['id'] );
 
-		foreach ( $products as $key => $product ) {
-			$productOBJ = wc_get_product( $product['id'] );
-			$permalink  = $productOBJ->get_permalink();
-			?>
-			<tr class="woocommerce-cart-form__cart-item" id="<?php echo esc_attr( $key ); ?>">
-				<td class="product-remove">
-					<a href="javascript:void(0)" class="remove pqfw-remove-product"  data-id="<?php echo esc_attr( $key ); ?>">&times;</a>
-					<input type="hidden" name="products[<?php echo esc_attr( $key ); ?>][id]" value="<?php echo absint( $product['id'] ); ?>"/>
-				</td>
-				<td class="product-thumbnail pqfw-thumbnail">
-					<?php
-						$thumbnail = $this->get_thumbnail( $product['id'], $product['variation'] );
-						printf( '<a href="%s">%s</a>', esc_url( $permalink ), wp_kses_post( $thumbnail ) );
-					?>
-				</td>
-				<td class="product-name" data-title="<?php esc_html_e( 'Product', 'woocommerce' ); ?>">
-					<?php
-						printf( '<a href="%s">%s</a>', esc_url( $permalink ), esc_attr( $productOBJ->get_name() ) );
-						$this->get_variations( $productOBJ, $product['variation_detail'], true );
-					?>
-				</td>
-				<td class="product-price" data-title="<?php esc_html_e( 'Price', 'woocommerce' ); ?>">
-					<?php echo wp_kses_post( wc_price( $product['price'] ) ); ?>
-				</td>
-				<td class="product-quantity" data-title="<?php esc_html_e( 'Quantity', 'woocommerce' ); ?>">
-					<div class="quantity">
-						<input
-							type="number"
-							class="input-text qty text pqfw-quantity"
-							value="<?php echo esc_attr( $product['quantity'] ); ?>"
-							name="products[<?php echo esc_attr( $key ); ?>][quantity]"
-							data-single="<?php echo esc_attr( $this->get_simple_variations_price( $productOBJ, $product['variation'] ) ); ?>"
-							data-hash="<?php echo esc_attr( $key ); ?>"
-						/>
-						<input
-							type="hidden"
-							value="<?php echo ! empty( $product['variation'] ) && is_array( $product['variation'] ) ? wp_json_encode( $product['variation'] ) : ''; ?>"
-							data-hash="<?php echo esc_attr( $key ); ?>"
-							name="products[<?php echo esc_attr( $key ); ?>][variation]"
-						/>
-					</div>
-				</td>
-				<td class="product-message" data-title="<?php esc_html_e( 'Message', 'woocommerce' ); ?>">
-					<div class="pqfw-message">
-						<textarea
-							name="message"
-							class="input-text"
-							name="products[<?php echo esc_attr( $key ); ?>][message]"
-							data-hash="<?php echo esc_attr( $key ); ?>"
-						><?php echo esc_html( $product['message'] ); ?></textarea>
-					</div>
-				</td>
-			</tr>
-			<?php
+				if ( ! $productOBJ ) {
+					continue;
+				}
+
+				$permalink = $productOBJ->get_permalink();
+				?>
+				<tr class="woocommerce-cart-form__cart-item" id="<?php echo esc_attr( $key ); ?>">
+					<td class="product-remove">
+						<a href="javascript:void(0)" class="remove pqfw-remove-product"
+							data-id="<?php echo esc_attr( $key ); ?>">&times;</a>
+						<input type="hidden" name="products[<?php echo esc_attr( $key ); ?>][id]"
+							value="<?php echo absint( $product['id'] ); ?>" />
+					</td>
+					<td class="product-thumbnail pqfw-thumbnail">
+						<?php
+							$thumbnail = $this->get_thumbnail( $product['id'], $product['variation'] );
+							printf( '<a href="%s">%s</a>', esc_url( $permalink ), wp_kses_post( $thumbnail ) );
+						?>
+					</td>
+					<td class="product-name" data-title="<?php esc_html_e( 'Product', 'woocommerce' ); ?>">
+						<?php
+							printf( '<a href="%s">%s</a>', esc_url( $permalink ), esc_html( $productOBJ->get_name() ) );
+							$this->get_variations( $productOBJ, $product['variation_detail'], true );
+						?>
+					</td>
+					<td class="product-price" data-title="<?php esc_html_e( 'Price', 'woocommerce' ); ?>">
+						<?php echo wp_kses_post( wc_price( $product['price'] ) ); ?>
+					</td>
+					<td class="product-quantity" data-title="<?php esc_html_e( 'Quantity', 'woocommerce' ); ?>">
+						<div class="quantity">
+							<input type="number" class="input-text qty text pqfw-quantity"
+								value="<?php echo esc_attr( $product['quantity'] ); ?>"
+								name="products[<?php echo esc_attr( $key ); ?>][quantity]"
+								data-single="<?php echo esc_attr( $this->get_simple_variations_price( $productOBJ, $product['variation'] ) ); ?>"
+								data-hash="<?php echo esc_attr( $key ); ?>" />
+							<input type="hidden"
+								value="<?php echo ! empty( $product['variation'] ) && is_array( $product['variation'] ) ? esc_attr( wp_json_encode( $product['variation'] ) ) : ''; ?>"
+								data-hash="<?php echo esc_attr( $key ); ?>"
+								name="products[<?php echo esc_attr( $key ); ?>][variation]" />
+						</div>
+					</td>
+					<td class="product-message" data-title="<?php esc_html_e( 'Message', 'woocommerce' ); ?>">
+						<div class="pqfw-message">
+							<textarea class="input-text" name="products[<?php echo esc_attr( $key ); ?>][message]"
+								data-hash="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $product['message'] ); ?></textarea>
+						</div>
+					</td>
+				</tr>
+				<?php
+			}
 		}
 	}
 
@@ -411,19 +622,24 @@ class Cart {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  integer $product_id   The product ID.
-	 * @param  integer $variation_id The product variation ID.
-	 * @return string|html           Generated image.
+	 * @param int      $product_id   The product ID.
+	 * @param int|null $variation_id The product variation ID.
+	 * @return string Generated image HTML.
 	 */
-	public function get_thumbnail( $product_id, $variation_id ) {
+	public function get_thumbnail( $product_id, $variation_id = null ) {
 		if ( empty( $variation_id ) ) {
-			$product = wc_get_product( $product_id );
+			$product = $this->product( $product_id );
 		} else {
 			$product = wc_get_product( $variation_id );
 		}
 
-			$image_id    = $product->get_image_id();
-			$placeholder = wc_placeholder_img_src( 'thumbnail' );
+		if ( ! $product ) {
+			$image_src = wc_placeholder_img_src( 'thumbnail' );
+			return sprintf( '<img src="%s" class="pqfw-product-thumbnail" alt="">', esc_url( $image_src ) );
+		}
+
+		$image_id    = $product->get_image_id();
+		$placeholder = wc_placeholder_img_src( 'thumbnail' );
 
 		if ( ! empty( $image_id ) ) {
 			$src       = wp_get_attachment_image_src( $image_id, 'thumbnail' );
@@ -432,7 +648,7 @@ class Cart {
 			$image_src = $placeholder;
 		}
 
-		return sprintf( '<img src="%s" class="pqfw-product-thumbnail">', esc_url( $image_src ) );
+		return sprintf( '<img src="%s" class="pqfw-product-thumbnail" alt="">', esc_url( $image_src ) );
 	}
 
 	/**
@@ -440,10 +656,10 @@ class Cart {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  object  $product           The product object.
-	 * @param  object  $variations_detail The product variation object.
-	 * @param  boolean $show              false.
-	 * @return string|html                Generated image.
+	 * @param \WC_Product $product           The product object.
+	 * @param array|null  $variations_detail The product variation details.
+	 * @param bool        $show              Whether to render the variations.
+	 * @return array|string|void Variations array or rendered HTML.
 	 */
 	public function get_variations( $product, $variations_detail, $show = false ) {
 		if ( null === $variations_detail || '' === $variations_detail || false === $variations_detail ) {
@@ -462,6 +678,7 @@ class Cart {
 				$variations_label[ $attr_label_name ] = $term_name;
 			}
 		}
+
 		if ( $show ) {
 			$this->render_variation( $variations_label );
 		} else {
@@ -474,49 +691,62 @@ class Cart {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  array $variations_label Variations labels.
-	 * @return void                    Generated image.
+	 * @param array $variations_label Variations labels.
+	 * @return void Renders HTML output.
 	 */
 	public function render_variation( $variations_label ) {
 		if ( is_array( $variations_label ) ) {
 			echo '<br>';
 			foreach ( $variations_label as $key => $value ) {
-				echo '<strong class="pqfw-attribute-label">' . esc_attr( $key ) . '</strong> : <span>' . esc_attr( $value ) . '</span><br>';
+				echo '<strong class="pqfw-attribute-label">' . esc_html( $key ) . '</strong> : <span>' . esc_html( $value ) . '</span><br>';
 			}
 		}
 	}
 
 	/**
-	 * Retrieves simple variation price
+	 * Retrieves simple variation price.
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  object  $product      Product object.
-	 * @param  integer $variation_id Variation ID.
-	 * @return integer               Variation price.
+	 * @param \WC_Product $product      Product object.
+	 * @param int|null    $variation_id Variation ID.
+	 * @return float|false Variation price or false on failure.
 	 */
-	public function get_simple_variations_price( $product, $variation_id ) {
+	public function get_simple_variations_price( $product, $variation_id = null ) {
+		if ( ! $product ) {
+			return false;
+		}
+
 		if ( $product->is_type( 'simple' ) ) {
 			return $this->get_price( $product );
-		} elseif ( $product->is_type( 'variable' ) ) {
-			$variation_product = new \WC_Product_Variation( $variation_id );
-			return $this->get_price( $variation_product );
+		} elseif ( $product->is_type( 'variable' ) && ! empty( $variation_id ) ) {
+			$variation_product = wc_get_product( $variation_id );
+
+			if ( $variation_product ) {
+				return $this->get_price( $variation_product );
+			}
 		}
+
+		return false;
 	}
 
 	/**
-	 * Retrieves simple variation price
+	 * Retrieves product price (sale or regular).
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param  object $product Product object.
-	 * @return integer         Sale price.
+	 * @param \WC_Product $product Product object.
+	 * @return float Product price.
 	 */
 	public function get_price( $product ) {
-		if ( $product->is_on_sale() ) {
-			return $product->get_sale_price();
+		if ( ! $product ) {
+			return 0.0;
 		}
 
-		return $product->get_regular_price();
+		if ( $product->is_on_sale() ) {
+			return floatval( $product->get_sale_price() );
+		}
+
+		return floatval( $product->get_regular_price() );
 	}
 }

@@ -9,29 +9,54 @@ import {makeRequest} from '@Utils/global';
 	 * @since 1.2.0
 	 */
 	var QuotifyCart = {
+		debounceTimer: null,
+
 		init: function () {
 			this.initialize();
 
-			$(document).on('click', '.pqfw-remove-product', function () {
+			$(document).on('click', '.pqfw-remove-product', function (e) {
+				e.preventDefault();
+
 				const $hash = $(this).data('id');
-				QuotifyCart.removeProduct($hash);
+				const $productElement = $(this).closest('.woocommerce-cart-form__cart-item');
+				const $productName = $productElement.find('.product-name a').text().trim();
+
+				// Show confirmation dialog.
+				const confirmed = confirm(
+					'Are you sure you want to remove "' + $productName + '" from your quotation cart?'
+				);
+
+				if (confirmed) {
+					QuotifyCart.removeProduct($hash);
+				}
 			});
 
 			$(document).on('change', '.pqfw-quantity', function () {
-				const $new_quantity = $(this).val();
+				const $input = $(this);
+				const $new_quantity = $input.val();
+				const hash = $input.data('hash');
 
-				const hash   = $(this).data('hash');
-				const single = $(this).data('single');
+				// Validate quantity
+				if (!QuotifyCart.validateQuantity($new_quantity)) {
+					alert('Please enter a valid quantity (minimum 1).');
+					$input.val(window.pqfwProducts[hash]['quantity']);
+					return;
+				}
 
-				window.pqfwProducts[hash]['quantity'] = $new_quantity;
+				// Clear previous debounce timer
+				clearTimeout(QuotifyCart.debounceTimer);
 
-				window.pqfwProducts[hash]['price'] = Math.floor(
-					single * $new_quantity
-				);
+				// Add loading state
+				$input.addClass('updating');
 
+				// Debounce the update
+				QuotifyCart.debounceTimer = setTimeout(() => {
+					// Update local state (server will recalculate price)
+					window.pqfwProducts[hash]['quantity'] = parseInt($new_quantity);
 
-				const products = window.pqfwProducts;
-				QuotifyCart.updateProduct(products);
+					const products = window.pqfwProducts;
+					QuotifyCart.updateProduct(products);
+				}, 300);
 			});
 
 			$(document).on('change', '.pqfw-message > textarea', function () {
@@ -63,8 +88,10 @@ import {makeRequest} from '@Utils/global';
 				}).then((response) => {
 					if (response.data?.success) {
 						this.addToQuotationCart(button);
+						this.setLoading(button, false);
 					} else {
 						alert(response?.data?.data?.message, 'error');
+						this.setLoading(button, false);
 					}
 				});
 			}
@@ -87,8 +114,12 @@ import {makeRequest} from '@Utils/global';
 				);
 			}
 		},
-		setLoading: function (button) {
-			$(button).addClass('loading');
+		setLoading: function (button, status = true) {
+			if ( status ) {
+				$(button).addClass('loading');
+			} else {
+				$(button).removeClass('loading');
+			}
 		},
 		getVariationID: function () {
 			var variation = $(
@@ -139,8 +170,6 @@ import {makeRequest} from '@Utils/global';
 			this.visibleForm( $cart_products );
 		},
 		removeProduct: function ($hash) {
-			// self.showLoader();
-
 			makeRequest({
 				action: 'pqfw_remove_product',
 				hash: $hash,
@@ -164,12 +193,30 @@ import {makeRequest} from '@Utils/global';
 				action: 'quotify/ajax/cart/update',
 				products: products,
 			}).then((response) => {
+				// Remove updating state from all quantity inputs
+				$('.pqfw-quantity').removeClass('updating');
+
 				if (response.data?.success) {
 					this.dataLoaded(response);
 				} else {
-					// alert(response?.data?.data?.message, 'error');
+					this.showError(response?.data?.data || 'Failed to update cart. Please try again.');
 				}
+			}).catch((error) => {
+				// Remove updating state on error
+				$('.pqfw-quantity').removeClass('updating');
+				this.showError('Network error. Please check your connection and try again.');
 			});
+		},
+
+		validateQuantity: function(quantity) {
+			const qty = parseInt(quantity);
+			return !isNaN(qty) && qty > 0;
+		},
+
+		showError: function(message) {
+			// Show error message as alert for now
+			// TODO: Implement toast notifications
+			alert(typeof message === 'string' ? message : 'An error occurred.');
 		},
 	};
 

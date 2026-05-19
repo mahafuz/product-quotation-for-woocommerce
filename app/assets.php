@@ -119,13 +119,15 @@ class Assets extends Base {
 		wp_localize_script( 'pqfw-quotation-button', 'QUOTIFY_CONFIG', $frontend_data );
 		wp_set_script_translations( 'pqfw-quotation-button', 'quotify' );
 
-		wp_enqueue_script(
-			'pqfw-quotation-cart',
-			QUOTIFY_PLUGIN_ASSETS_URI . sprintf( 'build/cart.%s.js', defined( WP_DEBUG ) ? time() : $suffix ),
-			[ 'wp-util', 'jquery', 'wp-i18n' ],
-			$suffix,
-			true
-		);
+		if ( quotify()->cart()->is_cart_page() ) {
+			wp_enqueue_script(
+				'pqfw-quotation-cart',
+				QUOTIFY_PLUGIN_ASSETS_URI . sprintf( 'build/cart.%s.js', defined( WP_DEBUG ) ? time() : $suffix ),
+				[ 'wp-util', 'jquery', 'wp-i18n' ],
+				$suffix,
+				true
+			);
+		}
 
 		wp_localize_script( 'pqfw-quotation-cart', 'QUOTIFY_CONFIG', $frontend_data );
 		wp_set_script_translations( 'pqfw-quotation-cart', 'quotify' );

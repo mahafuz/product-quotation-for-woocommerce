@@ -68,12 +68,17 @@ class Cart {
 	/**
 	 * Render the shortcode.
 	 *
+	 * @param array $products The products.
+	 *
 	 * @since 1.0.0
 	 * @return mixed      Rendered shortcode output.
 	 */
-	public function render() {
-		ob_start();
+	public function render( array $products = [] ) {
+		if ( empty( $products ) || ! is_array( $products ) ) {
 			$products = quotify()->cart()->get_products();
+		}
+
+		ob_start();
 				include QUOTIFY_PLUGIN_VIEWS . 'pqfw-cart-shortcode.php';
 			$output = ob_get_contents();
 		ob_end_clean();
