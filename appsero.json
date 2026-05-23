@@ -1,25 +1,27 @@
 {
     "exclude": [
+        ".git",
         ".claude",
+        ".DS_Store",
+        ".github",
+        ".distignore",
         ".gitignore",
-        "README.md",
+        ".gitignore_prod",
         "composer.lock",
         "composer.json",
         "package.json",
         "package-lock.json",
-        "phpcs.xml",
         "node_modules",
-        "src",
-        ".distignore",
+        "phpcs.xml",
         "appsero.json",
-        ".github",
         ".prettierignore",
         ".prettierrc.js",
+        "src",
+        "webpack",
         "webpack.config.js",
-        ".git",
         "Docs/",
         "bin/",
-        ".DS_Store",
-        "vendor"
+        "vendor",
+        "README.md"
     ]
 }
