@@ -1,7 +1,5 @@
-node_modules
-vendor
-assets/build/
-.DS_Store
-.list-packages.json
-package-lock.json
 composer.lock
+package-lock.json
+node_modules
+.DS_Store
+vendor
